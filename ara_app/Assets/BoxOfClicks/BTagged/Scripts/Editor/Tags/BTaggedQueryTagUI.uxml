@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="TagEdit" class="btagged-tag-simple" style="padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-left-color: rgb(219, 219, 219); border-right-color: rgb(219, 219, 219); border-top-color: rgb(219, 219, 219); border-bottom-color: rgb(219, 219, 219); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; display: none;">
+        <Style src="../BTaggedMenuItemUI.uss" />
+        <ui:VisualElement style="background-color: rgba(255, 255, 255, 0.65);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Tag" tooltip="Double-click to edit, Drag to change tag rule (Include, Any, Exclude)" class="btagged-tag-simple" style="height: 20px;">
+        <Style src="../BTaggedMenuItemUI.uss" />
+        <ui:Label text="This is some long label" picking-mode="Ignore" style="-unity-text-align: middle-left; overflow: hidden; margin-left: 5px; margin-right: 25px; margin-top: 2px; margin-bottom: 2px; flex-grow: 1; color: rgb(241, 241, 241);" />
+        <ui:Button name="DeleteBtn" tooltip="Remove Tag from Query" class="btagged-tag-simple-delete" style="background-image: url(&apos;../BTagged_Delete.png&apos;); width: 20px; height: 20px; -unity-background-scale-mode: scale-to-fit; position: absolute; right: -1px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+    </ui:VisualElement>
+</ui:UXML>

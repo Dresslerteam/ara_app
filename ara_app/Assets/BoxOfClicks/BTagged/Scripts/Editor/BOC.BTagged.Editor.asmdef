@@ -1,0 +1,26 @@
+{
+    "name": "BOC.BTagged.Editor",
+    "references": [
+        "Unity.Entities",
+        "Unity.Mathematics",
+        "BOC.BTagged",
+        "BOC.BTagged.Shared"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.entities",
+            "expression": "0.10",
+            "define": "UNITY_ENTITIES"
+        }
+    ],
+    "noEngineReferences": false
+}
