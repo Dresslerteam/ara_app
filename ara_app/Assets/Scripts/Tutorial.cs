@@ -276,7 +276,7 @@ public class Tutorial : MonoBehaviour
         }
         if(currentStep.stepInfo.changeColor){
             // _shapeGroup.Color = currentStep.stepInfo.uiColor;
-            // TODO: This "Shape" bit is another asset. We can change it to the image of the Ui from MRTK.
+            _hintDisplay.color = currentStep.stepInfo.uiColor;
         }
     }
 }

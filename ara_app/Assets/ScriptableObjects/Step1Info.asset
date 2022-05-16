@@ -18,8 +18,8 @@ MonoBehaviour:
       y: 1098326683
       z: 1058688695
       w: 3068184661
-  stepTitle: Here we are!
-  instructions: Be very cool...
+  stepTitle: Step one!
+  instructions: 'Be very cool...Nice... '
   _hintSprite: {fileID: 0}
-  changeColor: 0
+  changeColor: 1
   uiColor: {r: 0, g: 0, b: 0, a: 0}

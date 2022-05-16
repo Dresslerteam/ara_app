@@ -19,7 +19,7 @@ MonoBehaviour:
       z: 1293457562
       w: 439989909
   stepTitle: Step 2
-  instructions: Now we just sit back and relax
-  _hintSprite: {fileID: 0}
+  instructions: '"Wanna <color=red> blow</color> this up? Go for it..."'
+  _hintSprite: {fileID: 21300000, guid: c8f6f6db001ca0e4986c47bf7f425d7c, type: 3}
   changeColor: 1
-  uiColor: {r: 0.6529195, g: 0.9811321, b: 0.58775365, a: 1}
+  uiColor: {r: 1, g: 1, b: 1, a: 1}
