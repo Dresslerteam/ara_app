@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.MixedReality.Toolkit.Input;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,6 +18,12 @@ public class Exploder : MonoBehaviour
     [SerializeField] private List<KeyPart> keyParts;
     [PropertyTooltip("These are settings that you can apply to every part.")]
     [SerializeField] private GlobalKeyPart globalPart;
+
+    private void Update()
+    {
+        
+    }
+
     /// <summary>
     /// Look through the top-most children of the root object, make a KeyPart for them, and add to the parts list
     /// </summary>
@@ -36,9 +44,24 @@ public class Exploder : MonoBehaviour
             keyParts.Add(childPart);
         }
     }
-    
     [Button]
-    public void Explode()
+    public void SetupColliders()
+    {
+        for (int i = 0; i < rootTransform.childCount; i++)
+        {
+
+            List<MeshFilter> meshFilter = new List<MeshFilter>();
+            meshFilter.AddRange(rootTransform.GetChild(i).GetComponentsInChildren<MeshFilter>());
+            foreach (var mesh in meshFilter)
+            {
+                MeshCollider meshCollider = mesh.gameObject.AddComponent<MeshCollider>();
+                meshCollider.sharedMesh = mesh.sharedMesh;    
+            }
+            
+        }
+    }
+    [Button]
+    public void ExplodeEntireModel()
     {
         foreach (var part in keyParts)
         {
@@ -46,7 +69,12 @@ public class Exploder : MonoBehaviour
             StartCoroutine(RotatePart(part));
         }
     }
-
+    
+    public void ExplodePart(KeyPart part)
+    {
+        StartCoroutine(MovePart(part));
+        StartCoroutine(RotatePart(part));
+    }
     private IEnumerator MovePart(KeyPart part)
     {
         yield return new WaitForSeconds(part.delay);
@@ -135,6 +163,9 @@ public class Exploder : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Some lines and debug stuff for in editor view.
+    /// </summary>
     private void OnDrawGizmosSelected()
     {
 
@@ -146,4 +177,19 @@ public class Exploder : MonoBehaviour
         }
         
     }
+    
+    public void Click(MixedRealityPointerEventData eventData)
+    {
+        var result = eventData.Pointer.Result;
+        Debug.Log("result: "+result.Details.Object.name);
+        for (int i = 0; i < keyParts.Count; i++)
+        {
+            if (result.Details.Object.transform.IsChildOf(keyParts[i].transformToAnimate))
+            {
+                ExplodePart(keyParts[i]);
+                Debug.Log("keypart: "+keyParts[i].transformToAnimate.gameObject.name);   
+            }
+        }
+    }
+    
 }
