@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.Input;
+using Microsoft.MixedReality.Toolkit.UI;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class Exploder : MonoBehaviour
     // Two public events can be called to explode/assemble
     [Required]
     [SerializeField] private Transform rootTransform;
+    [Required]
+    [SerializeField] private GameObject tooltipPrefab;
     [Searchable]
     [SerializeField] private List<KeyPart> keyParts;
     [PropertyTooltip("These are settings that you can apply to every part.")]
@@ -54,8 +57,18 @@ public class Exploder : MonoBehaviour
             meshFilter.AddRange(rootTransform.GetChild(i).GetComponentsInChildren<MeshFilter>());
             foreach (var mesh in meshFilter)
             {
-                MeshCollider meshCollider = mesh.gameObject.AddComponent<MeshCollider>();
-                meshCollider.sharedMesh = mesh.sharedMesh;    
+                // If we don't have a collider, let's go ahead and add one.
+                if (!mesh.GetComponent<MeshCollider>())
+                {
+                    MeshCollider meshCollider = mesh.gameObject.AddComponent<MeshCollider>();
+                    meshCollider.sharedMesh = mesh.sharedMesh;   
+                }
+
+                // Since these have coliders, we can go ahead setup the Tooltips
+                ToolTipSpawner toolTipSpawner = mesh.gameObject.AddComponent<ToolTipSpawner>();
+                toolTipSpawner.ChoosePrefab(tooltipPrefab);
+                toolTipSpawner.UpdateAnchor(rootTransform.GetChild(i));
+                toolTipSpawner.UpdateTooltipText(rootTransform.GetChild(i).name);
             }
             
         }
@@ -177,6 +190,8 @@ public class Exploder : MonoBehaviour
         }
         
     }
+    
+    
     
     public void Click(MixedRealityPointerEventData eventData)
     {
