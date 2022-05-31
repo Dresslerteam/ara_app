@@ -73,7 +73,6 @@ public class Exploder : MonoBehaviour
             
         }
     }
-    [Button]
     public void ExplodeEntireModel()
     {
         foreach (var part in keyParts)

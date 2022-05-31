@@ -4,7 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/TutorialBase.unity
+    guid: 6bd27b8340235204bb6599a0de4bc045
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ceada79a285bdfa488ea5ffbe14b2c35, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a0459d81e0d383d4e9927817583f441c, type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 52c76c814ac92a74da209238209bed3f, type: 2}
