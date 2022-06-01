@@ -1,0 +1,46 @@
+@startuml test
+
+
+enum MessageType{
+    Note
+    Notice
+    Warning
+    Info
+}
+
+class Message{
+    MessageType Type
+    String Text
+}
+
+class ProcedureStep{
+    String Number
+    String SequenceNumber
+    String Title
+    String[] ImageUrls
+    ProcedureStep[] SubSteps
+}
+
+class BaseProcedure{
+    int Id
+    String Name
+    String Title
+    Message[] Messages
+    ProcedureStep[] Steps
+    String OriginalDocUrl
+}
+
+
+class RemovalAndInstallation{
+
+}
+
+class GeneralProcedure{
+    
+}
+
+RemovalAndInstallation <|-- BaseProcedure
+GeneralProcedure <|-- BaseProcedure
+RemovalAndInstallation --- ProcedureStep
+
+@enduml
