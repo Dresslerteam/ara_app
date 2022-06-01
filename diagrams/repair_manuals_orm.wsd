@@ -1,6 +1,8 @@
 @startuml test
 
 
+note top of BaseProcedure: Referencing other manuals with hyperlink \n has to be discussed
+
 enum MessageType{
     Note
     Notice
@@ -21,6 +23,7 @@ class ProcedureStep{
     ProcedureStep[] SubSteps
 }
 
+
 class BaseProcedure{
     int Id
     String Name
@@ -39,8 +42,13 @@ class GeneralProcedure{
     
 }
 
-RemovalAndInstallation <|-- BaseProcedure
-GeneralProcedure <|-- BaseProcedure
+Message - MessageType
+Message - BaseProcedure
+BaseProcedure --|> RemovalAndInstallation
+BaseProcedure --|> GeneralProcedure
 RemovalAndInstallation --- ProcedureStep
+
+
+
 
 @enduml
