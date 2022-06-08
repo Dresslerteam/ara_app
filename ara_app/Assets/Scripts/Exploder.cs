@@ -195,6 +195,8 @@ public class Exploder : MonoBehaviour
     public void Click(MixedRealityPointerEventData eventData)
     {
         var result = eventData.Pointer.Result;
+        if(result.Details.Object.gameObject.layer == LayerMask.NameToLayer("UI"))
+            return;
         Debug.Log("result: "+result.Details.Object.name);
         for (int i = 0; i < keyParts.Count; i++)
         {
