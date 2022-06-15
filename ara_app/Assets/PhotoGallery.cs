@@ -55,11 +55,11 @@ public class PhotoGallery : MonoBehaviour
         Photo photo = photoPreview.GetComponentInChildren<Photo>();
         photo.image.texture = texture;
     }
-    private void ClearAllGalleryObjects()
+    public void ClearAllGalleryObjects()
     {
         for (int i = 0; i < gallery.childCount; i++)
         {
-            //GameObject.Destroy(gallery.GetChild(i));
+            GameObject.Destroy(gallery.GetChild(i).gameObject);
         }
     }
     public void AddPhotoToGallery(Texture2D targetTexture, string date)

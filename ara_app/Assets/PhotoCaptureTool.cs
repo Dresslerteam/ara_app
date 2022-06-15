@@ -125,12 +125,14 @@ public class PhotoCaptureTool : MonoBehaviour {
 
     public void DeletePicture()
     {
-        if (pendingFile != null)
+        if (!string.IsNullOrEmpty(pendingFile))
         {
             System.IO.File.Delete(pendingFile);
         }
 
-        pendingFile = "null";
+        pendingFile = "";
+        photoGallery.ClearAllGalleryObjects();
+        photoGallery.LoadSavedPictures(currentFilePath);
     }
     void OnStoppedPhotoMode(PhotoCapture.PhotoCaptureResult result) {
         // Shutdown the photo capture resource
