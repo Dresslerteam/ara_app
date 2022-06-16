@@ -53,9 +53,35 @@ class Task {
     Decimal Labor
     String PartNumber
     Decimal Quantity
+    Int TaskStatus
+    TaskResult Result
+}
+
+enum TaskStatus{
+    ToDo
+    InProgress
+    Completed
 }
 
 class TaskStep{
+    String Title
+    Int SequenceNumber
+    Message[] Messages
+    Decimal Paint
+    Decimal Labor
+    String PartNumber
+    Decimal Quantity
+    Int TaskStatus
+}
+
+class TaskResult{
+    TaskResultImage[] Images
+}
+
+class TaskResultImage{
+    String Id
+    String Label
+    DateTime TakenOn
 }
 
 class RepairManual{
