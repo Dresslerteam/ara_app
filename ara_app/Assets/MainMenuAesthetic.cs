@@ -52,6 +52,6 @@ public class MainMenuAesthetic : MonoBehaviour
     {
         vinText.text = chosenJob.vin;
         jobNumberText.text = "Job# " + chosenJob.jobNumber;
-        vehicleTitleText.text = chosenJob.vehicleTitle;
+        vehicleTitleText.text = chosenJob.GetVehicleTitleString();
     }
 }

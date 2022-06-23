@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using ARA.Frontend;
@@ -23,6 +24,14 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject taskButton;
     public List<Job> availbleJobs;
+
+    private enum MenuPage
+    {
+        jobSelect,
+        taskSelect
+    }
+
+    private MenuPage currentMenuPage = MenuPage.jobSelect;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +50,7 @@ public class MainMenuManager : MonoBehaviour
         jobBoard.SetActive(isOn);
         taskBoard.SetActive(isOn);
     }
-
+    
     private List<Job> FetchJobs()
     {
         // See, here we'd be pulling from a data base
@@ -54,6 +63,7 @@ public class MainMenuManager : MonoBehaviour
         ToggleAllMenus(false);
         jobBoard.SetActive(true);
         ClearChildrenButtons(jobSelectionRoot);
+        currentMenuPage = MenuPage.jobSelect;
         foreach (var job in availbleJobs)
         {
             GameObject jobButton = Instantiate(this.jobButton,jobSelectionRoot);
@@ -71,12 +81,17 @@ public class MainMenuManager : MonoBehaviour
             float completeAmount = (tasksDone / job.tasks.Count)*100f;
             jobDisplayInteractable.IsEnabled = completeAmount <= 100;
             jobDisplay.UpdateDisplayInformation("Job# " + job.jobNumber,
-                job.vehicleTitle,
-                completeAmount + "%");
+                job.GetVehicleTitleString(),
+                (int)completeAmount + "%",
+                completeAmount);
             jobDisplayInteractable.OnClick.AddListener(AddJobToButton(job));
         }
     }
-
+    private UnityAction AddJobToButton(Job job)
+    {
+        UnityAction chosenJob = delegate { AdvanceToTaskList(job); };
+        return chosenJob;
+    }
     private void ClearChildrenButtons(Transform root)
     {
         int childCount = root.childCount;
@@ -87,11 +102,7 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    private UnityAction AddJobToButton(Job job)
-    {
-        UnityAction chosenJob = delegate { AdvanceToTaskList(job); };
-        return chosenJob;
-    }
+
     /// <summary>
     /// Once a job has been chosen, populate the list with tasks that the job holds
     /// </summary>
@@ -102,6 +113,7 @@ public class MainMenuManager : MonoBehaviour
         ClearChildrenButtons(taskSelectionRoot);
         taskBoard.SetActive(true);
         mainMenuAesthetic.UpdateTaskDisplay(chosenJob);
+        currentMenuPage = MenuPage.taskSelect;
         int stepIndex = 0;
         Debug.Log(chosenJob.tasks.Count);
         foreach (var jobTask in chosenJob.tasks)
@@ -116,6 +128,21 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    public void ReturnToPreviousPage()
+    {
+        switch (currentMenuPage)
+        {
+            case MenuPage.jobSelect:
+                Debug.Log("Already on job select");
+                break;
+            case MenuPage.taskSelect:
+                ReturnToMenu();
+                break;
+            default:
+                ReturnToMenu();
+                break;
+        }
+    }
     public void ReturnToMenu()
     {
         UpdateJobBoard();
