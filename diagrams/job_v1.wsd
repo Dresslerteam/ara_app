@@ -1,0 +1,115 @@
+@startuml test
+
+
+note top of RepairManual: Each repair manual has its metadata about the \n manufacturer and etc
+note top of TaskStep: TaskSteps can be accompanied with 3D animations
+
+enum MessageType{
+    Note
+    Notice
+    Warning
+    Info
+}
+
+class Message{
+    MessageType Type
+    String Text
+}
+
+
+class CarInfo{
+   String Manufacturer
+   String Model
+   String Year
+   String VinCode
+}
+
+class CarOwnerInfo{
+   String FirsName
+   String LastName
+   String MobileNumber
+}
+
+class Job {
+    int Id
+    CarInfo CarInfo
+    CarOwnerInfo OwnerInfo
+    String Title
+    Image[] InitialPhotos
+    Task[] Tasks
+    DateTime CreatedOn
+    String CreatedBy
+}
+
+
+class Task {
+    String Title
+    Int SequenceNumber
+    Message[] Messages
+    RepairManual RepairManualDoc
+    TaskStep[] Steps
+    Decimal Paint
+    Decimal Labor
+    String PartNumber
+    Decimal Quantity
+    Int TaskStatus
+    TaskResult Result
+    Boolean Has3DGuide
+}
+
+enum TaskStatus{
+    ToDo
+    InProgress
+    Completed
+}
+
+class TaskStep{
+    Int TaskId
+    Int Number
+    String Title
+    Message[] Messages
+    Int Status
+}
+
+enum TaskStepStatus{
+    ToDo
+    InProgress
+    Completed
+}
+
+
+class TaskResult{
+    TaskResultImage[] Images
+}
+
+class TaskResultImage{
+    String Id
+    String Label
+    DateTime TakenOn
+    Int TaskId
+    Int TaskStepNumber
+}
+
+class RepairManual{
+    String Category
+    String DocUrl
+}
+
+
+
+
+
+CarInfo -- Job
+CarOwnerInfo -- Job
+Task "1" *-- "multi" RepairManual
+Job "1" -- "many" Task
+Task -- Message 
+Message -- MessageType 
+Task --|> TaskStep
+' BaseProcedure --|> GeneralProcedure
+' RemovalAndInstallation --- ProcedureStep
+
+
+
+
+@enduml
