@@ -19,4 +19,9 @@ public class TaskDisplay : MonoBehaviour
         taskTitleText.text = title;
         completenessText.text = isComplete ? "Done" : "Open";
     }
+
+    public void ProgressStep()
+    {
+        MainMenuManager.Instance.AdvanceToJobView();
+    }
 }

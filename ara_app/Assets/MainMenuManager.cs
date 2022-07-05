@@ -14,8 +14,10 @@ public class MainMenuManager : MonoBehaviour
     private MainMenuAesthetic mainMenuAesthetic;
     public GameObject jobBoard;
 
+    [SerializeField] private Transform mainMenuBacking;
     [SerializeField] private Transform jobSelectionRoot;
     [SerializeField] private Transform taskSelectionRoot;
+    [SerializeField] private QuickMenuDisplay jobQuickMenu;
     public GameObject taskBoard;
 
     [Header("Button Prefabs")] 
@@ -24,14 +26,28 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject taskButton;
     public List<Job> availbleJobs;
-
+    
+    private static MainMenuManager _instance;
+    public static MainMenuManager Instance { get { return _instance; } }
     private enum MenuPage
     {
         jobSelect,
-        taskSelect
+        taskSelect,
+        performingJob
     }
 
     private MenuPage currentMenuPage = MenuPage.jobSelect;
+    
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +65,7 @@ public class MainMenuManager : MonoBehaviour
     {
         jobBoard.SetActive(isOn);
         taskBoard.SetActive(isOn);
+        jobQuickMenu.gameObject.SetActive(isOn);
     }
     
     private List<Job> FetchJobs()
@@ -64,6 +81,7 @@ public class MainMenuManager : MonoBehaviour
         jobBoard.SetActive(true);
         ClearChildrenButtons(jobSelectionRoot);
         currentMenuPage = MenuPage.jobSelect;
+        mainMenuBacking.gameObject.SetActive(true);
         foreach (var job in availbleJobs)
         {
             GameObject jobButton = Instantiate(this.jobButton,jobSelectionRoot);
@@ -112,6 +130,7 @@ public class MainMenuManager : MonoBehaviour
         ToggleAllMenus(false);
         ClearChildrenButtons(taskSelectionRoot);
         taskBoard.SetActive(true);
+        mainMenuBacking.gameObject.SetActive(true);
         mainMenuAesthetic.UpdateTaskDisplay(chosenJob);
         currentMenuPage = MenuPage.taskSelect;
         int stepIndex = 0;
@@ -128,6 +147,13 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    public void AdvanceToJobView()
+    {
+        ToggleAllMenus(false);
+        currentMenuPage = MenuPage.performingJob;
+        mainMenuBacking.gameObject.SetActive(false);
+        jobQuickMenu.gameObject.SetActive(true);
+    }
     public void ReturnToPreviousPage()
     {
         switch (currentMenuPage)
@@ -136,6 +162,9 @@ public class MainMenuManager : MonoBehaviour
                 Debug.Log("Already on job select");
                 break;
             case MenuPage.taskSelect:
+                ReturnToMenu();
+                break;
+            case MenuPage.performingJob:
                 ReturnToMenu();
                 break;
             default:

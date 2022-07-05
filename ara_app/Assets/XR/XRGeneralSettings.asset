@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: WSA Settings
   m_EditorClassIdentifier: 
   m_LoaderManagerInstance: {fileID: 6553290726762188811}
-  m_InitManagerOnStart: 1
+  m_InitManagerOnStart: 0
 --- !u!114 &9187822654257365587
 MonoBehaviour:
   m_ObjectHideFlags: 0
