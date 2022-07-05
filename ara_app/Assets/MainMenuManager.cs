@@ -85,6 +85,7 @@ public class MainMenuManager : MonoBehaviour
         foreach (var job in availbleJobs)
         {
             GameObject jobButton = Instantiate(this.jobButton,jobSelectionRoot);
+            jobButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             JobDisplay jobDisplay = jobButton.GetComponent<JobDisplay>();
             Interactable jobDisplayInteractable = jobDisplay.GetComponent<Interactable>();
             float tasksDone = 0;
@@ -138,6 +139,7 @@ public class MainMenuManager : MonoBehaviour
         foreach (var jobTask in chosenJob.tasks)
         {
             GameObject newTaskButton = Instantiate(taskButton,taskSelectionRoot);
+            newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
             Interactable taskDisplayInteractable = taskDisplay.GetComponent<Interactable>();
             taskDisplayInteractable.IsEnabled = !jobTask.isComplete;
