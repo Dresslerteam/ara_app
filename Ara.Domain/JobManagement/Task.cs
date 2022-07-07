@@ -17,8 +17,17 @@ namespace Ara.Domain.JobManagement
         public decimal Labor { get; set; }
         public string PartNumber { get; set; }
         public decimal Quantity { get; set; }
+        public List<StepsGroup> StepsGroups { get; set; }
 
         public TaskStatus Status { get; set; }
+
+        public class StepsGroup
+        {
+            public int SequenceNumber { get; set; }
+            public string Name { get; set; }
+            public List<TaskStep> Steps { get; set; }
+
+        }
     }
 
 
