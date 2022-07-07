@@ -66,9 +66,9 @@ public class Exploder : MonoBehaviour
 
                 // Since these have coliders, we can go ahead setup the Tooltips
                 ToolTipSpawner toolTipSpawner = mesh.gameObject.AddComponent<ToolTipSpawner>();
-                toolTipSpawner.ChoosePrefab(tooltipPrefab);
-                toolTipSpawner.UpdateAnchor(rootTransform.GetChild(i));
-                toolTipSpawner.UpdateTooltipText(rootTransform.GetChild(i).name);
+                //toolTipSpawner.ChoosePrefab(tooltipPrefab);
+                //toolTipSpawner.UpdateAnchor(rootTransform.GetChild(i));
+                //toolTipSpawner.UpdateTooltipText(rootTransform.GetChild(i).name);
             }
             
         }
