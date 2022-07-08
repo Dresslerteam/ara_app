@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class TaskDisplay : MonoBehaviour
@@ -12,7 +13,7 @@ public class TaskDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI taskTitleText;
 
     [SerializeField] private TextMeshProUGUI completenessText;
-
+    public Button taskButton;
     public void UpdateDisplayInformation(string number, string title, bool isComplete)
     {
         stepNumberText.text = number;

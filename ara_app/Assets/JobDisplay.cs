@@ -13,10 +13,11 @@ public class JobDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI vehicleTitleText;
 
     [SerializeField] private TextMeshProUGUI completenessText;
+    public Button jobButton;
     
     [SerializeField] private Image completenessImage;
-    [SerializeField] private Color incompleteColor = Color.gray;
-    [SerializeField] private Color completeColor = Color.green;
+    //[SerializeField] private Color incompleteColor = Color.gray;
+    //[SerializeField] private Color completeColor = Color.green;
 
 
     public void UpdateDisplayInformation(string number, string title, string complete, float fillAmount)
@@ -24,7 +25,8 @@ public class JobDisplay : MonoBehaviour
         jobNumberText.text = number;
         vehicleTitleText.text = title;
         completenessText.text = complete != "100%" ? complete : "Done";
-        completenessImage.fillAmount = fillAmount/100;
-        completenessImage.color = fillAmount > 99 ? completeColor : incompleteColor;
+        //completenessImage.fillAmount = fillAmount/100;
+        //completenessImage.color = fillAmount > 99 ? completeColor : incompleteColor;
+        //TODO: Set it to work with MRTK feedback
     }
 }

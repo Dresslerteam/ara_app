@@ -6,6 +6,7 @@ using Microsoft.MixedReality.Toolkit.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(MainMenuAesthetic))]
 public class MainMenuManager : MonoBehaviour
@@ -85,9 +86,10 @@ public class MainMenuManager : MonoBehaviour
         foreach (var job in availbleJobs)
         {
             GameObject jobButton = Instantiate(this.jobButton,jobSelectionRoot);
-            jobButton.transform.localScale = new Vector3(.14f, .14f, .14f);
+            //jobButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             JobDisplay jobDisplay = jobButton.GetComponent<JobDisplay>();
-            Interactable jobDisplayInteractable = jobDisplay.GetComponent<Interactable>();
+            //Interactable jobDisplayInteractable = jobDisplay.GetComponent<Interactable>();
+            Button jobDisplayInteractable = jobDisplay.jobButton;
             float tasksDone = 0;
             for (int i = 0; i < job.tasks.Count; i++)
             {
@@ -98,12 +100,12 @@ public class MainMenuManager : MonoBehaviour
             }
 
             float completeAmount = (tasksDone / job.tasks.Count)*100f;
-            jobDisplayInteractable.IsEnabled = completeAmount <= 100;
+            jobDisplayInteractable.interactable = completeAmount <= 100;
             jobDisplay.UpdateDisplayInformation("Job# " + job.jobNumber,
                 job.GetVehicleTitleString(),
                 (int)completeAmount + "%",
                 completeAmount);
-            jobDisplayInteractable.OnClick.AddListener(AddJobToButton(job));
+            jobDisplayInteractable.onClick.AddListener(AddJobToButton(job));
         }
     }
     private UnityAction AddJobToButton(Job job)
@@ -139,10 +141,10 @@ public class MainMenuManager : MonoBehaviour
         foreach (var jobTask in chosenJob.tasks)
         {
             GameObject newTaskButton = Instantiate(taskButton,taskSelectionRoot);
-            newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
+            //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
-            Interactable taskDisplayInteractable = taskDisplay.GetComponent<Interactable>();
-            taskDisplayInteractable.IsEnabled = !jobTask.isComplete;
+            Button taskDisplayInteractable = taskDisplay.taskButton;
+            taskDisplayInteractable.interactable = !jobTask.isComplete;
             stepIndex++;
             string curStep = stepIndex.ToString("D2");
             taskDisplay.UpdateDisplayInformation(curStep,jobTask.taskTitle,jobTask.isComplete);

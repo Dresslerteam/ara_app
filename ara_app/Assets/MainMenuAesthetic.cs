@@ -44,8 +44,8 @@ public class MainMenuAesthetic : MonoBehaviour
     }
     public void UpdateColorScheme()
     {
-        background.color = primaryColor;
-        banner.color = secondaryColor;
+        //background.color = primaryColor;
+        //banner.color = secondaryColor;
     }
 
     public void UpdateTaskDisplay(Job chosenJob)
