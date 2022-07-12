@@ -14,18 +14,21 @@ public class MainMenuManager : MonoBehaviour
     [Header("Menus")] 
     private MainMenuAesthetic mainMenuAesthetic;
     public GameObject jobBoard;
+    public GameObject taskBoard;
+    [SerializeField] private QuickMenuDisplay jobQuickMenu;
 
     [SerializeField] private Transform mainMenuBacking;
+    [Header("Collection Roots")]
     [SerializeField] private Transform jobSelectionRoot;
     [SerializeField] private Transform taskSelectionRoot;
-    [SerializeField] private QuickMenuDisplay jobQuickMenu;
-    public GameObject taskBoard;
+    
 
     [Header("Button Prefabs")] 
     [SerializeField]
     private GameObject jobButton;
     [SerializeField]
     private GameObject taskButton;
+    [Space(10)]
     public List<Job> availbleJobs;
     
     private static MainMenuManager _instance;

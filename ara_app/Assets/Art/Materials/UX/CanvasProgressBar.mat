@@ -30,13 +30,13 @@ Material:
     m_Floats:
     - _Blur_Circle_: 0
     - _Cycle_: 0
-    - _Cycle_Offset_: -0.3
-    - _Cycle_Rate_: 0.7
+    - _Cycle_Offset_: 0
+    - _Cycle_Rate_: 0
     - _DstBlend: 10
-    - _Fill_Vary_: 0.7
-    - _Filled_Fraction_: 0
+    - _Fill_Vary_: 0.392
+    - _Filled_Fraction_: 1
     - _Period_: 1
-    - _Rate_Vary_: 0.5
+    - _Rate_Vary_: 0
     - _SrcBlend: 1
     - _StencilComparison: 0
     - _StencilOperation: 0

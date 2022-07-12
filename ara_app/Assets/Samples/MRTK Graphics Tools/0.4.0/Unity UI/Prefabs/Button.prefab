@@ -29,7 +29,6 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6486876202314994184}
   m_RootOrder: 0
@@ -59,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: c50667b49003b6e419e0819d46c5963a, type: 2}
+  m_Material: {fileID: 2100000, guid: f89f360156e49c140bb11a2098e4b2a5, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -116,7 +115,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6486876202314994184}
   m_RootOrder: 1
@@ -209,8 +207,8 @@ MonoBehaviour:
   _ZTest: 4
   _ZWrite: 0
   _MainTex: {fileID: 0}
-  _ClipRect: {x: 0, y: 0, z: 0}
-  _ClipRectRadii: {x: 0, y: 0, z: 0}
+  _ClipRect: {x: 0, y: 0, z: 0, w: 0}
+  _ClipRectRadii: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6486876200913630077
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +241,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6486876201612510332}
   m_Father: {fileID: 6486876202314994184}
@@ -424,7 +421,7 @@ MonoBehaviour:
   _Edge_Color_: {r: 0.53, g: 0.53, b: 0.53, a: 1}
   _Fade_Out_: 1
   _Blob_Enable_: 0
-  _Blob_Position_: {x: 0.5, y: 0, z: 0.2}
+  _Blob_Position_: {x: 0.5, y: 0, z: 0.2, w: 0}
   _Blob_Intensity_: 0.34
   _Blob_Near_Size_: 0.025
   _Blob_Far_Size_: 0.05
@@ -436,7 +433,7 @@ MonoBehaviour:
   _Blob_Fade_: 1
   _Blob_Pulse_Max_Size_: 0.05
   _Blob_Enable_2_: 0
-  _Blob_Position_2_: {x: 10, y: 10.1, z: -0.6}
+  _Blob_Position_2_: {x: 10, y: 10.1, z: -0.6, w: 0}
   _Blob_Near_Size_2_: 0.025
   _Blob_Inner_Fade_2_: 0.1
   _Blob_Pulse_2_: 0
@@ -465,8 +462,8 @@ MonoBehaviour:
   _ZTest: 4
   _ZWrite: 0
   _MainTex: {fileID: 0}
-  _ClipRect: {x: 0, y: 0, z: 0}
-  _ClipRectRadii: {x: 0, y: 0, z: 0}
+  _ClipRect: {x: 0, y: 0, z: 0, w: 0}
+  _ClipRectRadii: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6486876201612510335
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,8 +491,7 @@ RectTransform:
   m_GameObject: {fileID: 6486876201612510335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 6486876200913630050}
   m_RootOrder: 0
@@ -629,7 +625,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6361961441754984218}
   - {fileID: 6486876200350879337}
@@ -644,7 +639,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &9112595343732525457
 Animator:
-  serializedVersion: 4
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -657,7 +652,6 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

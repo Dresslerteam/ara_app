@@ -1007,6 +1007,7 @@ MonoBehaviour:
   completenessText: {fileID: 2353311916217303544}
   jobButton: {fileID: 5825125719369655479}
   completenessImage: {fileID: 0}
+  progressBar: {fileID: 2709694997054817694}
 --- !u!1001 &2353311915580604563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1116,6 +1117,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2285e40e275204d4cba3a0ce56a06921, type: 3}
+--- !u!114 &2709694997054817694 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 374468948268893453, guid: 2285e40e275204d4cba3a0ce56a06921, type: 3}
+  m_PrefabInstance: {fileID: 2353311915580604563}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2f184ee2cc7ac47b697d3366bb43af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2709694997054817765 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 374468948268893558, guid: 2285e40e275204d4cba3a0ce56a06921, type: 3}

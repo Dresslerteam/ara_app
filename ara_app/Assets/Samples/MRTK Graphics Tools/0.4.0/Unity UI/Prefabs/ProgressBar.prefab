@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialPropertiesFoldedOut: 0
-  instanceMaterials: 0
+  instanceMaterials: 1
   _Back_Color_: {r: 0.22352892, g: 0.22352892, b: 0.22352892, a: 1}
   _Fill_1_: {r: 0.36470595, g: 0.35686293, b: 0.831373, a: 1}
   _Fill_2_: {r: 0.623529, g: 0.635294, b: 0.98823494, a: 1}
@@ -132,7 +132,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 374468948268893559}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 25cca55d8b0d1dd48a373d2ba8cc2628, type: 2}
   m_CullingMode: 0
