@@ -15,5 +15,12 @@ namespace Ara.Domain.JobManagement
 
         public List<string> InitialPhotos { get; set; }
 
+        public enum JobStatus
+        {
+            ToDo = 1,
+            InProgress = 2,
+            Completed = 3
+        }
+
     }
 }
