@@ -12,8 +12,8 @@ namespace Ara.Domain.JobManagement
         public List<Task> Tasks { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
-
         public List<string> InitialPhotos { get; set; }
+        public JobStatus Status { get; set; }
 
         public enum JobStatus
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static Ara.Domain.JobManagement.Job;
 
 namespace Ara.Domain.Dtos
 {
@@ -8,7 +9,7 @@ namespace Ara.Domain.Dtos
     {
         public int Id { get; set; }
         public string Number { get; set; }
-        public int Status { get; set; }
+        public JobStatus Status { get; set; }
         public decimal Progress { get; set; }
         public CarDto CarInfo { get; set; }
 
@@ -16,7 +17,7 @@ namespace Ara.Domain.Dtos
         {
             public string Manufacturer { get; set; }
             public string Model { get; set; }
-            public string Year { get; set; }
+            public int Year { get; set; }
             public string Vin { get; set; }
         }
     }

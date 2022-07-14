@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ara.Domain.JobManagement
+namespace Ara.Domain.RepairManualManagement
 {
-    public class Matraial
+    public class SpecialTool
     {
         public string Name { get; set; }
         public string Specification { get; set; }
