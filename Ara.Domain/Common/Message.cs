@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ara.Domain.JobManagement
+namespace Ara.Domain.Common
 {
     public class Message
     {
