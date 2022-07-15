@@ -7,11 +7,14 @@ namespace Ara.Domain.RepairManualManagement
 {
     public class ManualStep
     {
-        public int Number { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public List<Message> Messages { get; set; }
         public List<string> Photos { get; set; }
         public List<string> Labels { get; set; }
+        public RepairManual ReferencedManual { get; set; }
+        public int? ReferencedManualId { get; set; }
+        public List<ManualStep> SubSteps { get; set; }
     }
 }
