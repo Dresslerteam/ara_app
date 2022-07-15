@@ -8,13 +8,15 @@ namespace Ara.Domain.Common
     {
         public string Text { get; set; }
         public MessageType Type { get; set; }
+
+        public enum MessageType
+        {
+            Note = 1,
+            Notice,
+            Info,
+            Warning,
+        }
     }
 
-    public enum MessageType
-    {
-        Note = 1,
-        Notice,
-        Info,
-        Warning,
-    }
+
 }

@@ -14,13 +14,13 @@ namespace Ara.Domain.RepairManualManagement
         public List<SpecialTool> SpecialTools { get; set; }
         public List<Material> Materials { get; set; }
         public List<StepsGroup> StepsGroups { get; set; }
+    }
 
-        public class StepsGroup
-        {
-            public List<Message> Messages { get; set; }
-            public string Name { get; set; }
-            public List<ManualStep> Steps { get; set; }
+    public class StepsGroup
+    {
+        public List<Message> Messages { get; set; }
+        public string Name { get; set; }
+        public List<ManualStep> Steps { get; set; }
 
-        }
     }
 }
