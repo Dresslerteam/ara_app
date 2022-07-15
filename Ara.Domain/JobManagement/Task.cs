@@ -20,15 +20,14 @@ namespace Ara.Domain.JobManagement
         public decimal Quantity { get; set; }
         public TaskStatus Status { get; set; }
         public TaskResult Result { get; set; }
-    }
 
-
-    public enum TaskStatus
-    {
-        ToDo = 1,
-        InProgress = 2,
-        OnHold = 3,
-        Completed = 4
+        public enum TaskStatus
+        {
+            ToDo = 1,
+            InProgress = 2,
+            OnHold = 3,
+            Completed = 4
+        }
     }
 
 
