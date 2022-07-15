@@ -14,6 +14,14 @@ namespace Ara.Domain.RepairManualManagement
         public List<SpecialTool> SpecialTools { get; set; }
         public List<Material> Materials { get; set; }
         public List<StepsGroup> StepsGroups { get; set; }
+        public RepairManualCategory Category { get; set; }
+
+        public enum RepairManualCategory
+        {
+            RemovalAndInstallation = 1,
+            GeneralProcedure = 2,
+            DescriptionAndOperation = 3
+        }
     }
 
     public class StepsGroup

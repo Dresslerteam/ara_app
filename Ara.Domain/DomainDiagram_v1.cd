@@ -1,26 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Ara.Domain.RepairManualManagement.ManualStep">
-    <Position X="12.75" Y="6" Width="1.75" />
+    <Position X="16" Y="1.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAgAGAAAEAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <HashCode>AAAAAAAAEAAgAWAAQEAAAAAAAAAAAAACAAAAAQAAAAA=</HashCode>
       <FileName>RepairManualManagement\ManualStep.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ReferencedManual" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="SubSteps" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Ara.Domain.RepairManualManagement.Material">
-    <Position X="15" Y="4.5" Width="1.5" />
+    <Position X="13.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAABAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>RepairManualManagement\Material.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Ara.Domain.RepairManualManagement.RepairManual">
-    <Position X="12.75" Y="1.5" Width="1.75" />
+    <Position X="13.5" Y="5" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
+    <NestedTypes>
+      <Enum Name="Ara.Domain.RepairManualManagement.RepairManual.RepairManualCategory" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RepairManualManagement\RepairManual.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AEACAAAAAAAgAAAAAAAABAQAAAAAAAAgAAAAAAAAQAA=</HashCode>
+      <HashCode>AEACAAAAAAAgAAAAAAAABAQAAAAAAAAgAAAAAAAASAA=</HashCode>
       <FileName>RepairManualManagement\RepairManual.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -30,28 +43,28 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Ara.Domain.RepairManualManagement.SpecialTool">
-    <Position X="15.25" Y="0.5" Width="1.5" />
+    <Position X="13.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAABAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>RepairManualManagement\SpecialTool.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Ara.Domain.JobManagement.Car">
-    <Position X="4.5" Y="2.75" Width="1.5" />
+    <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAAAABAAAAAAAAIAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>JobManagement\Car.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Ara.Domain.JobManagement.CarOwner">
-    <Position X="4.5" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAg=</HashCode>
       <FileName>JobManagement\CarOwner.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Ara.Domain.JobManagement.Job">
-    <Position X="7" Y="1.5" Width="1.75" />
+    <Position X="7.5" Y="3.5" Width="1.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -67,15 +80,15 @@
       <FileName>JobManagement\Job.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="CarOwner" />
       <Property Name="Car" />
+      <Property Name="CarOwner" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Tasks" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Ara.Domain.JobManagement.Task">
-    <Position X="10" Y="2" Width="1.75" />
+    <Position X="10.5" Y="3.5" Width="1.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -98,39 +111,25 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Ara.Domain.JobManagement.TaskResult">
-    <Position X="17" Y="2.75" Width="2" />
+    <Position X="20.75" Y="1.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Class Name="Ara.Domain.JobManagement.TaskResult.StepResult">
-        <Compartments>
-          <Compartment Name="Nested Types" Collapsed="false" />
-        </Compartments>
-        <NestedTypes>
-          <Class Name="Ara.Domain.JobManagement.TaskResult.StepResult.Photo">
-            <TypeIdentifier>
-              <NewMemberFileName>JobManagement\Task.cs</NewMemberFileName>
-            </TypeIdentifier>
-          </Class>
-        </NestedTypes>
-        <TypeIdentifier>
-          <NewMemberFileName>JobManagement\Task.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>JobManagement\Task.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="StepResults" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Ara.Domain.Common.Message">
-    <Position X="6.75" Y="5.75" Width="1.5" />
+    <Position X="16.5" Y="7.25" Width="1.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Enum Name="Ara.Domain.Common.Message.MessageType" Collapsed="true">
+      <Enum Name="Ara.Domain.Common.Message.MessageType">
         <TypeIdentifier>
           <NewMemberFileName>Common\Message.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -142,7 +141,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Ara.Domain.RepairManualManagement.StepsGroup">
-    <Position X="12.75" Y="3.75" Width="1.5" />
+    <Position X="16.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>RepairManualManagement\RepairManual.cs</FileName>
@@ -151,6 +150,34 @@
       <Property Name="Messages" />
       <Property Name="Steps" />
     </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Ara.Domain.JobManagement.ManualStepResult">
+    <Position X="20.5" Y="3.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Ara.Domain.JobManagement.ManualStepResult.StepStatus">
+        <TypeIdentifier>
+          <NewMemberFileName>JobManagement\Task.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAiAAAAAAAAABAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JobManagement\Task.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Photos" />
+      <Property Name="ReferencedManualStepResults" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Ara.Domain.JobManagement.Photo">
+    <Position X="23.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>JobManagement\Task.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

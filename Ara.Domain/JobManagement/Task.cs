@@ -33,17 +33,29 @@ namespace Ara.Domain.JobManagement
 
     public class TaskResult
     {
-        public List<StepResult> StepResults { get; set; }
-        public class StepResult
-        {
-            public int? StepNumber { get; set; }
-            public List<string> Photos { get; set; }
+        public int TaskId { get; set; }
+        public List<ManualStepResult> StepResults { get; set; }
+    }
 
-            public class Photo
-            {
-                public List<string> Labels { get; set; }
-                public string Url { get; set; }
-            }
+    public class ManualStepResult
+    {
+        public int RepairManualId { get; set; }
+        public int? StepId { get; set; }
+        public List<Photo> Photos { get; set; }
+        public List<ManualStepResult> ReferencedManualStepResults { get; set; }
+
+        public enum StepStatus
+        {
+            ToDo = 1,
+            InProgress = 2,
+            Completed = 3
         }
     }
+
+    public class Photo
+    {
+        public List<string> Labels { get; set; }
+        public string Url { get; set; }
+    }
+
 }
