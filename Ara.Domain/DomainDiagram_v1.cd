@@ -3,7 +3,7 @@
   <Class Name="Ara.Domain.RepairManualManagement.ManualStep">
     <Position X="16" Y="1.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAgAWAAQEAAAAAAAAAAAAACAAAAAQAAAAA=</HashCode>
+      <HashCode>AAACAAAAEAAgAWAAQAAAAAAAAAAAAAACAAAAAQAAAAA=</HashCode>
       <FileName>RepairManualManagement\ManualStep.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -11,6 +11,7 @@
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="SubSteps" />
+      <Property Name="Photos" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Ara.Domain.RepairManualManagement.Material">
@@ -26,7 +27,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Enum Name="Ara.Domain.RepairManualManagement.RepairManual.RepairManualCategory" Collapsed="true">
+      <Enum Name="Ara.Domain.RepairManualManagement.RepairManual.RepairManualCategory">
         <TypeIdentifier>
           <NewMemberFileName>RepairManualManagement\RepairManual.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -43,7 +44,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Ara.Domain.RepairManualManagement.SpecialTool">
-    <Position X="13.5" Y="8.25" Width="1.5" />
+    <Position X="13.5" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAABAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>RepairManualManagement\SpecialTool.cs</FileName>
@@ -177,6 +178,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
       <FileName>JobManagement\Task.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ara.Domain.RepairManualManagement.ManualStepPhoto">
+    <Position X="18.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>RepairManualManagement\ManualStep.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
