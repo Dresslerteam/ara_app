@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: DresslerConsulting
   productName: ARA_APP
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.1
+  bundleVersion: .11
   preloadedAssets:
   - {fileID: 0}
   - {fileID: 0}
@@ -172,9 +172,38 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 9067036187787467340, guid: ceada79a285bdfa488ea5ffbe14b2c35, type: 2}
-  - {fileID: 11400000, guid: 52c76c814ac92a74da209238209bed3f, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: -9113734854909223213, guid: a0459d81e0d383d4e9927817583f441c, type: 2}
+  - {fileID: 9067036187787467340, guid: ceada79a285bdfa488ea5ffbe14b2c35, type: 2}
+  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -737,7 +766,8 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     0: ODIN_INSPECTOR;ODIN_INSPECTOR_3
-    14: ODIN_INSPECTOR;ODIN_INSPECTOR_3
+    1: ODIN_INSPECTOR;ODIN_INSPECTOR_3
+    14: release;ODIN_INSPECTOR;ODIN_INSPECTOR_3
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
@@ -757,13 +787,13 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Template3D
-  metroPackageVersion: 1.0.0.0
-  metroCertificatePath: Assets\WSATestCertificate.pfx
+  metroPackageName: ARA
+  metroPackageVersion: 1.0.5.0
+  metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: DefaultCompany
-  metroCertificateIssuer: DefaultCompany
-  metroCertificateNotAfter: 0006d8a5b293d901
+  metroCertificateSubject: DresslerConsulting
+  metroCertificateIssuer: DresslerConsulting
+  metroCertificateNotAfter: 0043fb4695afd901
   metroApplicationDescription: Template_3D
   wsaImages: {}
   metroTileShortName: ARA_APP
@@ -785,7 +815,8 @@ PlayerSettings:
       InternetClient: True
       WebCam: True
       Microphone: True
-  metroTargetDeviceFamilies: {}
+  metroTargetDeviceFamilies:
+    Holographic: False
   metroFTAName: 
   metroFTAFileTypes: []
   metroProtocolName: 

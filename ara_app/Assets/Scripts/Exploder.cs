@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.UI;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -66,9 +65,9 @@ public class Exploder : MonoBehaviour
 
                 // Since these have coliders, we can go ahead setup the Tooltips
                 ToolTipSpawner toolTipSpawner = mesh.gameObject.AddComponent<ToolTipSpawner>();
-                toolTipSpawner.ChoosePrefab(tooltipPrefab);
-                toolTipSpawner.UpdateAnchor(rootTransform.GetChild(i));
-                toolTipSpawner.UpdateTooltipText(rootTransform.GetChild(i).name);
+                //toolTipSpawner.ChoosePrefab(tooltipPrefab);
+                //toolTipSpawner.UpdateAnchor(rootTransform.GetChild(i));
+                //toolTipSpawner.UpdateTooltipText(rootTransform.GetChild(i).name);
             }
             
         }
@@ -195,6 +194,8 @@ public class Exploder : MonoBehaviour
     public void Click(MixedRealityPointerEventData eventData)
     {
         var result = eventData.Pointer.Result;
+        if(result.Details.Object.gameObject.layer == LayerMask.NameToLayer("UI"))
+            return;
         Debug.Log("result: "+result.Details.Object.name);
         for (int i = 0; i < keyParts.Count; i++)
         {
