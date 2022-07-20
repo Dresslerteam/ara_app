@@ -76,7 +76,31 @@ namespace Ara.Domain.ApplicationServices
 
         public Job GetJob(int id)
         {
-            return new Job();
+            return new Job()
+            {
+                Car = new Car()
+                {
+                    Manufacturer = "Ford",
+                    Model = "Explorer",
+                    Vin = "1FM5K8D8XJGA43957",
+                    Year = "2018"
+                },
+                CarOwner = new CarOwner()
+                {
+                    FirstName = "T",
+                    LastName = "Moss",
+                    Mobile = "(406) 555-5555"
+                },
+                Tasks = new List<Task>()
+                {
+                    new Task()
+                    {
+                        Id = 1,
+                        Title = "Headliner",
+                        RepairManual = Headliner_RepairManual
+                    }
+                }
+            };
         }
 
         public static RepairManual Headliner_RepairManual = new RepairManual()
