@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4904,8 +4904,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 15.116667, y: -2.59}
-  m_SizeDelta: {x: 30.233334, y: 5.18}
+  m_AnchoredPosition: {x: 14.88, y: -2.59}
+  m_SizeDelta: {x: 29.76, y: 5.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &579968220
 MonoBehaviour:
@@ -6448,8 +6448,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 33.875, y: -2.59}
-  m_SizeDelta: {x: 7.283333, y: 5.18}
+  m_AnchoredPosition: {x: 33.165, y: -2.59}
+  m_SizeDelta: {x: 6.81, y: 5.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &855272023
 MonoBehaviour:
@@ -13573,8 +13573,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50.75833, y: -2.59}
-  m_SizeDelta: {x: 26.483334, y: 5.18}
+  m_AnchoredPosition: {x: 50.285, y: -2.59}
+  m_SizeDelta: {x: 27.43, y: 5.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1840581894
 MonoBehaviour:
@@ -13596,7 +13596,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tuesday 7/12/2022
+  m_text: Thursday 7/21/2022
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6af0a3b7961563a4e93192ae76b1ee97, type: 2}
   m_sharedMaterial: {fileID: -3398625961499907653, guid: 6af0a3b7961563a4e93192ae76b1ee97, type: 2}
