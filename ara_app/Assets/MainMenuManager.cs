@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ara.Domain.ApplicationServices;
 using ARA.Frontend;
 using Microsoft.MixedReality.Toolkit.UI;
 using TMPro;
@@ -11,7 +12,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(MainMenuAesthetic))]
 public class MainMenuManager : MonoBehaviour
 {
-    [Header("Menus")] 
+    [Header("Menus")]
     private MainMenuAesthetic mainMenuAesthetic;
     public GameObject jobBoard;
     public GameObject taskBoard;
@@ -21,16 +22,16 @@ public class MainMenuManager : MonoBehaviour
     [Header("Collection Roots")]
     [SerializeField] private Transform jobSelectionRoot;
     [SerializeField] private Transform taskSelectionRoot;
-    
 
-    [Header("Button Prefabs")] 
+
+    [Header("Button Prefabs")]
     [SerializeField]
     private GameObject jobButton;
     [SerializeField]
     private GameObject taskButton;
     [Space(10)]
     public List<Job> availbleJobs;
-    
+
     private static MainMenuManager _instance;
     public static MainMenuManager Instance { get { return _instance; } }
     private enum MenuPage
@@ -41,17 +42,19 @@ public class MainMenuManager : MonoBehaviour
     }
 
     private MenuPage currentMenuPage = MenuPage.jobSelect;
-    
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
-        } else {
+        }
+        else
+        {
             _instance = this;
         }
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,7 +65,7 @@ public class MainMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void ToggleAllMenus(bool isOn)
@@ -71,7 +74,7 @@ public class MainMenuManager : MonoBehaviour
         taskBoard.SetActive(isOn);
         jobQuickMenu.gameObject.SetActive(isOn);
     }
-    
+
     private List<Job> FetchJobs()
     {
         // See, here we'd be pulling from a data base
@@ -81,6 +84,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void UpdateJobBoard()
     {
+        var service = new JobApplicationService();
+        
         ToggleAllMenus(false);
         jobBoard.SetActive(true);
         ClearChildrenButtons(jobSelectionRoot);
@@ -88,7 +93,7 @@ public class MainMenuManager : MonoBehaviour
         mainMenuBacking.gameObject.SetActive(true);
         foreach (var job in availbleJobs)
         {
-            GameObject jobButton = Instantiate(this.jobButton,jobSelectionRoot);
+            GameObject jobButton = Instantiate(this.jobButton, jobSelectionRoot);
             //jobButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             JobDisplay jobDisplay = jobButton.GetComponent<JobDisplay>();
             //Interactable jobDisplayInteractable = jobDisplay.GetComponent<Interactable>();
@@ -102,7 +107,7 @@ public class MainMenuManager : MonoBehaviour
                 }
             }
 
-            float completeAmount = (tasksDone / job.tasks.Count)*100f;
+            float completeAmount = (tasksDone / job.tasks.Count) * 100f;
             jobDisplayInteractable.interactable = completeAmount <= 100;
             jobDisplay.UpdateDisplayInformation("Job# " + job.jobNumber,
                 job.GetVehicleTitleString(),
@@ -143,14 +148,14 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log(chosenJob.tasks.Count);
         foreach (var jobTask in chosenJob.tasks)
         {
-            GameObject newTaskButton = Instantiate(taskButton,taskSelectionRoot);
+            GameObject newTaskButton = Instantiate(taskButton, taskSelectionRoot);
             //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
             Button taskDisplayInteractable = taskDisplay.taskButton;
             taskDisplayInteractable.interactable = !jobTask.isComplete;
             stepIndex++;
             string curStep = stepIndex.ToString("D2");
-            taskDisplay.UpdateDisplayInformation(curStep,jobTask.taskTitle,jobTask.isComplete);
+            taskDisplay.UpdateDisplayInformation(curStep, jobTask.taskTitle, jobTask.isComplete);
         }
     }
 

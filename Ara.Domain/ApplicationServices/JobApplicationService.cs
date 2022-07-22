@@ -103,7 +103,7 @@ namespace Ara.Domain.ApplicationServices
             };
         }
 
-        public static RepairManual Headliner_RepairManual = new RepairManual()
+        public RepairManual Headliner_RepairManual = new RepairManual()
         {
             Id = 1,
             Name = "Headliner",
