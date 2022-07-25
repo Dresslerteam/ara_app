@@ -73,8 +73,7 @@ namespace Ara.Domain.ApplicationServices
             return new List<JobListItemDto>();
         }
 
-
-        public Job GetJob(int id)
+        public Job GetJobDetails(int id)
         {
             return new Job()
             {
@@ -101,6 +100,11 @@ namespace Ara.Domain.ApplicationServices
                     }
                 }
             };
+        }
+
+        public void SubbmitTaskResult()
+        {
+
         }
 
         public RepairManual Headliner_RepairManual = new RepairManual()
@@ -518,5 +522,7 @@ system to operate correctly."},
                 }
             }
         };
+
+
     }
 }

@@ -84,7 +84,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void UpdateJobBoard()
     {
-        var service = new JobApplicationService();
+        //var service = new JobApplicationService();
         
         ToggleAllMenus(false);
         jobBoard.SetActive(true);
