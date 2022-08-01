@@ -1,3 +1,5 @@
+
+
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +22,7 @@ public class DynamicExploder : MonoBehaviour
     [Button]
     public void PopulatePartList()
     {
+
         if (!rootTransform)
         {
             Debug.LogError("You need to assign a rootTransform");
