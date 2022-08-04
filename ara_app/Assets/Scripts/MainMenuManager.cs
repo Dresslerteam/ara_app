@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ara.Domain.ApplicationServices;
+using Ara.Domain.Dtos;
 using ARA.Frontend;
 using Microsoft.MixedReality.Toolkit.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Task = Ara.Domain.JobManagement.Task;
 
 [RequireComponent(typeof(MainMenuAesthetic))]
 public class MainMenuManager : MonoBehaviour
@@ -30,8 +32,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject taskButton;
     [Space(10)]
-    public List<Job> availbleJobs;
-
+    public List<JobListItemDto> availbleJobs = new List<JobListItemDto>();
+    JobApplicationService applicationService = new JobApplicationService();
     private static MainMenuManager _instance;
     public static MainMenuManager Instance { get { return _instance; } }
     private enum MenuPage
@@ -61,25 +63,12 @@ public class MainMenuManager : MonoBehaviour
         mainMenuAesthetic = GetComponent<MainMenuAesthetic>();
         UpdateJobBoard();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    
     private void ToggleAllMenus(bool isOn)
     {
         jobBoard.SetActive(isOn);
         taskBoard.SetActive(isOn);
         jobQuickMenu.gameObject.SetActive(isOn);
-    }
-
-    private List<Job> FetchJobs()
-    {
-        // See, here we'd be pulling from a data base
-        availbleJobs.Clear();
-        return availbleJobs = availbleJobs;
     }
 
     public void UpdateJobBoard()
@@ -91,32 +80,36 @@ public class MainMenuManager : MonoBehaviour
         ClearChildrenButtons(jobSelectionRoot);
         currentMenuPage = MenuPage.jobSelect;
         mainMenuBacking.gameObject.SetActive(true);
+        availbleJobs = applicationService.GetJobs();
+        Debug.Log(availbleJobs.Count);
         foreach (var job in availbleJobs)
         {
+            var curJob = applicationService.GetJob(job.Id);
             GameObject jobButton = Instantiate(this.jobButton, jobSelectionRoot);
             //jobButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             JobDisplay jobDisplay = jobButton.GetComponent<JobDisplay>();
             //Interactable jobDisplayInteractable = jobDisplay.GetComponent<Interactable>();
             Button jobDisplayInteractable = jobDisplay.jobButton;
+            
             float tasksDone = 0;
-            for (int i = 0; i < job.tasks.Count; i++)
-            {
-                if (job.tasks[i].isComplete)
-                {
-                    tasksDone++;
-                }
-            }
-
-            float completeAmount = (tasksDone / job.tasks.Count) * 100f;
+             //for (int i = 0; i < job.tasks.Count; i++)
+             //{
+             //   if (job.tasks[i].isComplete)
+             //   {
+             //       tasksDone++;
+             //   }
+             //}
+             var tasks = curJob.Tasks;
+             float completeAmount = (tasksDone / tasks.Count) * 100f; //TODO: Set this up to work
             jobDisplayInteractable.interactable = completeAmount <= 100;
-            jobDisplay.UpdateDisplayInformation("Job# " + job.jobNumber,
-                job.GetVehicleTitleString(),
+            jobDisplay.UpdateDisplayInformation("Job# " + job.Number,
+                $"{job.CarInfo.Manufacturer} {job.CarInfo.Model} {job.CarInfo.Year}", 
                 (int)completeAmount + "%",
                 completeAmount);
-            jobDisplayInteractable.onClick.AddListener(AddJobToButton(job));
+            jobDisplayInteractable.onClick.AddListener(AddJobToButton(curJob));
         }
     }
-    private UnityAction AddJobToButton(Job job)
+    private UnityAction AddJobToButton(Ara.Domain.JobManagement.Job job)
     {
         UnityAction chosenJob = delegate { AdvanceToTaskList(job); };
         return chosenJob;
@@ -136,7 +129,7 @@ public class MainMenuManager : MonoBehaviour
     /// Once a job has been chosen, populate the list with tasks that the job holds
     /// </summary>
     /// <param name="chosenJob">The job that was...chosen</param>
-    public void AdvanceToTaskList(Job chosenJob)
+    public void AdvanceToTaskList(Ara.Domain.JobManagement.Job chosenJob)
     {
         ToggleAllMenus(false);
         ClearChildrenButtons(taskSelectionRoot);
@@ -145,17 +138,17 @@ public class MainMenuManager : MonoBehaviour
         mainMenuAesthetic.UpdateTaskDisplay(chosenJob);
         currentMenuPage = MenuPage.taskSelect;
         int stepIndex = 0;
-        Debug.Log(chosenJob.tasks.Count);
-        foreach (var jobTask in chosenJob.tasks)
+        //Debug.Log(chosenJob.tasks.Count);
+        foreach (var jobTask in chosenJob.Tasks)
         {
             GameObject newTaskButton = Instantiate(taskButton, taskSelectionRoot);
             //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
             Button taskDisplayInteractable = taskDisplay.taskButton;
-            taskDisplayInteractable.interactable = !jobTask.isComplete;
+            taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
             stepIndex++;
             string curStep = stepIndex.ToString("D2");
-            taskDisplay.UpdateDisplayInformation(curStep, jobTask.taskTitle, jobTask.isComplete);
+            //taskDisplay.UpdateDisplayInformation(curStep, jobTask.taskTitle, jobTask.isComplete);
         }
     }
 

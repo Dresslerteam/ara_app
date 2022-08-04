@@ -48,10 +48,10 @@ public class MainMenuAesthetic : MonoBehaviour
         //banner.color = secondaryColor;
     }
 
-    public void UpdateTaskDisplay(Job chosenJob)
+    public void UpdateTaskDisplay(Ara.Domain.JobManagement.Job chosenJob)
     {
-        vinText.text = chosenJob.vin;
-        jobNumberText.text = "Job# " + chosenJob.jobNumber;
-        vehicleTitleText.text = chosenJob.GetVehicleTitleString();
+        vinText.text = chosenJob.Car.Vin;
+        jobNumberText.text = "Job# " + chosenJob.Id;
+        vehicleTitleText.text = $"{chosenJob.Car.Manufacturer} {chosenJob.Car.Model} {chosenJob.Car.Year}";
     }
 }
