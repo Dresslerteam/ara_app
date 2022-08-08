@@ -70,7 +70,7 @@ namespace Ara.Domain.ApplicationServices
                     }
             }
             };
-            return new List<JobListItemDto>();
+            return list;
         }
 
         public Job GetJobDetails(int id)

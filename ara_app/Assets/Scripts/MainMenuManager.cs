@@ -84,7 +84,7 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log(availbleJobs.Count);
         foreach (var job in availbleJobs)
         {
-            var curJob = applicationService.GetJob(job.Id);
+            var curJob = applicationService.GetJobDetails(job.Id);
             GameObject jobButton = Instantiate(this.jobButton, jobSelectionRoot);
             //jobButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             JobDisplay jobDisplay = jobButton.GetComponent<JobDisplay>();
