@@ -141,13 +141,19 @@ public class MainMenuManager : MonoBehaviour
         //Debug.Log(chosenJob.tasks.Count);
         foreach (var jobTask in chosenJob.Tasks)
         {
-            GameObject newTaskButton = Instantiate(taskButton, taskSelectionRoot);
-            //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
-            TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
-            Button taskDisplayInteractable = taskDisplay.taskButton;
-            taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
-            stepIndex++;
-            string curStep = stepIndex.ToString("D2");
+            for (int i = 0; i < jobTask.RepairManual.StepsGroups[0].Steps.Count; i++)
+            {
+                var step = jobTask.RepairManual.StepsGroups[0].Steps[i];
+                GameObject newTaskButton = Instantiate(taskButton, taskSelectionRoot);
+                //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
+                TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
+                Button taskDisplayInteractable = taskDisplay.taskButton;
+                taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
+                stepIndex++;
+                taskDisplay.UpdateDisplayInformation(step.Id.ToString("D2"),step.Title,false);
+                //string curStep = stepIndex.ToString("D2");                
+            }
+
             //taskDisplay.UpdateDisplayInformation(curStep, jobTask.taskTitle, jobTask.isComplete);
         }
     }
