@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.ApplicationServices;
-using Ara.Domain.Dtos;
 using ARA.Frontend;
 using Microsoft.MixedReality.Toolkit.UI;
 using TMPro;
@@ -58,12 +58,12 @@ public class MainMenuManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
         mainMenuAesthetic = GetComponent<MainMenuAesthetic>();
-        UpdateJobBoard();
+        await UpdateJobBoard();
     }
-    
+
     private void ToggleAllMenus(bool isOn)
     {
         jobBoard.SetActive(isOn);
@@ -71,42 +71,42 @@ public class MainMenuManager : MonoBehaviour
         jobQuickMenu.gameObject.SetActive(isOn);
     }
 
-    public void UpdateJobBoard()
+    public async System.Threading.Tasks.Task UpdateJobBoard()
     {
         //var service = new JobApplicationService();
-        
+
         ToggleAllMenus(false);
         jobBoard.SetActive(true);
         ClearChildrenButtons(jobSelectionRoot);
         currentMenuPage = MenuPage.jobSelect;
         mainMenuBacking.gameObject.SetActive(true);
-        availbleJobs = applicationService.GetJobs();
+        availbleJobs = await applicationService.GetJobsAsync();
         Debug.Log(availbleJobs.Count);
         foreach (var job in availbleJobs)
         {
-            var curJob = applicationService.GetJobDetails(job.Id);
+            //var curJob = await applicationService.GetJobsAsync(job.Id);
             GameObject jobButton = Instantiate(this.jobButton, jobSelectionRoot);
             //jobButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             JobDisplay jobDisplay = jobButton.GetComponent<JobDisplay>();
             //Interactable jobDisplayInteractable = jobDisplay.GetComponent<Interactable>();
             Button jobDisplayInteractable = jobDisplay.jobButton;
-            
+
             float tasksDone = 0;
-             //for (int i = 0; i < job.tasks.Count; i++)
-             //{
-             //   if (job.tasks[i].isComplete)
-             //   {
-             //       tasksDone++;
-             //   }
-             //}
-             var tasks = curJob.Tasks;
-             float completeAmount = (tasksDone / tasks.Count) * 100f; //TODO: Set this up to work
+            //for (int i = 0; i < job.tasks.Count; i++)
+            //{
+            //   if (job.tasks[i].isComplete)
+            //   {
+            //       tasksDone++;
+            //   }
+            //}
+            //var tasks = curJob.Tasks;
+            float completeAmount = (tasksDone / 10) * 100f; //TODO: Set this up to work
             jobDisplayInteractable.interactable = completeAmount <= 100;
             jobDisplay.UpdateDisplayInformation("Job# " + job.Number,
-                $"{job.CarInfo.Manufacturer} {job.CarInfo.Model} {job.CarInfo.Year}", 
+                $"{job.CarInfo.Manufacturer} {job.CarInfo.Model} {job.CarInfo.Year}",
                 (int)completeAmount + "%",
                 completeAmount);
-            jobDisplayInteractable.onClick.AddListener(AddJobToButton(curJob));
+            jobDisplayInteractable.onClick.AddListener(AddJobToButton(new Ara.Domain.JobManagement.Job() { }));
         }
     }
     private UnityAction AddJobToButton(Ara.Domain.JobManagement.Job job)
@@ -150,7 +150,7 @@ public class MainMenuManager : MonoBehaviour
                 Button taskDisplayInteractable = taskDisplay.taskButton;
                 taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
                 stepIndex++;
-                taskDisplay.UpdateDisplayInformation(step.Id.ToString("D2"),step.Title,false);
+                taskDisplay.UpdateDisplayInformation(step.Id.ToString("D2"), step.Title, false);
                 //string curStep = stepIndex.ToString("D2");                
             }
 
