@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32cb70ced3e74d65a9d8c6cfd465671b, type: 3}
+  m_Name: EmployeeAccount 3
+  m_EditorClassIdentifier: 
+  <FirstName>k__BackingField: Johnson
+  <LastName>k__BackingField: Johnson
+  <Photo>k__BackingField: {fileID: 2800000, guid: 19756ded00d17364696a70c8d28249aa, type: 3}

@@ -27,16 +27,26 @@
         "com.microsoft.mixedreality.toolkit.foundation": "2.7.3"
       }
     },
-    "com.microsoft.mixedreality.toolkit.foundation": {
-      "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.foundation-2.7.3.tgz",
+    "com.microsoft.mixedreality.toolkit.figmabridge": {
+      "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.figmabridge-0.1.1.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.microsoft.mixedreality.toolkit.standardassets": "2.7.3"
+        "com.microsoft.mixedreality.toolkit.foundation": "2.7.0",
+        "com.unity.nuget.newtonsoft-json": "2.0.0",
+        "com.unity.textmeshpro": "2.1.4"
+      }
+    },
+    "com.microsoft.mixedreality.toolkit.foundation": {
+      "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.foundation-2.7.0.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.microsoft.mixedreality.toolkit.standardassets": "2.7.0"
       }
     },
     "com.microsoft.mixedreality.toolkit.standardassets": {
-      "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.standardassets-2.7.3.tgz",
+      "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.standardassets-2.7.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -63,6 +73,12 @@
       "version": "file:MixedReality/com.microsoft.mrtk.graphicstools.unity-0.4.0.tgz",
       "depth": 0,
       "source": "local-tarball",
+      "dependencies": {}
+    },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
       "dependencies": {}
     },
     "com.unity.collab-proxy": {
@@ -113,6 +129,13 @@
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0"
       },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "2.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.services.core": {
