@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ara.Domain.ApiClients.Dtos;
 using ARA.Frontend;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -25,9 +26,19 @@ public class MainMenuAesthetic : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI jobNumberText;
     [SerializeField] private TextMeshProUGUI vehicleTitleText;
+
+    [SerializeField] private TextMeshProUGUI estimatorText;
+    [SerializeField]
+    private LogInMenu _logInMenu;
     // Start is called before the first frame update
     void Start()
     {
+        if (_logInMenu == null)
+        {
+            _logInMenu = FindObjectOfType<LogInMenu>();
+        }
+
+        estimatorText.text = _logInMenu.estimatorName;
         if(dateDisplay!=null)
             UpdateDateDisplay();
     }
@@ -48,10 +59,10 @@ public class MainMenuAesthetic : MonoBehaviour
         //banner.color = secondaryColor;
     }
 
-    public void UpdateTaskDisplay(Ara.Domain.JobManagement.Job chosenJob)
+    public void UpdateTaskDisplay(JobListItemDto chosenJob)
     {
-        vinText.text = chosenJob.Car.Vin;
+        vinText.text = chosenJob.CarInfo.Vin;
         jobNumberText.text = "Job# " + chosenJob.Id;
-        vehicleTitleText.text = $"{chosenJob.Car.Manufacturer} {chosenJob.Car.Model} {chosenJob.Car.Year}";
+        vehicleTitleText.text = $"{chosenJob.CarInfo.Manufacturer} {chosenJob.CarInfo.Model} {chosenJob.CarInfo.Year}";
     }
 }

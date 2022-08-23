@@ -9,9 +9,8 @@ public class AccountButton : MonoBehaviour
     public TextMeshProUGUI nameTextfield;
     public RawImage employeePhoto;
 
-    public void SetupButton(string employeeName, Texture photo)
+    public void SetupButton(string employeeName)
     {
         nameTextfield.text = employeeName;
-        employeePhoto.texture = photo;
     }
 }

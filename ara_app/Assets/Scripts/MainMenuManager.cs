@@ -92,24 +92,17 @@ public class MainMenuManager : MonoBehaviour
             Button jobDisplayInteractable = jobDisplay.jobButton;
 
             float tasksDone = 0;
-            //for (int i = 0; i < job.tasks.Count; i++)
-            //{
-            //   if (job.tasks[i].isComplete)
-            //   {
-            //       tasksDone++;
-            //   }
-            //}
-            //var tasks = curJob.Tasks;
-            float completeAmount = (tasksDone / 10) * 100f; //TODO: Set this up to work
-            jobDisplayInteractable.interactable = completeAmount <= 100;
+
+            jobDisplayInteractable.interactable = job.Progress <= 99;
             jobDisplay.UpdateDisplayInformation("Job# " + job.Number,
                 $"{job.CarInfo.Manufacturer} {job.CarInfo.Model} {job.CarInfo.Year}",
-                (int)completeAmount + "%",
-                completeAmount);
-            jobDisplayInteractable.onClick.AddListener(AddJobToButton(new Ara.Domain.JobManagement.Job() { }));
+                job.Progress + "%",
+                (float)job.Progress);
+            jobDisplayInteractable.onClick.AddListener(AddJobToButton(job));
+            
         }
     }
-    private UnityAction AddJobToButton(Ara.Domain.JobManagement.Job job)
+    private UnityAction AddJobToButton(JobListItemDto job)
     {
         UnityAction chosenJob = delegate { AdvanceToTaskList(job); };
         return chosenJob;
@@ -129,7 +122,7 @@ public class MainMenuManager : MonoBehaviour
     /// Once a job has been chosen, populate the list with tasks that the job holds
     /// </summary>
     /// <param name="chosenJob">The job that was...chosen</param>
-    public void AdvanceToTaskList(Ara.Domain.JobManagement.Job chosenJob)
+    public void AdvanceToTaskList(JobListItemDto chosenJob)
     {
         ToggleAllMenus(false);
         ClearChildrenButtons(taskSelectionRoot);
@@ -139,16 +132,17 @@ public class MainMenuManager : MonoBehaviour
         currentMenuPage = MenuPage.taskSelect;
         int stepIndex = 0;
         //Debug.Log(chosenJob.tasks.Count);
-        foreach (var jobTask in chosenJob.Tasks)
+        foreach (var jobTask in applicationService.Headliner_RepairManual.StepsGroups)
         {
-            for (int i = 0; i < jobTask.RepairManual.StepsGroups[0].Steps.Count; i++)
+            for (int i = 0; i < jobTask.Steps.Count; i++)
             {
-                var step = jobTask.RepairManual.StepsGroups[0].Steps[i];
+                
+                var step = jobTask.Steps[i];
                 GameObject newTaskButton = Instantiate(taskButton, taskSelectionRoot);
                 //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
                 TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
                 Button taskDisplayInteractable = taskDisplay.taskButton;
-                taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
+                //taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
                 stepIndex++;
                 taskDisplay.UpdateDisplayInformation(step.Id.ToString("D2"), step.Title, false);
                 //string curStep = stepIndex.ToString("D2");                

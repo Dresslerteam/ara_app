@@ -169,7 +169,7 @@ namespace Paroxe.PdfRenderer.Internal.Viewer
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN|| UNITY_STANDALONE_OSX
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            if (m_Page == null)
+            if (m_Page != null)
                 m_Page = m_Viewer.Document.GetPage(PageIndex);
 
             m_PointerInside = true;
@@ -286,6 +286,8 @@ namespace Paroxe.PdfRenderer.Internal.Viewer
 
         private PDFLink GetLinkAtPoint(PDFPage page, Vector2 point, Camera camera)
         {
+	        if (page == null)
+		        return null;
             if (m_Viewer == null)
                 m_Viewer = GetComponentInParent<PDFViewer>();
 
@@ -301,7 +303,7 @@ namespace Paroxe.PdfRenderer.Internal.Viewer
 
 		        localPointerPosition = localPointerPosition.x * (rt.sizeDelta.y / rt.sizeDelta.x) * Vector2.right +
 		                                localPointerPosition.y * Vector2.up;
-
+		        
 		        Vector2 pagePoint = page.DeviceToPage(0, 0, (int)rt.sizeDelta.y, (int)rt.sizeDelta.y,
 			        PDFPage.PageRotation.Normal,
 			        (int)localPointerPosition.x, (int)localPointerPosition.y);

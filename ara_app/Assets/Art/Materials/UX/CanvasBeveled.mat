@@ -39,7 +39,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _Decal_Enable_: 0
     - _Decal_Front_Only_: 1
@@ -51,10 +50,10 @@ Material:
     - _Iridescence_Enabled_: 0
     - _Iridescence_Intensity_: 0
     - _Mapped_Environment_Enabled_: 0
-    - _Power_: 1
+    - _Power_: 1.37
     - _Reflection_: 0.75
     - _Sharpness_: 0
-    - _Shininess_: 10
+    - _Shininess_: 1.55
     - _Sky_Enabled_: 1
     - _Specular_: 1
     - _StencilComparison: 0
@@ -67,11 +66,11 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
-    - _Albedo_: {r: 0.011764706, g: 0.5058824, b: 0.99607843, a: 1}
+    - _Albedo_: {r: 0.034754362, g: 0.56799364, b: 0.6698113, a: 1}
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _ClipRectRadii: {r: 10, g: 10, b: 10, a: 10}
     - _Decal_Scale_XY_: {r: 1.5, g: 1.5, b: 0, a: 0}
     - _Ground_Color_: {r: 0, g: 0.25490198, b: 0.98039216, a: 1}
-    - _Horizon_Color_: {r: 0.011764706, g: 0.33333334, b: 0.99607843, a: 1}
-    - _Sky_Color_: {r: 0.011764706, g: 0.9607843, b: 0.99607843, a: 1}
+    - _Horizon_Color_: {r: 0, g: 0.15718263, b: 0.4811321, a: 1}
+    - _Sky_Color_: {r: 0.3160377, g: 0.44709033, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6361961441754984218}
   - component: {fileID: 2212093994364674718}
-  - component: {fileID: 1077446255324255250}
-  - component: {fileID: 2947697476004999661}
+  - component: {fileID: 5087061735205405345}
   m_Layer: 5
   m_Name: InnerQuad
   m_TagString: Untagged
@@ -46,7 +45,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117000150881064088}
   m_CullTransparentMesh: 1
---- !u!114 &1077446255324255250
+--- !u!114 &5087061735205405345
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,36 +54,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 117000150881064088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: e4220fa33d0e48745b2cb5c52731e75e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: f89f360156e49c140bb11a2098e4b2a5, type: 2}
+  m_Material: {fileID: 2100000, guid: aea045dcda9060044b3bf543d5676fb8, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!114 &2947697476004999661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117000150881064088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fda4953718e0264291c42cb2a637fb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  radius: 1
+  thickness: 1
+  wedges: 8
+  calculateSmoothEdges: 1
 --- !u!1 &6486876200350879338
 GameObject:
   m_ObjectHideFlags: 0

@@ -205,6 +205,26 @@ PrefabInstance:
       propertyPath: m_ChildControlWidth
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2353311916217303545, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353311916217303545, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353311916217303545, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.9394875
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353311916217303545, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353311916217303546, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2353311916554089474, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
       propertyPath: m_text
       value: 'DISMANTLE THE ESTABLISHMENT
@@ -268,8 +288,28 @@ PrefabInstance:
       value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4746600210954974802, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746600210954974802, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746600210954974802, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
       propertyPath: m_SizeDelta.x
       value: 8.878975
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746600210954974802, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746600210954974802, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 51.857437
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746600210954974802, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 5825125719369655479, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -385,6 +425,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5825125720234051038, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990942292735591472, guid: 6648164dd1968e94ea4fd375a03aa649, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

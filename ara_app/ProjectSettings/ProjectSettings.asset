@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: .12
+  bundleVersion: 1.0.5.1
   preloadedAssets:
   - {fileID: 0}
   - {fileID: 0}
@@ -207,8 +207,7 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: -9113734854909223213, guid: a0459d81e0d383d4e9927817583f441c, type: 2}
-  - {fileID: 9067036187787467340, guid: ceada79a285bdfa488ea5ffbe14b2c35, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -801,7 +800,7 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: ARA
-  metroPackageVersion: 1.0.5.0
+  metroPackageVersion: 1.0.5.1
   metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
   metroCertificateSubject: DresslerConsulting

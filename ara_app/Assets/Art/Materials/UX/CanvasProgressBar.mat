@@ -49,5 +49,5 @@ Material:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _ClipRectRadii: {r: 10, g: 10, b: 10, a: 10}
     - _Fill_1_: {r: 1, g: 1, b: 1, a: 1}
-    - _Fill_2_: {r: 0.31764707, g: 0.5568628, b: 0.9372549, a: 1}
+    - _Fill_2_: {r: 0, g: 0.22580157, b: 0.6037736, a: 1}
   m_BuildTextureStacks: []
