@@ -2,10 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <BaseOutputPath>..\Assets</BaseOutputPath>
+    <BaseOutputPath>\</BaseOutputPath>
   </PropertyGroup>
 
-  <ItemGroup>
+	<!--<ItemGroup>
+		<Content Include="obj\Debug\netstandard2.0\Ara.Domain.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>-->
+	<Target Name="CopyDLLs" AfterTargets="Build">
+		<Message Text="Executing CopyDLLs task" Importance="High" />
+
+		<Copy
+		  SourceFiles="obj\Debug\netstandard2.0\Ara.Domain.dll;obj\Debug\netstandard2.0\Ara.Domain.pdb"
+		  DestinationFolder="..\ara_app\Assets\Resources" />
+
+		<Message Text="Copied build files" Importance="High" />
+	</Target>
+
+	<ItemGroup>
     <Compile Remove="DataFiles\**" />
     <EmbeddedResource Remove="DataFiles\**" />
     <None Remove="DataFiles\**" />

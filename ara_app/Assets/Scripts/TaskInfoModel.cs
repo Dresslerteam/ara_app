@@ -3,7 +3,7 @@
 namespace ARA.Frontend
 {
     [Serializable]
-    public class Task
+    public class TaskInfoModel
     {
         public string taskTitle;
         public bool isComplete = false;

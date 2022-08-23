@@ -11,7 +11,7 @@ namespace Ara.Domain.ApiClients
     {
         public void GetCurrentUserInfo()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("");
         }
 
         public AraResponse<TokenResponseDto> Login(string username, string password)

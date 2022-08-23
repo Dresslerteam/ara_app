@@ -9,7 +9,7 @@ namespace Ara.Domain.JobManagement
         public Car Car { get; set; }
         public CarOwner CarOwner { get; set; }
         public string Title { get; set; }
-        public List<Task> Tasks { get; set; }
+        public List<TaskInfo> Tasks { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public List<string> InitialPhotos { get; set; }

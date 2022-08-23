@@ -41,9 +41,9 @@ namespace Ara.Domain.ApplicationServices
                     LastName = "Moss",
                     Mobile = "(406) 555-5555"
                 },
-                Tasks = new List<Task>()
+                Tasks = new List<TaskInfo>()
                 {
-                    new Task()
+                    new TaskInfo()
                     {
                         Id = 1,
                         Title = "Headliner",

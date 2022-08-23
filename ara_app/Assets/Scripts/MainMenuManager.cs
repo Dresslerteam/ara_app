@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.ApplicationServices;
 using ARA.Frontend;
@@ -9,7 +10,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using Task = Ara.Domain.JobManagement.Task;
 
 [RequireComponent(typeof(MainMenuAesthetic))]
 public class MainMenuManager : MonoBehaviour
@@ -71,7 +71,7 @@ public class MainMenuManager : MonoBehaviour
         jobQuickMenu.gameObject.SetActive(isOn);
     }
 
-    public async System.Threading.Tasks.Task UpdateJobBoard()
+    public async Task UpdateJobBoard()
     {
         //var service = new JobApplicationService();
 

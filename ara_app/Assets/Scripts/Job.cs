@@ -10,7 +10,7 @@ namespace ARA.Frontend
         public string manufacturer = "Ford";
         public string autoModel = "Ranger";
         public string vin;
-        public List<Task> tasks;
+        public List<TaskInfoModel> tasks;
 
         public string GetVehicleTitleString()
         {

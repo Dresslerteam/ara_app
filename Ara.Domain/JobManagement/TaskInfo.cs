@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Ara.Domain.JobManagement
 {
-    public class Task
+    public class TaskInfo
     {
         public int Id { get; set; }
         public string Title { get; set; }
