@@ -6,6 +6,7 @@ using Ara.Domain.RepairManualManagement;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Ara.Domain.ApplicationServices
 {
@@ -16,41 +17,16 @@ namespace Ara.Domain.ApplicationServices
         {
             _jobsClient = new JobsClient();
         }
-        public async System.Threading.Tasks.Task<List<JobListItemDto>> GetJobsAsync()
+        public async Task<List<JobListItemDto>> GetJobsAsync()
         {
             var jobs = await _jobsClient.GetJobsAsync();
-            
-
             return jobs;
         }
 
-        public Job GetJobDetails(int id)
+        public async Task<Job> GetJobDetailsAsync(string id)
         {
-            return new Job()
-            {
-                Car = new Car()
-                {
-                    Manufacturer = "Ford",
-                    Model = "Explorer",
-                    Vin = "1FM5K8D8XJGA43957",
-                    Year = "2018"
-                },
-                CarOwner = new CarOwner()
-                {
-                    FirstName = "T",
-                    LastName = "Moss",
-                    Mobile = "(406) 555-5555"
-                },
-                Tasks = new List<TaskInfo>()
-                {
-                    new TaskInfo()
-                    {
-                        Id = 1,
-                        Title = "Headliner",
-                        RepairManual = Headliner_RepairManual
-                    }
-                }
-            };
+            var job = await _jobsClient.GetJobByIdAsync(id);
+            return job;
         }
 
         public void SubbmitTaskResult()

@@ -1,4 +1,5 @@
 ﻿using Ara.Domain.ApiClients.Dtos;
+using Ara.Domain.JobManagement;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,6 @@ namespace Ara.Domain.ApiClients.Interfaces
     internal interface IJobsClient
     {
         Task<List<JobListItemDto>> GetJobsAsync();
+        Task<Job> GetJobByIdAsync(string id);
     }
 }

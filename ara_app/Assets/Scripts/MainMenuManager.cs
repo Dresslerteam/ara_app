@@ -94,7 +94,7 @@ public class MainMenuManager : MonoBehaviour
             float tasksDone = 0;
 
             jobDisplayInteractable.interactable = job.Progress <= 99;
-            jobDisplay.UpdateDisplayInformation("Job# " + job.Number,
+            jobDisplay.UpdateDisplayInformation("Job# " + job.Code,
                 $"{job.CarInfo.Manufacturer} {job.CarInfo.Model} {job.CarInfo.Year}",
                 job.Progress + "%",
                 (float)job.Progress);

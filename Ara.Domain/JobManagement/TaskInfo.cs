@@ -11,6 +11,7 @@ namespace Ara.Domain.JobManagement
         public int Id { get; set; }
         public string Title { get; set; }
         public int SequenceNumber { get; set; }
+        public string Description { get; set; }
         public List<Message> Messages { get; set; }
         public RepairManual RepairManual { get; set; }
         public int? RepairManualId { get; set; }
