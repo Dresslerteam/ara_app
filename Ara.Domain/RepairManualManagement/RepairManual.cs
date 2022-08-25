@@ -7,7 +7,7 @@ namespace Ara.Domain.RepairManualManagement
 {
     public class RepairManual
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string DocumentUrl { get; set; }

@@ -14,7 +14,7 @@ namespace Ara.Domain.JobManagement
         public string Description { get; set; }
         public List<Message> Messages { get; set; }
         public RepairManual RepairManual { get; set; }
-        public int? RepairManualId { get; set; }
+        public string RepairManualId { get; set; }
         public decimal Paint { get; set; }
         public decimal Labor { get; set; }
         public string PartNumber { get; set; }

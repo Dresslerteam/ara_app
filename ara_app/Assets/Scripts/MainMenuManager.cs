@@ -99,7 +99,7 @@ public class MainMenuManager : MonoBehaviour
                 job.Progress + "%",
                 (float)job.Progress);
             jobDisplayInteractable.onClick.AddListener(AddJobToButton(job));
-            
+
         }
     }
     private UnityAction AddJobToButton(JobListItemDto job)
@@ -122,7 +122,7 @@ public class MainMenuManager : MonoBehaviour
     /// Once a job has been chosen, populate the list with tasks that the job holds
     /// </summary>
     /// <param name="chosenJob">The job that was...chosen</param>
-    public void AdvanceToTaskList(JobListItemDto chosenJob)
+    public async void AdvanceToTaskList(JobListItemDto chosenJob)
     {
         ToggleAllMenus(false);
         ClearChildrenButtons(taskSelectionRoot);
@@ -131,22 +131,23 @@ public class MainMenuManager : MonoBehaviour
         mainMenuAesthetic.UpdateTaskDisplay(chosenJob);
         currentMenuPage = MenuPage.taskSelect;
         int stepIndex = 0;
+        var jobDetails = await applicationService.GetJobDetailsAsync(chosenJob.Id);
         //Debug.Log(chosenJob.tasks.Count);
-        foreach (var jobTask in applicationService.Headliner_RepairManual.StepsGroups)
+        foreach (var jobTask in jobDetails.Tasks)
         {
-            for (int i = 0; i < jobTask.Steps.Count; i++)
-            {
-                
-                var step = jobTask.Steps[i];
-                GameObject newTaskButton = Instantiate(taskButton, taskSelectionRoot);
-                //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
-                TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
-                Button taskDisplayInteractable = taskDisplay.taskButton;
-                //taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
-                stepIndex++;
-                taskDisplay.UpdateDisplayInformation(step.Id.ToString("D2"), step.Title, false);
-                //string curStep = stepIndex.ToString("D2");                
-            }
+            //for (int i = 0; i < jobTask.Count; i++)
+            //{
+
+            //    var step = jobTask.Steps[i];
+            //    GameObject newTaskButton = Instantiate(taskButton, taskSelectionRoot);
+            //    //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
+            //    TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
+            //    Button taskDisplayInteractable = taskDisplay.taskButton;
+            //    //taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
+            //    stepIndex++;
+            //    taskDisplay.UpdateDisplayInformation(step.Id.ToString("D2"), step.Title, false);
+            //    //string curStep = stepIndex.ToString("D2");                
+            //}
 
             //taskDisplay.UpdateDisplayInformation(curStep, jobTask.taskTitle, jobTask.isComplete);
         }

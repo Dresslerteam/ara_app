@@ -1,6 +1,7 @@
 ﻿using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.ApiClients.Interfaces;
 using Ara.Domain.JobManagement;
+using Ara.Domain.RepairManualManagement;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,26 @@ namespace Ara.Domain.ApiClients
                 var job = JsonConvert.DeserializeObject<Job>(responseBody);
 
                 return job;
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine("\nException Caught!");
+                Console.WriteLine("Message :{0} ", e.Message);
+                return null;
+            }
+        }
+
+        public async Task<RepairManual> GetRepairManualByIdAsync(string id)
+        {
+            // Call asynchronous network methods in a try/catch block to handle exceptions.
+            try
+            {
+                HttpResponseMessage response = await _client.GetAsync($"http://api.ara.anyml.ai/api/repairManuals/{id}");
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+                var repairManual = JsonConvert.DeserializeObject<RepairManual>(responseBody);
+
+                return repairManual;
             }
             catch (HttpRequestException e)
             {
