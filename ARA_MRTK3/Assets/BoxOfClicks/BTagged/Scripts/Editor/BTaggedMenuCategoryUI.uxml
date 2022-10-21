@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:VisualElement name="category" class="ct-main" style="justify-content: center; margin-left: 1px; max-width: 100%;">
+        <Style src="BTaggedMenuItemUI.uss" />
+        <ui:Foldout text="Transform" value="false" />
+        <ui:VisualElement name="edit-group" style="flex-direction: row; position: absolute; right: 0; border-top-left-radius: 4px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; top: 0; border-left-color: rgba(125, 125, 125, 0.12); border-right-color: rgba(125, 125, 125, 0.12); border-top-color: rgba(125, 125, 125, 0.12); border-bottom-color: rgba(125, 125, 125, 0.12); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;">
+            <ui:Button name="create" class="btagged-tag-button btagged-background-add" style="width: 18px; height: 18px; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px;" />
+            <ui:Button text=" " name="edit" class="btagged-tag-button btagged-background-edit" />
+            <ui:Button name="delete" class="btagged-tag-button btagged-background-delete" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
