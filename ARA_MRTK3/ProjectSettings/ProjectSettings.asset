@@ -619,7 +619,7 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: ARA
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: D:\GWG\ARA_MRTK3\ARA_MRTK3\Assets\WSATestCertificate.pfx
+  metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
   metroCertificateSubject: DresslerConsulting
   metroCertificateIssuer: DresslerConsulting
@@ -692,7 +692,7 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 1
+  activeInputHandler: 2
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
