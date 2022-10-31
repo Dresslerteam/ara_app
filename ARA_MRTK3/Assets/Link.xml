@@ -1,0 +1,3 @@
+﻿<linker>
+	<assembly fullname="Ara.Domain" preserve="all"/>
+</linker>
