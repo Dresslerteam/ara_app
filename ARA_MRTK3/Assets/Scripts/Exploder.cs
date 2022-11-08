@@ -84,6 +84,7 @@ public class Exploder : MonoBehaviour
     }
     private IEnumerator MovePart(KeyPart part)
     {
+        part.startPos = part.transformToAnimate.transform.position;
         yield return new WaitForSeconds(part.delay);
         Vector3 moveDir = part.directionToExplode;
         float timePassed = 0;

@@ -1,5 +1,6 @@
+    
 
-
+using System;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,13 @@ public class DynamicExploder : MonoBehaviour
     [SerializeField] private List<KeyPart> keyParts;
     [PropertyTooltip("These are settings that you can apply to every part.")]
     [SerializeField] private GlobalKeyPart globalPart;
+    
+
+    private void OnDisable()
+    {
+        ResetParts();
+    }
+
     /// <summary>
     /// Look through the top-most children of the root object, make a KeyPart for them, and add to the parts list
     /// </summary>
@@ -43,11 +51,22 @@ public class DynamicExploder : MonoBehaviour
     {
         foreach (var part in keyParts)
         {
+            part.startPos = part.transformToAnimate.transform.localPosition;
+            part.startRotation = part.transformToAnimate.transform.localRotation;
             StartCoroutine(MovePart(part));
             StartCoroutine(RotatePart(part));
         }
     }
 
+    public void ResetParts()
+    {
+        StopAllCoroutines();
+        foreach (var part in keyParts)
+        {
+            part.transformToAnimate.transform.localPosition = part.startPos;
+            part.transformToAnimate.transform.localRotation = part.startRotation;
+        }
+    }
     private IEnumerator MovePart(KeyPart part)
     {
         yield return new WaitForSeconds(part.delay);
