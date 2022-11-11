@@ -24,7 +24,11 @@ public class MainMenuManager : MonoBehaviour
     public GameObject jobBoard;
     public GameObject taskBoard;
     public GameObject loaderGO;
+    [Header("ModelOverview")]
+    public GameObject modelOverviewGO;
+    public GameObject modelOveriewCallOuts;
     [SerializeField] private QuickMenuDisplay jobQuickMenu;
+    [Header("Buttons")] [SerializeField] private PressableButton advanceToTaskButton; 
     [Header("Collection Roots")]
     [SerializeField] private Transform jobSelectionRoot;
     [SerializeField] private Transform taskSelectionRoot;
@@ -86,7 +90,7 @@ public class MainMenuManager : MonoBehaviour
         if(loaderGO!=null) loaderGO.SetActive(true);
         availbleJobs = await applicationService.GetJobsAsync();
         if(loaderGO!=null) loaderGO.SetActive(false);
-        foreach (var job in availbleJobs)
+        foreach (var currentJob in availbleJobs)
         {
             //var curJob = await applicationService.GetJobsAsync(job.Id);
             GameObject jobButton = Instantiate(this.jobButton, jobSelectionRoot);
@@ -97,19 +101,19 @@ public class MainMenuManager : MonoBehaviour
 
             float tasksDone = 0;
 
-            jobDisplayInteractable.enabled = job.Progress <= 99;
+            jobDisplayInteractable.enabled = currentJob.Progress <= 99;
             //...complete: job.progress, is now Random for demonstration purposes
-            jobDisplay.UpdateDisplayInformation("Job# " + job.Code,
-                $"{job.CarInfo.Manufacturer} {job.CarInfo.Model} {job.CarInfo.Year}",
+            jobDisplay.UpdateDisplayInformation("Job# " + currentJob.Code,
+                $"{currentJob.CarInfo.Manufacturer} {currentJob.CarInfo.Model} {currentJob.CarInfo.Year}",
                 Random.Range(0,100) + "%",
-                (float)job.Progress);
-            jobDisplayInteractable.OnClicked.AddListener(AddJobToButton(job));
+                (float)currentJob.Progress);
+            jobDisplayInteractable.OnClicked.AddListener(AddJobToButton(currentJob));
             await Task.Yield();
         }
     }
     private UnityAction AddJobToButton(JobListItemDto job)
     {
-        UnityAction chosenJob = delegate { AdvanceToTaskList(job); };
+        UnityAction chosenJob = delegate { AdvanceToModelOverview(job); };
         return chosenJob;
     }
     private void ClearChildrenButtons(Transform root)
@@ -121,7 +125,13 @@ public class MainMenuManager : MonoBehaviour
             GameObject.Destroy(c.gameObject);
         }
     }
-    
+
+    public async void AdvanceToModelOverview(JobListItemDto job)
+    {
+        ReturnToModelOverview();
+        advanceToTaskButton.OnClicked.AddListener(delegate { AdvanceToTaskList(job); });
+        currentMenuPage = MenuPage.modelOverview;
+    }
     /// <summary>
     /// Once a job has been chosen, populate the list with tasks that the job holds
     /// </summary>
@@ -173,6 +183,9 @@ public class MainMenuManager : MonoBehaviour
             case MenuPage.jobSelectScreen:
                 ReturnToLogin();
                 break;
+            case MenuPage.modelOverview:
+                ReturnToMenu();
+                break;
             case MenuPage.taskSelect:
                 ReturnToMenu();
                 break;
@@ -184,6 +197,8 @@ public class MainMenuManager : MonoBehaviour
                 break;
         }
     }
+    
+    //Todo: These 4 methods don't scale well. Consider looping through a list.
     public void ReturnToMenu()
     {
         UpdateJobBoard();
@@ -200,12 +215,20 @@ public class MainMenuManager : MonoBehaviour
         ToggleAllMenus(false);
         splashScreen.SetActive(true);
     }
+
+    public void ReturnToModelOverview()
+    {
+        ToggleAllMenus(false);
+        modelOverviewGO.SetActive(true);
+        modelOveriewCallOuts.SetActive(true);
+    }
 }
 public enum MenuPage
 {
     splashScreen,
     loginScreen,
     jobSelectScreen,
+    modelOverview,
     taskSelect,
     performingJob
 }

@@ -15,44 +15,12 @@ public class Exploder : MonoBehaviour
     // Two public events can be called to explode/assemble
     [Required]
     [SerializeField] private Transform rootTransform;
-    [Required]
-    [SerializeField] private GameObject tooltipPrefab;
+
     [Searchable]
     [SerializeField] private List<KeyPart> keyParts;
     [PropertyTooltip("These are settings that you can apply to every part.")]
     [SerializeField] private GlobalKeyPart globalPart;
     
-    [SerializeField]
-    private GameObject leftHand;
-    [SerializeField]
-    private GameObject rightHand;
-
-    [SerializeField]
-    private InputActionReference leftHandReference;
-    [SerializeField]
-    private InputActionReference rightHandReference;
-    
-    private void Start()
-    {
-        leftHand.SetActive(false);
-        rightHand.SetActive(false);
-        leftHandReference.action.performed += ProcessLeftHand;
-        rightHandReference.action.performed += ProcessRightHand;
-    }
-    private void ProcessRightHand(InputAction.CallbackContext ctx)
-    {
-        ProcessHand(ctx, rightHand);
-    }
-
-    private void ProcessLeftHand(InputAction.CallbackContext ctx)
-    {
-        ProcessHand(ctx, leftHand);
-    }
-
-    private void ProcessHand(InputAction.CallbackContext ctx, GameObject g)
-    {
-        g.SetActive(ctx.ReadValue<float>() > 0.95f);
-    }
     /// <summary>
     /// Look through the top-most children of the root object, make a KeyPart for them, and add to the parts list
     /// </summary>
@@ -99,6 +67,7 @@ public class Exploder : MonoBehaviour
             
         }
     }
+    [ContextMenu("ExplodeEntireModel")]
     public void ExplodeEntireModel()
     {
         foreach (var part in keyParts)
@@ -115,6 +84,7 @@ public class Exploder : MonoBehaviour
     }
     private IEnumerator MovePart(KeyPart part)
     {
+        part.startPos = part.transformToAnimate.transform.position;
         yield return new WaitForSeconds(part.delay);
         Vector3 moveDir = part.directionToExplode;
         float timePassed = 0;
@@ -159,7 +129,7 @@ public class Exploder : MonoBehaviour
     /// <param name="part">The part that holds the bool</param>
     /// <param name="moveDir">The direction it will move</param>
     /// <returns></returns>
-    private static Vector3 ConvertDirection(KeyPart part, Vector3 moveDir)
+    public static Vector3 ConvertDirection(KeyPart part, Vector3 moveDir)
     {
         // Convert direction to local direction
         if (part.localDirection)

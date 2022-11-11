@@ -3,7 +3,162 @@ guid: 13c9b420cce306245a9a3931d769040a
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BLACK
+    second: {fileID: 2100000, guid: 1e0d198d85a16c342a7cfdf7b0c9704f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hull
+    second: {fileID: 2100000, guid: b91cc35327fa45943a4c3ff2b07f6c3c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Salon
+    second: {fileID: 2100000, guid: 15c92f771cda313469b20a27540277ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: base
+    second: {fileID: 2100000, guid: a2b35a3015b7fc848998cbec01d39812, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: disk
+    second: {fileID: 2100000, guid: 2dc49be6a2e347d4591aea2557626d49, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_02
+    second: {fileID: 2100000, guid: f2375799b83b55843b0d08bc70b624cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_03
+    second: {fileID: 2100000, guid: 68cd1bf47c847644497865312af94cd5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_04
+    second: {fileID: 2100000, guid: 88ca5630f3975ab41bb81b8c7f6ec31b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_front_01
+    second: {fileID: 2100000, guid: db342104179e0da489cf58b5a15a4684, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_front_02
+    second: {fileID: 2100000, guid: 21d9e59c5f7857f48b9f0ef3ab546ae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_front_03
+    second: {fileID: 2100000, guid: 1b1cd37e015c1e443a66a65a76cd2ac8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_front_04
+    second: {fileID: 2100000, guid: 17b1081a6ddfe3746a7ce24b50b6b9d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_front_07
+    second: {fileID: 2100000, guid: 6dd0754ebf1435942855767b8d340bbc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gray
+    second: {fileID: 2100000, guid: 2c31810cc8eb2cb4480884d4c7065031, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gray2
+    second: {fileID: 2100000, guid: e64fc518b37f3b0499989e34cf95efab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grid
+    second: {fileID: 2100000, guid: 9ff07ea3871e240489d0beb6f4fa5fbc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: head
+    second: {fileID: 2100000, guid: 9280ce22ee037694ca1c828db64d0a7a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: head2
+    second: {fileID: 2100000, guid: 6120beddda7403544bb1a1d73fd37354, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: headlight_bakc_05
+    second: {fileID: 2100000, guid: ea7b39da263f7944abefb0cfe928e0ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: headlight_bakc_06
+    second: {fileID: 2100000, guid: e1a2f534fad55614794b17438a0b4504, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: headlight_bakc_07
+    second: {fileID: 2100000, guid: bd8da7d4afd657d46b15ae602658c365, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: headlight_bakc_08
+    second: {fileID: 2100000, guid: b06ea705eea838d4db1ac8211c57e468, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: headlight_fornt_01
+    second: {fileID: 2100000, guid: e6560f50ed2c11849aa941ad23e2ed85, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: headlight_fornt_02
+    second: {fileID: 2100000, guid: 7b00868ddc534ff4db8b9cf654f9acef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: headlight_fornt_03
+    second: {fileID: 2100000, guid: d0e33eea8bf0e5d4b9f828e2cf5ff5c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: headlight_fornt_04
+    second: {fileID: 2100000, guid: 79cbe975474a6ac438b529125ea3bdf8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mirror
+    second: {fileID: 2100000, guid: 18c2ef3244a6efc44a9e3a584849e908, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: support
+    second: {fileID: 2100000, guid: 0a76db64c14c02540ac1c4d7d1a2eca9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: support_black
+    second: {fileID: 2100000, guid: 34fc93f991230544cb7c72324f964480, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: support_color
+    second: {fileID: 2100000, guid: c44bac0fc5e3d1847a2d338a99aac2c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.001
+    second: {fileID: 2100000, guid: 10a7c961c0586214e90dbe597eb11b34, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

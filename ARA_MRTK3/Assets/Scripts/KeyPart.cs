@@ -20,5 +20,7 @@
         [Header("Rotation")] public Vector3 rotationToAdd = new Vector3(0, 180, 0);
         public float rotationSpeedMultiplier = 1f;
         public AnimationCurve rotationLerp = new AnimationCurve(new Keyframe(0,0),new Keyframe(1,1));
-        
+
+        public Vector3 startPos;
+        public Quaternion startRotation;
     }
