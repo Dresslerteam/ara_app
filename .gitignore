@@ -68,3 +68,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+#to avoid mac/windows hintpath issues (Preferences/External Tools/Regenerate project files)
+*.csproj
