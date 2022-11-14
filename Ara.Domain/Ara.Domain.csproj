@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -13,24 +13,22 @@
 	<Target Name="CopyDLLs" AfterTargets="Build">
 		<Message Text="Executing CopyDLLs task" Importance="High" />
 
-		<Copy
-		  SourceFiles="obj\Debug\netstandard2.0\Ara.Domain.dll;obj\Debug\netstandard2.0\Ara.Domain.pdb"
-		  DestinationFolder="..\ara_app\Assets\Plugins" />
+		<Copy SourceFiles="obj\Debug\netstandard2.0\Ara.Domain.dll;obj\Debug\netstandard2.0\Ara.Domain.pdb" DestinationFolder="..\ARA_MRTK3\Assets\Plugins" />
 
 		<Message Text="Copied build files" Importance="High" />
 	</Target>
 
 	<ItemGroup>
+    <Compile Remove="Auth\**" />
     <Compile Remove="DataFiles\**" />
+    <EmbeddedResource Remove="Auth\**" />
     <EmbeddedResource Remove="DataFiles\**" />
+    <None Remove="Auth\**" />
     <None Remove="DataFiles\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Auth\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Mono.Data.Sqlite" Version="1.0.61" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
