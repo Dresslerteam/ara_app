@@ -9,7 +9,7 @@ namespace Ara.Domain.Repositories
     {
         public TaskPhotosRepository(IDataProvider dataProvider)
         {
-            dataProvider = new SqlLiteDataProvider();
+            //dataProvider = new SqlLiteDataProvider();
         }
 
         public List<TaskPhotoDAO> Get()
