@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.ApplicationServices;
+using Ara.Domain.Common.Interfaces;
+using Ara.Domain.Common.Services;
 using Ara.Domain.JobManagement;
 using ARA.Frontend;
 using Microsoft.MixedReality.Toolkit.UX;
@@ -42,6 +44,7 @@ public class MainMenuManager : MonoBehaviour
     [Space(10)]
     public List<JobListItemDto> availbleJobs = new List<JobListItemDto>();
     JobApplicationService applicationService = new JobApplicationService();
+    IApplicationEventDispatcher applicationEventDispatcher = new ApplicationEventDispatcher();
     private static MainMenuManager _instance;
     public static MainMenuManager Instance { get { return _instance; } }
 
