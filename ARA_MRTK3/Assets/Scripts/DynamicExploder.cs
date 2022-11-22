@@ -17,7 +17,14 @@ public class DynamicExploder : MonoBehaviour
     [SerializeField] private List<KeyPart> keyParts;
     [PropertyTooltip("These are settings that you can apply to every part.")]
     [SerializeField] private GlobalKeyPart globalPart;
-    
+
+    private void Awake()
+    {
+        foreach (var part in keyParts)
+        {
+            StartTransforms(part);
+        }
+    }
 
     private void OnDisable()
     {
@@ -51,11 +58,15 @@ public class DynamicExploder : MonoBehaviour
     {
         foreach (var part in keyParts)
         {
-            part.startPos = part.transformToAnimate.transform.localPosition;
-            part.startRotation = part.transformToAnimate.transform.localRotation;
             StartCoroutine(MovePart(part));
             StartCoroutine(RotatePart(part));
         }
+    }
+
+    private void StartTransforms(KeyPart part)
+    {
+        part.startPos = part.transformToAnimate.transform.localPosition;
+        part.startRotation = part.transformToAnimate.transform.localRotation;
     }
 
     public void ResetParts()
