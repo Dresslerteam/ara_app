@@ -71,3 +71,4 @@ crashlytics-build.properties
 
 #to avoid mac/windows hintpath issues (Preferences/External Tools/Regenerate project files)
 *.csproj
+/Ara.Domain.Test/bin/*
