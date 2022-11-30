@@ -15,7 +15,7 @@ namespace Ara.Domain.ApplicationServices
         private readonly IJobsClient _jobsClient;
         public JobApplicationService()
         {
-            _jobsClient = new JobsClient();
+            _jobsClient = new MockJobsClient();
         }
         public async Task<List<JobListItemDto>> GetJobsAsync()
         {
