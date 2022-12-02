@@ -18,21 +18,21 @@ namespace Ara.Domain.ApiClients
             var job1 = new Job()
             {
                 Id = "1",
-                Code = "123",
+                Code = "50518",
                 CreatedOn = DateTime.Now,
                 Status = Job.JobStatus.InProgress,
                 Title = "Collision 1",
                 Car = new Car()
                 {
-                    Manufacturer = "Ford",
-                    Model = "Explorer",
-                    Vin = "1FM5K7D81JGA97674",
-                    Year = "2019"
+                    Manufacturer = "CHEVROLET",
+                    Model = "SILVERADO",
+                    Vin = "3GCUYGEDXNG211028",
+                    Year = "2022"
                 },
                 CarOwner = new CarOwner()
                 {
-                    FirstName = "Tato Khorava",
-                    LastName = "Moss",
+                    FirstName = "Tomi",
+                    LastName = "Martinez",
                     Mobile = "(406) 555-5555"
                 },
                 Tasks = new List<TaskInfo>()
@@ -40,19 +40,31 @@ namespace Ara.Domain.ApiClients
                     new TaskInfo()
                     {
                         Id = 1,
-                        Title = "Inspections after collision"
+                        Title = "R&I LT Rocker molding"
                     },
                      new TaskInfo()
                     {
                         Id = 2,
-                        Title = "PrepVehicle for repairs"
+                        Title = "Repl LT windshield plr trim tether clip"
                     },
                       new TaskInfo()
                     {
                         Id = 3,
-                        Title = "R&I Quarter Panel",
+                        Title = "Repl LT Belt molding",
+                    },
+                      new TaskInfo()
+                    {
+                        Id = 4,
+                        Title = "Remove Front Bumper Outer Filler",
+                        RepairManualId = "6307dea4e92fe007aee9c57c"
+                    },
+                       new TaskInfo()
+                    {
+                        Id = 5,
+                        Title = "Install Front Bumper Outer Filler",
                         RepairManualId = "6307dea4e92fe007aee9c57c"
                     }
+
                 }
             };
 
@@ -212,7 +224,42 @@ namespace Ara.Domain.ApiClients
                 }
             };
 
-            var list = new List<Job>() { job1, job2, job3, job4, job5 };
+            var job6 = new Job()
+            {
+                Id = "6",
+                Code = "",
+                CreatedOn = DateTime.Now,
+                Status = Job.JobStatus.Completed,
+                Title = "Collision 5",
+                Car = new Car()
+                {
+                    Manufacturer = "Lexus",
+                    Model = "RX450",
+                    Vin = "1FM5K7D81JGA97674",
+                    Year = "2019"
+                },
+                CarOwner = new CarOwner()
+                {
+                    FirstName = "T",
+                    LastName = "Moss",
+                    Mobile = "(406) 555-5555"
+                },
+                Tasks = new List<TaskInfo>()
+                {
+                    new TaskInfo()
+                    {
+                        Id = 1,
+                        Title = "Inspections after collision"
+                    },
+                     new TaskInfo()
+                    {
+                        Id = 2,
+                        Title = "PrepVehicle for repairs"
+                    }
+                }
+            };
+
+            var list = new List<Job>() { job1, job2, job3, job4, job5, job6 };
 
             return await Task.FromResult(list.FirstOrDefault(l => l.Id == id));
         }
@@ -222,14 +269,14 @@ namespace Ara.Domain.ApiClients
             var job1 = new JobListItemDto()
             {
                 Id = "1",
-                Code = "123",
+                Code = "50518",
                 Status = Job.JobStatus.InProgress,
                 CarInfo = new JobListItemDto.CarDto()
                 {
-                    Manufacturer = "Ford",
-                    Model = "Explorer",
-                    Vin = "1FM5K7D81JGA97674",
-                    Year = 2019
+                    Manufacturer = "CHEVROLET",
+                    Model = "SILVERADO ",
+                    Vin = "3GCUYGEDXNG211028",
+                    Year = 2022
                 }
             };
 
@@ -237,60 +284,73 @@ namespace Ara.Domain.ApiClients
             var job2 = new JobListItemDto()
             {
                 Id = "2",
-                Code = "",
-                Status = Job.JobStatus.InProgress,
+                Code = "50519",
+                Status = Job.JobStatus.ToDo,
                 CarInfo = new JobListItemDto.CarDto()
                 {
-                    Manufacturer = "Nissan",
-                    Model = "Skyline",
-                    Vin = "1FM5K8D8XJGA43957",
-                    Year = 2018
+                    Manufacturer = "CHEVROLET",
+                    Model = "TRAVERSE ",
+                    Vin = "1GNERJKX0KJ221758",
+                    Year = 2019
                 }
             };
 
             var job3 = new JobListItemDto()
             {
                 Id = "3",
-                Code = "",
+                Code = "50520",
                 Status = Job.JobStatus.InProgress,
                 CarInfo = new JobListItemDto.CarDto()
                 {
-                    Manufacturer = "Ford",
-                    Model = "Mustang",
-                    Vin = "1FM5K8D8XJGA43957",
-                    Year = 2018
+                    Manufacturer = "CHEVROLET",
+                    Model = "CORVETTE",
+                    Vin = "1G1Y82D48L5102392",
+                    Year = 2020
                 }
             };
 
             var job4 = new JobListItemDto()
             {
                 Id = "4",
-                Code = "",
+                Code = "50521",
                 Status = Job.JobStatus.InProgress,
                 CarInfo = new JobListItemDto.CarDto()
                 {
-                    Manufacturer = "BMW",
-                    Model = "X6",
-                    Vin = "1FM5K8D8XJGA43957",
-                    Year = 2018
+                    Manufacturer = "CHEVROLET",
+                    Model = "EQUINOX",
+                    Vin = "2GNAXKEV8L6246183",
+                    Year = 2020
                 }
             };
 
             var job5 = new JobListItemDto()
             {
                 Id = "5",
-                Code = "",
+                Code = "50523",
                 Status = Job.JobStatus.Completed,
                 CarInfo = new JobListItemDto.CarDto()
                 {
-                    Manufacturer = "Lexus",
-                    Model = "RX450",
-                    Vin = "1FM5K7D81JGA97674",
+                    Manufacturer = "CHEVROLET",
+                    Model = "SUBURBAN",
+                    Vin = "1GNSCCKD3MR263092",
+                    Year = 2019
+                }
+            };
+            var job6 = new JobListItemDto()
+            {
+                Id = "6",
+                Code = "50527",
+                Status = Job.JobStatus.Completed,
+                CarInfo = new JobListItemDto.CarDto()
+                {
+                    Manufacturer = "CHEVROLET",
+                    Model = "MALIBU ",
+                    Vin = "1G1ZD5ST3JF161417",
                     Year = 2019
                 }
             };
 
-            return await Task.FromResult(new List<JobListItemDto>() { job1, job2, job3, job4, job5 });
+            return await Task.FromResult(new List<JobListItemDto>() { job1, job2, job3, job4, job5, job6 });
         }
 
         public async Task<RepairManual> GetRepairManualByIdAsync(string id)
