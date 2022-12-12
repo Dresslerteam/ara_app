@@ -17,7 +17,7 @@ public class DynamicExploder : MonoBehaviour
     [SerializeField] private List<KeyPart> keyParts;
     [PropertyTooltip("These are settings that you can apply to every part.")]
     [SerializeField] private GlobalKeyPart globalPart;
-
+    
     private void Awake()
     {
         foreach (var part in keyParts)
