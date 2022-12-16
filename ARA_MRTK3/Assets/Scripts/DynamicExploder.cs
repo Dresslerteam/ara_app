@@ -4,6 +4,7 @@ using System;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.MixedReality.Toolkit.UX;
 using UnityEngine;
 
 public class DynamicExploder : MonoBehaviour
@@ -63,6 +64,27 @@ public class DynamicExploder : MonoBehaviour
         }
     }
 
+    public void GranularExplosion(SliderEventData sliderData)
+    {
+        
+        var explosionAmount = sliderData.NewValue;
+        Debug.Log("Granular: "+explosionAmount);
+        foreach (var part in keyParts)
+        {
+            // Move the part
+            Vector3 moveDir = part.directionToExplode;
+            Vector3 endPosition = part.startPos;
+            moveDir = ConvertDirection(part, moveDir);
+            endPosition += moveDir * part.distanceToMove;
+            Vector3 translation = Vector3.Lerp(part.startPos, endPosition,
+                part.movementLerp.Evaluate(explosionAmount));
+            part.transformToAnimate.localPosition = translation;
+            // Rotate the part
+            Quaternion endRot = part.startRotation * Quaternion.Euler(part.rotationToAdd);
+            Quaternion rot = Quaternion.Lerp(part.startRotation, endRot, part.rotationLerp.Evaluate(explosionAmount));
+            part.transformToAnimate.localRotation = rot;
+        }
+    }
     private void StartTransforms(KeyPart part)
     {
         part.startPos = part.transformToAnimate.transform.localPosition;
