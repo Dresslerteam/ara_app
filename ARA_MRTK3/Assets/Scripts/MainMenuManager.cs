@@ -106,8 +106,9 @@ public class MainMenuManager : MonoBehaviour
 
             jobDisplayInteractable.enabled = currentJob.Progress <= 99;
             //...complete: job.progress, is now Random for demonstration purposes
-            jobDisplay.UpdateDisplayInformation("Job# " + currentJob.Code,
+            jobDisplay.UpdateDisplayInformation("Job# " + currentJob.Code, "Tomi Martinez","282584692314B16","Chad Strek",
                 $"{currentJob.CarInfo.Manufacturer} {currentJob.CarInfo.Model} {currentJob.CarInfo.Year}",
+                "3GCUYGEDXNG211028",
                 Random.Range(0,100) + "%",
                 (float)currentJob.Progress);
             jobDisplayInteractable.OnClicked.AddListener(AddJobToButton(currentJob));
