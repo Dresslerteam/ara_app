@@ -25,6 +25,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject loginBoard;
     public GameObject jobBoard;
     public GameObject taskBoard;
+    public GameObject taskOverview;
     public GameObject loaderGO;
     [Header("ModelOverview")]
     public GameObject modelOverviewGO;
@@ -78,8 +79,9 @@ public class MainMenuManager : MonoBehaviour
         jobBoard.SetActive(isOn);
         if(taskBoard!=null)
             taskBoard.SetActive(isOn);
-        if(jobQuickMenu!=null)
-            jobQuickMenu.gameObject.SetActive(isOn);
+        //Todo: I believe quick menu is not needed anymore
+        //if(jobQuickMenu!=null)
+            //jobQuickMenu.gameObject.SetActive(isOn);
     }
 
     public async Task UpdateJobBoard()
@@ -159,21 +161,27 @@ public class MainMenuManager : MonoBehaviour
             //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
             PressableButton taskDisplayInteractable = taskDisplay.taskButton;
+            taskDisplayInteractable.OnClicked.AddListener(AddTaskToButton(chosenJob));
             //taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
             stepIndex++;
             taskDisplay.UpdateDisplayInformation(jobTask.Id.ToString("D2"),jobTask.Title, jobTask.Status);
-            //string curStep = stepIndex.ToString("D2");                
-            //taskDisplay.UpdateDisplayInformation(curStep, jobTask.taskTitle, jobTask.isComplete);
             await Task.Yield();
         }
+    }
+    private UnityAction AddTaskToButton(JobListItemDto job)
+    {
+        UnityAction chosenTask = delegate { AdvanceToWorkingView(); };
+        return chosenTask;
     }
 
     public void AdvanceToWorkingView()
     {
         ToggleAllMenus(false);
         currentMenuPage = MenuPage.performingJob;
-        if(jobQuickMenu!=null)
-            jobQuickMenu.gameObject.SetActive(true);
+        if(taskOverview!=null)
+            taskOverview.SetActive(true);
+       // if(jobQuickMenu!=null)
+          //  jobQuickMenu.gameObject.SetActive(true);
     }
     public void ReturnToPreviousPage()
     {

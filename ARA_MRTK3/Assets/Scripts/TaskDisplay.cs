@@ -15,12 +15,16 @@ public class TaskDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI taskTitleText;
 
     [SerializeField] private TextMeshProUGUI completenessText;
+    [SerializeField] private TMP_Dropdown completenessDropdown;
     public PressableButton taskButton;
     public void UpdateDisplayInformation(string number, string title, TaskInfo.TaskStatus status)
     {
         stepNumberText.text = number;
         taskTitleText.text = title;
-        completenessText.text = completenessText.text = status.ToString();
+        //completenessText.text = completenessText.text = status.ToString();
+        
+        if(completenessDropdown!=null)
+            completenessDropdown.value = (int)status;
     }
 
     public void ProgressStep()
