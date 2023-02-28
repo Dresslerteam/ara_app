@@ -20,10 +20,10 @@ namespace Ara.Domain.JobManagement
         public PdfDoc PreliminaryScan { get; set; }
         public List<Photo> Photos { get; set; }
 
-        public void UpdateTaskStatus() { }
+        public void UpdateTaskStatus(string taskId) { }
         public void UpdateStepStatus() { }
         public void CompleteStep() { }
-        public void AssignPhoto() { }
+        public void AssignPhoto(string taskId, string procedureId, string stepId) { }
 
         public enum JobStatus
         {

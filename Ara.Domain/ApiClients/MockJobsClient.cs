@@ -104,12 +104,23 @@ namespace Ara.Domain.ApiClients
                 ClaimNo = "282584692314B16",
                 EstimatorFullName = "Chad Streck",
                 Status = Job.JobStatus.ToDo,
+                CarOwner = new CarOwner()
+                {
+                    FirstName = "Tomi",
+                    LastName = "Martinez",
+                    Mobile = "(406) 555-5555"
+                },
                 CarInfo = new JobListItemDto.CarDto()
                 {
                     Manufacturer = "CHEVROLET",
                     Model = "SILVERADO ",
                     Vin = "3GCUYGEDXNG211028",
                     Year = 2022
+                },
+                PreliminaryEstimation = new PdfDoc()
+                {
+                    Title = "Estimation",
+                    Url = "estimation_1.pdf"
                 }
             };
 
@@ -123,13 +134,25 @@ namespace Ara.Domain.ApiClients
                 Status = Job.JobStatus.InProgress,
                 NumberOfDoneTasks = 1,
                 NumberOfTasks = 10,
+                CarOwner = new CarOwner()
+                {
+                    FirstName = "Patricio",
+                    LastName = "Delgado",
+                    Mobile = "(406) 555-5555"
+                },
                 CarInfo = new JobListItemDto.CarDto()
                 {
                     Manufacturer = "CHEVROLET",
                     Model = "TRAVERSE ",
                     Vin = "1GNERJKX0KJ221758",
                     Year = 2019
+                },
+                PreliminaryEstimation = new PdfDoc()
+                {
+                    Title = "Estimation",
+                    Url = "estimation_1.pdf"
                 }
+
             };
 
 
