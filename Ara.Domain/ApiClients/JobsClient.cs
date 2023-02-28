@@ -16,7 +16,7 @@ namespace Ara.Domain.ApiClients
         static readonly HttpClient _client = new HttpClient();
         public JobsClient()
         {
-
+            //test
         }
         public async Task<List<JobListItemDto>> GetJobsAsync()
         {

@@ -8,9 +8,13 @@ namespace Ara.Domain.ApiClients.Dtos
     public class JobListItemDto
     {
         public string Id { get; set; }
-        public string Code { get; set; }
+        public string RepairOrderNo { get; set; }
+        public string ClaimNo { get; set; }
+        public string EstimatorFullName { get; set; }
         public JobStatus Status { get; set; }
-        public decimal Progress { get; set; }
+        public int NumberOfTasks { get; set; }
+        public int NumberOfDoneTasks { get; set; }
+        public string PreliminaryEstimationPdf { get; set; }
         public CarDto CarInfo { get; set; }
 
         public class CarDto
