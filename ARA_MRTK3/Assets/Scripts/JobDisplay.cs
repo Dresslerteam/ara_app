@@ -20,10 +20,7 @@ public class JobDisplay : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI completenessText;
     public PressableButton jobButton;
-    
-    [SerializeField] private Image completenessImage;
-
-    [SerializeField] private CanvasMaterialAnimatorCanvasProgressBar progressBar;
+    [SerializeField] private Image progressBar;
     //[SerializeField] private Color incompleteColor = Color.gray;
     //[SerializeField] private Color completeColor = Color.green;
 
@@ -40,9 +37,7 @@ public class JobDisplay : MonoBehaviour
             completenessText.text = complete != "100%" ? complete : "Done"; //Todo: enum of Todo, working on, blocked, done
         if (progressBar != null)
         {
-            progressBar.ApplyToMaterial();
-            progressBar._Filled_Fraction_ = fillAmount / 100f;
-            progressBar.ApplyToMaterial();
+            progressBar.fillAmount = fillAmount / 1f;
         }
         //completenessImage.fillAmount = fillAmount/100;
         //completenessImage.color = fillAmount > 99 ? completeColor : incompleteColor;

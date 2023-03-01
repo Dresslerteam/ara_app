@@ -20,6 +20,8 @@ public class LogInMenu : MonoBehaviour
     // Temporary
     public string estimatorName;
     
+    public static Action OnAccountSelected;
+    
     [Serializable]
     public class Employee
     {
@@ -47,7 +49,9 @@ public class LogInMenu : MonoBehaviour
     {
         foreach (var employee in tempEmployeeList)
         {
-            AccountButton employeeButton = Instantiate(accountButtonPrefab, contentRoot).GetComponent<AccountButton>();
+            AccountButton employeeButton = Instantiate(accountButtonPrefab,
+                    contentRoot)
+                .GetComponent<AccountButton>();
             employeeButton.SetupButton(employee.FirstName + " " + employee.LastName);
         }
     }
@@ -65,6 +69,8 @@ public class LogInMenu : MonoBehaviour
     }
     public void SetEstimatorName(string name)
     {
-        estimatorName = "Estimator:" + name;
+        
+        estimatorName = "Estimator: " + name;
+        OnAccountSelected?.Invoke();
     }
 }

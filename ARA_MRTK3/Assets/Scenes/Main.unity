@@ -1835,7 +1835,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tuesday 2/28/2023
+  m_text: Wednesday 3/1/2023
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 00f7f3a4ba2fa9243bbfb439756787e0, type: 2}
   m_sharedMaterial: {fileID: -2049848100760321927, guid: 00f7f3a4ba2fa9243bbfb439756787e0, type: 2}
@@ -3449,6 +3449,62 @@ PrefabInstance:
     - target: {fileID: 8376646494505211225, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 190103131}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1919588311}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_Pivot.x
@@ -6089,7 +6145,6 @@ MonoBehaviour:
   vinText: {fileID: 0}
   completenessText: {fileID: 67555892}
   jobButton: {fileID: 111932538}
-  completenessImage: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &111932530
 MonoBehaviour:
@@ -6929,7 +6984,8 @@ MonoBehaviour:
   vinText: {fileID: 1209771824}
   jobNumberText: {fileID: 1244281111}
   vehicleTitleText: {fileID: 1085512941}
-  estimatorText: {fileID: 1198104357}
+  estimatorTextJobs: {fileID: 897290670}
+  estimatorTextTasks: {fileID: 1366008454}
   _logInMenu: {fileID: 1301506661}
 --- !u!1 &121923063
 GameObject:
@@ -19810,6 +19866,14 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 96
       objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211224, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211224, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211225, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -23902,7 +23966,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Benny Jobs
+          m_StringArgument: Oleksii Vinda
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1301506661}
@@ -29096,7 +29160,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Benny Jobs
+          m_StringArgument: Patrick Donoghue
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1301506661}
@@ -36639,7 +36703,6 @@ MonoBehaviour:
   vinText: {fileID: 0}
   completenessText: {fileID: 267590735}
   jobButton: {fileID: 735068691}
-  completenessImage: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &735068683
 MonoBehaviour:
@@ -42029,7 +42092,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Benny Jobs
+          m_StringArgument: Pat Florida
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1301506661}
@@ -43830,7 +43893,7 @@ GameObject:
   - component: {fileID: 897290671}
   - component: {fileID: 897290670}
   m_Layer: 5
-  m_Name: JobDetail
+  m_Name: CurrentUserJobDetail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43875,7 +43938,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Current user: Den Tkachenko'
+  m_text: Linda Workman
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 51873e7a986a741a3b6a4695b4e2259d, type: 2}
   m_sharedMaterial: {fileID: 8270187547312718069, guid: 51873e7a986a741a3b6a4695b4e2259d, type: 2}
@@ -44020,7 +44083,6 @@ MonoBehaviour:
   vinText: {fileID: 0}
   completenessText: {fileID: 1111747970}
   jobButton: {fileID: 897442850}
-  completenessImage: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &897442842
 MonoBehaviour:
@@ -50106,7 +50168,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Benny Jobs
+          m_StringArgument: Den Tkachenko
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1301506661}
@@ -57090,7 +57152,6 @@ MonoBehaviour:
   vinText: {fileID: 0}
   completenessText: {fileID: 1155305393}
   jobButton: {fileID: 1140663037}
-  completenessImage: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &1140663029
 MonoBehaviour:
@@ -61946,7 +62007,6 @@ MonoBehaviour:
   vinText: {fileID: 0}
   completenessText: {fileID: 2095394995}
   jobButton: {fileID: 1230396276}
-  completenessImage: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &1230396268
 MonoBehaviour:
@@ -66597,12 +66657,16 @@ MonoBehaviour:
   accountButtonPrefab: {fileID: 5759832370065791339, guid: aa2614c02dbe22c4ba9b2153cb4a37c2, type: 3}
   contentRoot: {fileID: 1898064797}
   tempEmployeeList:
-  - FirstName: Benny
-    LastName: Jobs
-  - FirstName: 'Jerry '
-    LastName: Fields
-  - FirstName: Dennis
-    LastName: Workman
+  - FirstName: Tato
+    LastName: Khorava
+  - FirstName: Patrick
+    LastName: Donoghue
+  - FirstName: Pat
+    LastName: Florida
+  - FirstName: Oleksii
+    LastName: Vinda
+  - FirstName: Den
+    LastName: Tkachenko
   jobMenu: {fileID: 190103131}
   estimatorName: Linda Workman
 --- !u!1 &1301944931
@@ -69256,7 +69320,7 @@ GameObject:
   - component: {fileID: 1366008455}
   - component: {fileID: 1366008454}
   m_Layer: 5
-  m_Name: JobDetail
+  m_Name: CurrentUserTasks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69301,7 +69365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Current user: Den Tkachenko'
+  m_text: Linda Workman
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 51873e7a986a741a3b6a4695b4e2259d, type: 2}
   m_sharedMaterial: {fileID: 8270187547312718069, guid: 51873e7a986a741a3b6a4695b4e2259d, type: 2}
@@ -69970,7 +70034,6 @@ MonoBehaviour:
   vinText: {fileID: 0}
   completenessText: {fileID: 746103358}
   jobButton: {fileID: 1410726299}
-  completenessImage: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &1410726291
 MonoBehaviour:
@@ -74974,7 +75037,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Benny Jobs
+          m_StringArgument: Tato Khorava
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1301506661}
@@ -78532,7 +78595,6 @@ MonoBehaviour:
   vinText: {fileID: 0}
   completenessText: {fileID: 18188852}
   jobButton: {fileID: 1577384420}
-  completenessImage: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &1577384412
 MonoBehaviour:
@@ -87500,7 +87562,6 @@ MonoBehaviour:
   vinText: {fileID: 0}
   completenessText: {fileID: 403227359}
   jobButton: {fileID: 1821082062}
-  completenessImage: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &1821082054
 MonoBehaviour:
@@ -93327,7 +93388,6 @@ MonoBehaviour:
   vinText: {fileID: 0}
   completenessText: {fileID: 1257154520}
   jobButton: {fileID: 1943094132}
-  completenessImage: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &1943094124
 MonoBehaviour:
@@ -102141,7 +102201,6 @@ MonoBehaviour:
   vinText: {fileID: 0}
   completenessText: {fileID: 1270516812}
   jobButton: {fileID: 2121844258}
-  completenessImage: {fileID: 0}
   progressBar: {fileID: 0}
 --- !u!114 &2121844250
 MonoBehaviour:
@@ -110286,19 +110345,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8520123611315240427, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8520123611315240427, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8520123611315240427, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 61.975002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8520123611315240427, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -48
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8520123611337195226, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_AnchorMax.y
@@ -110318,19 +110377,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8520123611381750112, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8520123611381750112, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8520123611381750112, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 16.325
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8520123611381750112, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -48
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8520123611428010100, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_AnchorMax.y
