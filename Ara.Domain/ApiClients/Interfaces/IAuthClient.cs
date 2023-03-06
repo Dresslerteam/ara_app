@@ -8,8 +8,9 @@ namespace Ara.Domain.ApiClients.Interfaces
 {
     internal interface IAuthClient
     {
-        AraResponse<TokenResponseDto> Login(string username, string password);
+        UserDto Login(string email, string password);
         void LogOut();
-        void GetCurrentUserInfo();
+        UserDto GetCurrentUserInfo();
+        List<UserDto> GetAllUsers();
     }
 }

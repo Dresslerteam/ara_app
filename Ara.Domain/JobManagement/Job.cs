@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using static Ara.Domain.JobManagement.TaskInfo;
 
 namespace Ara.Domain.JobManagement
 {
@@ -20,10 +22,33 @@ namespace Ara.Domain.JobManagement
         public PdfDoc PreliminaryScan { get; set; }
         public List<Photo> Photos { get; set; }
 
-        public void UpdateTaskStatus(string taskId) { }
+        public void UpdateTaskStatus(int taskId, TaskStatus newStatus)
+        {
+            var task = this.Tasks.FirstOrDefault(t => t.Id == taskId);
+            task.Status = newStatus;
+            this.updateJobStatus();
+        }
         public void UpdateStepStatus() { }
         public void CompleteStep() { }
         public void AssignPhoto(string taskId, string procedureId, string stepId) { }
+
+
+        private void updateJobStatus()
+        {
+            if (this.Tasks.All(t => t.Status == TaskStatus.Completed))
+                this.Status = JobStatus.Completed;
+            else
+            {
+                if (this.Tasks.All(t => t.Status == TaskStatus.ToDo))
+                {
+                    this.Status = JobStatus.ToDo;
+                }
+                else
+                {
+                    this.Status = JobStatus.InProgress;
+                }
+            }
+        }
 
         public enum JobStatus
         {
