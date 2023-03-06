@@ -29,5 +29,16 @@ namespace Ara.Domain.Test
             Assert.True(currentUser != null);
             Assert.True(currentUser.Email == "tato@khorava.com");
         }
+
+        [Fact]
+        public async void LogOut_Successfully()
+        {
+            var userService = new UserService();
+            userService.Login("tato@khorava.com", null);
+            var currentUser = userService.GetCurrentUserInfo();
+            Assert.True(currentUser != null);
+            userService.LogOut();
+            Assert.True(userService.GetCurrentUserInfo() == null);
+        }
     }
 }
