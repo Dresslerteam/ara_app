@@ -86,7 +86,7 @@ public class MainMenuManager : MonoBehaviour
 
     public async Task UpdateJobBoard()
     {
-        //var service = new JobApplicationService();
+        var service = new JobApplicationService();
 
         ToggleAllMenus(false);
         jobBoard.SetActive(true);
@@ -106,13 +106,22 @@ public class MainMenuManager : MonoBehaviour
 
             float tasksDone = 0;
 
-            jobDisplayInteractable.enabled = currentJob.Progress <= 99;
+            jobDisplayInteractable.enabled = currentJob.NumberOfTasks <= 99;
             //...complete: job.progress, is now Random for demonstration purposes
-            jobDisplay.UpdateDisplayInformation("Job# " + currentJob.Code, "Tomi Martinez","282584692314B16","Chad Strek",
+            float fillAmount = 0;
+            Debug.Log("number of done tasks"+currentJob.NumberOfDoneTasks);
+            Debug.Log("number of tasks"+currentJob.NumberOfTasks);
+            if(currentJob.NumberOfTasks!=0) 
+                fillAmount = (currentJob.NumberOfDoneTasks / (float)currentJob.NumberOfTasks);
+            Debug.Log(fillAmount+" is fill");
+            jobDisplay.UpdateDisplayInformation("Job# " + currentJob.RepairOrderNo,
+                currentJob.CarOwner.FirstName + " " + currentJob.CarOwner.LastName,
+                currentJob.ClaimNo,
+                currentJob.EstimatorFullName,
                 $"{currentJob.CarInfo.Manufacturer} {currentJob.CarInfo.Model} {currentJob.CarInfo.Year}",
-                "3GCUYGEDXNG211028",
-                Random.Range(0,100) + "%",
-                (float)currentJob.Progress);
+                currentJob.CarInfo.Vin,
+                (currentJob.NumberOfDoneTasks+"/"+currentJob.NumberOfTasks),fillAmount
+                );
             jobDisplayInteractable.OnClicked.AddListener(AddJobToButton(currentJob));
             await Task.Yield();
         }
@@ -164,7 +173,7 @@ public class MainMenuManager : MonoBehaviour
             taskDisplayInteractable.OnClicked.AddListener(AddTaskToButton(chosenJob));
             //taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
             stepIndex++;
-            taskDisplay.UpdateDisplayInformation(jobTask.Id.ToString("D2"),jobTask.Title, jobTask.Status);
+            taskDisplay.UpdateDisplayInformation(jobTask.Id.ToString(),jobTask.Title, jobTask.Status);
             await Task.Yield();
         }
     }
