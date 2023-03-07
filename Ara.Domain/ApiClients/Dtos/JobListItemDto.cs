@@ -17,6 +17,7 @@ namespace Ara.Domain.ApiClients.Dtos
         public int NumberOfTasks { get; set; }
         public int NumberOfDoneTasks { get; set; }
         public PdfDoc PreliminaryEstimation { get; set; }
+        public PdfDoc PreliminaryScan { get; set; }
         public CarDto CarInfo { get; set; }
 
         public class CarDto

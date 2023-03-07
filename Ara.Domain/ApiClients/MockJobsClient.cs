@@ -48,6 +48,16 @@ namespace Ara.Domain.ApiClients
                         Id = 2,
                         Title = "Front Bumper - Installation"
                     }
+                },
+                PreliminaryEstimation = new PdfDoc()
+                {
+                    Title = "Estimation",
+                    Url = "estimation_1.pdf"
+                },
+                PreliminaryScan = new PdfDoc()
+                {
+                    Title = "PreliminaryScan",
+                    Url = "preliminary_scan_1.pdf"
                 }
             };
 
@@ -85,6 +95,16 @@ namespace Ara.Domain.ApiClients
                         Id = 2,
                         Title = "Front Bumper - Installation"
                     }
+                },
+                PreliminaryEstimation = new PdfDoc()
+                {
+                    Title = "Estimation",
+                    Url = "estimation_1.pdf"
+                },
+                PreliminaryScan = new PdfDoc()
+                {
+                    Title = "PreliminaryScan",
+                    Url = "preliminary_scan_1.pdf"
                 }
             };
 
@@ -121,6 +141,11 @@ namespace Ara.Domain.ApiClients
                 {
                     Title = "Estimation",
                     Url = "estimation_1.pdf"
+                },
+                PreliminaryScan = new PdfDoc()
+                {
+                    Title = "PreliminaryScan",
+                    Url = "preliminary_scan_1.pdf"
                 }
             };
 
@@ -151,6 +176,11 @@ namespace Ara.Domain.ApiClients
                 {
                     Title = "Estimation",
                     Url = "estimation_1.pdf"
+                },
+                PreliminaryScan = new PdfDoc()
+                {
+                    Title = "PreliminaryScan",
+                    Url = "preliminary_scan_1.pdf"
                 }
 
             };
