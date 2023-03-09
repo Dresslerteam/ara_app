@@ -66,7 +66,10 @@ public class LogInMenu : MonoBehaviour
         await LoaderDisplay.Instance.ShowLoader(2f);
         await InitJobMenu();
     }
-
+    public void LogOut()
+    {
+        userService.LogOut();
+    }
     private async Task InitJobMenu()
     {
         jobMenu.SetActive(true);
