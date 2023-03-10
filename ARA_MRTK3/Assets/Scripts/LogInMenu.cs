@@ -79,7 +79,7 @@ public class LogInMenu : MonoBehaviour
     public void SetEstimatorName(string name)
     {
         
-        estimatorName = "Estimator: " + name;
+        estimatorName = "Current User: " + name;
         OnAccountSelected?.Invoke();
     }
 }
