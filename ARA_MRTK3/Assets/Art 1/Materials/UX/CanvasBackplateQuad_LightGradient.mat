@@ -9,9 +9,9 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: CanvasBackplateQuad_LightGradient
   m_Shader: {fileID: 4800000, guid: df5380aa6ab293c4fafbb942ed5da93f, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _BORDER_LIGHT _BORDER_LIGHT_OPAQUE _BORDER_LIGHT_REPLACES_ALBEDO
-    _BORDER_LIGHT_USES_COLOR _EDGE_SMOOTHING_AUTOMATIC _GRADIENT_LINEAR _ROUND_CORNERS
-    _SPECULAR_HIGHLIGHTS _UI_CLIP_RECT_ROUNDED_INDEPENDENT
+  m_ShaderKeywords: _ALPHATEST_ON _BORDER_LIGHT_OPAQUE _BORDER_LIGHT_REPLACES_ALBEDO
+    _BORDER_LIGHT_USES_COLOR _EDGE_SMOOTHING_AUTOMATIC _GRADIENT_LINEAR _SPECULAR_HIGHLIGHTS
+    _UI_CLIP_RECT_ROUNDED_INDEPENDENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -50,7 +50,7 @@ Material:
     - _BlurMode: 0
     - _BlurTextureIntensity: 1
     - _BorderColorMode: 2
-    - _BorderLight: 1
+    - _BorderLight: 0
     - _BorderLightOpaque: 1
     - _BorderLightOpaqueAlpha: 1
     - _BorderLightReplacesAlbedo: 1
@@ -99,7 +99,7 @@ Material:
     - _Max_Intensity_: 0.5
     - _Metallic: 0
     - _MipmapBias: -2
-    - _Mode: 1
+    - _Mode: 5
     - _Motion_: 0
     - _NearLightFade: 0
     - _NearPlaneFade: 0
@@ -117,7 +117,7 @@ Material:
     - _RimPower: 0
     - _RoundCornerMargin: 0
     - _RoundCornerRadius: 0.119
-    - _RoundCorners: 1
+    - _RoundCorners: 0
     - _RoundCornersHideInterior: 0
     - _Smoothness: 0.644
     - _SpecularHighlights: 1

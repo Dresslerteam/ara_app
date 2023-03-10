@@ -173,7 +173,7 @@ public class MainMenuManager : MonoBehaviour
             taskDisplayInteractable.OnClicked.AddListener(AddTaskToButton(chosenJob));
             //taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
             stepIndex++;
-            taskDisplay.UpdateDisplayInformation(jobTask.Id.ToString(),jobTask.Title, jobTask.Status);
+            taskDisplay.UpdateDisplayInformation(jobTask.Id.ToString(),jobTask.Title, jobTask.Status, chosenJob);
             await Task.Yield();
         }
     }
