@@ -51,6 +51,8 @@ public class MainMenuManager : MonoBehaviour
 
 
     public MenuPage currentMenuPage = MenuPage.splashScreen;
+    
+    public JobListItemDto selectedJob;
 
     private void Awake()
     {
@@ -129,22 +131,21 @@ public class MainMenuManager : MonoBehaviour
     private UnityAction AddJobToButton(JobListItemDto job)
     {
         UnityAction chosenJob = delegate { AdvanceToModelOverview(job); };
+        selectedJob = job;
         return chosenJob;
     }
     private void ClearChildrenButtons(Transform root)
     {
-        int childCount = root.childCount;
-
-        foreach (Transform c in root)
+        foreach (Transform child in root)
         {
-            GameObject.Destroy(c.gameObject);
+            Destroy(child.gameObject);
         }
     }
 
     public async void AdvanceToModelOverview(JobListItemDto job)
     {
         ReturnToModelOverview();
-        advanceToTaskButton.OnClicked.AddListener(delegate { AdvanceToTaskList(job); });
+        //advanceToTaskButton.OnClicked.AddListener(delegate { AdvanceToTaskList(job); });
         currentMenuPage = MenuPage.modelOverview;
     }
     /// <summary>
@@ -223,6 +224,12 @@ public class MainMenuManager : MonoBehaviour
     public void ReturnToMenu()
     {
         UpdateJobBoard();
+    }
+    public void ReturnToTaskList()
+    {
+        ToggleAllMenus(false);
+        taskBoard.SetActive(true);
+        AdvanceToTaskList(selectedJob);
     }
 
     public void ReturnToLogin()
