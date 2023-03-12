@@ -53,8 +53,4 @@ public class TaskDisplay : MonoBehaviour
         }
     }
 
-    public void ProgressStep()
-    {
-        MainMenuManager.Instance.AdvanceToWorkingView();
-    }
 }

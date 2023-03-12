@@ -15,6 +15,11 @@ public class VerticalFoldoutGroup : MonoBehaviour
 
     private void OnEnable()
     {
+        UpdateFoldout();
+    }
+    
+    public void UpdateFoldout()
+    {
         PopulateFoldoutElementList();
         OffsetElements();
     }
@@ -39,12 +44,13 @@ public class VerticalFoldoutGroup : MonoBehaviour
         // Loop through each index of the list
         for (int i = 1; i < foldoutElements.Count; i++)
         {
+
             LayoutRebuilder.ForceRebuildLayoutImmediate(foldoutElements[i-1].expandablePanel);
             // Get the panel size
             var panelHeight = foldoutElements[i-1].expandablePanel.rect.height;
             // Offset the Y Position of the next button by panelHeight+baseVerticalOffset+spacing
             float yPosition = (-panelHeight - baseVerticalOffset - spacing);
-            RectTransform rectTransform = foldoutElements[i].GetComponent<RectTransform>();
+            RectTransform rectTransform = foldoutElements[i].expandablePanel;
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, yPosition);
 
         }

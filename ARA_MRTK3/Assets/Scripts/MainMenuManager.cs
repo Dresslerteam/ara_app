@@ -27,6 +27,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject taskBoard;
     public GameObject taskOverview;
     public GameObject loaderGO;
+    public WorkingHUDManager workingHUDManager;
     [Header("ModelOverview")]
     public GameObject modelOverviewGO;
     public GameObject modelOveriewCallOuts;
@@ -44,8 +45,9 @@ public class MainMenuManager : MonoBehaviour
     private GameObject taskButton;
     [Space(10)]
     public List<JobListItemDto> availbleJobs = new List<JobListItemDto>();
-    JobApplicationService applicationService = new JobApplicationService();
-    IApplicationEventDispatcher applicationEventDispatcher = new ApplicationEventDispatcher();
+    [HideInInspector]
+    public JobApplicationService applicationService = new JobApplicationService();
+
     private static MainMenuManager _instance;
     public static MainMenuManager Instance { get { return _instance; } }
 
@@ -130,7 +132,7 @@ public class MainMenuManager : MonoBehaviour
     }
     private UnityAction AddJobToButton(JobListItemDto job)
     {
-        UnityAction chosenJob = delegate { AdvanceToModelOverview(job); };
+        UnityAction chosenJob = delegate { AdvanceToTaskList(job); };
         selectedJob = job;
         return chosenJob;
     }
@@ -144,9 +146,9 @@ public class MainMenuManager : MonoBehaviour
 
     public async void AdvanceToModelOverview(JobListItemDto job)
     {
-        ReturnToModelOverview();
+        //ReturnToModelOverview();
         //advanceToTaskButton.OnClicked.AddListener(delegate { AdvanceToTaskList(job); });
-        currentMenuPage = MenuPage.modelOverview;
+        //currentMenuPage = MenuPage.modelOverview;
     }
     /// <summary>
     /// Once a job has been chosen, populate the list with tasks that the job holds
@@ -159,7 +161,6 @@ public class MainMenuManager : MonoBehaviour
         taskBoard.SetActive(true);
         mainMenuAesthetic.UpdateTaskDisplay(chosenJob);
         currentMenuPage = MenuPage.taskSelect;
-
         int stepIndex = 0;
         if(loaderGO!=null) loaderGO.SetActive(true);
         var jobDetails = await applicationService.GetJobDetailsAsync(chosenJob.Id);
@@ -171,25 +172,28 @@ public class MainMenuManager : MonoBehaviour
             //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
             PressableButton taskDisplayInteractable = taskDisplay.taskButton;
-            taskDisplayInteractable.OnClicked.AddListener(AddTaskToButton(chosenJob));
+            taskDisplayInteractable.OnClicked.AddListener(AddTaskToButton(jobTask));
             //taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
             stepIndex++;
             taskDisplay.UpdateDisplayInformation(jobTask.Id.ToString(),jobTask.Title, jobTask.Status, chosenJob);
             await Task.Yield();
         }
     }
-    private UnityAction AddTaskToButton(JobListItemDto job)
+    private UnityAction AddTaskToButton(TaskInfo job)
     {
-        UnityAction chosenTask = delegate { AdvanceToWorkingView(); };
+        UnityAction chosenTask = delegate { AdvanceToWorkingView(job); };
         return chosenTask;
     }
 
-    public void AdvanceToWorkingView()
+    public void AdvanceToWorkingView(TaskInfo job)
     {
         ToggleAllMenus(false);
         currentMenuPage = MenuPage.performingJob;
-        if(taskOverview!=null)
+        if(taskOverview!=null){
             taskOverview.SetActive(true);
+        workingHUDManager.PopulateTaskGroups(job);
+        }
+
        // if(jobQuickMenu!=null)
           //  jobQuickMenu.gameObject.SetActive(true);
     }
@@ -237,6 +241,7 @@ public class MainMenuManager : MonoBehaviour
         ToggleAllMenus(false);
         loginBoard.SetActive(true);
     }
+    
 
     public void ReturnToSplash()
     {
