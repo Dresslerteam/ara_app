@@ -8,6 +8,28 @@ namespace Ara.Domain.ApiClients.Dtos
 {
     public class JobListItemDto
     {
+        public JobListItemDto(Job job)
+        {
+            Id = job.Id;
+            RepairOrderNo = job.RepairOrderNo;
+            ClaimNo = job.ClaimNo;
+            EstimatorFullName = job.EstimatorFullName;
+            CarOwner = job.CarOwner;
+            Status = job.Status;
+            NumberOfTasks = job.NumberOfTasks;
+            NumberOfDoneTasks = job.NumberOfDoneTasks;
+            PreliminaryEstimation= job.PreliminaryEstimation;
+            PreliminaryScan = job.PreliminaryScan;
+            CarInfo = new CarDto()
+            {
+                Vin = job.Car.Vin,
+                Manufacturer= job.Car.Manufacturer,
+                Model= job.Car.Model,
+                Year = job.Car.Year
+            };
+
+        }
+
         public string Id { get; set; }
         public string RepairOrderNo { get; set; }
         public string ClaimNo { get; set; }

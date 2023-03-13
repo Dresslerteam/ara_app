@@ -14,7 +14,7 @@ namespace Ara.Domain.JobManagement
         public string RepairOrderNo { get; set; }
         public string ClaimNo { get; set; }
         public int NumberOfTasks { get; set; }
-        public int NumberOfDoneTasks { get; set; }
+        public int NumberOfDoneTasks => Tasks.Count(t => t.Status == TaskStatus.Completed);
         public JobStatus Status { get; set; }
         public Car Car { get; set; }
         public CarOwner CarOwner { get; set; }
@@ -25,7 +25,7 @@ namespace Ara.Domain.JobManagement
         public PdfDoc PreliminaryScan { get; set; }
         public List<Photo> Photos { get; set; }
 
-        public void UpdateTaskStatus(int taskId, TaskStatus newStatus)
+        public void ChangeTaskStatus(int taskId, TaskStatus newStatus)
         {
             var task = this.Tasks.FirstOrDefault(t => t.Id == taskId);
             task.Status = newStatus;
