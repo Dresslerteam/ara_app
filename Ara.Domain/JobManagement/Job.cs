@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Ara.Domain.Common;
+using Ara.Domain.RepairManualManagement;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using static Ara.Domain.JobManagement.TaskInfo;
 
 namespace Ara.Domain.JobManagement
@@ -28,10 +31,46 @@ namespace Ara.Domain.JobManagement
             task.Status = newStatus;
             this.updateJobStatus();
         }
-        public void UpdateStepStatus() { }
-        public void CompleteStep() { }
-        public void AssignPhoto(string taskId, string procedureId, string stepId) { }
+        public Result<object> CompleteStep(int taskId, int repairManualId, int stepId)
+        {
+            var task = this.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var repManual = task.RepairManuals.FirstOrDefault(r => r.Id == repairManualId);
+            var step = repManual.Steps.FirstOrDefault(s => s.Id == stepId);
+            step.IsCompleted = true;
+            return Result<object>.Ok(null);
+        }
 
+        public Result<(int RepairManualId, ManualStep Step)> GetNextStep(int taskId, int repairManualId, int stepId)
+        {
+            var task = this.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var repManual = task.RepairManuals.FirstOrDefault(r => r.Id == repairManualId);
+            var step = repManual.Steps.FirstOrDefault(s => s.Id == stepId);
+            var stepIndex = repManual.Steps.LastIndexOf(step);
+            if (repManual.Steps.Count() > (stepIndex + 1))
+            {
+                var nextStep = repManual.Steps[stepIndex + 1];
+            }
+            else
+            {
+                var repairManualIndex = task.RepairManuals.LastIndexOf(repManual);
+                if (task.RepairManuals.Count() > (repairManualIndex + 1))
+                {
+                    var nextRepairManual = task.RepairManuals[repairManualIndex + 1];
+                    var nextStep = nextRepairManual.Steps.FirstOrDefault();
+                    return Result<(int RepairManualId, ManualStep Step)>.Ok((nextRepairManual.Id, nextStep));
+                }
+            }
+
+            return null;
+        }
+
+        public PdfDoc GetRepairManualDoc(int taskId, int repairManualId)
+        {
+            var task = this.Tasks.FirstOrDefault(t => t.Id == taskId);
+            return task.RepairManuals.FirstOrDefault(r => r.Id == repairManualId).Document;
+        }
+
+        public void AssignPhoto(int taskId, int repairManualId, int stepId) { }
 
         private void updateJobStatus()
         {

@@ -49,7 +49,7 @@ namespace Ara.Domain.ApiClients
                         {
                             new RepairManual()
                             {
-                                Id = "1",
+                                Id = 1,
                                 Name = "Front Bumper Impact Bar Removal and Installation",
                                 Document = new PdfDoc()
                                 {
@@ -249,7 +249,7 @@ namespace Ara.Domain.ApiClients
                             },
                             new RepairManual()
                             {
-                                Id = "2",
+                                Id = 2,
                                 Name = "Front Bumper Impact Bar Adjustment",
                                 Document = new PdfDoc()
                                 {
@@ -303,7 +303,7 @@ namespace Ara.Domain.ApiClients
                             },
                             new RepairManual()
                             {
-                                Id = "3",
+                                Id = 3,
                                 Name = "Front Bumper Impact Bar Bracket Replacement",
                                 Document = new PdfDoc()
                                 {
