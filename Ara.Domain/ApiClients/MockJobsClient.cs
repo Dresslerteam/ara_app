@@ -304,6 +304,11 @@ namespace Ara.Domain.ApiClients
                                             Url = "19.png"
                                         },
                                         PhotoRequired = false,
+                                        ReferencedDocs = new List<(ManualStep.StepReferencedDocType Type, PdfDoc Doc)>()
+                                        {
+                                           (ManualStep.StepReferencedDocType.Procedure, new PdfDoc(){Url = "1.png", Title = "1.png"}),
+                                           (ManualStep.StepReferencedDocType.Caution, new PdfDoc(){Url = "1.png", Title = "1.png"}),
+                                        }
 
                                     },
                                      new ManualStep()

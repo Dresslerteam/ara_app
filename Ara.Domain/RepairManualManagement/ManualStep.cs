@@ -16,7 +16,7 @@ namespace Ara.Domain.RepairManualManagement
         public List<Photo> Photos { get; set; }
         public bool PhotoRequired { get; set; } = false;
         public bool IsCompleted { get; set; } = false;
-        public List<(StepReferencedDocType, PdfDoc)> ReferencedDocs { get; set; }
+        public List<(StepReferencedDocType Type, PdfDoc Doc)> ReferencedDocs { get; set; }
         public enum StepReferencedDocType
         {
             Caution = 1,
