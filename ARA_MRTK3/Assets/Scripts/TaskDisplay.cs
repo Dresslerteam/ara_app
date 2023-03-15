@@ -14,15 +14,15 @@ public class TaskDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI stepNumberText;
 
     [SerializeField] private TextMeshProUGUI taskTitleText;
-
-    [SerializeField] private TextMeshProUGUI completenessText;
     
     [SerializeField] private TextMeshProUGUI statusText;
     
     public PressableButton taskButton;
-    public void UpdateDisplayInformation(string number, string title, TaskInfo.TaskStatus status)
+    private int taskId;
+    public void UpdateDisplayInformation(int number, string title, TaskInfo.TaskStatus status)
     {
-        stepNumberText.text = number;
+        taskId = number;
+        stepNumberText.text = number.ToString();
         taskTitleText.text = title;
         Debug.Log("Status is: " + status);
         if(status==0)
@@ -40,21 +40,19 @@ public class TaskDisplay : MonoBehaviour
     {
         if (MainMenuManager.Instance != null && MainMenuManager.Instance.currentJob != null)
         {
-            var jobId = int.Parse(MainMenuManager.Instance.currentJob.Id);
-        
             switch (status)
             {
                 case "TO DO":
-                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(jobId, TaskInfo.TaskStatus.ToDo);
+                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(taskId, TaskInfo.TaskStatus.ToDo);
                     break;
                 case "IN PROGRESS":
-                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(jobId, TaskInfo.TaskStatus.InProgress);
+                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(taskId, TaskInfo.TaskStatus.InProgress);
                     break;
                 case "COMPLETED":
-                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(jobId, TaskInfo.TaskStatus.Completed);
+                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(taskId, TaskInfo.TaskStatus.Completed);
                     break;
                 case "ON HOLD":
-                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(jobId, TaskInfo.TaskStatus.OnHold);
+                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(taskId, TaskInfo.TaskStatus.OnHold);
                     break;
                 default:
                     Debug.Log("Error: Invalid status");
