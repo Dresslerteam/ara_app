@@ -41,6 +41,7 @@ public class WorkingHUDManager : MonoBehaviour
                 RepairManualDisplay repairManualDisplay = Instantiate(repairManualDisplayPrefab, groupsRoot).GetComponent<RepairManualDisplay>();
                 repairManualDisplay.UpdateDisplayInformation(repairManual.Name);
                 repairManualDisplay.transform.localScale = Vector3.one;
+                repairManualDisplay.transform.localRotation = Quaternion.identity;
                 // Clear previous steps
                 foreach (Transform child in repairManualDisplay.stepGroupParent)
                 {

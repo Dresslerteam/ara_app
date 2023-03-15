@@ -19,6 +19,7 @@ public class StepDisplay : MonoBehaviour
         this.transform.SetParent(parent);
         transform.localPosition = Vector3.zero;
         transform.localScale = Vector3.one;
+        transform.localRotation = Quaternion.identity;
     }
     
 }
