@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.JobManagement;
 using Ara.Domain.RepairManualManagement;
+using Microsoft.MixedReality.Toolkit.UX;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -19,7 +21,10 @@ public class WorkingHUDManager : MonoBehaviour
         [Header("Visuals")] 
         [SerializeField] private TextMeshProUGUI taskTextAboveVisuals;
         [SerializeField] private RawImage stepImageVisual;
-        
+        [Header("Buttons")]
+        [SerializeField] private Transform buttonsRoot;
+        [SerializeField] [AssetsOnly] private PressableButton cautionPdfButtonPrefab;
+        [SerializeField] [AssetsOnly] private PressableButton oemPdfButtonPrefab;
         public void PopulateTaskGroups(TaskInfo task)
         {
             // Clear previous groups
@@ -46,15 +51,48 @@ public class WorkingHUDManager : MonoBehaviour
                 {
                     var stepDisplay = Instantiate(stepDisplayPrefab);
                     stepDisplay.GetComponent<StepDisplay>().UpdateDisplayInformation(step.Id, step.Title,step.IsCompleted,repairManualDisplay.stepGroupParent);
+                    stepDisplay.GetComponent<PressableButton>().OnClicked.AddListener(() =>
+                    {
+                        var imageURL = "Photos/"+step.Image.Url;
+                        UpdateVisual(step.Title, imageURL);
+                        EnableCameraIcon(step.PhotoRequired);
+                        UpdateFileButtons(step);
+                    });
+                    
                 }
-
+                // Expand the first repair manual
                 break;
             }
-            // Todo: Placeholder. Ultimately should have an event listener on the spawned button
-            var imageURL = "Photos/"+repairManuals[0].Steps[0].Image.Url;
-            UpdateVisual(repairManuals[0].Steps[0].Title, imageURL);
 
         }
+
+        private void UpdateFileButtons(ManualStep step)
+        {
+            // Add caution and OEM PDF buttons
+            for (int i = 0; i < step.ReferencedDocs.Count; i++)
+            {
+                var referencedDoc = step.ReferencedDocs[i].Doc;
+        
+                // Add caution PDF button
+                var cautionPdfButton = Instantiate(cautionPdfButtonPrefab, buttonsRoot);
+                cautionPdfButton.transform.localScale = Vector3.one;
+                cautionPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
+                {
+                    MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Url);
+                    Debug.Log(referencedDoc.Url);
+                });
+
+                // Add OEM PDF button
+                var oemPdfButton = Instantiate(oemPdfButtonPrefab, buttonsRoot);
+                oemPdfButton.transform.localScale = Vector3.one;
+                oemPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
+                {
+                    MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Url);
+                    Debug.Log(referencedDoc.Url);
+                });
+            }
+        }
+
         public void UpdateVisual(string stepTitle, string imageURL)
         {
             string newString = imageURL;

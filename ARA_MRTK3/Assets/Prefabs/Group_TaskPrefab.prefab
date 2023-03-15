@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 642855912534423272}
   - component: {fileID: 642855912534423273}
   - component: {fileID: 642855912534423274}
-  - component: {fileID: 642855912534423275}
   - component: {fileID: 642855912534423276}
   - component: {fileID: 642855912534423278}
   - component: {fileID: 4861307986939745880}
@@ -324,24 +323,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 32, y: 32, z: 26.38652}
-  m_Center: {x: 0, y: 0, z: 4.6067348}
---- !u!114 &642855912534423275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642855912534423280}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e13188787cfbdc945b510e90e9251420, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisCollider: {fileID: 642855912534423274}
-  attachedRectTransform: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
-  padding: {x: 0, y: 0}
-  forceUpdateEveryFrame: 0
+  m_Size: {x: 407.17352, y: 92.308426, z: 26.38652}
+  m_Center: {x: 0, y: -48.649883, z: 4.606735}
 --- !u!95 &642855912534423276
 Animator:
   serializedVersion: 3

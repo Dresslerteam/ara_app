@@ -17,7 +17,6 @@ public class MainMenuManager : MonoBehaviour
 {
     [Header("Menus")]
     private MainMenuAesthetic mainMenuAesthetic;
-
     public GameObject splashScreen;
     public GameObject loginBoard;
     public GameObject jobBoard;
@@ -25,6 +24,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject taskOverview;
     public GameObject loaderGO;
     public WorkingHUDManager workingHUDManager;
+    public PDFLoader pdfLoader;
     [Header("ModelOverview")]
     public GameObject modelOverviewGO;
     public GameObject modelOveriewCallOuts;
@@ -79,9 +79,12 @@ public class MainMenuManager : MonoBehaviour
 
     private void ToggleAllMenus(bool isOn)
     {
-        jobBoard.SetActive(isOn);
+        if(jobBoard!=null)
+            jobBoard.SetActive(isOn);
         if(taskBoard!=null)
             taskBoard.SetActive(isOn);
+        if(workingHUDManager!=null)
+            workingHUDManager.gameObject.SetActive(isOn);
     }
 
     public async Task UpdateJobBoard()

@@ -10,7 +10,7 @@ public class StepDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI stepText;
     [Header("Icons")]
     [SerializeField] private GameObject stepCompleteIcon;
-    
+
     public void UpdateDisplayInformation(int index, string text, bool isComplete, Transform parent)
     {
         stepIndex.text = index.ToString();
