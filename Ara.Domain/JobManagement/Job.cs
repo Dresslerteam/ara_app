@@ -13,7 +13,7 @@ namespace Ara.Domain.JobManagement
         public string Id { get; set; }
         public string RepairOrderNo { get; set; }
         public string ClaimNo { get; set; }
-        public int NumberOfTasks { get; set; }
+        public int NumberOfTasks => Tasks.Count();
         public int NumberOfDoneTasks => Tasks.Count(t => t.Status == TaskStatus.Completed);
         public JobStatus Status { get; set; }
         public Car Car { get; set; }

@@ -31,19 +31,22 @@ namespace Ara.Domain.Test
         {
             var jobService = new JobApplicationService();
             var job = await jobService.GetJobDetailsAsync("1");
+            Assert.True(job.NumberOfDoneTasks == 0);
+
             job.ChangeTaskStatus(1, JobManagement.TaskInfo.TaskStatus.InProgress);
             job.ChangeTaskStatus(1, JobManagement.TaskInfo.TaskStatus.Completed);
             job.ChangeTaskStatus(2, JobManagement.TaskInfo.TaskStatus.Completed);
 
             //job.Tasks.FirstOrDefault().RepairManuals.FirstOrDefault().Steps.FirstOrDefault().ReferencedDocs.FirstOrDefault().Type == 
 
-            Assert.True(job.Status==JobManagement.Job.JobStatus.Completed);
+            Assert.True(job.Status == JobManagement.Job.JobStatus.Completed);
 
             var jobs = await jobService.GetJobsAsync();
             var jobItem = jobs.FirstOrDefault(f => f.Id == job.Id);
+            Assert.True(jobItem.NumberOfDoneTasks == job.NumberOfDoneTasks);
             Assert.True(jobItem.Status == JobManagement.Job.JobStatus.Completed);
 
-            
+
         }
 
 
