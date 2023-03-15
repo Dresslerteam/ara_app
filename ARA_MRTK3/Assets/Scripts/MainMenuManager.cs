@@ -1,19 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.ApplicationServices;
-using Ara.Domain.Common.Interfaces;
-using Ara.Domain.Common.Services;
 using Ara.Domain.JobManagement;
-using ARA.Frontend;
 using Microsoft.MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using Random = UnityEngine.Random;
+using Job = Ara.Domain.JobManagement.Job;
 
 [RequireComponent(typeof(MainMenuAesthetic))]
 public class MainMenuManager : MonoBehaviour
@@ -53,8 +50,9 @@ public class MainMenuManager : MonoBehaviour
 
 
     public MenuPage currentMenuPage = MenuPage.splashScreen;
+    public Job currentJob;
     
-    public JobListItemDto selectedJob;
+    public JobListItemDto selectedJobListItem;
 
     private void Awake()
     {
@@ -67,7 +65,8 @@ public class MainMenuManager : MonoBehaviour
             _instance = this;
         }
 
-        currentMenuPage = MenuPage.splashScreen;
+        ToggleAllMenus(false);
+        if (splashScreen != null) splashScreen.SetActive(true);
     }
 
     // The user has selected their account...
@@ -83,15 +82,10 @@ public class MainMenuManager : MonoBehaviour
         jobBoard.SetActive(isOn);
         if(taskBoard!=null)
             taskBoard.SetActive(isOn);
-        //Todo: I believe quick menu is not needed anymore
-        //if(jobQuickMenu!=null)
-            //jobQuickMenu.gameObject.SetActive(isOn);
     }
 
     public async Task UpdateJobBoard()
     {
-        var service = new JobApplicationService();
-
         ToggleAllMenus(false);
         jobBoard.SetActive(true);
         ClearChildrenButtons(jobSelectionRoot);
@@ -99,41 +93,39 @@ public class MainMenuManager : MonoBehaviour
         if(loaderGO!=null) loaderGO.SetActive(true);
         availbleJobs = await applicationService.GetJobsAsync();
         if(loaderGO!=null) loaderGO.SetActive(false);
-        foreach (var currentJob in availbleJobs)
+        foreach (var availableJobListItem in availbleJobs)
         {
-            //var curJob = await applicationService.GetJobsAsync(job.Id);
-            GameObject jobButton = Instantiate(this.jobButton, jobSelectionRoot);
-            //jobButton.transform.localScale = new Vector3(.14f, .14f, .14f);
-            JobDisplay jobDisplay = jobButton.GetComponent<JobDisplay>();
-            //Interactable jobDisplayInteractable = jobDisplay.GetComponent<Interactable>();
-            PressableButton jobDisplayInteractable = jobDisplay.jobButton;
-
-            float tasksDone = 0;
-
-            jobDisplayInteractable.enabled = currentJob.NumberOfTasks <= 99;
-            //...complete: job.progress, is now Random for demonstration purposes
             float fillAmount = 0;
-            Debug.Log("number of done tasks"+currentJob.NumberOfDoneTasks);
-            Debug.Log("number of tasks"+currentJob.NumberOfTasks);
-            if(currentJob.NumberOfTasks!=0) 
-                fillAmount = (currentJob.NumberOfDoneTasks / (float)currentJob.NumberOfTasks);
-            Debug.Log(fillAmount+" is fill");
-            jobDisplay.UpdateDisplayInformation("Job# " + currentJob.RepairOrderNo,
-                currentJob.CarOwner.FirstName + " " + currentJob.CarOwner.LastName,
-                currentJob.ClaimNo,
-                currentJob.EstimatorFullName,
-                $"{currentJob.CarInfo.Manufacturer} {currentJob.CarInfo.Model} {currentJob.CarInfo.Year}",
-                currentJob.CarInfo.Vin,
-                (currentJob.NumberOfDoneTasks+"/"+currentJob.NumberOfTasks),fillAmount
+            var spawnedJobButton = Instantiate(this.jobButton, jobSelectionRoot);
+            var jobDisplay = spawnedJobButton.GetComponent<JobDisplay>();
+            var jobDisplayInteractable = jobDisplay.jobButton;
+
+            Debug.Log("number of done tasks"+availableJobListItem.NumberOfDoneTasks);
+            Debug.Log("number of tasks"+availableJobListItem.NumberOfTasks);
+            
+            if(availableJobListItem.NumberOfTasks!=0) 
+                fillAmount = (availableJobListItem.NumberOfDoneTasks / (float)availableJobListItem.NumberOfTasks);
+            
+            jobDisplay.UpdateDisplayInformation("Job# " + availableJobListItem.RepairOrderNo,
+                availableJobListItem.CarOwner.FirstName + " " + availableJobListItem.CarOwner.LastName,
+                availableJobListItem.ClaimNo,
+                availableJobListItem.EstimatorFullName,
+                $"{availableJobListItem.CarInfo.Manufacturer} {availableJobListItem.CarInfo.Model} {availableJobListItem.CarInfo.Year}",
+                availableJobListItem.CarInfo.Vin,
+                (availableJobListItem.NumberOfDoneTasks+"/"+availableJobListItem.NumberOfTasks),fillAmount
                 );
-            jobDisplayInteractable.OnClicked.AddListener(AddJobToButton(currentJob));
+            jobDisplayInteractable.OnClicked.AddListener(AddJobToButton(availableJobListItem));
             await Task.Yield();
         }
     }
-    private UnityAction AddJobToButton(JobListItemDto job)
+    private UnityAction AddJobToButton(JobListItemDto jobListItem)
     {
-        UnityAction chosenJob = delegate { AdvanceToTaskList(job); };
-        selectedJob = job;
+        Debug.Log($"Adding listener for job: {jobListItem.Id}");
+
+        UnityAction chosenJob = delegate
+        {
+            AdvanceToTaskList(jobListItem);
+        };
         return chosenJob;
     }
     private void ClearChildrenButtons(Transform root)
@@ -156,26 +148,29 @@ public class MainMenuManager : MonoBehaviour
     /// <param name="chosenJob">The job that was...chosen</param>
     public async void AdvanceToTaskList(JobListItemDto chosenJob)
     {
+        Debug.Log($"Advancing to task list for job: {chosenJob.Id}");
+
+        selectedJobListItem = chosenJob;
         ToggleAllMenus(false);
         ClearChildrenButtons(taskSelectionRoot);
         taskBoard.SetActive(true);
-        mainMenuAesthetic.UpdateTaskDisplay(chosenJob);
+        mainMenuAesthetic.UpdateTaskDisplay(selectedJobListItem);
         currentMenuPage = MenuPage.taskSelect;
-        int stepIndex = 0;
         if(loaderGO!=null) loaderGO.SetActive(true);
-        var jobDetails = await applicationService.GetJobDetailsAsync(chosenJob.Id);
+        currentJob = await applicationService.GetJobDetailsAsync(selectedJobListItem.Id);
         if(loaderGO!=null) loaderGO.SetActive(false);
+        
         ////Debug.Log(chosenJob.tasks.Count);
-        foreach (var jobTask in jobDetails.Tasks)
+        foreach (var jobTask in currentJob.Tasks)
         {
+            Debug.Log($"jobTask.Status: {jobTask.Status}");
             GameObject newTaskButton = Instantiate(taskButton, taskSelectionRoot);
             //newTaskButton.transform.localScale = new Vector3(.14f, .14f, .14f);
             TaskDisplay taskDisplay = newTaskButton.GetComponent<TaskDisplay>();
             PressableButton taskDisplayInteractable = taskDisplay.taskButton;
             taskDisplayInteractable.OnClicked.AddListener(AddTaskToButton(jobTask));
             //taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
-            stepIndex++;
-            taskDisplay.UpdateDisplayInformation(jobTask.Id.ToString(),jobTask.Title, jobTask.Status, chosenJob);
+            taskDisplay.UpdateDisplayInformation(jobTask.Id.ToString(),jobTask.Title, jobTask.Status);
             await Task.Yield();
         }
     }
@@ -193,9 +188,6 @@ public class MainMenuManager : MonoBehaviour
             taskOverview.SetActive(true);
         workingHUDManager.PopulateTaskGroups(job);
         }
-
-       // if(jobQuickMenu!=null)
-          //  jobQuickMenu.gameObject.SetActive(true);
     }
     public void ReturnToPreviousPage()
     {
@@ -229,12 +221,27 @@ public class MainMenuManager : MonoBehaviour
     {
         UpdateJobBoard();
     }
-    public void ReturnToTaskList()
+    public async void ReturnToTaskList()
     {
         ToggleAllMenus(false);
         taskBoard.SetActive(true);
-        AdvanceToTaskList(selectedJob);
+
+        // Fetch the list of available jobs
+        var availableJobs = await applicationService.GetJobsAsync();
+
+        // Find the updated job details using the stored job ID
+        JobListItemDto updatedJobListItem = availableJobs.FirstOrDefault(job => job.Id == selectedJobListItem.Id);
+
+        if (updatedJobListItem != null)
+        {
+            AdvanceToTaskList(updatedJobListItem);
+        }
+        else
+        {
+            Debug.LogError($"Error: Job with ID {selectedJobListItem.Id} not found in the list of available jobs.");
+        }
     }
+
 
     public void ReturnToLogin()
     {

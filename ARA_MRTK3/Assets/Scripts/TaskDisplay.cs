@@ -16,41 +16,56 @@ public class TaskDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI taskTitleText;
 
     [SerializeField] private TextMeshProUGUI completenessText;
-    [SerializeField] private TMP_Dropdown completenessDropdown;
     
-    [HideInInspector]
-    public JobListItemDto job;
+    [SerializeField] private TextMeshProUGUI statusText;
+    
     public PressableButton taskButton;
-    public void UpdateDisplayInformation(string number, string title, TaskInfo.TaskStatus status, JobListItemDto currentJob)
+    public void UpdateDisplayInformation(string number, string title, TaskInfo.TaskStatus status)
     {
         stepNumberText.text = number;
         taskTitleText.text = title;
-        //completenessText.text = completenessText.text = status.ToString();
-        job = currentJob;
-        if(completenessDropdown!=null)
-            completenessDropdown.value = (int)status;
+        Debug.Log("Status is: " + status);
+        if(status==0)
+            return;
+        statusText.text = status switch
+        {
+            TaskInfo.TaskStatus.ToDo => "TO DO",
+            TaskInfo.TaskStatus.InProgress => "IN PROGRESS",
+            TaskInfo.TaskStatus.Completed => "COMPLETED",
+            TaskInfo.TaskStatus.OnHold => "ON HOLD"
+        };
     }
 
     public void UpdateTaskStatusViaButton(string status)
     {
-        // Status can be To Do, In Progress, Done
-        // switch statement for status to update job.taskInfo.status
-        
-        switch (status)
+        if (MainMenuManager.Instance != null && MainMenuManager.Instance.currentJob != null)
         {
-            case "TO DO":
-                job.Status = Job.JobStatus.ToDo;
-                break;
-            case "IN PROGRESS":
-                job.Status = Job.JobStatus.InProgress;
-                break;
-            case "COMPLETED" :
-                job.Status = Job.JobStatus.Completed;
-                break;
-            default:
-                Debug.Log("Error: Invalid status");
-                break;
+            var jobId = int.Parse(MainMenuManager.Instance.currentJob.Id);
+        
+            switch (status)
+            {
+                case "TO DO":
+                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(jobId, TaskInfo.TaskStatus.ToDo);
+                    break;
+                case "IN PROGRESS":
+                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(jobId, TaskInfo.TaskStatus.InProgress);
+                    break;
+                case "COMPLETED":
+                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(jobId, TaskInfo.TaskStatus.Completed);
+                    break;
+                case "ON HOLD":
+                    MainMenuManager.Instance.currentJob.ChangeTaskStatus(jobId, TaskInfo.TaskStatus.OnHold);
+                    break;
+                default:
+                    Debug.Log("Error: Invalid status");
+                    break;
+            }
         }
+        else
+        {
+            Debug.Log("Error: MainMenuManager instance or selectedJobListItem is null");
+        }
+        statusText.text = status.ToString();
     }
 
 }
