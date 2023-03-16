@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CanvasBackplateQuad_Gradient_NoOutline
+  m_Name: Backplate_Highlight
   m_Shader: {fileID: 4800000, guid: df5380aa6ab293c4fafbb942ed5da93f, type: 3}
   m_ShaderKeywords: UNITY_UI_ALPHACLIP _ALPHATEST_ON _BORDER_LIGHT_OPAQUE _BORDER_LIGHT_REPLACES_ALBEDO
     _BORDER_LIGHT_USES_COLOR _DECAL_FRONT_ONLY__ON _EDGE_SMOOTHING_AUTOMATIC _GRADIENT_LINEAR
