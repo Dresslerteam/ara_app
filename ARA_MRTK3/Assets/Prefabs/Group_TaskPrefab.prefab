@@ -231,7 +231,7 @@ MonoBehaviour:
         m_Calls: []
   disabledInteractorTypes:
   - reference: Microsoft.MixedReality.Toolkit.IGrabInteractor, Microsoft.MixedReality.Toolkit.Core
-  toggleMode: 0
+  toggleMode: 1
   selectThreshold: 0.9
   deselectThreshold: 0.1
   triggerOnRelease: 1
@@ -246,10 +246,58 @@ MonoBehaviour:
     active: 0
     onEntered:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4289616843582327821}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+          m_MethodName: set_material
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 2100000, guid: c85fbe7d100584fa2ab39e4e2f8781c9, type: 2}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 8748148248399266905}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     onExited:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4289616843582327821}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+          m_MethodName: set_material
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 2100000, guid: cfdaf937019044e98adc095cdd290f05, type: 2}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 8748148248399266905}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   onClicked:
     m_PersistentCalls:
       m_Calls: []
@@ -625,7 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepIndex: {fileID: 8994868854913751926}
   stepText: {fileID: 7383977094721575133}
-  stepCompleteIcon: {fileID: 8994868856677419278}
+  stepCompleteIcon: {fileID: 8748148248399266905}
 --- !u!1 &1564862330194505645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2276,7 +2324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8994868856677419277
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2294,10 +2342,10 @@ RectTransform:
   m_Father: {fileID: 2073271556927497632}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 385.99997, y: -47.999992}
+  m_SizeDelta: {x: 24, y: 95.999985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8994868856677419276
 MonoBehaviour:

@@ -16,7 +16,7 @@ using Job = Ara.Domain.JobManagement.Job;
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Menus")]
-    private MainMenuAesthetic mainMenuAesthetic;
+    public MainMenuAesthetic mainMenuAesthetic;
     public GameObject splashScreen;
     public GameObject loginBoard;
     public GameObject jobBoard;
@@ -157,7 +157,6 @@ public class MainMenuManager : MonoBehaviour
         ToggleAllMenus(false);
         ClearChildrenButtons(taskSelectionRoot);
         taskBoard.SetActive(true);
-        mainMenuAesthetic.UpdateTaskDisplay(selectedJobListItem);
         currentMenuPage = MenuPage.taskSelect;
         if(loaderGO!=null) loaderGO.SetActive(true);
         currentJob = await applicationService.GetJobDetailsAsync(selectedJobListItem.Id);
@@ -177,9 +176,13 @@ public class MainMenuManager : MonoBehaviour
             await Task.Yield();
         }
     }
-    private UnityAction AddTaskToButton(TaskInfo job)
+    private UnityAction AddTaskToButton(TaskInfo task)
     {
-        UnityAction chosenTask = delegate { AdvanceToWorkingView(job); };
+        UnityAction chosenTask = delegate
+        {
+            AdvanceToWorkingView(task);
+            mainMenuAesthetic.UpdateTaskDisplay(selectedJobListItem,task);
+        };
         return chosenTask;
     }
 

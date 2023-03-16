@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 public class WorkingHUDManager : MonoBehaviour
     {
+        [SerializeField] private ToggleCollection toggleCollection;
         [Header("Steps")]
         [SerializeField] private Transform groupsRoot;
         [SerializeField] [AssetsOnly] private GameObject repairManualDisplayPrefab;
@@ -52,46 +53,57 @@ public class WorkingHUDManager : MonoBehaviour
                 {
                     var stepDisplay = Instantiate(stepDisplayPrefab);
                     stepDisplay.GetComponent<StepDisplay>().UpdateDisplayInformation(step.Id, step.Title,step.IsCompleted,repairManualDisplay.stepGroupParent);
-                    stepDisplay.GetComponent<PressableButton>().OnClicked.AddListener(() =>
+                    var button = stepDisplay.GetComponent<PressableButton>();
+                    button.OnClicked.AddListener(() =>
                     {
                         var imageURL = "Photos/"+step.Image.Url;
                         UpdateVisual(step.Title, imageURL);
+                        MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(MainMenuManager.Instance.selectedJobListItem, task);
                         EnableCameraIcon(step.PhotoRequired);
                         UpdateFileButtons(step);
                     });
-                    
+                    toggleCollection.Toggles.Add(button);
                 }
-                // Expand the first repair manual
                 break;
             }
-
+           toggleCollection.Toggles[0].ForceSetToggled(true,true);
         }
 
         private void UpdateFileButtons(ManualStep step)
         {
-            // Add caution and OEM PDF buttons
-            for (int i = 0; i < step.ReferencedDocs.Count; i++)
+            if(step.ReferencedDocs != null && step.ReferencedDocs.Count > 0)
             {
-                var referencedDoc = step.ReferencedDocs[i].Doc;
+                // If there are buttons, clear them
+                foreach (Transform child in buttonsRoot)
+                {
+                    Destroy(child.gameObject);
+                }
+                // Add caution and OEM PDF buttons
+                for (int i = 0; i < step.ReferencedDocs.Count; i++)
+                {
+                    var referencedDoc = step.ReferencedDocs[i].Doc;
         
-                // Add caution PDF button
-                var cautionPdfButton = Instantiate(cautionPdfButtonPrefab, buttonsRoot);
-                cautionPdfButton.transform.localScale = Vector3.one;
-                cautionPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
-                {
-                    MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Url);
-                    Debug.Log(referencedDoc.Url);
-                });
+                    // Add caution PDF button
+                    var cautionPdfButton = Instantiate(cautionPdfButtonPrefab, buttonsRoot);
+                    cautionPdfButton.transform.localScale = Vector3.one;
+                    cautionPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
+                    {
+                        MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Url);
+                        Debug.Log(referencedDoc.Url);
+                    });
 
-                // Add OEM PDF button
-                var oemPdfButton = Instantiate(oemPdfButtonPrefab, buttonsRoot);
-                oemPdfButton.transform.localScale = Vector3.one;
-                oemPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
-                {
-                    MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Url);
-                    Debug.Log(referencedDoc.Url);
-                });
+                    // Add OEM PDF button
+                    var oemPdfButton = Instantiate(oemPdfButtonPrefab, buttonsRoot);
+                    oemPdfButton.transform.localScale = Vector3.one;
+                    oemPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
+                    {
+                        MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Url);
+                        Debug.Log(referencedDoc.Url);
+                    });
+                }
+                
             }
+            
         }
 
         public void UpdateVisual(string stepTitle, string imageURL)
