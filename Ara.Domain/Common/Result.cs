@@ -6,9 +6,9 @@ namespace Ara.Domain.Common
 {
     public class Result<T>
     {
-        T Payload { get; set; }
-        ResultStatus Status { get; set; }
-        ErrorCode ErrorCode { get; set; }
+        public T Payload { get; set; }
+        public ResultStatus Status { get; set; }
+        public ErrorCode ErrorCode { get; set; }
 
         public Result(T payload)
         {
@@ -19,7 +19,7 @@ namespace Ara.Domain.Common
         public Result(ErrorCode errorCode, T payload = default(T))
         {
             Payload = payload;
-            Status = ResultStatus.Success;
+            Status = ResultStatus.Failure;
             ErrorCode = errorCode;
         }
 

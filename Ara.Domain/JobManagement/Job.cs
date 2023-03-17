@@ -36,6 +36,10 @@ namespace Ara.Domain.JobManagement
             var task = this.Tasks.FirstOrDefault(t => t.Id == taskId);
             var repManual = task.RepairManuals.FirstOrDefault(r => r.Id == repairManualId);
             var step = repManual.Steps.FirstOrDefault(s => s.Id == stepId);
+            if (step.PhotoRequired && (step.Photos == null || step.Photos.Count() == 0))
+            {
+                return Result<object>.Failed(ErrorCode.StepPhotoRequired);
+            }
             step.IsCompleted = true;
             return Result<object>.Ok(null);
         }
@@ -49,6 +53,7 @@ namespace Ara.Domain.JobManagement
             if (repManual.Steps.Count() > (stepIndex + 1))
             {
                 var nextStep = repManual.Steps[stepIndex + 1];
+                return Result<(int RepairManualId, ManualStep Step)>.Ok((repManual.Id, nextStep));
             }
             else
             {
@@ -70,7 +75,17 @@ namespace Ara.Domain.JobManagement
             return task.RepairManuals.FirstOrDefault(r => r.Id == repairManualId).Document;
         }
 
-        public void AssignPhoto(int taskId, int repairManualId, int stepId) { }
+        public void AssignPhotoToStep(int taskId, int repairManualId, int stepId, Guid photoId)
+        {
+            var task = this.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var repManual = task.RepairManuals.FirstOrDefault(r => r.Id == repairManualId);
+            var step = repManual.Steps.FirstOrDefault(s => s.Id == stepId);
+
+            if (step.Photos == null)
+                step.Photos = new List<Photo>();
+
+            step.Photos.Add(new Photo() { Url = photoId.ToString() });
+        }
 
         private void updateJobStatus()
         {
