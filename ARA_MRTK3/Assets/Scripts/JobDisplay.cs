@@ -38,6 +38,7 @@ public class JobDisplay : MonoBehaviour
         if (progressBar != null)
         {
             progressBar.fillAmount = fillAmount / 1f;
+            // 
         }
         //completenessImage.fillAmount = fillAmount/100;
         //completenessImage.color = fillAmount > 99 ? completeColor : incompleteColor;

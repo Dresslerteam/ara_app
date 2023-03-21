@@ -1988,14 +1988,18 @@ namespace Paroxe.PdfRenderer
 
         private byte[] LoadAssetBytesFromResources(string path)
         {
-            string fixedPath = path.Replace(".bytes", "");
+            string fixedPath = path.Replace(".bytes.pdf", "");
             if (fixedPath.StartsWith("./"))
                 fixedPath = fixedPath.Substring(2);
 
             TextAsset pdfAsset = Resources.Load(fixedPath, typeof(TextAsset)) as TextAsset;
 
             if (pdfAsset != null && pdfAsset.bytes != null && pdfAsset.bytes.Length > 0)
+            {
+                Debug.Log("Loaded PDF from Resources: " + path);
                 return pdfAsset.bytes;
+            }
+                
 
             return null;
         }

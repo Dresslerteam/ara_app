@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ara.Domain.ApiClients.Dtos;
+using Ara.Domain.JobManagement;
 using ARA.Frontend;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -14,10 +15,14 @@ public class MainMenuAesthetic : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dateDisplay;
 
     [Header("Task Menu Banner")]
-    [SerializeField] private TextMeshProUGUI vinText;
+    [SerializeField] private TextMeshProUGUI vehicleInformationText;
+    [SerializeField] private TextMeshProUGUI taskTitle;
+    [SerializeField] private TextMeshProUGUI folderTitle;
 
-    [SerializeField] private TextMeshProUGUI jobNumberText;
-    [SerializeField] private TextMeshProUGUI vehicleTitleText;
+    // [SerializeField] private TextMeshProUGUI vinText;
+    //
+    // [SerializeField] private TextMeshProUGUI jobNumberText;
+    // [SerializeField] private TextMeshProUGUI vehicleTitleText;
 
     [SerializeField] private TextMeshProUGUI estimatorTextJobs;
     [SerializeField] private TextMeshProUGUI estimatorTextTasks;
@@ -53,10 +58,10 @@ public class MainMenuAesthetic : MonoBehaviour
                             "/" +
                             DateTime.Now.Year);
     }
-    public void UpdateTaskDisplay(JobListItemDto chosenJob)
+    public void UpdateTaskDisplay(JobListItemDto chosenJob, TaskInfo task)
     {
-        vinText.text = chosenJob.CarInfo.Vin;
-        jobNumberText.text = "Job# " + chosenJob.Id;
-        vehicleTitleText.text = $"{chosenJob.CarInfo.Manufacturer} {chosenJob.CarInfo.Model} {chosenJob.CarInfo.Year}";
+        vehicleInformationText.text = $"Job#: {chosenJob.Id} , {chosenJob.CarInfo.Manufacturer} {chosenJob.CarInfo.Model} {chosenJob.CarInfo.Year} , VIN: {chosenJob.CarInfo.Vin}";
+        taskTitle.text = task.Title;
+        folderTitle.text = task.RepairManuals[0].Name;
     }
 }

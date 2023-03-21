@@ -10,29 +10,28 @@ using UnityEngine;
 
 public class LogInMenu : MonoBehaviour
 {
-    [field: SerializeField] private List<UserDto> employees = new List<UserDto>();
+    [AssetsOnly]
     [SerializeField] private GameObject accountButtonPrefab;
     [SerializeField] private Transform contentRoot;
-    [SerializeField] private List<Employee> tempEmployeeList = new List<Employee>();
-
+    private UserService userService = new UserService();
+    private List<UserDto> users = new List<UserDto>();
     [Header("Temp_Menus")]
     [SerializeField] private GameObject jobMenu;
     // Temporary
     public string estimatorName;
     
     public static Action OnAccountSelected;
-    
-    [Serializable]
-    public class Employee
+    public static LogInMenu _instance;
+    private void Awake()
     {
-        public string FirstName;
-        public string LastName;
-        public Employee(string aFirstName, string aLastName)
+        if (_instance != null && _instance != this)
         {
-            FirstName = aFirstName;
-            LastName = aLastName;
+            Destroy(this.gameObject);
         }
-        
+        else
+        {
+            _instance = this;
+        }
     }
 
     private void OnEnable()
@@ -43,24 +42,34 @@ public class LogInMenu : MonoBehaviour
     private void Start()
     {
         //PopulateEmployeeGrid();
+        users = userService.GetAllUsers();
+        
+        if(users.Count > 0)
+            PopulateEmployeeGrid();
     }
-    [Button]
-    public void PopulateEmployeeGrid()
+
+    private void PopulateEmployeeGrid()
     {
-        foreach (var employee in tempEmployeeList)
+        foreach (var userDto in users)
         {
             AccountButton employeeButton = Instantiate(accountButtonPrefab,
                     contentRoot)
                 .GetComponent<AccountButton>();
-            employeeButton.SetupButton(employee.FirstName + " " + employee.LastName);
+            employeeButton.SetupButton(userDto);
+            
         }
     }
 
-    public async void AccountSelected()
+    public async void AccountSelected(UserDto selectedUser)
     {
+        userService.Login(selectedUser.Email);
+        await LoaderDisplay.Instance.ShowLoader(2f);
         await InitJobMenu();
     }
-
+    public void LogOut()
+    {
+        userService.LogOut();
+    }
     private async Task InitJobMenu()
     {
         jobMenu.SetActive(true);
@@ -70,7 +79,7 @@ public class LogInMenu : MonoBehaviour
     public void SetEstimatorName(string name)
     {
         
-        estimatorName = "Estimator: " + name;
+        estimatorName = "Current User: " + name;
         OnAccountSelected?.Invoke();
     }
 }

@@ -72,3 +72,10 @@ crashlytics-build.properties
 #to avoid mac/windows hintpath issues (Preferences/External Tools/Regenerate project files)
 *.csproj
 /Ara.Domain.Test/bin/*
+ARA_MRTK3/Assets/Plugins/Sirenix/Demos/Sample - RPG Editor.unitypackage.meta
+ARA_MRTK3/Assets/Plugins/Sirenix/Demos/Editor Windows.unitypackage.meta
+ARA_MRTK3/Assets/Plugins/Sirenix/Demos/Custom Drawers.unitypackage.meta
+ARA_MRTK3/Assets/Plugins/Sirenix/Demos/Custom Attribute Processors.unitypackage.meta
+ARA_MRTK3/Assets/BoxOfClicks/BTagged/BTagged_PlayMaker_Actions.unitypackage.meta
+ARA_MRTK3/Assets/BoxOfClicks/BTagged/BTagged_GameObject_Examples.unitypackage.meta
+ARA_MRTK3/Assets/BoxOfClicks/BTagged/BTagged_ECS_Examples.unitypackage.meta

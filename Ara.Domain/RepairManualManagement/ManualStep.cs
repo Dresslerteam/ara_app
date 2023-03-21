@@ -11,15 +11,22 @@ namespace Ara.Domain.RepairManualManagement
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public StepImage Image { get; set; }
         public List<Message> Messages { get; set; }
         public List<Photo> Photos { get; set; }
-        public RepairManual ReferencedManual { get; set; }
-        public int? ReferencedManualId { get; set; }
-        public List<(StepReferencedDocType, PdfDoc)> Docs { get; set; }
+        public bool PhotoRequired { get; set; } = false;
+        public bool IsCompleted { get; set; } = false;
+        public List<(StepReferencedDocType Type, PdfDoc Doc)> ReferencedDocs { get; set; }
         public enum StepReferencedDocType
         {
             Caution = 1,
             Procedure = 2
+        }
+
+        public class StepImage
+        {
+            public string Title { get; set; }
+            public string Url { get; set; }
         }
     }
 }

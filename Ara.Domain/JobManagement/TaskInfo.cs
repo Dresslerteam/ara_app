@@ -20,10 +20,10 @@ namespace Ara.Domain.JobManagement
 
         public enum TaskStatus
         {
-            ToDo = 1,
-            InProgress = 2,
-            OnHold = 3,
-            Completed = 4
+            ToDo = 0,
+            InProgress = 1,
+            OnHold = 2,
+            Completed = 3
         }
     }
 
