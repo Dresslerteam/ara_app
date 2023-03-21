@@ -16,8 +16,9 @@ public class PDFLoader : MonoBehaviour
 
     public void LoadPdf(string fileName)
     {
+
         pdfViewer.FileName = fileName;
-        pdfViewer.LoadDocumentFromResources("Docs", fileName+".pdf.bytes",0); 
+        pdfViewer.LoadDocumentFromStreamingAssets("Docs", fileName+".bytes",0); 
     }
 
 }

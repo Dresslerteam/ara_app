@@ -22,6 +22,10 @@ public class WorkingHUDManager : MonoBehaviour
         [SerializeField] private TextMeshProUGUI taskTextAboveVisuals;
         [SerializeField] private RawImage stepImageVisual;
         [Header("Buttons")]
+        [SerializeField] private PressableButton estimationButton;
+
+        [SerializeField] private PressableButton scanDocButton;
+        [SerializeField] private PressableButton procedureButton;
         [SerializeField] private Transform buttonsRoot;
         [SerializeField] [AssetsOnly] private PressableButton cautionPdfButtonPrefab;
         [SerializeField] [AssetsOnly] private PressableButton oemPdfButtonPrefab;
@@ -42,6 +46,15 @@ public class WorkingHUDManager : MonoBehaviour
                 repairManualDisplay.UpdateDisplayInformation(repairManual.Name);
                 repairManualDisplay.transform.localScale = Vector3.one;
                 repairManualDisplay.transform.localRotation = Quaternion.identity;
+                estimationButton.OnClicked.AddListener(() =>
+                {
+                    MainMenuManager.Instance.pdfLoader.LoadPdf(repairManual.Document.Url);
+                });
+                scanDocButton.OnClicked.AddListener(() =>
+                {
+                    MainMenuManager.Instance.pdfLoader.LoadPdf(repairManual.Document.Url);
+                });
+                
                 // Clear previous steps
                 foreach (Transform child in repairManualDisplay.stepGroupParent)
                 {
@@ -64,6 +77,10 @@ public class WorkingHUDManager : MonoBehaviour
                         UpdateFileButtons(step);
                     });
                     toggleCollection.Toggles.Add(button);
+                    procedureButton.OnClicked.AddListener(() =>
+                    {
+                        MainMenuManager.Instance.pdfLoader.LoadPdf(step.ReferencedDocs[0].Doc.Url);
+                    });
                 }
             }
             toggleCollection.Toggles[0].ForceSetToggled(true,true);
