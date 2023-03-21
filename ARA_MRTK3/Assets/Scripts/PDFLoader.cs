@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Paroxe.PdfRenderer;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PDFLoader : MonoBehaviour
@@ -17,4 +19,5 @@ public class PDFLoader : MonoBehaviour
         pdfViewer.FileName = fileName;
         pdfViewer.LoadDocumentFromResources("Docs", fileName+".pdf.bytes",0); 
     }
+
 }
