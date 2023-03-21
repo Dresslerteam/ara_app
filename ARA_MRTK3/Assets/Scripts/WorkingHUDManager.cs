@@ -18,7 +18,6 @@ public class WorkingHUDManager : MonoBehaviour
         [SerializeField] [AssetsOnly] private GameObject stepDisplayPrefab;
         [SerializeField] [SceneObjectsOnly] private GameObject cameraIcon;
         private List<RepairManual> repairManuals = new List<RepairManual>();
-        [SerializeField] private VerticalFoldoutGroup verticalFoldoutGroup;
         [Header("Visuals")] 
         [SerializeField] private TextMeshProUGUI taskTextAboveVisuals;
         [SerializeField] private RawImage stepImageVisual;
@@ -64,9 +63,8 @@ public class WorkingHUDManager : MonoBehaviour
                     });
                     toggleCollection.Toggles.Add(button);
                 }
-                break;
             }
-           toggleCollection.Toggles[0].ForceSetToggled(true,true);
+            toggleCollection.Toggles[0].ForceSetToggled(true,true);
         }
 
         private void UpdateFileButtons(ManualStep step)
