@@ -14,6 +14,7 @@ public class ExpandablePressableButton : MonoBehaviour
     
     public static event Action<bool, ExpandablePressableButton> OnExpand;
     public float expandablePanelHeight;
+    private List<Collider> colliders = new List<Collider>();
     private void OnEnable()
     {
         
@@ -21,7 +22,7 @@ public class ExpandablePressableButton : MonoBehaviour
 
     private void OnDisable()
     {
-        
+        colliders.Clear();
     }
 
     void Awake()
@@ -39,17 +40,27 @@ public class ExpandablePressableButton : MonoBehaviour
     {
         if (contentSizeFitter == null)
             return;
-
+        if(colliders.Count == 0)
+            colliders.AddRange(GetComponentsInChildren<Collider>());
         if (!isExpanded)
         {
             expandablePanelHeight = expandablePanel.sizeDelta.y;
             expandablePanel.sizeDelta = new Vector2(expandablePanel.sizeDelta.x, 0);
+            foreach (var collider in colliders)
+            {
+                collider.enabled = false;
+            }
         }
         else
         {
             expandablePanel.sizeDelta = new Vector2(expandablePanel.sizeDelta.x, expandablePanelHeight);
+            foreach (var collider in colliders)
+            {
+                collider.enabled = true;
+            }
         }
 
+        colliders[0].enabled = true;
         contentSizeFitter.enabled = isExpanded;
         OnExpand?.Invoke(isExpanded, this);
     }

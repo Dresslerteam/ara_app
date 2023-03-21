@@ -55,7 +55,9 @@ public class WorkingHUDManager : MonoBehaviour
                     var button = stepDisplay.GetComponent<PressableButton>();
                     button.OnClicked.AddListener(() =>
                     {
-                        var imageURL = "Photos/"+step.Image.Url;
+                        var imageURL = "";
+                        if(step.Image != null && step.Image.Url != null)
+                            imageURL = "Photos/"+step.Image.Url;
                         UpdateVisual(step.Title, imageURL);
                         MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(MainMenuManager.Instance.selectedJobListItem, task);
                         EnableCameraIcon(step.PhotoRequired);
@@ -106,18 +108,27 @@ public class WorkingHUDManager : MonoBehaviour
 
         public void UpdateVisual(string stepTitle, string imageURL)
         {
-            string newString = imageURL;
-            // Get image from inside folder
-            if (imageURL.EndsWith(".png"))
+            if (imageURL != null)
             {
-                newString = imageURL.Substring(0, imageURL.LastIndexOf("."));
-            }
+                string newString = imageURL;
+                // Get image from inside folder
+                if (imageURL.EndsWith(".png"))
+                {
+                    newString = imageURL.Substring(0, imageURL.LastIndexOf("."));
+                }
 
-            imageURL = newString;
-            Debug.Log("imageURL: " + imageURL);
-            Texture2D stepImage = Resources.Load<Texture2D>(imageURL);
+                imageURL = newString;
+                Debug.Log("imageURL: " + imageURL);
+                Texture2D stepImage = Resources.Load<Texture2D>(imageURL);
+                this.stepImageVisual.enabled = true;
+                this.stepImageVisual.texture = stepImage;
+            }
+            else
+            {
+                //this.stepImageVisual.enabled = false;
+            }
+            
             taskTextAboveVisuals.text = stepTitle;
-            this.stepImageVisual.texture = stepImage;
         }
         // Enable Camera Icon if the step.PhotoRequired is true
         public void EnableCameraIcon(bool enable)
