@@ -1,7 +1,6 @@
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.Subsystems;
-using Microsoft.MixedReality.Toolkit.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR;
