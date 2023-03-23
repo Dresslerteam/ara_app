@@ -29,6 +29,7 @@ public class WorkingHUDManager : MonoBehaviour
         [SerializeField] private Transform buttonsRoot;
         [SerializeField] [AssetsOnly] private PressableButton cautionPdfButtonPrefab;
         [SerializeField] [AssetsOnly] private PressableButton oemPdfButtonPrefab;
+        private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
         public void PopulateTaskGroups(TaskInfo task)
         {
             // Clear previous groups
@@ -88,6 +89,7 @@ public class WorkingHUDManager : MonoBehaviour
 
         private void UpdateFileButtons(ManualStep step)
         {
+
             if(step.ReferencedDocs != null && step.ReferencedDocs.Count > 0)
             {
                 // If there are buttons, clear them
@@ -124,8 +126,8 @@ public class WorkingHUDManager : MonoBehaviour
         }
 
         public void UpdateVisual(string stepTitle, string imageURL)
-        {
-            if (imageURL != null)
+        { 
+            if (!string.IsNullOrEmpty(imageURL))
             {
                 string newString = imageURL;
                 // Get image from inside folder
@@ -144,8 +146,10 @@ public class WorkingHUDManager : MonoBehaviour
             {
                 //this.stepImageVisual.enabled = false;
             }
-            
             taskTextAboveVisuals.text = stepTitle;
+             if(textMeshProUGUIAutoSizer==null)
+                 textMeshProUGUIAutoSizer = taskTextAboveVisuals.GetComponent<TextMeshProUGUIAutoSizer>();
+             textMeshProUGUIAutoSizer.ResizeTextMeshProUGUI();
         }
         // Enable Camera Icon if the step.PhotoRequired is true
         public void EnableCameraIcon(bool enable)
