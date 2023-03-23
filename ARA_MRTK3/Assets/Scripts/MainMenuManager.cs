@@ -47,7 +47,7 @@ public class MainMenuManager : MonoBehaviour
 
     private static MainMenuManager _instance;
     public static MainMenuManager Instance { get { return _instance; } }
-
+    public static Action<MenuPage> OnMenuPageChanged;
 
     public MenuPage currentMenuPage = MenuPage.splashScreen;
     public Job currentJob;
@@ -67,6 +67,7 @@ public class MainMenuManager : MonoBehaviour
 
         ToggleAllMenus(false);
         if (splashScreen != null) splashScreen.SetActive(true);
+        OnMenuPageChanged?.Invoke(MenuPage.splashScreen);
     }
 
     // The user has selected their account...
@@ -74,6 +75,7 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenuAesthetic = GetComponent<MainMenuAesthetic>();
         currentMenuPage = MenuPage.jobSelectScreen;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
         await UpdateJobBoard();
     }
 
@@ -93,6 +95,7 @@ public class MainMenuManager : MonoBehaviour
         jobBoard.SetActive(true);
         ClearChildrenButtons(jobSelectionRoot);
         currentMenuPage = MenuPage.jobSelectScreen;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
         if(loaderGO!=null) loaderGO.SetActive(true);
         availbleJobs = await applicationService.GetJobsAsync();
         if(loaderGO!=null) loaderGO.SetActive(false);
@@ -158,6 +161,7 @@ public class MainMenuManager : MonoBehaviour
         ClearChildrenButtons(taskSelectionRoot);
         taskBoard.SetActive(true);
         currentMenuPage = MenuPage.taskSelect;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
         if(loaderGO!=null) loaderGO.SetActive(true);
         currentJob = await applicationService.GetJobDetailsAsync(selectedJobListItem.Id);
         if(loaderGO!=null) loaderGO.SetActive(false);
@@ -190,6 +194,7 @@ public class MainMenuManager : MonoBehaviour
     {
         ToggleAllMenus(false);
         currentMenuPage = MenuPage.performingJob;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
         if(taskOverview!=null){
             taskOverview.SetActive(true);
         workingHUDManager.PopulateTaskGroups(job);

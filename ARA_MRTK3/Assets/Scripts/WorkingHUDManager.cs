@@ -3,6 +3,7 @@ using System.Linq;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.JobManagement;
 using Ara.Domain.RepairManualManagement;
+using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.UX;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -12,6 +13,7 @@ using UnityEngine.UI;
 public class WorkingHUDManager : MonoBehaviour
     {
         [SerializeField] private ToggleCollection toggleCollection;
+        [SerializeField] private ToggleCollection manualButtonCollection;
         [Header("Steps")]
         [SerializeField] private Transform groupsRoot;
         [SerializeField] [AssetsOnly] private GameObject repairManualDisplayPrefab;
@@ -100,25 +102,50 @@ public class WorkingHUDManager : MonoBehaviour
                 // Add caution and OEM PDF buttons
                 for (int i = 0; i < step.ReferencedDocs.Count; i++)
                 {
-                    var referencedDoc = step.ReferencedDocs[i].Doc;
-        
-                    // Add caution PDF button
-                    var cautionPdfButton = Instantiate(cautionPdfButtonPrefab, buttonsRoot);
-                    cautionPdfButton.transform.localScale = Vector3.one;
-                    cautionPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
+                    var referencedDoc = step.ReferencedDocs[i];
+
+                    // If the referencedDocument type is caution, add caution PDF button
+                    if (referencedDoc.Type == ManualStep.StepReferencedDocType.Caution)
                     {
-                        MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Url);
-                        Debug.Log(referencedDoc.Url);
-                    });
+                        var cautionPdfButton = Instantiate(cautionPdfButtonPrefab, buttonsRoot);
+                        cautionPdfButton.transform.localScale = Vector3.one;
+                        cautionPdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                        manualButtonCollection.Toggles.Add(cautionPdfButton);
+                        cautionPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
+                        {
+                            if (cautionPdfButton.IsToggled == true)
+                            {
+                                MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Doc.Url);
+
+                            }
+                            else
+                            {
+                                MainMenuManager.Instance.pdfLoader.HidePdf();
+
+                            }
+                        });
+                    }
 
                     // Add OEM PDF button
-                    var oemPdfButton = Instantiate(oemPdfButtonPrefab, buttonsRoot);
-                    oemPdfButton.transform.localScale = Vector3.one;
-                    oemPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
+                    if (referencedDoc.Type == ManualStep.StepReferencedDocType.Procedure)
                     {
-                        MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Url);
-                        Debug.Log(referencedDoc.Url);
-                    });
+                        var oemPdfButton = Instantiate(oemPdfButtonPrefab, buttonsRoot);
+                        oemPdfButton.transform.localScale = Vector3.one;
+                        oemPdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                        manualButtonCollection.Toggles.Add(oemPdfButton);
+                        oemPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
+                        {
+                            if(oemPdfButton.IsToggled == true)
+                            {
+                                MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Doc.Url);
+                            }
+                            else
+                            {
+                                MainMenuManager.Instance.pdfLoader.HidePdf();
+                            }
+                        });
+                    }
+                    
                 }
                 
             }

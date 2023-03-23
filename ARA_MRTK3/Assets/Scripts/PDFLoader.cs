@@ -20,5 +20,9 @@ public class PDFLoader : MonoBehaviour
         pdfViewer.FileName = fileName;
         pdfViewer.LoadDocumentFromStreamingAssets("Docs", fileName+".bytes",0); 
     }
+    public void HidePdf()
+    {
+        pdfViewer.gameObject.SetActive(false);
+    }
 
 }
