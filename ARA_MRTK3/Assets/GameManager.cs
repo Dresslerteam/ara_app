@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
-    public static GameManager Instance { get { return _instance; } }
+    private static GameManager gamemanagerInstance;
+    public static GameManager Instance { get { return gamemanagerInstance; } }
     
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (gamemanagerInstance != null && gamemanagerInstance != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            _instance = this;
+            gamemanagerInstance = this;
         }
     }
 

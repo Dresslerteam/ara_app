@@ -8,10 +8,10 @@ using UnityEngine;
 public class PDFLoader : MonoBehaviour
 {
     [SerializeField] private PDFViewer pdfViewer;
-    // Start is called before the first frame update
+    // Start is called before the first frame 
     void Start()
     {
-        
+        gameObject.SetActive(false);
     }
 
     public void LoadPdf(string fileName)
@@ -22,7 +22,7 @@ public class PDFLoader : MonoBehaviour
     }
     public void HidePdf()
     {
-        pdfViewer.gameObject.SetActive(false);
+        transform.gameObject.SetActive(false);
     }
 
 }

@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CanvasBackplateQuad
+  m_Name: Highlight_stroke_gradient
   m_Shader: {fileID: 4800000, guid: df5380aa6ab293c4fafbb942ed5da93f, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _BORDER_LIGHT _BORDER_LIGHT_OPAQUE _BORDER_LIGHT_REPLACES_ALBEDO
-    _BORDER_LIGHT_USES_COLOR _EDGE_SMOOTHING_AUTOMATIC _ROUND_CORNERS _SPECULAR_HIGHLIGHTS
-    _UI_CLIP_RECT_ROUNDED_INDEPENDENT
+    _BORDER_LIGHT_USES_COLOR _EDGE_SMOOTHING_AUTOMATIC _GRADIENT_LINEAR _ROUND_CORNERS
+    _SPECULAR_HIGHLIGHTS _UI_CLIP_RECT_ROUNDED_INDEPENDENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -86,7 +86,7 @@ Material:
     - _Falloff_: 1
     - _FluentLightIntensity: 1
     - _GradientAngle: 180
-    - _GradientMode: 0
+    - _GradientMode: 3
     - _HoverLight: 0
     - _IndependentCorners: 0
     - _InnerGlow: 0
@@ -144,22 +144,22 @@ Material:
     - unity_GUIZTestMode: 4
     m_Colors:
     - _BlurBackgroundRect: {r: 0, g: 0, b: 1, a: 1}
-    - _BorderColor: {r: 1, g: 1, b: 1, a: 0}
+    - _BorderColor: {r: 0.8039216, g: 0.77254903, b: 0.9647059, a: 0}
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
-    - _ClipRectRadii: {r: 0, g: 12, b: 0, a: 12}
+    - _ClipRectRadii: {r: 0, g: 0, b: 10, a: 10}
     - _ClippingBorderColor: {r: 1, g: 0.2, b: 0, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _Color_: {r: 0.48160002, g: 0.67080003, b: 0.86, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EnvironmentColorX: {r: 1, g: 0, b: 0, a: 1}
     - _EnvironmentColorY: {r: 0, g: 1, b: 0, a: 1}
     - _EnvironmentColorZ: {r: 0, g: 0, b: 1, a: 1}
     - _GradientAlpha: {r: 1, g: 1, b: 1, a: 1}
-    - _GradientAlphaTime: {r: 0, g: 0, b: 0, a: 0}
-    - _GradientColor0: {r: 0.631373, g: 0.631373, b: 0.631373, a: 0}
-    - _GradientColor1: {r: 1, g: 0.690196, b: 0.976471, a: 0.25}
-    - _GradientColor2: {r: 0, g: 0.33, b: 0.88, a: 0.5}
-    - _GradientColor3: {r: 0, g: 0.33, b: 0.88, a: 1}
+    - _GradientAlphaTime: {r: 0, g: 1, b: 1, a: 1}
+    - _GradientColor0: {r: 0.21568628, g: 0.3372549, b: 0.78039217, a: 0}
+    - _GradientColor1: {r: 0.20784314, g: 0.19607843, b: 0.78039217, a: 0.5000076}
+    - _GradientColor2: {r: 0.34509805, g: 0.21960784, b: 0.88, a: 1}
+    - _GradientColor3: {r: 0.34509805, g: 0.21960784, b: 0.88, a: 1}
     - _GradientColor4: {r: 1, g: 1, b: 1, a: 1}
     - _HoverColorOverride: {r: 1, g: 1, b: 1, a: 1}
     - _InnerGlowColor: {r: 1, g: 1, b: 1, a: 0.75}

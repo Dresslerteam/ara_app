@@ -8,11 +8,12 @@ using Microsoft.MixedReality.Toolkit.UX;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class WorkingHUDManager : MonoBehaviour
     {
-        [SerializeField] private ToggleCollection toggleCollection;
+        [FormerlySerializedAs("toggleCollection")] [SerializeField] private ToggleCollection stepToggleCollection;
         [SerializeField] private ToggleCollection manualButtonCollection;
         [Header("Steps")]
         [SerializeField] private Transform groupsRoot;
@@ -49,14 +50,7 @@ public class WorkingHUDManager : MonoBehaviour
                 repairManualDisplay.UpdateDisplayInformation(repairManual.Name);
                 repairManualDisplay.transform.localScale = Vector3.one;
                 repairManualDisplay.transform.localRotation = Quaternion.identity;
-                estimationButton.OnClicked.AddListener(() =>
-                {
-                    MainMenuManager.Instance.pdfLoader.LoadPdf(repairManual.Document.Url);
-                });
-                scanDocButton.OnClicked.AddListener(() =>
-                {
-                    MainMenuManager.Instance.pdfLoader.LoadPdf(repairManual.Document.Url);
-                });
+                
                 
                 // Clear previous steps
                 foreach (Transform child in repairManualDisplay.stepGroupParent)
@@ -78,15 +72,23 @@ public class WorkingHUDManager : MonoBehaviour
                         MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(MainMenuManager.Instance.selectedJobListItem, task);
                         EnableCameraIcon(step.PhotoRequired);
                         UpdateFileButtons(step);
+                        procedureButton.OnClicked.AddListener(() =>
+                        {
+                            if (procedureButton.IsToggled == true)
+                            {
+                                MainMenuManager.Instance.pdfLoader.LoadPdf(repairManual.Document.Url);
+                            }
+                            else
+                            {
+                                MainMenuManager.Instance.pdfLoader.HidePdf();
+
+                            }
+                        });
                     });
-                    toggleCollection.Toggles.Add(button);
-                    procedureButton.OnClicked.AddListener(() =>
-                    {
-                        MainMenuManager.Instance.pdfLoader.LoadPdf(step.ReferencedDocs[0].Doc.Url);
-                    });
+                    stepToggleCollection.Toggles.Add(button);
                 }
             }
-            toggleCollection.Toggles[0].ForceSetToggled(true,true);
+            stepToggleCollection.Toggles[0].ForceSetToggled(true,true);
         }
 
         private void UpdateFileButtons(ManualStep step)

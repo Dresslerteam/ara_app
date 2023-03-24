@@ -22,65 +22,75 @@ public class HeaderManager : MonoBehaviour
         MainMenuManager.OnMenuPageChanged += UpdateButton;
     }
 
+    private void OnDisable()
+    {
+        MainMenuManager.OnMenuPageChanged -= UpdateButton;
+    }
+
     public void UpdateButton(MenuPage selectedPage)
     {
         switch (selectedPage)
         {
             case MenuPage.splashScreen:
-                jobsButton.SetActive(false);
-                tasksButton.SetActive(false);
-                hideButton.SetActive(false);
-                logoutButton.SetActive(false);
-                scanDocButton.SetActive(false);
-                pdfEstimationButton.SetActive(false);
-                modelButton.SetActive(false);
-                menuTitleWithUserTexts.SetActive(false);
+                jobsButton?.SetActive(false);
+                tasksButton?.SetActive(false);
+                hideButton?.SetActive(false);
+                logoutButton?.SetActive(false);
+                scanDocButton?.SetActive(false);
+                pdfEstimationButton?.SetActive(false);
+                //modelButton?.SetActive(false);
+                menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
                 break;
+
             case MenuPage.loginScreen:
-                jobsButton.SetActive(false);
-                tasksButton.SetActive(false);
-                hideButton.SetActive(false);
-                logoutButton.SetActive(false);
-                scanDocButton.SetActive(false);
-                pdfEstimationButton.SetActive(false);
-                modelButton.SetActive(false);
-                menuTitleWithUserTexts.SetActive(false);
+                jobsButton?.SetActive(false);
+                tasksButton?.SetActive(false);
+                hideButton?.SetActive(false);
+                logoutButton?.SetActive(false);
+                scanDocButton?.SetActive(false);
+                pdfEstimationButton?.SetActive(false);
+               // modelButton?.SetActive(false);
+                menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
                 break;
+
             case MenuPage.jobSelectScreen:
-                jobsButton.SetActive(true);
-                tasksButton.SetActive(false);
-                hideButton.SetActive(true);
-                logoutButton.SetActive(true);
-                scanDocButton.SetActive(false);
-                pdfEstimationButton.SetActive(false);
-                modelButton.SetActive(false);
-                menuTitleWithUserTexts.SetActive(true);
+                jobsButton?.SetActive(true);
+                tasksButton?.SetActive(false);
+                hideButton?.SetActive(true);
+                logoutButton?.SetActive(true);
+                scanDocButton?.SetActive(false);
+                pdfEstimationButton?.SetActive(false);
+               // modelButton?.SetActive(false);
+                menuTitleWithUserTexts?.SetActive(true);
                 jobinformationTexts.SetActive(false);
                 break;
+
             case MenuPage.modelOverview:
                 break;
+
             case MenuPage.taskSelect:
-                jobsButton.SetActive(true);
-                tasksButton.SetActive(true);
-                hideButton.SetActive(true);
-                logoutButton.SetActive(false);
-                scanDocButton.SetActive(true);
-                pdfEstimationButton.SetActive(true);
-                modelButton.SetActive(true);
-                menuTitleWithUserTexts.SetActive(true);
+                jobsButton?.SetActive(true);
+                tasksButton?.SetActive(true);
+                hideButton?.SetActive(true);
+                logoutButton?.SetActive(false);
+                scanDocButton?.SetActive(true);
+                pdfEstimationButton?.SetActive(true);
+               // modelButton?.SetActive(true);
+                menuTitleWithUserTexts?.SetActive(true);
                 jobinformationTexts.SetActive(false);
                 break;
+
             case MenuPage.performingJob:
-                jobsButton.SetActive(true);
-                tasksButton.SetActive(true);
-                hideButton.SetActive(true);
-                logoutButton.SetActive(false);
-                scanDocButton.SetActive(true);
-                pdfEstimationButton.SetActive(true);
-                modelButton.SetActive(true);
-                menuTitleWithUserTexts.SetActive(false);
+                jobsButton?.SetActive(true);
+                tasksButton?.SetActive(true);
+                hideButton?.SetActive(true);
+                logoutButton?.SetActive(false);
+                scanDocButton?.SetActive(true);
+                pdfEstimationButton?.SetActive(true);
+               // modelButton?.SetActive(true);
+                menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(true);
                 break;
             default:

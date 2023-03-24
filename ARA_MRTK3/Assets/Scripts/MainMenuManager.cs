@@ -29,7 +29,11 @@ public class MainMenuManager : MonoBehaviour
     public GameObject modelOverviewGO;
     public GameObject modelOveriewCallOuts;
     [SerializeField] private QuickMenuDisplay jobQuickMenu;
-    [Header("Buttons")] [SerializeField] private PressableButton advanceToTaskButton; 
+    [Header("Buttons")]
+    [SerializeField] private PressableButton advanceToTaskButton;
+
+    [SerializeField] private PressableButton estimationButton;
+    [SerializeField] private PressableButton scanDocButton;
     [Header("Collection Roots")]
     [SerializeField] private Transform jobSelectionRoot;
     [SerializeField] private Transform taskSelectionRoot;
@@ -46,7 +50,26 @@ public class MainMenuManager : MonoBehaviour
     public JobApplicationService applicationService = new JobApplicationService();
 
     private static MainMenuManager _instance;
-    public static MainMenuManager Instance { get { return _instance; } }
+    public static MainMenuManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<MainMenuManager>();
+
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject();
+                    _instance = singletonObject.AddComponent<MainMenuManager>();
+                    singletonObject.name = typeof(MainMenuManager).ToString() + " (Singleton)";
+                }
+            }
+
+            return _instance;
+        }
+    }
+    
     public static Action<MenuPage> OnMenuPageChanged;
 
     public MenuPage currentMenuPage = MenuPage.splashScreen;
@@ -59,16 +82,34 @@ public class MainMenuManager : MonoBehaviour
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
+            return;
         }
-        else
-        {
-            _instance = this;
-        }
+
+        _instance = this;
+        DontDestroyOnLoad(this.gameObject);
 
         ToggleAllMenus(false);
         if (splashScreen != null) splashScreen.SetActive(true);
+        currentMenuPage = MenuPage.splashScreen;
         OnMenuPageChanged?.Invoke(MenuPage.splashScreen);
     }
+
+    void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            _instance = null;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_instance == this)
+        {
+            _instance = null;
+        }
+    }
+
 
     // The user has selected their account...
     public async Task LoggedIn()
@@ -118,7 +159,7 @@ public class MainMenuManager : MonoBehaviour
                 availableJobListItem.EstimatorFullName,
                 $"{availableJobListItem.CarInfo.Manufacturer} {availableJobListItem.CarInfo.Model} {availableJobListItem.CarInfo.Year}",
                 availableJobListItem.CarInfo.Vin,
-                (availableJobListItem.NumberOfDoneTasks+"/"+availableJobListItem.NumberOfTasks),fillAmount
+                (availableJobListItem.NumberOfDoneTasks+"/"+availableJobListItem.NumberOfTasks),fillAmount, availableJobListItem
                 );
             jobDisplayInteractable.OnClicked.AddListener(AddJobToButton(availableJobListItem));
             await Task.Yield();
@@ -179,6 +220,30 @@ public class MainMenuManager : MonoBehaviour
             taskDisplay.UpdateDisplayInformation(jobTask.Id,jobTask.Title, jobTask.Status);
             await Task.Yield();
         }
+        estimationButton.OnClicked.AddListener(() =>
+        {
+            if (estimationButton.IsToggled)
+            {
+                pdfLoader.LoadPdf(chosenJob.PreliminaryEstimation.Url);
+                Debug.Log("showing pdf");
+            }
+            else
+            {
+               pdfLoader.HidePdf();
+                Debug.Log("hiding pdf");
+            }
+        });
+        scanDocButton.OnClicked.AddListener(() =>
+        {
+            if (scanDocButton.IsToggled)
+            {
+                pdfLoader.LoadPdf(chosenJob.PreliminaryScan.Url);
+            }
+            else
+            {
+                pdfLoader.HidePdf();
+            }
+        });
     }
     private UnityAction AddTaskToButton(TaskInfo task)
     {
@@ -258,11 +323,15 @@ public class MainMenuManager : MonoBehaviour
     {
         ToggleAllMenus(false);
         loginBoard.SetActive(true);
+        currentMenuPage = MenuPage.loginScreen;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
     }
     
 
     public void ReturnToSplash()
     {
+        currentMenuPage = MenuPage.splashScreen;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
         ToggleAllMenus(false);
         splashScreen.SetActive(true);
     }
