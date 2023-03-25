@@ -59033,17 +59033,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fda4953718e0264291c42cb2a637fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1233926580 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
-  m_PrefabInstance: {fileID: 1944156716}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c32e8a7644144f8419bb881ad588ed0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1237469368 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8520123611435666406, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
@@ -60982,8 +60971,6 @@ MonoBehaviour:
   cameraIcon: {fileID: 976658708}
   taskTextAboveVisuals: {fileID: 763192586}
   stepImageVisual: {fileID: 67519676}
-  estimationButton: {fileID: 758303873}
-  scanDocButton: {fileID: 828640803}
   procedureButton: {fileID: 1971507898}
   buttonsRoot: {fileID: 463199161}
   cautionPdfButtonPrefab: {fileID: 179641709986835802, guid: fc038d4451662054db41b7bfa65fd950, type: 3}
@@ -74646,8 +74633,6 @@ MonoBehaviour:
   cameraIcon: {fileID: 441432098}
   taskTextAboveVisuals: {fileID: 1158106541}
   stepImageVisual: {fileID: 1771198321}
-  estimationButton: {fileID: 1873797206}
-  scanDocButton: {fileID: 1233926580}
   procedureButton: {fileID: 424015048}
   buttonsRoot: {fileID: 678024562}
   cautionPdfButtonPrefab: {fileID: 179641709986835802, guid: fc038d4451662054db41b7bfa65fd950, type: 3}
@@ -79549,17 +79534,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873161983}
   m_CullTransparentMesh: 1
---- !u!114 &1873797206 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
-  m_PrefabInstance: {fileID: 1574050713}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c32e8a7644144f8419bb881ad588ed0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1874812838
 GameObject:
   m_ObjectHideFlags: 0
