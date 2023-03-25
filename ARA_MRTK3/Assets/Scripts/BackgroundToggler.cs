@@ -22,6 +22,7 @@ public class BackgroundToggler : MonoBehaviour
 
     private void MenuHasSwitched(MenuPage menuPage)
     {
+        Debug.Log("Menu has switched to: " + menuPage);
         switch (menuPage)
         {
             case MenuPage.splashScreen:

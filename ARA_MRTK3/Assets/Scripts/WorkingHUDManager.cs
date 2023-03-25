@@ -25,9 +25,6 @@ public class WorkingHUDManager : MonoBehaviour
         [SerializeField] private TextMeshProUGUI taskTextAboveVisuals;
         [SerializeField] private RawImage stepImageVisual;
         [Header("Buttons")]
-        [SerializeField] private PressableButton estimationButton;
-
-        [SerializeField] private PressableButton scanDocButton;
         [SerializeField] private PressableButton procedureButton;
         [SerializeField] private Transform buttonsRoot;
         [SerializeField] [AssetsOnly] private PressableButton cautionPdfButtonPrefab;
@@ -40,6 +37,7 @@ public class WorkingHUDManager : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
+            stepToggleCollection.Toggles.Clear();
             // Populate repair manual
             repairManuals.AddRange(task.RepairManuals);
 
@@ -57,12 +55,30 @@ public class WorkingHUDManager : MonoBehaviour
                 {
                     Destroy(child.gameObject);
                 }
+                procedureButton.OnClicked.AddListener(() =>
+                {
+                    if (procedureButton.IsToggled == true)
+                    {
+                        if (procedureButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                            procedureButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                        MainMenuManager.Instance.pdfLoader.LoadPdf(repairManual.Document.Url);
+                        procedureButton.ForceSetToggled(true, true);
+                    }
+                    else if (procedureButton.IsToggled == false)
+                    {
+                        if (procedureButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                            procedureButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                        MainMenuManager.Instance.pdfLoader.HidePdf();
+                        procedureButton.ForceSetToggled(false, true);
+                    }
+                });
                 // Add steps
                 foreach (var step in repairManual.Steps)
                 {
                     var stepDisplay = Instantiate(stepDisplayPrefab);
                     stepDisplay.GetComponent<StepDisplay>().UpdateDisplayInformation(step.Id, step.Title,step.IsCompleted,repairManualDisplay.stepGroupParent);
                     var button = stepDisplay.GetComponent<PressableButton>();
+                    
                     button.OnClicked.AddListener(() =>
                     {
                         var imageURL = "";
@@ -72,20 +88,8 @@ public class WorkingHUDManager : MonoBehaviour
                         MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(MainMenuManager.Instance.selectedJobListItem, task);
                         EnableCameraIcon(step.PhotoRequired);
                         UpdateFileButtons(step);
-                        procedureButton.OnClicked.AddListener(() =>
-                        {
-                            if (procedureButton.IsToggled == true)
-                            {
-                                MainMenuManager.Instance.pdfLoader.LoadPdf(repairManual.Document.Url);
-                            }
-                            else
-                            {
-                                MainMenuManager.Instance.pdfLoader.HidePdf();
-
-                            }
-                        });
                     });
-                    stepToggleCollection.Toggles.Add(button);
+                    SetupStepToggleButton(button, stepToggleCollection, step);
                 }
             }
             stepToggleCollection.Toggles[0].ForceSetToggled(true,true);
@@ -101,6 +105,7 @@ public class WorkingHUDManager : MonoBehaviour
                 {
                     Destroy(child.gameObject);
                 }
+                manualButtonCollection.Toggles.Clear();
                 // Add caution and OEM PDF buttons
                 for (int i = 0; i < step.ReferencedDocs.Count; i++)
                 {
@@ -111,21 +116,7 @@ public class WorkingHUDManager : MonoBehaviour
                     {
                         var cautionPdfButton = Instantiate(cautionPdfButtonPrefab, buttonsRoot);
                         cautionPdfButton.transform.localScale = Vector3.one;
-                        cautionPdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                        manualButtonCollection.Toggles.Add(cautionPdfButton);
-                        cautionPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
-                        {
-                            if (cautionPdfButton.IsToggled == true)
-                            {
-                                MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Doc.Url);
-
-                            }
-                            else
-                            {
-                                MainMenuManager.Instance.pdfLoader.HidePdf();
-
-                            }
-                        });
+                        SetupPdfToggleButton(cautionPdfButton, manualButtonCollection, referencedDoc.Doc.Url);
                     }
 
                     // Add OEM PDF button
@@ -133,25 +124,85 @@ public class WorkingHUDManager : MonoBehaviour
                     {
                         var oemPdfButton = Instantiate(oemPdfButtonPrefab, buttonsRoot);
                         oemPdfButton.transform.localScale = Vector3.one;
-                        oemPdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                        manualButtonCollection.Toggles.Add(oemPdfButton);
-                        oemPdfButton.GetComponent<PressableButton>().OnClicked.AddListener(() =>
-                        {
-                            if(oemPdfButton.IsToggled == true)
-                            {
-                                MainMenuManager.Instance.pdfLoader.LoadPdf(referencedDoc.Doc.Url);
-                            }
-                            else
-                            {
-                                MainMenuManager.Instance.pdfLoader.HidePdf();
-                            }
-                        });
+                        SetupPdfToggleButton(oemPdfButton, manualButtonCollection, referencedDoc.Doc.Url);
                     }
                     
                 }
                 
             }
             
+        }
+        
+        private void SetupPdfToggleButton(PressableButton pdfButton, ToggleCollection toggleCollection, string pdfUrl){
+            toggleCollection.Toggles.Add(pdfButton);
+            // If toggle is selected and the pdfButton is toggled, force disable the toggle
+            toggleCollection.OnToggleSelected.AddListener((ctx) =>
+            {
+                if (toggleCollection.Toggles[ctx]!=pdfButton)
+                {
+                    pdfButton.ForceSetToggled(false, false);
+                }
+            });
+            // Set the toggle mode to toggle
+            pdfButton.ForceSetToggled(false);
+            pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+            pdfButton.OnClicked.AddListener(() =>
+            {
+                if (pdfButton.IsToggled == true)
+                {
+                    if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                        pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                    MainMenuManager.Instance.pdfLoader.LoadPdf(pdfUrl);
+                    Debug.Log($"{gameObject.name}PDF Loaded");
+                    pdfButton.ForceSetToggled(true, true);
+                }
+                else if (pdfButton.IsToggled == false)
+                {
+                    if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                        pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                    MainMenuManager.Instance.pdfLoader.HidePdf();
+                    Debug.Log($"{gameObject.name}PDF Hidden");
+                    pdfButton.ForceSetToggled(false, true);
+                }
+            });
+            
+           
+        }
+
+        private void SetupStepToggleButton(PressableButton pdfButton, ToggleCollection toggleCollection, ManualStep step)
+        {
+            toggleCollection.Toggles.Add(pdfButton);
+            // If toggle is selected and the pdfButton is toggled, force disable the toggle
+            toggleCollection.OnToggleSelected.AddListener((ctx) =>
+            {
+                if (toggleCollection.Toggles[ctx] != pdfButton)
+                {
+                    pdfButton.ForceSetToggled(false, false);
+                }
+            });
+            // Set the toggle mode to toggle
+            pdfButton.ForceSetToggled(false);
+            pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+            pdfButton.OnClicked.AddListener(() =>
+            {
+                if (pdfButton.IsToggled == true)
+                {
+                    if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                        pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                    if(step.ReferencedDocs != null && step.ReferencedDocs.Count > 0)
+                        MainMenuManager.Instance.pdfLoader.LoadPdf(step.ReferencedDocs[0].Doc.Url);
+                    Debug.Log($"{gameObject.name}PDF Loaded");
+                    pdfButton.ForceSetToggled(true, true);
+                }
+                else if (pdfButton.IsToggled == false)
+                {
+                    if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                        pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                    MainMenuManager.Instance.pdfLoader.HidePdf();
+                    Debug.Log($"{gameObject.name}PDF Hidden");
+                    pdfButton.ForceSetToggled(false, true);
+                }
+            });
         }
 
         public void UpdateVisual(string stepTitle, string imageURL)

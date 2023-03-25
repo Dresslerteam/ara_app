@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
 
@@ -11,12 +12,13 @@ public class HeaderManager : MonoBehaviour
     public GameObject tasksButton;
     public GameObject hideButton;
     public GameObject logoutButton;
-    public GameObject scanDocButton;
-    public GameObject pdfEstimationButton;
+    public PressableButton scanDocButton;
+    public PressableButton pdfEstimationButton;
     public GameObject modelButton;
     [Header("Texts")] 
     public GameObject menuTitleWithUserTexts;
     public GameObject jobinformationTexts;
+    [Header("Collections")] public ToggleCollection DocButtonToggleCollection;
     private void OnEnable()
     {
         MainMenuManager.OnMenuPageChanged += UpdateButton;
@@ -25,6 +27,12 @@ public class HeaderManager : MonoBehaviour
     private void OnDisable()
     {
         MainMenuManager.OnMenuPageChanged -= UpdateButton;
+    }
+
+    private void Start()
+    {
+        scanDocButton.ForceSetToggled(false);
+        pdfEstimationButton.ForceSetToggled(false);
     }
 
     public void UpdateButton(MenuPage selectedPage)
@@ -36,8 +44,8 @@ public class HeaderManager : MonoBehaviour
                 tasksButton?.SetActive(false);
                 hideButton?.SetActive(false);
                 logoutButton?.SetActive(false);
-                scanDocButton?.SetActive(false);
-                pdfEstimationButton?.SetActive(false);
+                scanDocButton?.gameObject.SetActive(false);
+                pdfEstimationButton?.gameObject.SetActive(false);
                 //modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
@@ -48,8 +56,8 @@ public class HeaderManager : MonoBehaviour
                 tasksButton?.SetActive(false);
                 hideButton?.SetActive(false);
                 logoutButton?.SetActive(false);
-                scanDocButton?.SetActive(false);
-                pdfEstimationButton?.SetActive(false);
+                scanDocButton?.gameObject.SetActive(false);
+                pdfEstimationButton?.gameObject.SetActive(false);
                // modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
@@ -60,8 +68,8 @@ public class HeaderManager : MonoBehaviour
                 tasksButton?.SetActive(false);
                 hideButton?.SetActive(true);
                 logoutButton?.SetActive(true);
-                scanDocButton?.SetActive(false);
-                pdfEstimationButton?.SetActive(false);
+                scanDocButton?.gameObject.SetActive(false);
+                pdfEstimationButton?.gameObject.SetActive(false);
                // modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(true);
                 jobinformationTexts.SetActive(false);
@@ -75,8 +83,8 @@ public class HeaderManager : MonoBehaviour
                 tasksButton?.SetActive(true);
                 hideButton?.SetActive(true);
                 logoutButton?.SetActive(false);
-                scanDocButton?.SetActive(true);
-                pdfEstimationButton?.SetActive(true);
+                scanDocButton?.gameObject.SetActive(true);
+                pdfEstimationButton?.gameObject.SetActive(true);
                // modelButton?.SetActive(true);
                 menuTitleWithUserTexts?.SetActive(true);
                 jobinformationTexts.SetActive(false);
@@ -87,8 +95,8 @@ public class HeaderManager : MonoBehaviour
                 tasksButton?.SetActive(true);
                 hideButton?.SetActive(true);
                 logoutButton?.SetActive(false);
-                scanDocButton?.SetActive(true);
-                pdfEstimationButton?.SetActive(true);
+                scanDocButton?.gameObject.SetActive(true);
+                pdfEstimationButton?.gameObject.SetActive(true);
                // modelButton?.SetActive(true);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(true);

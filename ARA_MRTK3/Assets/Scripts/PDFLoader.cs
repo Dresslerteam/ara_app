@@ -16,7 +16,8 @@ public class PDFLoader : MonoBehaviour
 
     public void LoadPdf(string fileName)
     {
-
+        if(!transform.gameObject.activeSelf)
+            transform.gameObject.SetActive(true);
         pdfViewer.FileName = fileName;
         pdfViewer.LoadDocumentFromStreamingAssets("Docs", fileName+".bytes",0); 
     }

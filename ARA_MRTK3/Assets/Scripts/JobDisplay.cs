@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Ara.Domain.ApiClients.Dtos;
 using Microsoft.MixedReality.GraphicsTools;
+using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class JobDisplay : MonoBehaviour
     public PressableButton jobButton;
     public PressableButton pdfButton;
     [SerializeField] private Image progressBar;
+    private ToggleCollection toggleCollection;
     //[SerializeField] private Color incompleteColor = Color.gray;
     //[SerializeField] private Color completeColor = Color.green;
 
@@ -43,20 +45,44 @@ public class JobDisplay : MonoBehaviour
             progressBar.fillAmount = fillAmount / 1f;
             // 
         }
+        
+        SetupToggleButton(availableJobListItem);
+    }
+
+    private void SetupToggleButton(JobListItemDto availableJobListItem)
+    {
+        // Add the button to the toggle collection
+        toggleCollection = GetComponentInParent<ToggleCollection>();
+        toggleCollection.Toggles.Add(pdfButton);
+        // If toggle is selected and the pdfButton is toggled, force disable the toggle
+        toggleCollection.OnToggleSelected.AddListener((ctx) =>
+        {
+            if (toggleCollection.Toggles[ctx]!=pdfButton)
+            {
+                pdfButton.ForceSetToggled(false, false);
+            }
+        });
+        // Set the toggle mode to toggle
+        pdfButton.ForceSetToggled(false);
+        pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
         pdfButton.OnClicked.AddListener(() =>
         {
             if (pdfButton.IsToggled == true)
             {
+                if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
                 MainMenuManager.Instance.pdfLoader.LoadPdf(availableJobListItem.PreliminaryEstimation.Url);
+                Debug.Log($"{gameObject.name}PDF Loaded");
+                pdfButton.ForceSetToggled(true, true);
             }
-            else
+            else if (pdfButton.IsToggled == false)
             {
+                if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
                 MainMenuManager.Instance.pdfLoader.HidePdf();
-
+                Debug.Log($"{gameObject.name}PDF Hidden");
+                pdfButton.ForceSetToggled(false, true);
             }
         });
-        //completenessImage.fillAmount = fillAmount/100;
-        //completenessImage.color = fillAmount > 99 ? completeColor : incompleteColor;
-        //TODO: Set it to work with MRTK feedback
     }
 }

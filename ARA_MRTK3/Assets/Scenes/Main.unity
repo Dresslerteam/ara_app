@@ -1281,7 +1281,7 @@ PrefabInstance:
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: isToggled.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2132414474}
+      objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: isToggled.onExited.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1289,7 +1289,7 @@ PrefabInstance:
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: isToggled.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2132414474}
+      objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: isToggled.onEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -3106,19 +3106,7 @@ MonoBehaviour:
         m_Calls: []
   <OnClicked>k__BackingField:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 660337346}
-        m_TargetAssemblyTypeName: ToggleEvent, Assembly-CSharp
-        m_MethodName: ToggleGameObject
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -11837,31 +11825,7 @@ MonoBehaviour:
         m_Calls: []
   <OnClicked>k__BackingField:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1100344545}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1058492670}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -28416,11 +28380,12 @@ MonoBehaviour:
   tasksButton: {fileID: 2117633222}
   hideButton: {fileID: 48822137}
   logoutButton: {fileID: 486079090}
-  scanDocButton: {fileID: 828640802}
-  pdfEstimationButton: {fileID: 758303872}
+  scanDocButton: {fileID: 828640803}
+  pdfEstimationButton: {fileID: 758303873}
   modelButton: {fileID: 0}
   menuTitleWithUserTexts: {fileID: 1588411784}
   jobinformationTexts: {fileID: 2115068909}
+  DocButtonToggleCollection: {fileID: 0}
 --- !u!1 &588603658
 GameObject:
   m_ObjectHideFlags: 0
@@ -33501,7 +33466,7 @@ PrefabInstance:
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: isToggled.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2132414474}
+      objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: isToggled.onExited.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -33509,7 +33474,7 @@ PrefabInstance:
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: isToggled.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2132414474}
+      objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: isToggled.onEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -33597,7 +33562,7 @@ PrefabInstance:
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2132414474}
+      objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -33617,7 +33582,7 @@ PrefabInstance:
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: <IsToggled>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2132414474}
+      objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: <IsToggled>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -35627,7 +35592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: <ToggleMode>k__BackingField
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.size
@@ -40770,7 +40735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: <ToggleMode>k__BackingField
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: isToggled.onExited.m_PersistentCalls.m_Calls.Array.size
@@ -48283,7 +48248,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 10
+    m_Top: 14
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 0
@@ -51919,7 +51884,7 @@ MonoBehaviour:
         m_Calls: []
   disabledInteractorTypes:
   - reference: Microsoft.MixedReality.Toolkit.IGrabInteractor, Microsoft.MixedReality.Toolkit.Core
-  <ToggleMode>k__BackingField: 1
+  <ToggleMode>k__BackingField: 0
   <SelectThreshold>k__BackingField: 0.9
   <DeselectThreshold>k__BackingField: 0.1
   <TriggerOnRelease>k__BackingField: 1
@@ -51934,34 +51899,10 @@ MonoBehaviour:
     active: 0
     onEntered:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1116985572}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
+        m_Calls: []
     onExited:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1116985572}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   <OnClicked>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -60020,31 +59961,7 @@ MonoBehaviour:
         m_Calls: []
   <OnClicked>k__BackingField:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5231479466631036144}
-        m_TargetAssemblyTypeName: ToggleEvent, Assembly-CSharp
-        m_MethodName: ToggleGameObject
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 5231479465862629173}
-        m_TargetAssemblyTypeName: PhotoCaptureTool, Assembly-CSharp
-        m_MethodName: ActivatePhotoMode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -67824,6 +67741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1518464011}
   - component: {fileID: 1518464012}
+  - component: {fileID: 1518464013}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -67877,6 +67795,24 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1518464013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518464010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0062122f5920d1449aa2f20c88ee400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggles: []
+  allowSwitchOff: 0
+  currentIndex: 0
+  onToggleSelected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1518885275
 GameObject:
   m_ObjectHideFlags: 0
@@ -90747,56 +90683,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1619375032725711555, guid: 9d54fefbfd15f194cbaf3beeff5f6d10, type: 3}
   m_PrefabInstance: {fileID: 2132414471}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2132414473 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8510261678218358358, guid: 9d54fefbfd15f194cbaf3beeff5f6d10, type: 3}
-  m_PrefabInstance: {fileID: 2132414471}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2132414474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132414473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a966d1eb78a34fc8a6d0aeff8bb5326, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lerpTime: 0.5
-  showSize: 0
-  hideSize: -730.255
-  onShow:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 215319346}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  onHide:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 215319346}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1001 &2135816791
 PrefabInstance:
   m_ObjectHideFlags: 0

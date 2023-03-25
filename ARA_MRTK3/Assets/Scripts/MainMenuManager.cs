@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.ApplicationServices;
 using Ara.Domain.JobManagement;
+using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
@@ -37,7 +38,6 @@ public class MainMenuManager : MonoBehaviour
     [Header("Collection Roots")]
     [SerializeField] private Transform jobSelectionRoot;
     [SerializeField] private Transform taskSelectionRoot;
-    
 
     [Header("Button Prefabs")]
     [SerializeField]
@@ -50,25 +50,7 @@ public class MainMenuManager : MonoBehaviour
     public JobApplicationService applicationService = new JobApplicationService();
 
     private static MainMenuManager _instance;
-    public static MainMenuManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<MainMenuManager>();
-
-                if (_instance == null)
-                {
-                    GameObject singletonObject = new GameObject();
-                    _instance = singletonObject.AddComponent<MainMenuManager>();
-                    singletonObject.name = typeof(MainMenuManager).ToString() + " (Singleton)";
-                }
-            }
-
-            return _instance;
-        }
-    }
+    public static MainMenuManager Instance { get { return _instance; } }
     
     public static Action<MenuPage> OnMenuPageChanged;
 
@@ -86,20 +68,14 @@ public class MainMenuManager : MonoBehaviour
         }
 
         _instance = this;
-        DontDestroyOnLoad(this.gameObject);
-
         ToggleAllMenus(false);
+    }
+
+    private void Start()
+    {
         if (splashScreen != null) splashScreen.SetActive(true);
         currentMenuPage = MenuPage.splashScreen;
         OnMenuPageChanged?.Invoke(MenuPage.splashScreen);
-    }
-
-    void OnDestroy()
-    {
-        if (_instance == this)
-        {
-            _instance = null;
-        }
     }
 
     private void OnDisable()
@@ -220,28 +196,42 @@ public class MainMenuManager : MonoBehaviour
             taskDisplay.UpdateDisplayInformation(jobTask.Id,jobTask.Title, jobTask.Status);
             await Task.Yield();
         }
+        estimationButton.ForceSetToggled(false);
+        estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
         estimationButton.OnClicked.AddListener(() =>
         {
-            if (estimationButton.IsToggled)
+            if (estimationButton.IsToggled == true)
             {
-                pdfLoader.LoadPdf(chosenJob.PreliminaryEstimation.Url);
-                Debug.Log("showing pdf");
+                if (estimationButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                MainMenuManager.Instance.pdfLoader.LoadPdf(chosenJob.PreliminaryEstimation.Url);
+                estimationButton.ForceSetToggled(true, true);
             }
-            else
+            else if (estimationButton.IsToggled == false)
             {
-               pdfLoader.HidePdf();
-                Debug.Log("hiding pdf");
+                if (estimationButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                MainMenuManager.Instance.pdfLoader.HidePdf();
+                estimationButton.ForceSetToggled(false, true);
             }
         });
+        scanDocButton.ForceSetToggled(false);
+        scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
         scanDocButton.OnClicked.AddListener(() =>
         {
-            if (scanDocButton.IsToggled)
+            if (scanDocButton.IsToggled == true)
             {
-                pdfLoader.LoadPdf(chosenJob.PreliminaryScan.Url);
+                if (scanDocButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                MainMenuManager.Instance.pdfLoader.LoadPdf(chosenJob.PreliminaryScan.Url);
+                scanDocButton.ForceSetToggled(true, true);
             }
-            else
+            else if (scanDocButton.IsToggled == false)
             {
-                pdfLoader.HidePdf();
+                if (scanDocButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                MainMenuManager.Instance.pdfLoader.HidePdf();
+                scanDocButton.ForceSetToggled(false, true);
             }
         });
     }
