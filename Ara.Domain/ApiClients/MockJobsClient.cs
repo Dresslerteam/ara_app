@@ -306,8 +306,8 @@ namespace Ara.Domain.ApiClients
                                         PhotoRequired = false,
                                         ReferencedDocs = new List<(ManualStep.StepReferencedDocType Type, PdfDoc Doc)>()
                                         {
-                                           (ManualStep.StepReferencedDocType.Procedure, new PdfDoc(){Url = "1.png", Title = "1.png"}),
-                                           (ManualStep.StepReferencedDocType.Caution, new PdfDoc(){Url = "1.png", Title = "1.png"}),
+                                           (ManualStep.StepReferencedDocType.Procedure, new PdfDoc(){Url = "Front_Bumper_Impact_Bar_Removal_and_Installation.pdf", Title = "Front_Bumper_Impact_Bar_Removal_and_Installation.pdf"}),
+                                           (ManualStep.StepReferencedDocType.Caution, new PdfDoc(){Url = "Fastener_Caution.pdf", Title = "Fastener_Caution.pdf"}),
                                         }
 
                                     },
