@@ -23,9 +23,8 @@ public class MainMenuAesthetic : MonoBehaviour
     //
     // [SerializeField] private TextMeshProUGUI jobNumberText;
     // [SerializeField] private TextMeshProUGUI vehicleTitleText;
-
-    [SerializeField] private TextMeshProUGUI estimatorTextJobs;
-    [SerializeField] private TextMeshProUGUI estimatorTextTasks;
+    [SerializeField] private TextMeshProUGUI menuTitleText;
+    [SerializeField] private TextMeshProUGUI currentUserText;
     [SerializeField]
     private LogInMenu _logInMenu;
     // Start is called before the first frame update
@@ -42,10 +41,15 @@ public class MainMenuAesthetic : MonoBehaviour
 
     private void UpdateEstimatorName()
     {
-        if(estimatorTextJobs!=null)
-            estimatorTextJobs.text = _logInMenu.estimatorName;
-        if(estimatorTextTasks!=null)
-            estimatorTextTasks.text = _logInMenu.estimatorName;
+        if(currentUserText!=null)
+            currentUserText.text = _logInMenu.estimatorName;
+        if (menuTitleText != null)
+        {
+            if(MainMenuManager.Instance.currentMenuPage == MenuPage.jobSelectScreen)
+                menuTitleText.text = "Jobs list";
+            if (MainMenuManager.Instance.currentMenuPage == MenuPage.taskSelect)
+                menuTitleText.text = "Tasks list";
+        }
     }
     [ContextMenu("UpdateDate")]
     private void UpdateDateDisplay()

@@ -12,30 +12,41 @@ public class ShowHideDetails : MonoBehaviour
     
     public UnityEvent onShow;
     public UnityEvent onHide;
+    private bool isMoving = false;
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
     }
     public void ShowDetails()
     {
+        if(isMoving) return;
         StartCoroutine(LerpingSize(showSize));
         onShow.Invoke();
     }
     public void HideDetails()
     {
+        if(isMoving) return;
         StartCoroutine(LerpingSize(hideSize));
         onHide.Invoke();
     }
-    // Lerp the rect of the object to 0 over 1 second
-    public IEnumerator LerpingSize(float toSize)
+    // Lerp the rect of the object to target size
+    public IEnumerator LerpingSize(float targetSize)
     {
-        float elapsedTime = 0;
-        while (elapsedTime < lerpTime)
+        float initialSize = rectTransform.sizeDelta.y;
+        float sizeDifference = Mathf.Abs(targetSize - initialSize);
+        if (sizeDifference <= 0) yield break;
+
+        while (Mathf.Abs(rectTransform.sizeDelta.y - targetSize) > 0.01f)
         {
-            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, Mathf.Lerp(0, toSize, elapsedTime / lerpTime));
-            elapsedTime += Time.deltaTime;
+            isMoving = true;
+            float newSize = Mathf.MoveTowards(rectTransform.sizeDelta.y, targetSize, sizeDifference * Time.deltaTime / lerpTime);
+            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, newSize);
             yield return null;
         }
+
+        // Ensure the final size is set correctly
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, targetSize);
+        isMoving = false;
     }
     
 }

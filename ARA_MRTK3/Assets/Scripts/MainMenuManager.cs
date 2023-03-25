@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.ApplicationServices;
 using Ara.Domain.JobManagement;
+using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
@@ -29,11 +30,14 @@ public class MainMenuManager : MonoBehaviour
     public GameObject modelOverviewGO;
     public GameObject modelOveriewCallOuts;
     [SerializeField] private QuickMenuDisplay jobQuickMenu;
-    [Header("Buttons")] [SerializeField] private PressableButton advanceToTaskButton; 
+    [Header("Buttons")]
+    [SerializeField] private PressableButton advanceToTaskButton;
+
+    [SerializeField] private PressableButton estimationButton;
+    [SerializeField] private PressableButton scanDocButton;
     [Header("Collection Roots")]
     [SerializeField] private Transform jobSelectionRoot;
     [SerializeField] private Transform taskSelectionRoot;
-    
 
     [Header("Button Prefabs")]
     [SerializeField]
@@ -47,7 +51,8 @@ public class MainMenuManager : MonoBehaviour
 
     private static MainMenuManager _instance;
     public static MainMenuManager Instance { get { return _instance; } }
-
+    
+    public static Action<MenuPage> OnMenuPageChanged;
 
     public MenuPage currentMenuPage = MenuPage.splashScreen;
     public Job currentJob;
@@ -59,21 +64,35 @@ public class MainMenuManager : MonoBehaviour
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
+            return;
         }
 
+        _instance = this;
         ToggleAllMenus(false);
-        if (splashScreen != null) splashScreen.SetActive(true);
     }
+
+    private void Start()
+    {
+        if (splashScreen != null) splashScreen.SetActive(true);
+        currentMenuPage = MenuPage.splashScreen;
+        OnMenuPageChanged?.Invoke(MenuPage.splashScreen);
+    }
+
+    private void OnDisable()
+    {
+        if (_instance == this)
+        {
+            _instance = null;
+        }
+    }
+
 
     // The user has selected their account...
     public async Task LoggedIn()
     {
         mainMenuAesthetic = GetComponent<MainMenuAesthetic>();
         currentMenuPage = MenuPage.jobSelectScreen;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
         await UpdateJobBoard();
     }
 
@@ -93,6 +112,7 @@ public class MainMenuManager : MonoBehaviour
         jobBoard.SetActive(true);
         ClearChildrenButtons(jobSelectionRoot);
         currentMenuPage = MenuPage.jobSelectScreen;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
         if(loaderGO!=null) loaderGO.SetActive(true);
         availbleJobs = await applicationService.GetJobsAsync();
         if(loaderGO!=null) loaderGO.SetActive(false);
@@ -115,7 +135,7 @@ public class MainMenuManager : MonoBehaviour
                 availableJobListItem.EstimatorFullName,
                 $"{availableJobListItem.CarInfo.Manufacturer} {availableJobListItem.CarInfo.Model} {availableJobListItem.CarInfo.Year}",
                 availableJobListItem.CarInfo.Vin,
-                (availableJobListItem.NumberOfDoneTasks+"/"+availableJobListItem.NumberOfTasks),fillAmount
+                (availableJobListItem.NumberOfDoneTasks+"/"+availableJobListItem.NumberOfTasks),fillAmount, availableJobListItem
                 );
             jobDisplayInteractable.OnClicked.AddListener(AddJobToButton(availableJobListItem));
             await Task.Yield();
@@ -158,6 +178,7 @@ public class MainMenuManager : MonoBehaviour
         ClearChildrenButtons(taskSelectionRoot);
         taskBoard.SetActive(true);
         currentMenuPage = MenuPage.taskSelect;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
         if(loaderGO!=null) loaderGO.SetActive(true);
         currentJob = await applicationService.GetJobDetailsAsync(selectedJobListItem.Id);
         if(loaderGO!=null) loaderGO.SetActive(false);
@@ -175,6 +196,44 @@ public class MainMenuManager : MonoBehaviour
             taskDisplay.UpdateDisplayInformation(jobTask.Id,jobTask.Title, jobTask.Status);
             await Task.Yield();
         }
+        estimationButton.ForceSetToggled(false);
+        estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+        estimationButton.OnClicked.AddListener(() =>
+        {
+            if (estimationButton.IsToggled == true)
+            {
+                if (estimationButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                MainMenuManager.Instance.pdfLoader.LoadPdf(chosenJob.PreliminaryEstimation.Url);
+                estimationButton.ForceSetToggled(true, true);
+            }
+            else if (estimationButton.IsToggled == false)
+            {
+                if (estimationButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                MainMenuManager.Instance.pdfLoader.HidePdf();
+                estimationButton.ForceSetToggled(false, true);
+            }
+        });
+        scanDocButton.ForceSetToggled(false);
+        scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+        scanDocButton.OnClicked.AddListener(() =>
+        {
+            if (scanDocButton.IsToggled == true)
+            {
+                if (scanDocButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                MainMenuManager.Instance.pdfLoader.LoadPdf(chosenJob.PreliminaryScan.Url);
+                scanDocButton.ForceSetToggled(true, true);
+            }
+            else if (scanDocButton.IsToggled == false)
+            {
+                if (scanDocButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+                MainMenuManager.Instance.pdfLoader.HidePdf();
+                scanDocButton.ForceSetToggled(false, true);
+            }
+        });
     }
     private UnityAction AddTaskToButton(TaskInfo task)
     {
@@ -190,6 +249,7 @@ public class MainMenuManager : MonoBehaviour
     {
         ToggleAllMenus(false);
         currentMenuPage = MenuPage.performingJob;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
         if(taskOverview!=null){
             taskOverview.SetActive(true);
         workingHUDManager.PopulateTaskGroups(job);
@@ -253,11 +313,15 @@ public class MainMenuManager : MonoBehaviour
     {
         ToggleAllMenus(false);
         loginBoard.SetActive(true);
+        currentMenuPage = MenuPage.loginScreen;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
     }
     
 
     public void ReturnToSplash()
     {
+        currentMenuPage = MenuPage.splashScreen;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
         ToggleAllMenus(false);
         splashScreen.SetActive(true);
     }

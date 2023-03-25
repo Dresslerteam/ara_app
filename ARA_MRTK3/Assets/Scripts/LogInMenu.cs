@@ -36,7 +36,8 @@ public class LogInMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        MainMenuManager.Instance.currentMenuPage = MenuPage.loginScreen;
+        if(MainMenuManager.Instance!=null)
+            MainMenuManager.Instance.currentMenuPage = MenuPage.loginScreen;
     }
 
     private void Start()
