@@ -15,6 +15,7 @@ public class HeaderManager : MonoBehaviour
     public PressableButton scanDocButton;
     public PressableButton pdfEstimationButton;
     public GameObject modelButton;
+    public GameObject cameraHeader;
     [Header("Texts")] 
     public GameObject menuTitleWithUserTexts;
     public GameObject jobinformationTexts;
@@ -100,6 +101,18 @@ public class HeaderManager : MonoBehaviour
                // modelButton?.SetActive(true);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(true);
+                break;
+            case MenuPage.takingPhoto:
+                jobsButton?.SetActive(false);
+                tasksButton?.SetActive(false);
+                hideButton?.SetActive(false);
+                logoutButton?.SetActive(false);
+                scanDocButton?.gameObject.SetActive(false);
+                pdfEstimationButton?.gameObject.SetActive(false);
+               // modelButton?.SetActive(false);
+                menuTitleWithUserTexts?.SetActive(false);
+                jobinformationTexts.SetActive(false);
+                cameraHeader.SetActive(true);
                 break;
             default:
                 Debug.LogError("No menu page selected");

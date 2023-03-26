@@ -340,5 +340,7 @@ public enum MenuPage
     jobSelectScreen,
     modelOverview,
     taskSelect,
-    performingJob
+    performingJob,
+    takingPhoto,
+    gallery
 }
