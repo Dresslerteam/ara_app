@@ -25,6 +25,8 @@ public class MainMenuManager : MonoBehaviour
     public GameObject taskOverview;
     public GameObject loaderGO;
     public WorkingHUDManager workingHUDManager;
+    public GameObject stepsPage;
+    
     public PDFLoader pdfLoader;
     [Header("ModelOverview")]
     public GameObject modelOverviewGO;
@@ -252,6 +254,8 @@ public class MainMenuManager : MonoBehaviour
         OnMenuPageChanged?.Invoke(currentMenuPage);
         if(taskOverview!=null){
             taskOverview.SetActive(true);
+        if(!stepsPage.activeSelf)
+            stepsPage.SetActive(true);
         workingHUDManager.PopulateTaskGroups(job);
         }
     }
@@ -324,6 +328,11 @@ public class MainMenuManager : MonoBehaviour
         OnMenuPageChanged?.Invoke(currentMenuPage);
         ToggleAllMenus(false);
         splashScreen.SetActive(true);
+    }
+    public void SetToPhotoMode()
+    {
+        currentMenuPage = MenuPage.modelOverview;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
     }
 
     public void ReturnToModelOverview()

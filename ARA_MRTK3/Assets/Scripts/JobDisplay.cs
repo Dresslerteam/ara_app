@@ -47,6 +47,7 @@ public class JobDisplay : MonoBehaviour
         }
         
         SetupToggleButton(availableJobListItem);
+        pdfButton.ForceSetToggled(false);
     }
 
     private void SetupToggleButton(JobListItemDto availableJobListItem)
@@ -63,7 +64,6 @@ public class JobDisplay : MonoBehaviour
             }
         });
         // Set the toggle mode to toggle
-        pdfButton.ForceSetToggled(false);
         pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
         pdfButton.OnClicked.AddListener(() =>
         {

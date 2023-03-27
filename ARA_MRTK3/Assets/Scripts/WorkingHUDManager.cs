@@ -194,9 +194,6 @@ public class WorkingHUDManager : MonoBehaviour
                 else if (stepButton.IsToggled == false)
                 {
                     return;
-                    if (stepButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
-                        stepButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                    stepButton.ForceSetToggled(false, true);
                 }
             });
         }
@@ -213,7 +210,7 @@ public class WorkingHUDManager : MonoBehaviour
                 }
 
                 imageURL = newString;
-                Debug.Log("imageURL: " + imageURL);
+                //Debug.Log("imageURL: " + imageURL);
                 Texture2D stepImage = Resources.Load<Texture2D>(imageURL);
                 this.stepImageVisual.enabled = true;
                 this.stepImageVisual.texture = stepImage;
