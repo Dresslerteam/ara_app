@@ -6635,6 +6635,7 @@ MonoBehaviour:
   taskOverview: {fileID: 1278060695}
   loaderGO: {fileID: 6511124777185093914}
   workingHUDManager: {fileID: 1278060697}
+  stepsPage: {fileID: 1011235908}
   pdfLoader: {fileID: 102121962}
   modelOverviewGO: {fileID: 219340743}
   modelOveriewCallOuts: {fileID: 1536294065}
@@ -47577,7 +47578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggles: []
-  allowSwitchOff: 1
+  allowSwitchOff: 0
   currentIndex: 0
   onToggleSelected:
     m_PersistentCalls:
@@ -60867,6 +60868,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1259264726}
   - component: {fileID: 1259264727}
+  - component: {fileID: 1259264728}
   m_Layer: 5
   m_Name: Gallery
   m_TagString: Untagged
@@ -60923,6 +60925,23 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1259264728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259264725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d145fc0d7c334424289fdf5f8bb029f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gallery: {fileID: 981960133}
+  photoPrefab: {fileID: 43999823937632848, guid: 05da176c5737ab24da37731a97b6621c, type: 3}
+  GalleryPreviewPhoto: {fileID: 416969418}
+  photoPreviewImage: {fileID: 5189733641795651917}
+  resolution: {x: 1024, y: 512}
 --- !u!1001 &1264508157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96337,7 +96356,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5231479465862629174}
   - component: {fileID: 5231479465862629173}
-  - component: {fileID: 5231479465862629175}
   m_Layer: 0
   m_Name: PhotoCaptureTool
   m_TagString: Untagged
@@ -96359,7 +96377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TakePhotoMenu: {fileID: 5231479464632004275}
   photoPreviewMenu: {fileID: 5231479464891236132}
-  photoGallery: {fileID: 5231479465862629175}
+  photoGallery: {fileID: 0}
   takenPhotos: []
   useCustomFilePath: 0
   customFilePath: C:/Users/Abupo/Desktop/PhotoTest
@@ -96378,23 +96396,6 @@ Transform:
   m_Father: {fileID: 5231479466631036136}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5231479465862629175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5231479465862629172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d145fc0d7c334424289fdf5f8bb029f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gallery: {fileID: 981960133}
-  photoPrefab: {fileID: 43999823937632848, guid: 05da176c5737ab24da37731a97b6621c, type: 3}
-  GalleryPreviewPhoto: {fileID: 416969418}
-  photoPreviewImage: {fileID: 5189733641795651917}
-  resolution: {x: 1024, y: 512}
 --- !u!1 &5231479466236213363
 GameObject:
   m_ObjectHideFlags: 0
@@ -97080,7 +97081,7 @@ GameObject:
   - component: {fileID: 5231479466631036144}
   - component: {fileID: 5231479466631036145}
   m_Layer: 0
-  m_Name: PhotoUtility
+  m_Name: PhotoToolsRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -66,9 +66,8 @@ public class DynamicExploder : MonoBehaviour
 
     public void GranularExplosion(SliderEventData sliderData)
     {
-        
         var explosionAmount = sliderData.NewValue;
-        Debug.Log("Granular: "+explosionAmount);
+        //Debug.Log("Granular: " + explosionAmount);
         foreach (var part in keyParts)
         {
             // Move the part
@@ -79,9 +78,24 @@ public class DynamicExploder : MonoBehaviour
             Vector3 translation = Vector3.Lerp(part.startPos, endPosition,
                 part.movementLerp.Evaluate(explosionAmount));
             part.transformToAnimate.localPosition = translation;
+        
             // Rotate the part
-            Quaternion endRot = part.startRotation * Quaternion.Euler(part.rotationToAdd);
-            Quaternion rot = Quaternion.Lerp(part.startRotation, endRot, part.rotationLerp.Evaluate(explosionAmount));
+            Quaternion startRot = part.startRotation;
+            Quaternion endRot = startRot * Quaternion.Euler(part.rotationToAdd);
+        
+            // Check if the quaternions are valid, and if not, set them to identity
+            if (startRot != startRot) // Check if startRot is NaN
+            {
+                //Debug.LogWarning("Invalid startRot detected. Setting to identity.");
+                startRot = Quaternion.identity;
+            }
+            if (endRot != endRot) // Check if endRot is NaN
+            {
+                //Debug.LogWarning("Invalid endRot detected. Setting to identity.");
+                endRot = Quaternion.identity;
+            }
+        
+            Quaternion rot = Quaternion.Lerp(startRot, endRot, part.rotationLerp.Evaluate(explosionAmount));
             part.transformToAnimate.localRotation = rot;
         }
     }

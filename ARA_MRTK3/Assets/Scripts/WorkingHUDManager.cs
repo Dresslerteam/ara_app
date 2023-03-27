@@ -169,38 +169,31 @@ public class WorkingHUDManager : MonoBehaviour
            
         }
 
-        private void SetupStepToggleButton(PressableButton pdfButton, ToggleCollection toggleCollection, ManualStep step)
+        private void SetupStepToggleButton(PressableButton stepButton, ToggleCollection toggleCollection, ManualStep step)
         {
-            toggleCollection.Toggles.Add(pdfButton);
-            // If toggle is selected and the pdfButton is toggled, force disable the toggle
+            toggleCollection.Toggles.Add(stepButton);
+            // If toggle is selected and the stepButton is toggled, force disable the toggle
             toggleCollection.OnToggleSelected.AddListener((ctx) =>
             {
-                if (toggleCollection.Toggles[ctx] != pdfButton)
+                if (toggleCollection.Toggles[ctx] != stepButton)
                 {
-                    pdfButton.ForceSetToggled(false, false);
+                    stepButton.ForceSetToggled(false, false);
                 }
             });
             // Set the toggle mode to toggle
-            pdfButton.ForceSetToggled(false);
-            pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-            pdfButton.OnClicked.AddListener(() =>
+            stepButton.ForceSetToggled(false);
+            stepButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
+            stepButton.OnClicked.AddListener(() =>
             {
-                if (pdfButton.IsToggled == true)
+                if (stepButton.IsToggled == true)
                 {
-                    if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
-                        pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                    if(step.ReferencedDocs != null && step.ReferencedDocs.Count > 0)
-                        MainMenuManager.Instance.pdfLoader.LoadPdf(step.ReferencedDocs[0].Doc.Url);
-                    Debug.Log($"{gameObject.name}PDF Loaded");
-                    pdfButton.ForceSetToggled(true, true);
+                    if (stepButton.ToggleMode != StatefulInteractable.ToggleType.OneWayToggle)
+                        stepButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
+                    stepButton.ForceSetToggled(true, true);
                 }
-                else if (pdfButton.IsToggled == false)
+                else if (stepButton.IsToggled == false)
                 {
-                    if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
-                        pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                    MainMenuManager.Instance.pdfLoader.HidePdf();
-                    Debug.Log($"{gameObject.name}PDF Hidden");
-                    pdfButton.ForceSetToggled(false, true);
+                    return;
                 }
             });
         }
@@ -217,7 +210,7 @@ public class WorkingHUDManager : MonoBehaviour
                 }
 
                 imageURL = newString;
-                Debug.Log("imageURL: " + imageURL);
+                //Debug.Log("imageURL: " + imageURL);
                 Texture2D stepImage = Resources.Load<Texture2D>(imageURL);
                 this.stepImageVisual.enabled = true;
                 this.stepImageVisual.texture = stepImage;
