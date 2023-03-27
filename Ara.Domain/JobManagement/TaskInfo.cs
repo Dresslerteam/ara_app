@@ -63,6 +63,11 @@ namespace Ara.Domain.JobManagement
             Repair,
             Other
         }
+
+        public static string GenerateUrl(string extenstion = "png")
+        {
+            return $"{DateTime.Now.ToString("yyyy_dd_M__HH_mm_ss_ms")}.{extenstion}";
+        }
     }
 
     public class PdfDoc
