@@ -42,6 +42,13 @@ public class BackgroundToggler : MonoBehaviour
             case MenuPage.performingJob:
                 ToggleBackground(ActiveBackground.All);
                 break;
+            case MenuPage.takingPhoto:
+                ToggleBackground(ActiveBackground.None);
+                ToggleBackground(ActiveBackground.Outline);
+                break;
+            case MenuPage.gallery:
+                ToggleBackground(ActiveBackground.All);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(menuPage), menuPage, null);
         }

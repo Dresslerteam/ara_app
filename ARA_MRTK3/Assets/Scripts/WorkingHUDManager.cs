@@ -92,7 +92,7 @@ public class WorkingHUDManager : MonoBehaviour
                     SetupStepToggleButton(button, stepToggleCollection, step);
                 }
             }
-            stepToggleCollection.Toggles[0].ForceSetToggled(true,true);
+            //stepToggleCollection.Toggles[0].ForceSetToggled(true,true);
         }
 
         private void UpdateFileButtons(ManualStep step)

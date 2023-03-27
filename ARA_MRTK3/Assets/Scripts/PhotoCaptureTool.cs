@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Sirenix.OdinInspector;
+using UnityEngine.Serialization;
 using UnityEngine.Windows.WebCam;
 
 public class PhotoCaptureTool : MonoBehaviour
@@ -11,18 +14,24 @@ public class PhotoCaptureTool : MonoBehaviour
     private CameraParameters cameraParameters = new CameraParameters();
     private Resolution cameraResolution;
     private string pendingFile;
+    public delegate void PhotoCaptureCreatedDelegate();
+    public event PhotoCaptureCreatedDelegate OnPhotoCaptureCreated;
+    [FormerlySerializedAs("TakePhotoMenu")] [Header("Menus")] [SerializeField]
+    private GameObject TakePhotoButton;
 
-    [Header("Menus")]
-    [SerializeField] private GameObject TakePhotoMenu;
     [SerializeField] private GameObject photoPreviewMenu;
     [SerializeField] private PhotoGallery photoGallery;
     public List<Texture2D> takenPhotos = new List<Texture2D>();
 
     [SerializeField] private bool useCustomFilePath = false;
-    [ShowIf("useCustomFilePath")][SerializeField][FilePath] private string customFilePath;
+
+    [ShowIf("useCustomFilePath")] [SerializeField] [FilePath]
+    private string customFilePath;
+
     public string currentFilePath { get; private set; }
 
     private static PhotoCaptureTool _instance;
+
     public static PhotoCaptureTool Instance
     {
         get
@@ -35,6 +44,7 @@ public class PhotoCaptureTool : MonoBehaviour
             return _instance;
         }
     }
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -50,11 +60,35 @@ public class PhotoCaptureTool : MonoBehaviour
     private void Start()
     {
         InitializeSettings();
+        StartCoroutine(CreatePhotoCaptureObject());
+        OnPhotoCaptureCreated += () =>
+        {
+            Debug.Log("PhotoCaptureObject is ready. You can now take a photo.");
+        };
     }
 
+    private IEnumerator CreatePhotoCaptureObject()
+    {
+        var createCaptureObject = new WaitForEndOfFrame();
+
+        PhotoCapture.CreateAsync(true, captureObject =>
+        {
+            if (captureObject != null)
+            {
+                photoCaptureObject = captureObject;
+                Debug.Log("PhotoCaptureObject successfully created.");
+                OnPhotoCaptureCreated?.Invoke();
+            }
+            else
+            {
+                Debug.LogError("Failed to create PhotoCaptureObject.");
+            }
+        });
+
+        yield return createCaptureObject;
+    }
     private void InitializeSettings()
     {
-        DeactivateMenus();
         SetCameraResolution();
 
         currentFilePath = useCustomFilePath ? customFilePath : Application.persistentDataPath;
@@ -62,15 +96,24 @@ public class PhotoCaptureTool : MonoBehaviour
         photoGallery.LoadSavedPictures();
     }
 
-    private void DeactivateMenus()
-    {
-        if (photoPreviewMenu != null) photoPreviewMenu.SetActive(false);
-        if (TakePhotoMenu != null) TakePhotoMenu.SetActive(false);
-    }
-
     private void SetCameraResolution()
     {
-        cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
+        // HoloLens 2 default resolution
+        int defaultWidth = 2272;
+        int defaultHeight = 1278;
+
+        if (PhotoCapture.SupportedResolutions == null || !PhotoCapture.SupportedResolutions.Any())
+        {
+            Debug.LogWarning("No supported resolutions found, using HoloLens 2 default resolution");
+            cameraResolution.width = defaultWidth;
+            cameraResolution.height = defaultHeight;
+        }
+        else
+        {
+            cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height)
+                .First();
+        }
+
         cameraParameters = new CameraParameters
         {
             hologramOpacity = 0.0f,
@@ -80,36 +123,31 @@ public class PhotoCaptureTool : MonoBehaviour
         };
     }
 
+
     public void ActivatePhotoMode()
     {
         if (photoPreviewMenu != null) photoPreviewMenu.SetActive(false);
-        TakePhotoMenu.SetActive(true);
+        TakePhotoButton.SetActive(true);
     }
 
     public void SnapPhoto()
     {
         if (photoCaptureObject == null)
         {
-            Debug.Log("CaptureObject was null");
-            PhotoCapture.CreateAsync(true, captureObject => photoCaptureObject = captureObject);
+            Debug.LogWarning("CaptureObject is null");
             return;
         }
 
-        photoCaptureObject.StartPhotoModeAsync(cameraParameters, result => photoCaptureObject.TakePhotoAsync(OnPhotoModeStarted));
-    }
-
-    private void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame pcf)
-    {
-        if (!result.success)
-        {
-            Debug.LogError("Unable to start photo mode!");
-            return;
-        }
-
-        string filename = $"CapturedImage {DateTime.Now:MM_dd_yyyy_HH_mm_ss}.png";
-        pendingFile = System.IO.Path.Combine(currentFilePath, filename);
-
-        photoCaptureObject.TakePhotoAsync(pendingFile, PhotoCaptureFileOutputFormat.JPG, OnCapturedPhotoToDisk);
+        photoCaptureObject.StartPhotoModeAsync(cameraParameters, result => {
+            if (result.success)
+            {
+                photoCaptureObject.TakePhotoAsync(pendingFile, PhotoCaptureFileOutputFormat.JPG, OnCapturedPhotoToDisk);
+            }
+            else
+            {
+                Debug.LogError("Unable to start photo mode!");
+            }
+        });
     }
 
     private void OnCapturedPhotoToDisk(PhotoCapture.PhotoCaptureResult result)
@@ -117,7 +155,7 @@ public class PhotoCaptureTool : MonoBehaviour
         if (result.success)
         {
             Debug.Log("Saved Photo to disk!" + pendingFile);
-            TakePhotoMenu.SetActive(false);
+            TakePhotoButton.SetActive(false);
             photoPreviewMenu.SetActive(true);
             photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
 

@@ -26,12 +26,13 @@ public class MainMenuManager : MonoBehaviour
     public GameObject loaderGO;
     public WorkingHUDManager workingHUDManager;
     public GameObject stepsPage;
+    public GameObject galleryPage;
+    public PhotoCaptureTool photoCaptureTool;
     
     public PDFLoader pdfLoader;
     [Header("ModelOverview")]
     public GameObject modelOverviewGO;
     public GameObject modelOveriewCallOuts;
-    [SerializeField] private QuickMenuDisplay jobQuickMenu;
     [Header("Buttons")]
     [SerializeField] private PressableButton advanceToTaskButton;
 
@@ -106,6 +107,10 @@ public class MainMenuManager : MonoBehaviour
             taskBoard.SetActive(isOn);
         if(workingHUDManager!=null)
             workingHUDManager.gameObject.SetActive(isOn);
+        if(galleryPage!=null)
+            galleryPage.SetActive(isOn);
+        if(stepsPage!=null)
+            stepsPage.SetActive(isOn);
     }
 
     public async Task UpdateJobBoard()
@@ -331,8 +336,22 @@ public class MainMenuManager : MonoBehaviour
     }
     public void SetToPhotoMode()
     {
-        currentMenuPage = MenuPage.modelOverview;
+        currentMenuPage = MenuPage.takingPhoto;
         OnMenuPageChanged?.Invoke(currentMenuPage);
+        ToggleAllMenus(false);
+        workingHUDManager.gameObject.SetActive(true);
+        if(photoCaptureTool!=null)
+            photoCaptureTool.gameObject.SetActive(true);
+    }
+
+    public void SetToGalleryView()
+    {
+        currentMenuPage = MenuPage.gallery;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
+        ToggleAllMenus(false);
+        taskOverview.SetActive(true);
+        stepsPage.SetActive(false);
+        galleryPage.SetActive(true);
     }
 
     public void ReturnToModelOverview()

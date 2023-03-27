@@ -50,6 +50,7 @@ public class HeaderManager : MonoBehaviour
                 //modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
+                cameraHeader.SetActive(false);
                 break;
 
             case MenuPage.loginScreen:
@@ -62,6 +63,8 @@ public class HeaderManager : MonoBehaviour
                // modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
+                cameraHeader.SetActive(false);
+
                 break;
 
             case MenuPage.jobSelectScreen:
@@ -74,6 +77,8 @@ public class HeaderManager : MonoBehaviour
                // modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(true);
                 jobinformationTexts.SetActive(false);
+                cameraHeader.SetActive(false);
+
                 break;
 
             case MenuPage.modelOverview:
@@ -89,6 +94,8 @@ public class HeaderManager : MonoBehaviour
                // modelButton?.SetActive(true);
                 menuTitleWithUserTexts?.SetActive(true);
                 jobinformationTexts.SetActive(false);
+                cameraHeader.SetActive(false);
+
                 break;
 
             case MenuPage.performingJob:
@@ -101,6 +108,8 @@ public class HeaderManager : MonoBehaviour
                // modelButton?.SetActive(true);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(true);
+                cameraHeader.SetActive(false);
+
                 break;
             case MenuPage.takingPhoto:
                 jobsButton?.SetActive(false);
@@ -113,6 +122,18 @@ public class HeaderManager : MonoBehaviour
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
                 cameraHeader.SetActive(true);
+                break;
+            case MenuPage.gallery:
+                jobsButton?.SetActive(false);
+                tasksButton?.SetActive(false);
+                hideButton?.SetActive(false);
+                logoutButton?.SetActive(false);
+                scanDocButton?.gameObject.SetActive(false);
+                pdfEstimationButton?.gameObject.SetActive(false);
+                // modelButton?.SetActive(false);
+                menuTitleWithUserTexts?.SetActive(false);
+                jobinformationTexts.SetActive(false);
+                cameraHeader.SetActive(false);
                 break;
             default:
                 Debug.LogError("No menu page selected");
