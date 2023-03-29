@@ -30,14 +30,17 @@ public class WorkingHUDManager : MonoBehaviour
         [SerializeField] [AssetsOnly] private PressableButton cautionPdfButtonPrefab;
         [SerializeField] [AssetsOnly] private PressableButton oemPdfButtonPrefab;
         private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
+        
         public void PopulateTaskGroups(TaskInfo task)
         {
             // Clear previous groups
-            foreach (Transform child in groupsRoot)
+            for (int i = groupsRoot.childCount - 1; i >= 0; i--)
             {
-                Destroy(child.gameObject);
+                GameObject childObject = groupsRoot.GetChild(i).gameObject;
+                Destroy(childObject);
             }
             stepToggleCollection.Toggles.Clear();
+            repairManuals.Clear();
             // Populate repair manual
             repairManuals.AddRange(task.RepairManuals);
 
@@ -48,8 +51,6 @@ public class WorkingHUDManager : MonoBehaviour
                 repairManualDisplay.UpdateDisplayInformation(repairManual.Name);
                 repairManualDisplay.transform.localScale = Vector3.one;
                 repairManualDisplay.transform.localRotation = Quaternion.identity;
-                
-                
                 // Clear previous steps
                 foreach (Transform child in repairManualDisplay.stepGroupParent)
                 {
