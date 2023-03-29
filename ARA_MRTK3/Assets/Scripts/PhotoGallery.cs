@@ -64,7 +64,7 @@ public class PhotoGallery : MonoBehaviour
     public void DisplayPhotoPreview(Texture2D texture)
     {
         photoPreviewImage.SetActive(true);
-        Photo photo = photoPreviewImage.GetComponentInChildren<Photo>();
+        Photo photo = photoPreviewImage.GetComponent<Photo>();
         photo.image.texture = texture;
     }
 

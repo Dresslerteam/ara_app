@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 using UnityEngine.Windows.WebCam;
@@ -14,8 +14,7 @@ public class PhotoCaptureTool : MonoBehaviour
     private CameraParameters cameraParameters = new CameraParameters();
     private Resolution cameraResolution;
     private string pendingFile;
-    public delegate void PhotoCaptureCreatedDelegate();
-    public event PhotoCaptureCreatedDelegate OnPhotoCaptureCreated;
+    
     [FormerlySerializedAs("TakePhotoMenu")] [Header("Menus")] [SerializeField]
     private GameObject TakePhotoButton;
 
@@ -31,6 +30,7 @@ public class PhotoCaptureTool : MonoBehaviour
     public string currentFilePath { get; private set; }
 
     private static PhotoCaptureTool _instance;
+    private bool isTakingPhoto;
 
     public static PhotoCaptureTool Instance
     {
@@ -60,40 +60,21 @@ public class PhotoCaptureTool : MonoBehaviour
     private void Start()
     {
         InitializeSettings();
-        StartCoroutine(CreatePhotoCaptureObject());
-        OnPhotoCaptureCreated += () =>
-        {
-            Debug.Log("PhotoCaptureObject is ready. You can now take a photo.");
-        };
     }
 
-    private IEnumerator CreatePhotoCaptureObject()
-    {
-        var createCaptureObject = new WaitForEndOfFrame();
-
-        PhotoCapture.CreateAsync(true, captureObject =>
-        {
-            if (captureObject != null)
-            {
-                photoCaptureObject = captureObject;
-                Debug.Log("PhotoCaptureObject successfully created.");
-                OnPhotoCaptureCreated?.Invoke();
-            }
-            else
-            {
-                Debug.LogError("Failed to create PhotoCaptureObject.");
-            }
-        });
-
-        yield return createCaptureObject;
-    }
     private void InitializeSettings()
     {
+        DeactivateMenus();
         SetCameraResolution();
 
         currentFilePath = useCustomFilePath ? customFilePath : Application.persistentDataPath;
-
         photoGallery.LoadSavedPictures();
+    }
+
+    private void DeactivateMenus()
+    {
+        if (photoPreviewMenu != null) photoPreviewMenu.SetActive(false);
+        if (TakePhotoButton != null) TakePhotoButton.SetActive(false);
     }
 
     private void SetCameraResolution()
@@ -110,8 +91,7 @@ public class PhotoCaptureTool : MonoBehaviour
         }
         else
         {
-            cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height)
-                .First();
+            cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
         }
 
         cameraParameters = new CameraParameters
@@ -123,31 +103,67 @@ public class PhotoCaptureTool : MonoBehaviour
         };
     }
 
-
     public void ActivatePhotoMode()
     {
-        if (photoPreviewMenu != null) photoPreviewMenu.SetActive(false);
+        MainMenuManager.Instance.SetToPhotoMode();
+        if (photoPreviewMenu != null) 
+            photoPreviewMenu.SetActive(false);
         TakePhotoButton.SetActive(true);
     }
-
+    
     public void SnapPhoto()
     {
+        if (!isTakingPhoto)
+        {
+            StartCoroutine(SnapPhotoCoroutine());
+        }
+    }
+
+    private IEnumerator SnapPhotoCoroutine()
+    {
+        isTakingPhoto = true;
+
         if (photoCaptureObject == null)
         {
-            Debug.LogWarning("CaptureObject is null");
-            return;
+            Debug.Log("CaptureObject was null");
+            var createCompletionSource = new TaskCompletionSource<PhotoCapture>();
+            PhotoCapture.CreateAsync(true, captureObject => {
+                photoCaptureObject = captureObject;
+                createCompletionSource.SetResult(captureObject);
+            });
+            yield return new WaitUntil(() => createCompletionSource.Task.IsCompleted);
         }
 
+        var startCompletionSource = new TaskCompletionSource<bool>();
         photoCaptureObject.StartPhotoModeAsync(cameraParameters, result => {
             if (result.success)
             {
-                photoCaptureObject.TakePhotoAsync(pendingFile, PhotoCaptureFileOutputFormat.JPG, OnCapturedPhotoToDisk);
+                startCompletionSource.SetResult(true);
             }
             else
             {
-                Debug.LogError("Unable to start photo mode!");
+                startCompletionSource.SetException(new Exception("Failed to start photo mode"));
             }
         });
+        yield return new WaitUntil(() => startCompletionSource.Task.IsCompleted);
+
+        photoCaptureObject.TakePhotoAsync(OnPhotoModeStarted);
+
+        isTakingPhoto = false;
+    }
+
+    private void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame pcf)
+    {
+        if (!result.success)
+        {
+            Debug.LogError("Unable to start photo mode!");
+            return;
+        }
+
+        string filename = $"CapturedImage {DateTime.Now:MM_dd_yyyy_HH_mm_ss}.png";
+        pendingFile = System.IO.Path.Combine(currentFilePath, filename);
+
+        photoCaptureObject.TakePhotoAsync(pendingFile, PhotoCaptureFileOutputFormat.JPG, OnCapturedPhotoToDisk);
     }
 
     private void OnCapturedPhotoToDisk(PhotoCapture.PhotoCaptureResult result)
@@ -158,7 +174,6 @@ public class PhotoCaptureTool : MonoBehaviour
             TakePhotoButton.SetActive(false);
             photoPreviewMenu.SetActive(true);
             photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
-
             GenerateTexture(pendingFile);
         }
         else
@@ -173,7 +188,6 @@ public class PhotoCaptureTool : MonoBehaviour
         Texture2D targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
 
         byte[] pngBytes = System.IO.File.ReadAllBytes(filename);
-
         Texture2D tex = new Texture2D(2048, 1024);
         tex.LoadImage(pngBytes);
 
