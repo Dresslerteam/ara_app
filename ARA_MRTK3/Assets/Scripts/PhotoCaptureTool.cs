@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ara.Domain.RepairManualManagement;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 using UnityEngine.Windows.WebCam;
@@ -31,7 +32,12 @@ public class PhotoCaptureTool : MonoBehaviour
 
     private static PhotoCaptureTool _instance;
     private bool isTakingPhoto;
-
+    
+    const int defaultWidth = 2272;
+    const int defaultHeight = 1278;
+    
+    private ManualStep currentStep;
+    private RepairManual currentManual;
     public static PhotoCaptureTool Instance
     {
         get
@@ -43,6 +49,23 @@ public class PhotoCaptureTool : MonoBehaviour
 
             return _instance;
         }
+    }
+
+    private void OnEnable()
+    {
+        WorkingHUDManager.OnStepSelected += OnStepSelected;
+    }
+
+    private void OnDisable()
+    {
+        WorkingHUDManager.OnStepSelected -= OnStepSelected;
+    }
+
+    private void OnStepSelected(ManualStep step, RepairManual repairManual)
+    {
+        Debug.Log("<color=green>OnStepSelected</color>");
+        currentStep = step;
+        currentManual = repairManual;
     }
 
     private void Awake()
@@ -80,8 +103,7 @@ public class PhotoCaptureTool : MonoBehaviour
     private void SetCameraResolution()
     {
         // HoloLens 2 default resolution
-        int defaultWidth = 2272;
-        int defaultHeight = 1278;
+        
 
         if (PhotoCapture.SupportedResolutions == null || !PhotoCapture.SupportedResolutions.Any())
         {
@@ -160,10 +182,11 @@ public class PhotoCaptureTool : MonoBehaviour
             return;
         }
 
-        string filename = $"CapturedImage {DateTime.Now:MM_dd_yyyy_HH_mm_ss}.png";
+        //string filename = $"CapturedImage {DateTime.Now:MM_dd_yyyy_HH_mm_ss}.png";
+        var filename = Ara.Domain.JobManagement.Photo.GenerateUrl();
         pendingFile = System.IO.Path.Combine(currentFilePath, filename);
 
-        photoCaptureObject.TakePhotoAsync(pendingFile, PhotoCaptureFileOutputFormat.JPG, OnCapturedPhotoToDisk);
+        photoCaptureObject.TakePhotoAsync(pendingFile, PhotoCaptureFileOutputFormat.PNG, OnCapturedPhotoToDisk);
     }
 
     private void OnCapturedPhotoToDisk(PhotoCapture.PhotoCaptureResult result)
@@ -174,7 +197,7 @@ public class PhotoCaptureTool : MonoBehaviour
             TakePhotoButton.SetActive(false);
             photoPreviewMenu.SetActive(true);
             photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
-            GenerateTexture(pendingFile);
+            GenerateTexture();
         }
         else
         {
@@ -183,25 +206,36 @@ public class PhotoCaptureTool : MonoBehaviour
         }
     }
 
-    private void GenerateTexture(string filename)
+    private void GenerateTexture()
     {
         Texture2D targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
 
-        byte[] pngBytes = System.IO.File.ReadAllBytes(filename);
-        Texture2D tex = new Texture2D(2048, 1024);
+        byte[] pngBytes = System.IO.File.ReadAllBytes(pendingFile);
+        Texture2D tex = new Texture2D(defaultWidth, defaultHeight);
         tex.LoadImage(pngBytes);
 
         photoGallery.DisplayPhotoPreview(tex);
-
+    
         takenPhotos.Add(targetTexture);
-
+        
         if (photoGallery != null)
         {
-            string[] photoData = filename.Split(' ');
-            photoGallery.AddPhotoToGallery(targetTexture, photoData[1]);
+            //string[] photoData = filename.Split(' ');
+            //photoGallery.AddPhotoToGallery(targetTexture, photoData[1]);
         }
     }
-
+    
+    public void SaveToDatabase(Ara.Domain.JobManagement.Photo.PhotoLabelType labelType)
+    {
+        Debug.Log("Current Task id: " + MainMenuManager.Instance.selectedTaskInfo.Id);
+        Debug.Log("currentStep id: " + currentStep.Id);
+        Debug.Log("currentManual id: " + currentManual.Id);
+        MainMenuManager.Instance.currentJob.AssignPhotoToStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
+            currentStep.Id, 
+            pendingFile, 
+            labelType);
+        DeactivateMenus();
+    }
     public void DeletePicture()
     {
         if (!string.IsNullOrEmpty(pendingFile))

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.JobManagement;
@@ -30,6 +31,8 @@ public class WorkingHUDManager : MonoBehaviour
         [SerializeField] [AssetsOnly] private PressableButton cautionPdfButtonPrefab;
         [SerializeField] [AssetsOnly] private PressableButton oemPdfButtonPrefab;
         private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
+        
+        public static Action<ManualStep, RepairManual> OnStepSelected;
         
         public void PopulateTaskGroups(TaskInfo task)
         {
@@ -89,11 +92,14 @@ public class WorkingHUDManager : MonoBehaviour
                         MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(MainMenuManager.Instance.selectedJobListItem, task);
                         EnableCameraIcon(step.PhotoRequired);
                         UpdateFileButtons(step);
+                        Debug.Log("Step selected: " + step.Id);
+                        Debug.Log("Repair manual selected: " + repairManual.Id);
+                        OnStepSelected?.Invoke(step, repairManual);
                     });
                     SetupStepToggleButton(button, stepToggleCollection, step);
                 }
             }
-            //stepToggleCollection.Toggles[0].ForceSetToggled(true,true);
+            stepToggleCollection.Toggles[0].ForceSetToggled(true,true);
         }
 
         private void UpdateFileButtons(ManualStep step)

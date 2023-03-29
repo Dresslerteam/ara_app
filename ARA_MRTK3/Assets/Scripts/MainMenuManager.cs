@@ -61,7 +61,7 @@ public class MainMenuManager : MonoBehaviour
     public Job currentJob;
     
     public JobListItemDto selectedJobListItem;
-
+    public TaskInfo selectedTaskInfo;
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -248,6 +248,7 @@ public class MainMenuManager : MonoBehaviour
         {
             AdvanceToWorkingView(task);
             mainMenuAesthetic.UpdateTaskDisplay(selectedJobListItem,task);
+            selectedTaskInfo = task;
         };
         return chosenTask;
     }
@@ -255,14 +256,19 @@ public class MainMenuManager : MonoBehaviour
     public void AdvanceToWorkingView(TaskInfo job)
     {
         ToggleAllMenus(false);
-        currentMenuPage = MenuPage.performingJob;
-        OnMenuPageChanged?.Invoke(currentMenuPage);
+        SetWorkingView();
         if(taskOverview!=null){
             taskOverview.SetActive(true);
         if(!stepsPage.activeSelf)
             stepsPage.SetActive(true);
         workingHUDManager.PopulateTaskGroups(job);
         }
+    }
+
+    public void SetWorkingView()
+    {
+        currentMenuPage = MenuPage.performingJob;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
     }
     public void ReturnToPreviousPage()
     {
