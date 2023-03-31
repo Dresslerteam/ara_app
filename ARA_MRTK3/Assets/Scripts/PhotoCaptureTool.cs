@@ -15,7 +15,8 @@ public class PhotoCaptureTool : MonoBehaviour
     private CameraParameters cameraParameters = new CameraParameters();
     private Resolution cameraResolution;
     private string pendingFile;
-    
+    [SerializeField] [Range(0.01f,1f)] 
+    private float photoSizeScaleMultiplier = 1f;
     [FormerlySerializedAs("TakePhotoMenu")] [Header("Menus")] [SerializeField]
     private GameObject TakePhotoButton;
 
@@ -108,8 +109,8 @@ public class PhotoCaptureTool : MonoBehaviour
         if (PhotoCapture.SupportedResolutions == null || !PhotoCapture.SupportedResolutions.Any())
         {
             Debug.LogWarning("No supported resolutions found, using HoloLens 2 default resolution");
-            cameraResolution.width = defaultWidth;
-            cameraResolution.height = defaultHeight;
+            cameraResolution.width = (int)(defaultWidth*photoSizeScaleMultiplier);
+            cameraResolution.height = (int) (defaultHeight*photoSizeScaleMultiplier);
         }
         else
         {
@@ -183,10 +184,10 @@ public class PhotoCaptureTool : MonoBehaviour
         }
 
         //string filename = $"CapturedImage {DateTime.Now:MM_dd_yyyy_HH_mm_ss}.png";
-        var filename = Ara.Domain.JobManagement.Photo.GenerateUrl();
+        var filename = Ara.Domain.JobManagement.Photo.GenerateUrl("jpg");
         pendingFile = System.IO.Path.Combine(currentFilePath, filename);
 
-        photoCaptureObject.TakePhotoAsync(pendingFile, PhotoCaptureFileOutputFormat.PNG, OnCapturedPhotoToDisk);
+        photoCaptureObject.TakePhotoAsync(pendingFile, PhotoCaptureFileOutputFormat.JPG, OnCapturedPhotoToDisk);
     }
 
     private void OnCapturedPhotoToDisk(PhotoCapture.PhotoCaptureResult result)
@@ -211,7 +212,7 @@ public class PhotoCaptureTool : MonoBehaviour
         Texture2D targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
 
         byte[] pngBytes = System.IO.File.ReadAllBytes(pendingFile);
-        Texture2D tex = new Texture2D(defaultWidth, defaultHeight);
+        Texture2D tex = new Texture2D(cameraResolution.width, cameraResolution.height);
         tex.LoadImage(pngBytes);
 
         photoGallery.DisplayPhotoPreview(tex);

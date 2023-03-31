@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Ara.Domain.ApiClients.Dtos;
@@ -31,9 +32,9 @@ public class WorkingHUDManager : MonoBehaviour
         [SerializeField] [AssetsOnly] private PressableButton cautionPdfButtonPrefab;
         [SerializeField] [AssetsOnly] private PressableButton oemPdfButtonPrefab;
         private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
-        
+        private RepairManualDisplay firstRepairManualDisplay;
         public static Action<ManualStep, RepairManual> OnStepSelected;
-        
+
         public void PopulateTaskGroups(TaskInfo task)
         {
             // Clear previous groups
@@ -42,16 +43,22 @@ public class WorkingHUDManager : MonoBehaviour
                 GameObject childObject = groupsRoot.GetChild(i).gameObject;
                 Destroy(childObject);
             }
+
             stepToggleCollection.Toggles.Clear();
             repairManuals.Clear();
+            firstRepairManualDisplay = null;
             // Populate repair manual
             repairManuals.AddRange(task.RepairManuals);
 
             foreach (var repairManual in repairManuals)
             {
                 // Add repair manual display
-                RepairManualDisplay repairManualDisplay = Instantiate(repairManualDisplayPrefab, groupsRoot).GetComponent<RepairManualDisplay>();
+                RepairManualDisplay repairManualDisplay = Instantiate(repairManualDisplayPrefab, groupsRoot)
+                    .GetComponent<RepairManualDisplay>();
+                firstRepairManualDisplay = repairManualDisplay;
+                repairManualDisplay.gameObject.name += repairManual.Id;
                 repairManualDisplay.UpdateDisplayInformation(repairManual.Name);
+                repairManualDisplay.stepToggleCollection.Toggles.Clear();
                 repairManualDisplay.transform.localScale = Vector3.one;
                 repairManualDisplay.transform.localRotation = Quaternion.identity;
                 // Clear previous steps
@@ -59,6 +66,7 @@ public class WorkingHUDManager : MonoBehaviour
                 {
                     Destroy(child.gameObject);
                 }
+
                 procedureButton.OnClicked.AddListener(() =>
                 {
                     if (procedureButton.IsToggled == true)
@@ -80,16 +88,18 @@ public class WorkingHUDManager : MonoBehaviour
                 foreach (var step in repairManual.Steps)
                 {
                     var stepDisplay = Instantiate(stepDisplayPrefab);
-                    stepDisplay.GetComponent<StepDisplay>().UpdateDisplayInformation(step.Id, step.Title,step.IsCompleted,repairManualDisplay.stepGroupParent);
+                    stepDisplay.GetComponent<StepDisplay>().UpdateDisplayInformation(step.Id, step.Title,
+                        step.IsCompleted, repairManualDisplay.stepGroupParent);
                     var button = stepDisplay.GetComponent<PressableButton>();
-                    
+                    repairManualDisplay.stepToggleCollection.Toggles.Add(button);
                     button.OnClicked.AddListener(() =>
                     {
                         var imageURL = "";
-                        if(step.Image != null && step.Image.Url != null)
-                            imageURL = "Photos/"+step.Image.Url;
+                        if (step.Image != null && step.Image.Url != null)
+                            imageURL = "Photos/" + step.Image.Url;
                         UpdateVisual(step.Title, imageURL);
-                        MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(MainMenuManager.Instance.selectedJobListItem, task);
+                        MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(
+                            MainMenuManager.Instance.selectedJobListItem, task);
                         EnableCameraIcon(step.PhotoRequired);
                         UpdateFileButtons(step);
                         Debug.Log("Step selected: " + step.Id);
@@ -99,7 +109,7 @@ public class WorkingHUDManager : MonoBehaviour
                     SetupStepToggleButton(button, stepToggleCollection, step);
                 }
             }
-            stepToggleCollection.Toggles[0].ForceSetToggled(true,true);
+
         }
 
         private void UpdateFileButtons(ManualStep step)
