@@ -1008,7 +1008,7 @@ GameObject:
   - component: {fileID: 443668755181292265}
   - component: {fileID: 1182567622556027026}
   - component: {fileID: 6508238372289772920}
-  - component: {fileID: 6128262733896632310}
+  - component: {fileID: 5602067064703862395}
   m_Layer: 5
   m_Name: GalleryPhotoButton
   m_TagString: Untagged
@@ -1226,7 +1226,7 @@ MonoBehaviour:
         m_Calls: []
   disabledInteractorTypes:
   - reference: Microsoft.MixedReality.Toolkit.IGrabInteractor, Microsoft.MixedReality.Toolkit.Core
-  <ToggleMode>k__BackingField: 2
+  <ToggleMode>k__BackingField: 1
   <SelectThreshold>k__BackingField: 0.9
   <DeselectThreshold>k__BackingField: 0.1
   <TriggerOnRelease>k__BackingField: 1
@@ -1654,7 +1654,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &6128262733896632310
+--- !u!114 &5602067064703862395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1663,12 +1663,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5599396768443460161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f20a7d94980d74489207ca6da404cb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 494d13cefdba4a0baa3b3cd51138af6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepIndex: {fileID: 0}
-  stepText: {fileID: 2533212882726110316}
-  stepCompleteIcon: {fileID: 0}
+  image: {fileID: 4146370684477155094}
+  label: {fileID: 2533212882726110316}
 --- !u!1 &6456845497005372167
 GameObject:
   m_ObjectHideFlags: 0

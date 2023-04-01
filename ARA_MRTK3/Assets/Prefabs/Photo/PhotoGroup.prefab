@@ -784,14 +784,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GalleryPhotoButton
       objectReference: {fileID: 0}
-    - target: {fileID: 5599396768443460185, guid: f0258662663d66b48a5ac35ddf60fab3, type: 3}
-      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5599396768443460185, guid: f0258662663d66b48a5ac35ddf60fab3, type: 3}
-      propertyPath: <IsToggled>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5599396768443460190, guid: f0258662663d66b48a5ac35ddf60fab3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -875,14 +867,6 @@ PrefabInstance:
     - target: {fileID: 5599396768443460190, guid: f0258662663d66b48a5ac35ddf60fab3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6128262733896632310, guid: f0258662663d66b48a5ac35ddf60fab3, type: 3}
-      propertyPath: stepIndex
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6128262733896632310, guid: f0258662663d66b48a5ac35ddf60fab3, type: 3}
-      propertyPath: stepCompleteIcon
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8095271134561220949, guid: f0258662663d66b48a5ac35ddf60fab3, type: 3}
       propertyPath: m_AnchorMax.y
