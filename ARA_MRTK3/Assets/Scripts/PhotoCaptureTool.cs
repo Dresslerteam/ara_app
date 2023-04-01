@@ -92,7 +92,7 @@ public class PhotoCaptureTool : MonoBehaviour
         SetCameraResolution();
 
         currentFilePath = useCustomFilePath ? customFilePath : Application.persistentDataPath;
-        photoGallery.LoadSavedPictures();
+        //photoGallery.LoadSavedPictures();
     }
 
     private void DeactivateMenus()

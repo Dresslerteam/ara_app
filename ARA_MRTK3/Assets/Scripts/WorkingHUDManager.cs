@@ -102,8 +102,6 @@ public class WorkingHUDManager : MonoBehaviour
                             MainMenuManager.Instance.selectedJobListItem, task);
                         EnableCameraIcon(step.PhotoRequired);
                         UpdateFileButtons(step);
-                        Debug.Log("Step selected: " + step.Id);
-                        Debug.Log("Repair manual selected: " + repairManual.Id);
                         OnStepSelected?.Invoke(step, repairManual);
                     });
                     SetupStepToggleButton(button, stepToggleCollection, step);

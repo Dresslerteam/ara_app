@@ -47,7 +47,7 @@ public class HeaderManager : MonoBehaviour
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(false);
                 pdfEstimationButton?.gameObject.SetActive(false);
-                //modelButton?.SetActive(false);
+                modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
                 cameraHeader.SetActive(false);
@@ -60,7 +60,7 @@ public class HeaderManager : MonoBehaviour
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(false);
                 pdfEstimationButton?.gameObject.SetActive(false);
-               // modelButton?.SetActive(false);
+                modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
                 cameraHeader.SetActive(false);
@@ -74,7 +74,7 @@ public class HeaderManager : MonoBehaviour
                 logoutButton?.SetActive(true);
                 scanDocButton?.gameObject.SetActive(false);
                 pdfEstimationButton?.gameObject.SetActive(false);
-               // modelButton?.SetActive(false);
+                modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(true);
                 jobinformationTexts.SetActive(false);
                 cameraHeader.SetActive(false);
@@ -91,7 +91,7 @@ public class HeaderManager : MonoBehaviour
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(true);
                 pdfEstimationButton?.gameObject.SetActive(true);
-               // modelButton?.SetActive(true);
+                modelButton?.SetActive(true);
                 menuTitleWithUserTexts?.SetActive(true);
                 jobinformationTexts.SetActive(false);
                 cameraHeader.SetActive(false);
@@ -105,7 +105,7 @@ public class HeaderManager : MonoBehaviour
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(true);
                 pdfEstimationButton?.gameObject.SetActive(true);
-               // modelButton?.SetActive(true);
+                modelButton?.SetActive(true);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(true);
                 cameraHeader.SetActive(false);
@@ -118,22 +118,23 @@ public class HeaderManager : MonoBehaviour
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(false);
                 pdfEstimationButton?.gameObject.SetActive(false);
-               // modelButton?.SetActive(false);
+                modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
                 cameraHeader.SetActive(true);
                 break;
             case MenuPage.gallery:
-                jobsButton?.SetActive(false);
-                tasksButton?.SetActive(false);
-                hideButton?.SetActive(false);
+                jobsButton?.SetActive(true);
+                tasksButton?.SetActive(true);
+                hideButton?.SetActive(true);
                 logoutButton?.SetActive(false);
-                scanDocButton?.gameObject.SetActive(false);
-                pdfEstimationButton?.gameObject.SetActive(false);
-                // modelButton?.SetActive(false);
+                scanDocButton?.gameObject.SetActive(true);
+                pdfEstimationButton?.gameObject.SetActive(true);
+                modelButton?.SetActive(true);
                 menuTitleWithUserTexts?.SetActive(false);
-                jobinformationTexts.SetActive(false);
+                jobinformationTexts.SetActive(true);
                 cameraHeader.SetActive(false);
+
                 break;
             default:
                 Debug.LogError("No menu page selected");
