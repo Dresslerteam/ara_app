@@ -84,8 +84,10 @@ public class PhotoGallery : MonoBehaviour
 
     public void DisplayCurrentlySelectedPhoto(Photo photo)
     {
-        GalleryPreviewPhoto.image.texture = photo.image.texture;
-        GalleryPreviewPhoto.label.text = photo.label.text;
+        if(photo.image.texture != null)
+            GalleryPreviewPhoto.image.texture = photo.image.texture;
+        if(photo.label.text != null)
+            GalleryPreviewPhoto.label.text = photo.label.text;
     }
     public void ClearAllGalleryObjects()
     {
@@ -96,13 +98,13 @@ public class PhotoGallery : MonoBehaviour
     }
     public void AddPhotoToGallery(Texture2D targetTexture, string jobDate, Ara.Domain.JobManagement.Photo.PhotoLabelType labelType, string taskName, string groupName, string stepName)
     {
-        GameObject photograph = Instantiate(photoButtonPrefab, gallery);
-        GalleryPhotoButtonDisplay data = photograph.GetComponent<GalleryPhotoButtonDisplay>();
-        data.image.texture = targetTexture;
-        data.label.text = jobDate;
-        data.labelImage.sprite = metadataDisplay.GetLabelSprite(labelType);
+        GameObject newPhotoButton = Instantiate(photoButtonPrefab, gallery);
+        GalleryPhotoButtonDisplay galleryPhotoButton = newPhotoButton.GetComponent<GalleryPhotoButtonDisplay>();
+        galleryPhotoButton.image.texture = targetTexture;
+        galleryPhotoButton.label.text = jobDate;
+        galleryPhotoButton.labelImage.sprite = metadataDisplay.GetLabelSprite(labelType);
         // Get PressableButton 
-        var pressableButton = photograph.GetComponent<PressableButton>();
+        var pressableButton = newPhotoButton.GetComponent<PressableButton>();
         photoButtonToggleCollection.Toggles.Add(pressableButton);
         pressableButton.ForceSetToggled(false);
         pressableButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
@@ -113,6 +115,7 @@ public class PhotoGallery : MonoBehaviour
                 if (pressableButton.ToggleMode != StatefulInteractable.ToggleType.OneWayToggle)
                     pressableButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
                 metadataDisplay.UpdateDisplay(jobDate, labelType, taskName, groupName, stepName);
+                DisplayCurrentlySelectedPhoto(galleryPhotoButton);
                 pressableButton.ForceSetToggled(true, true);
             }
             else if (pressableButton.IsToggled == false)
