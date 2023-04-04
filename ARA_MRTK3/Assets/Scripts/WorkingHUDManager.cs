@@ -29,6 +29,8 @@ public class WorkingHUDManager : MonoBehaviour
         [Header("Buttons")]
         [SerializeField] private PressableButton procedureButton;
         [SerializeField] private Transform buttonsRoot;
+        [SerializeField] private PressableButton completeButton;
+        [SerializeField] private GameObject photoRequiredModal;
         [SerializeField] [AssetsOnly] private PressableButton cautionPdfButtonPrefab;
         [SerializeField] [AssetsOnly] private PressableButton oemPdfButtonPrefab;
         private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
@@ -87,8 +89,8 @@ public class WorkingHUDManager : MonoBehaviour
                 // Add steps
                 foreach (var step in repairManual.Steps)
                 {
-                    var stepDisplay = Instantiate(stepDisplayPrefab);
-                    stepDisplay.GetComponent<StepDisplay>().UpdateDisplayInformation(step.Id, step.Title,
+                    StepDisplay stepDisplay = Instantiate(stepDisplayPrefab).GetComponent<StepDisplay>();
+                    stepDisplay.UpdateDisplayInformation(step.Id, step.Title,
                         step.IsCompleted, repairManualDisplay.stepGroupParent);
                     var button = stepDisplay.GetComponent<PressableButton>();
                     repairManualDisplay.stepToggleCollection.Toggles.Add(button);
@@ -100,7 +102,7 @@ public class WorkingHUDManager : MonoBehaviour
                         UpdateVisual(step.Title, imageURL);
                         MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(
                             MainMenuManager.Instance.selectedJobListItem, task);
-                        EnableCameraIcon(step.PhotoRequired);
+                        EnableCameraIcon(step, repairManual, stepDisplay);
                         UpdateFileButtons(step);
                         OnStepSelected?.Invoke(step, repairManual);
                     });
@@ -240,8 +242,33 @@ public class WorkingHUDManager : MonoBehaviour
              textMeshProUGUIAutoSizer.ResizeTextMeshProUGUI();
         }
         // Enable Camera Icon if the step.PhotoRequired is true
-        public void EnableCameraIcon(bool enable)
+        public void EnableCameraIcon(ManualStep step, RepairManual repairManual, StepDisplay stepDisplay)
         {
-            cameraIcon.SetActive(enable);
+            // Set the icon
+            cameraIcon.SetActive(step.PhotoRequired);
+            
+            if(step.PhotoRequired)
+            {
+                // Set the complete button to take a picture
+                completeButton.OnClicked.RemoveAllListeners();
+                // Set the complete button to complete the step
+                    completeButton.OnClicked.AddListener(() =>
+                    {
+                        if(photoRequiredModal!=null)
+                            photoRequiredModal.SetActive(true);
+                    });
+            }
+            else
+            {
+                // Set the complete button to take a picture
+                completeButton.OnClicked.RemoveAllListeners();
+                completeButton.OnClicked.AddListener(() =>
+                {
+                    // Complete step
+                    MainMenuManager.Instance.currentJob.CompleteStep(MainMenuManager.Instance.selectedTaskInfo.Id,
+                        repairManual.Id, step.Id);
+                    stepDisplay.CompleteStep();
+                });
+            }
         }
     }

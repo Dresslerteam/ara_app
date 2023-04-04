@@ -235,6 +235,8 @@ public class PhotoCaptureTool : MonoBehaviour
             currentStep.Id, 
             pendingFile, 
             labelType);
+        MainMenuManager.Instance.currentJob.CompleteStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
+            currentStep.Id);
         DeactivateMenus();
     }
     public void DeletePicture()
