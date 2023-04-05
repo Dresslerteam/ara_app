@@ -63,7 +63,7 @@ public class PhotoGallery : MonoBehaviour
                 //Converts desired path into byte array
                 byte[] jpgBytes = System.IO.File.ReadAllBytes(photo.Url);
                 //Creates texture and loads byte array data to create image
-                Texture2D tex = new Texture2D((int)resolution.x,(int)resolution.y); //Todo: Way too high (2048x1024 at the time)
+                Texture2D tex = new Texture2D((int)resolution.x,(int)resolution.y);
                 tex.LoadImage(jpgBytes);
                 
                 AddPhotoToGallery(tex, photo.CreatedOn.ToString(), photo.Label, photo.TaskName, photo.RepairManualName, photo.StepName);

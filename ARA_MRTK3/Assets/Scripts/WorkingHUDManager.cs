@@ -25,7 +25,10 @@ public class WorkingHUDManager : MonoBehaviour
         private List<RepairManual> repairManuals = new List<RepairManual>();
         [Header("Visuals")] 
         [SerializeField] private TextMeshProUGUI taskTextAboveVisuals;
+
+        [SerializeField] private GameObject selectedStepVisualRoot;
         [SerializeField] private RawImage stepImageVisual;
+        [SerializeField] private GameObject preStepSelectionVisuals;
         [Header("Buttons")]
         [SerializeField] private PressableButton procedureButton;
         [SerializeField] private Transform buttonsRoot;
@@ -36,7 +39,7 @@ public class WorkingHUDManager : MonoBehaviour
         private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
         private RepairManualDisplay firstRepairManualDisplay;
         public static Action<ManualStep, RepairManual> OnStepSelected;
-
+        private List<PressableButton> stepGroupButtonParentList = new List<PressableButton>();
         public void PopulateTaskGroups(TaskInfo task)
         {
             // Clear previous groups
@@ -51,13 +54,13 @@ public class WorkingHUDManager : MonoBehaviour
             firstRepairManualDisplay = null;
             // Populate repair manual
             repairManuals.AddRange(task.RepairManuals);
-
+            stepGroupButtonParentList.Clear();
             foreach (var repairManual in repairManuals)
             {
                 // Add repair manual display
                 RepairManualDisplay repairManualDisplay = Instantiate(repairManualDisplayPrefab, groupsRoot)
                     .GetComponent<RepairManualDisplay>();
-                firstRepairManualDisplay = repairManualDisplay;
+                stepGroupButtonParentList.Add(repairManualDisplay.GetComponent<PressableButton>());
                 repairManualDisplay.gameObject.name += repairManual.Id;
                 repairManualDisplay.UpdateDisplayInformation(repairManual.Name);
                 repairManualDisplay.stepToggleCollection.Toggles.Clear();
@@ -105,13 +108,26 @@ public class WorkingHUDManager : MonoBehaviour
                         EnableCameraIcon(step, repairManual, stepDisplay);
                         UpdateFileButtons(step);
                         OnStepSelected?.Invoke(step, repairManual);
+                        preStepSelectionVisuals.SetActive(false);
+                        selectedStepVisualRoot.SetActive(true);
                     });
                     SetupStepToggleButton(button, stepToggleCollection, step);
                 }
             }
-
+            preStepSelectionVisuals.SetActive(true);
+            selectedStepVisualRoot.SetActive(false);
+            StartCoroutine(DisableTheGroupsOverride());
         }
 
+        private IEnumerator DisableTheGroupsOverride()
+        {
+            yield return new WaitForEndOfFrame();
+            foreach (var button in stepGroupButtonParentList)
+            {
+                button.OnClicked.Invoke();
+                button.ForceSetToggled(false, true);
+            }
+        }
         private void UpdateFileButtons(ManualStep step)
         {
 
@@ -219,6 +235,8 @@ public class WorkingHUDManager : MonoBehaviour
         { 
             if (!string.IsNullOrEmpty(imageURL))
             {
+                selectedStepVisualRoot.SetActive(true);
+                preStepSelectionVisuals.SetActive(false);
                 string newString = imageURL;
                 // Get image from inside folder
                 if (imageURL.EndsWith(".png"))

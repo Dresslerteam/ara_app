@@ -218,19 +218,10 @@ public class PhotoCaptureTool : MonoBehaviour
         photoGallery.DisplayPhotoPreview(tex);
     
         takenPhotos.Add(targetTexture);
-        
-        if (photoGallery != null)
-        {
-            //string[] photoData = filename.Split(' ');
-            //photoGallery.AddPhotoToGallery(targetTexture, photoData[1]);
-        }
     }
     
     public void SaveToDatabase(Ara.Domain.JobManagement.Photo.PhotoLabelType labelType)
     {
-        Debug.Log("Current Task id: " + MainMenuManager.Instance.selectedTaskInfo.Id);
-        Debug.Log("currentStep id: " + currentStep.Id);
-        Debug.Log("currentManual id: " + currentManual.Id);
         MainMenuManager.Instance.currentJob.AssignPhotoToStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
             currentStep.Id, 
             pendingFile, 
