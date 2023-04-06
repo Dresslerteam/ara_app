@@ -13,7 +13,7 @@ namespace Ara.Domain.RepairManualManagement
         public string Description { get; set; }
         public StepImage Image { get; set; }
         public List<Message> Messages { get; set; }
-        public List<Photo> Photos { get; set; }
+        public List<Photo> Photos { get; set; } = new List<Photo>();
         public bool PhotoRequired { get; set; } = false;
         public bool IsCompleted { get; set; } = false;
         public List<(StepReferencedDocType Type, PdfDoc Doc)> ReferencedDocs { get; set; }

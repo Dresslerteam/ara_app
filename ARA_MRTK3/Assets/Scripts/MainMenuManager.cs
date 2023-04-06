@@ -25,11 +25,14 @@ public class MainMenuManager : MonoBehaviour
     public GameObject taskOverview;
     public GameObject loaderGO;
     public WorkingHUDManager workingHUDManager;
+    public GameObject stepsPage;
+    public GameObject galleryPage;
+    public PhotoCaptureTool photoCaptureTool;
+    
     public PDFLoader pdfLoader;
     [Header("ModelOverview")]
     public GameObject modelOverviewGO;
     public GameObject modelOveriewCallOuts;
-    [SerializeField] private QuickMenuDisplay jobQuickMenu;
     [Header("Buttons")]
     [SerializeField] private PressableButton advanceToTaskButton;
 
@@ -58,7 +61,7 @@ public class MainMenuManager : MonoBehaviour
     public Job currentJob;
     
     public JobListItemDto selectedJobListItem;
-
+    public TaskInfo selectedTaskInfo;
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -104,6 +107,10 @@ public class MainMenuManager : MonoBehaviour
             taskBoard.SetActive(isOn);
         if(workingHUDManager!=null)
             workingHUDManager.gameObject.SetActive(isOn);
+        if(galleryPage!=null)
+            galleryPage.SetActive(isOn);
+        if(stepsPage!=null)
+            stepsPage.SetActive(isOn);
     }
 
     public async Task UpdateJobBoard()
@@ -241,6 +248,7 @@ public class MainMenuManager : MonoBehaviour
         {
             AdvanceToWorkingView(task);
             mainMenuAesthetic.UpdateTaskDisplay(selectedJobListItem,task);
+            selectedTaskInfo = task;
         };
         return chosenTask;
     }
@@ -248,12 +256,19 @@ public class MainMenuManager : MonoBehaviour
     public void AdvanceToWorkingView(TaskInfo job)
     {
         ToggleAllMenus(false);
-        currentMenuPage = MenuPage.performingJob;
-        OnMenuPageChanged?.Invoke(currentMenuPage);
+        SetWorkingView();
         if(taskOverview!=null){
             taskOverview.SetActive(true);
+        if(!stepsPage.activeSelf)
+            stepsPage.SetActive(true);
         workingHUDManager.PopulateTaskGroups(job);
         }
+    }
+
+    public void SetWorkingView()
+    {
+        currentMenuPage = MenuPage.performingJob;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
     }
     public void ReturnToPreviousPage()
     {
@@ -325,6 +340,25 @@ public class MainMenuManager : MonoBehaviour
         ToggleAllMenus(false);
         splashScreen.SetActive(true);
     }
+    public void SetToPhotoMode()
+    {
+        currentMenuPage = MenuPage.takingPhoto;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
+        ToggleAllMenus(false);
+        workingHUDManager.gameObject.SetActive(true);
+        if(photoCaptureTool!=null)
+            photoCaptureTool.gameObject.SetActive(true);
+    }
+
+    public void SetToGalleryView()
+    {
+        currentMenuPage = MenuPage.gallery;
+        OnMenuPageChanged?.Invoke(currentMenuPage);
+        ToggleAllMenus(false);
+        taskOverview.SetActive(true);
+        stepsPage.SetActive(false);
+        galleryPage.SetActive(true);
+    }
 
     public void ReturnToModelOverview()
     {
@@ -340,5 +374,7 @@ public enum MenuPage
     jobSelectScreen,
     modelOverview,
     taskSelect,
-    performingJob
+    performingJob,
+    takingPhoto,
+    gallery
 }

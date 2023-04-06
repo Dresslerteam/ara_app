@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Ara.Domain.ApiClients.Dtos;
+using Ara.Domain.Common;
 using Ara.Domain.JobManagement;
 using Ara.Domain.RepairManualManagement;
 using Microsoft.MixedReality.Toolkit;
@@ -23,38 +26,53 @@ public class WorkingHUDManager : MonoBehaviour
         private List<RepairManual> repairManuals = new List<RepairManual>();
         [Header("Visuals")] 
         [SerializeField] private TextMeshProUGUI taskTextAboveVisuals;
+
+        [SerializeField] private GameObject selectedStepVisualRoot;
         [SerializeField] private RawImage stepImageVisual;
+        [SerializeField] private GameObject preStepSelectionVisuals;
         [Header("Buttons")]
         [SerializeField] private PressableButton procedureButton;
         [SerializeField] private Transform buttonsRoot;
+        [SerializeField] private PressableButton completeButton;
+        [SerializeField] private GameObject photoRequiredModal;
         [SerializeField] [AssetsOnly] private PressableButton cautionPdfButtonPrefab;
         [SerializeField] [AssetsOnly] private PressableButton oemPdfButtonPrefab;
         private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
+        private RepairManualDisplay firstRepairManualDisplay;
+        public static Action<ManualStep, RepairManual, StepDisplay> OnStepSelected;
+        private List<PressableButton> stepGroupButtonParentList = new List<PressableButton>();
         public void PopulateTaskGroups(TaskInfo task)
         {
             // Clear previous groups
-            foreach (Transform child in groupsRoot)
+            for (int i = groupsRoot.childCount - 1; i >= 0; i--)
             {
-                Destroy(child.gameObject);
+                GameObject childObject = groupsRoot.GetChild(i).gameObject;
+                Destroy(childObject);
             }
+
             stepToggleCollection.Toggles.Clear();
+            repairManuals.Clear();
+            firstRepairManualDisplay = null;
             // Populate repair manual
             repairManuals.AddRange(task.RepairManuals);
-
+            stepGroupButtonParentList.Clear();
             foreach (var repairManual in repairManuals)
             {
                 // Add repair manual display
-                RepairManualDisplay repairManualDisplay = Instantiate(repairManualDisplayPrefab, groupsRoot).GetComponent<RepairManualDisplay>();
+                RepairManualDisplay repairManualDisplay = Instantiate(repairManualDisplayPrefab, groupsRoot)
+                    .GetComponent<RepairManualDisplay>();
+                stepGroupButtonParentList.Add(repairManualDisplay.GetComponent<PressableButton>());
+                repairManualDisplay.gameObject.name += repairManual.Id;
                 repairManualDisplay.UpdateDisplayInformation(repairManual.Name);
+                repairManualDisplay.stepToggleCollection.Toggles.Clear();
                 repairManualDisplay.transform.localScale = Vector3.one;
                 repairManualDisplay.transform.localRotation = Quaternion.identity;
-                
-                
                 // Clear previous steps
                 foreach (Transform child in repairManualDisplay.stepGroupParent)
                 {
                     Destroy(child.gameObject);
                 }
+
                 procedureButton.OnClicked.AddListener(() =>
                 {
                     if (procedureButton.IsToggled == true)
@@ -75,26 +93,42 @@ public class WorkingHUDManager : MonoBehaviour
                 // Add steps
                 foreach (var step in repairManual.Steps)
                 {
-                    var stepDisplay = Instantiate(stepDisplayPrefab);
-                    stepDisplay.GetComponent<StepDisplay>().UpdateDisplayInformation(step.Id, step.Title,step.IsCompleted,repairManualDisplay.stepGroupParent);
+                    StepDisplay stepDisplay = Instantiate(stepDisplayPrefab).GetComponent<StepDisplay>();
+                    stepDisplay.UpdateDisplayInformation(step.Id, step.Title,
+                        step.IsCompleted, repairManualDisplay.stepGroupParent);
                     var button = stepDisplay.GetComponent<PressableButton>();
-                    
+                    repairManualDisplay.stepToggleCollection.Toggles.Add(button);
                     button.OnClicked.AddListener(() =>
                     {
                         var imageURL = "";
-                        if(step.Image != null && step.Image.Url != null)
-                            imageURL = "Photos/"+step.Image.Url;
+                        if (step.Image != null && step.Image.Url != null)
+                            imageURL = "Photos/" + step.Image.Url;
                         UpdateVisual(step.Title, imageURL);
-                        MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(MainMenuManager.Instance.selectedJobListItem, task);
-                        EnableCameraIcon(step.PhotoRequired);
+                        MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(
+                            MainMenuManager.Instance.selectedJobListItem, task);
+                        EnableCameraIcon(step, repairManual, stepDisplay);
                         UpdateFileButtons(step);
+                        OnStepSelected?.Invoke(step, repairManual, stepDisplay);
+                        preStepSelectionVisuals.SetActive(false);
+                        selectedStepVisualRoot.SetActive(true);
                     });
                     SetupStepToggleButton(button, stepToggleCollection, step);
                 }
             }
-            stepToggleCollection.Toggles[0].ForceSetToggled(true,true);
+            preStepSelectionVisuals.SetActive(true);
+            selectedStepVisualRoot.SetActive(false);
+            StartCoroutine(DisableTheGroupsOverride());
         }
 
+        private IEnumerator DisableTheGroupsOverride()
+        {
+            yield return new WaitForEndOfFrame();
+            foreach (var button in stepGroupButtonParentList)
+            {
+                button.OnClicked.Invoke();
+                button.ForceSetToggled(false, true);
+            }
+        }
         private void UpdateFileButtons(ManualStep step)
         {
 
@@ -169,38 +203,31 @@ public class WorkingHUDManager : MonoBehaviour
            
         }
 
-        private void SetupStepToggleButton(PressableButton pdfButton, ToggleCollection toggleCollection, ManualStep step)
+        private void SetupStepToggleButton(PressableButton stepButton, ToggleCollection toggleCollection, ManualStep step)
         {
-            toggleCollection.Toggles.Add(pdfButton);
-            // If toggle is selected and the pdfButton is toggled, force disable the toggle
+            toggleCollection.Toggles.Add(stepButton);
+            // If toggle is selected and the stepButton is toggled, force disable the toggle
             toggleCollection.OnToggleSelected.AddListener((ctx) =>
             {
-                if (toggleCollection.Toggles[ctx] != pdfButton)
+                if (toggleCollection.Toggles[ctx] != stepButton)
                 {
-                    pdfButton.ForceSetToggled(false, false);
+                    stepButton.ForceSetToggled(false, false);
                 }
             });
             // Set the toggle mode to toggle
-            pdfButton.ForceSetToggled(false);
-            pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-            pdfButton.OnClicked.AddListener(() =>
+            stepButton.ForceSetToggled(false);
+            stepButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
+            stepButton.OnClicked.AddListener(() =>
             {
-                if (pdfButton.IsToggled == true)
+                if (stepButton.IsToggled == true)
                 {
-                    if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
-                        pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                    if(step.ReferencedDocs != null && step.ReferencedDocs.Count > 0)
-                        MainMenuManager.Instance.pdfLoader.LoadPdf(step.ReferencedDocs[0].Doc.Url);
-                    Debug.Log($"{gameObject.name}PDF Loaded");
-                    pdfButton.ForceSetToggled(true, true);
+                    if (stepButton.ToggleMode != StatefulInteractable.ToggleType.OneWayToggle)
+                        stepButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
+                    stepButton.ForceSetToggled(true, true);
                 }
-                else if (pdfButton.IsToggled == false)
+                else if (stepButton.IsToggled == false)
                 {
-                    if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
-                        pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                    MainMenuManager.Instance.pdfLoader.HidePdf();
-                    Debug.Log($"{gameObject.name}PDF Hidden");
-                    pdfButton.ForceSetToggled(false, true);
+                    return;
                 }
             });
         }
@@ -209,6 +236,8 @@ public class WorkingHUDManager : MonoBehaviour
         { 
             if (!string.IsNullOrEmpty(imageURL))
             {
+                selectedStepVisualRoot.SetActive(true);
+                preStepSelectionVisuals.SetActive(false);
                 string newString = imageURL;
                 // Get image from inside folder
                 if (imageURL.EndsWith(".png"))
@@ -217,7 +246,7 @@ public class WorkingHUDManager : MonoBehaviour
                 }
 
                 imageURL = newString;
-                Debug.Log("imageURL: " + imageURL);
+                //Debug.Log("imageURL: " + imageURL);
                 Texture2D stepImage = Resources.Load<Texture2D>(imageURL);
                 this.stepImageVisual.enabled = true;
                 this.stepImageVisual.texture = stepImage;
@@ -232,8 +261,37 @@ public class WorkingHUDManager : MonoBehaviour
              textMeshProUGUIAutoSizer.ResizeTextMeshProUGUI();
         }
         // Enable Camera Icon if the step.PhotoRequired is true
-        public void EnableCameraIcon(bool enable)
+        public void EnableCameraIcon(ManualStep step, RepairManual repairManual, StepDisplay stepDisplay)
         {
-            cameraIcon.SetActive(enable);
+            // Set the icon
+            cameraIcon.SetActive(step.PhotoRequired);
+            
+            if(step.PhotoRequired)
+            {
+                // Set the complete button to take a picture
+                completeButton.OnClicked.RemoveAllListeners();
+                // Set the complete button to complete the step
+                    completeButton.OnClicked.AddListener(() =>
+                    {
+                        if(photoRequiredModal!=null)
+                            photoRequiredModal.SetActive(true);
+                    });
+            }
+            else
+            {
+                // Set the complete button to take a picture
+                completeButton.OnClicked.RemoveAllListeners();
+                completeButton.OnClicked.AddListener(() =>
+                {
+                    // Complete step
+                    MainMenuManager.Instance.currentJob.CompleteStep(MainMenuManager.Instance.selectedTaskInfo.Id,
+                        repairManual.Id, step.Id);
+                    stepDisplay.CompleteStep();
+                });
+            }
+        }
+        public void AdvanceToNextStep(Result<(int RepairManualId, ManualStep Step)> idk)
+        {
+            
         }
     }

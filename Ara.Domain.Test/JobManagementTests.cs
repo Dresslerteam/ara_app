@@ -12,93 +12,28 @@ namespace Ara.Domain.Test
 {
     public class JobManagementTests
     {
-        [Fact]
-        public async void GetJobs()
+        static Job __job = new Job()
         {
-            var jobService = new JobApplicationService();
-            var jobs = await jobService.GetJobsAsync();
-            Assert.True(true);
-        }
-
-        [Fact]
-        public async void GetJobById()
-        {
-            var jobService = new JobApplicationService();
-            var jobs = await jobService.GetJobDetailsAsync("1");
-            Assert.True(true);
-        }
-
-        [Fact]
-        public async void ChangeTaskStatus()
-        {
-            var jobService = new JobApplicationService();
-            var job = await jobService.GetJobDetailsAsync("1");
-            Assert.True(job.NumberOfDoneTasks == 0);
-
-            job.ChangeTaskStatus(1, JobManagement.TaskInfo.TaskStatus.InProgress);
-            job.ChangeTaskStatus(1, JobManagement.TaskInfo.TaskStatus.Completed);
-            job.ChangeTaskStatus(2, JobManagement.TaskInfo.TaskStatus.Completed);
-
-            //job.Tasks.FirstOrDefault().RepairManuals.FirstOrDefault().Steps.FirstOrDefault().ReferencedDocs.FirstOrDefault().Type == 
-
-            Assert.True(job.Status == JobManagement.Job.JobStatus.Completed);
-
-            var jobs = await jobService.GetJobsAsync();
-            var jobItem = jobs.FirstOrDefault(f => f.Id == job.Id);
-            Assert.True(jobItem.NumberOfDoneTasks == job.NumberOfDoneTasks);
-            Assert.True(jobItem.Status == JobManagement.Job.JobStatus.Completed);
-
-
-        }
-
-
-        [Fact]
-        public async void GetStep()
-        {
-            var jobService = new JobApplicationService();
-            var job = await jobService.GetJobDetailsAsync("1");
-            job.ChangeTaskStatus(1, JobManagement.TaskInfo.TaskStatus.InProgress);
-            job.ChangeTaskStatus(1, JobManagement.TaskInfo.TaskStatus.Completed);
-            job.ChangeTaskStatus(2, JobManagement.TaskInfo.TaskStatus.Completed);
-
-            var a = job.Tasks.FirstOrDefault(t => t.Id == 1).RepairManuals.FirstOrDefault(r => r.Id == 2).Steps.FirstOrDefault(s => s.Id == 19).ReferencedDocs.FirstOrDefault();
-
-            Assert.True(a.Type == RepairManualManagement.ManualStep.StepReferencedDocType.Procedure);
-
-            Assert.True(job.Status == JobManagement.Job.JobStatus.Completed);
-
-            var jobs = await jobService.GetJobsAsync();
-            var jobItem = jobs.FirstOrDefault(f => f.Id == job.Id);
-            Assert.True(jobItem.Status == JobManagement.Job.JobStatus.Completed);
-
-
-        }
-
-        [Fact]
-        public async void CompleteStep()
-        {
-            var job = new Job()
+            Id = "1",
+            RepairOrderNo = "50518",
+            ClaimNo = "282584692314B16",
+            EstimatorFullName = "Chad Streck",
+            CreatedOn = DateTime.Now,
+            Status = Job.JobStatus.ToDo,
+            Car = new Car()
             {
-                Id = "1",
-                RepairOrderNo = "50518",
-                ClaimNo = "282584692314B16",
-                EstimatorFullName = "Chad Streck",
-                CreatedOn = DateTime.Now,
-                Status = Job.JobStatus.ToDo,
-                Car = new Car()
-                {
-                    Manufacturer = "CHEVROLET",
-                    Model = "SILVERADO",
-                    Vin = "3GCUYGEDXNG211028",
-                    Year = 2022
-                },
-                CarOwner = new CarOwner()
-                {
-                    FirstName = "Tomi",
-                    LastName = "Martinez",
-                    Mobile = "(406) 555-5555"
-                },
-                Tasks = new List<TaskInfo>()
+                Manufacturer = "CHEVROLET",
+                Model = "SILVERADO",
+                Vin = "3GCUYGEDXNG211028",
+                Year = 2022
+            },
+            CarOwner = new CarOwner()
+            {
+                FirstName = "Tomi",
+                LastName = "Martinez",
+                Mobile = "(406) 555-5555"
+            },
+            Tasks = new List<TaskInfo>()
                 {
                     new TaskInfo()
                     {
@@ -229,18 +164,84 @@ namespace Ara.Domain.Test
 
                     }
                 },
-                PreliminaryEstimation = new PdfDoc()
-                {
-                    Title = "Estimation",
-                    Url = "estimation_1.pdf"
-                },
-                PreliminaryScan = new PdfDoc()
-                {
-                    Title = "PreliminaryScan",
-                    Url = "preliminary_scan_1.pdf"
-                }
-            };
+            PreliminaryEstimation = new PdfDoc()
+            {
+                Title = "Estimation",
+                Url = "estimation_1.pdf"
+            },
+            PreliminaryScan = new PdfDoc()
+            {
+                Title = "PreliminaryScan",
+                Url = "preliminary_scan_1.pdf"
+            }
+        };
 
+        [Fact]
+        public async void GetJobs()
+        {
+            var jobService = new JobApplicationService();
+            var jobs = await jobService.GetJobsAsync();
+            Assert.True(true);
+        }
+
+        [Fact]
+        public async void GetJobById()
+        {
+            var jobService = new JobApplicationService();
+            var jobs = await jobService.GetJobDetailsAsync("1");
+            Assert.True(true);
+        }
+
+        [Fact]
+        public async void ChangeTaskStatus()
+        {
+            var jobService = new JobApplicationService();
+            var job = await jobService.GetJobDetailsAsync("1");
+            Assert.True(job.NumberOfDoneTasks == 0);
+
+            job.ChangeTaskStatus(1, JobManagement.TaskInfo.TaskStatus.InProgress);
+            job.ChangeTaskStatus(1, JobManagement.TaskInfo.TaskStatus.Completed);
+            job.ChangeTaskStatus(2, JobManagement.TaskInfo.TaskStatus.Completed);
+
+            //job.Tasks.FirstOrDefault().RepairManuals.FirstOrDefault().Steps.FirstOrDefault().ReferencedDocs.FirstOrDefault().Type == 
+
+            Assert.True(job.Status == JobManagement.Job.JobStatus.Completed);
+
+            var jobs = await jobService.GetJobsAsync();
+            var jobItem = jobs.FirstOrDefault(f => f.Id == job.Id);
+            Assert.True(jobItem.NumberOfDoneTasks == job.NumberOfDoneTasks);
+            Assert.True(jobItem.Status == JobManagement.Job.JobStatus.Completed);
+
+
+        }
+
+
+        [Fact]
+        public async void GetStep()
+        {
+            var jobService = new JobApplicationService();
+            var job = await jobService.GetJobDetailsAsync("1");
+            job.ChangeTaskStatus(1, JobManagement.TaskInfo.TaskStatus.InProgress);
+            job.ChangeTaskStatus(1, JobManagement.TaskInfo.TaskStatus.Completed);
+            job.ChangeTaskStatus(2, JobManagement.TaskInfo.TaskStatus.Completed);
+
+            var a = job.Tasks.FirstOrDefault(t => t.Id == 1).RepairManuals.FirstOrDefault(r => r.Id == 2).Steps.FirstOrDefault(s => s.Id == 19).ReferencedDocs.FirstOrDefault();
+
+            Assert.True(a.Type == RepairManualManagement.ManualStep.StepReferencedDocType.Procedure);
+
+            Assert.True(job.Status == JobManagement.Job.JobStatus.Completed);
+
+            var jobs = await jobService.GetJobsAsync();
+            var jobItem = jobs.FirstOrDefault(f => f.Id == job.Id);
+            Assert.True(jobItem.Status == JobManagement.Job.JobStatus.Completed);
+
+
+        }
+
+        [Fact]
+        public async void CompleteStep()
+        {
+            var job = __job;
 
             Assert.True(job.Status == JobManagement.Job.JobStatus.ToDo);
             var task = job.Tasks.FirstOrDefault(t => t.Id == 1);
@@ -252,7 +253,10 @@ namespace Ara.Domain.Test
             Assert.True(result1.Status == Common.ResultStatus.Failure);
             Assert.True(result1.ErrorCode == Common.ErrorCode.StepPhotoRequired);
 
-            job.AssignPhotoToStep(task.Id, repManual.Id, step1.Id, Guid.NewGuid());
+            //Pat took Photo, named it like
+            var photoName = DateTime.Now.ToString("yyyy_dd_M__HH_mm_ss_ms") + ".png";
+
+            job.AssignPhotoToStep(task.Id, repManual.Id, step1.Id, photoName, Photo.PhotoLabelType.Repair);
             var result1_1 = job.CompleteStep(task.Id, repManual.Id, step1.Id);
             Assert.True(result1_1.Status == Common.ResultStatus.Success);
 
@@ -271,5 +275,48 @@ namespace Ara.Domain.Test
 
 
         }
+
+
+        [Fact]
+        public async void GalleryTest()
+        {
+            var job = __job;
+
+            Assert.True(job.Status == JobManagement.Job.JobStatus.ToDo);
+            var task = job.Tasks.FirstOrDefault(t => t.Id == 1);
+            var repManual = task.RepairManuals.FirstOrDefault(r => r.Id == 1);
+
+            var step1 = repManual.Steps.FirstOrDefault();
+            Assert.True(step1.PhotoRequired);
+            var result1 = job.CompleteStep(task.Id, repManual.Id, step1.Id);
+            Assert.True(result1.Status == Common.ResultStatus.Failure);
+            Assert.True(result1.ErrorCode == Common.ErrorCode.StepPhotoRequired);
+
+            //Pat took Photo, named it like
+            var photoName = DateTime.Now.ToString("yyyy_dd_M__HH_mm_ss_ms") + ".png";
+
+            job.AssignPhotoToStep(task.Id, repManual.Id, step1.Id, photoName, Photo.PhotoLabelType.Repair);
+
+            var gallry1 = job.GetJobGallery();
+            
+            var result1_1 = job.CompleteStep(task.Id, repManual.Id, step1.Id);
+            Assert.True(result1_1.Status == Common.ResultStatus.Success);
+
+
+            var step2 = repManual.Steps.FirstOrDefault(s => s.Id == 2);
+
+            var step2ByNextMethod = job.GetNextStep(task.Id, repManual.Id, step1.Id).Payload.Step;
+
+            Assert.True(step2 == step2ByNextMethod);
+
+            var result2 = job.CompleteStep(task.Id, repManual.Id, step2ByNextMethod.Id);
+            Assert.True(result2.Status == Common.ResultStatus.Success);
+
+            var step3ByNextMethod = job.GetNextStep(task.Id, repManual.Id, step2ByNextMethod.Id);
+            Assert.True(step3ByNextMethod.Payload.RepairManualId == 2);
+
+
+        }
+
     }
 }

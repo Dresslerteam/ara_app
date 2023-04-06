@@ -22,4 +22,9 @@ public class StepDisplay : MonoBehaviour
         transform.localRotation = Quaternion.identity;
     }
     
+    public void CompleteStep()
+    {
+        stepCompleteIcon.SetActive(true);
+    }
+    
 }

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.MixedReality.Toolkit;
+using Microsoft.MixedReality.Toolkit.UX;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,18 +11,22 @@ public class PhotoGallery : MonoBehaviour
 {
     [SerializeField] [Required] private Transform gallery;
 
-    [SerializeField] [Required] private GameObject photoPrefab;
-    [SerializeField] [Required] private Photo GalleryPreviewPhoto;
+    [SerializeField] [Required] private GameObject photoGroupPrefab;
+    [SerializeField] [Required] private GameObject photoButtonPrefab;
     
-    private string[] filePaths;
+    [SerializeField] [Required] private Photo GalleryPreviewPhoto;
+    [SerializeField] [Required] private ToggleCollection photoButtonToggleCollection;
+    //private string[] filePaths;
     
     [SerializeField] private GameObject photoPreviewImage;
 
-    [SerializeField] private Vector2 resolution = new Vector2(2048f,1024f);
+    [SerializeField] private Vector2 resolution = new Vector2(1024,512);
+    [SerializeField] private MetadataDisplay metadataDisplay;
 
     private void OnEnable()
     {
         Photo.OnPhotoClicked += DisplayCurrentlySelectedPhoto;
+        LoadSavedPictures();
     }
 
     private void OnDisable()
@@ -42,36 +48,46 @@ public class PhotoGallery : MonoBehaviour
     [Button]
     public void LoadSavedPictures()
     {
-        
+        photoButtonToggleCollection.Toggles.Clear();
         ClearAllGalleryObjects();
-        filePaths = Directory.GetFiles(PhotoCaptureTool.Instance.currentFilePath, "*.png"); // Get all files of type .png in this folder
-        if(filePaths.Length<=1)
+        // GetJobGallery 
+        var jobGallery = MainMenuManager.Instance.currentJob.GetJobGallery();
+        if(jobGallery.Count<=0)
             return;
-        for (int i = 0; i < filePaths.Length; i++)
+        foreach (var job in jobGallery)
         {
-            //Converts desired path into byte array
-            byte[] pngBytes = System.IO.File.ReadAllBytes(filePaths[i]);
- 
-            //Creates texture and loads byte array data to create image
-            Texture2D tex = new Texture2D((int)resolution.x,(int)resolution.y); //Todo: Way too high (2048x1024 at the time)
-            tex.LoadImage(pngBytes);
-            string[] photoData = filePaths[i].Split(' ');
-            AddPhotoToGallery(tex,photoData[1]);
+            // Iterate through the Photos enumerable and print the details
+            foreach (var photo in job.Photos)
+            {
+                Console.WriteLine($"  Photo created on {photo.CreatedOn}, TaskId: {photo.TaskId}");
+                //Converts desired path into byte array
+                byte[] jpgBytes = System.IO.File.ReadAllBytes(photo.Url);
+                //Creates texture and loads byte array data to create image
+                Texture2D tex = new Texture2D((int)resolution.x,(int)resolution.y);
+                tex.LoadImage(jpgBytes);
+                
+                AddPhotoToGallery(tex, photo.CreatedOn.ToString(), photo.Label, photo.TaskName, photo.RepairManualName, photo.StepName);
+            }
         }
-        
     }
 
+    /// <summary>
+    /// This is called for when you are taking a picture and want to see the preview. (This shouldn't be in this class.)
+    /// </summary>
+    /// <param name="texture"></param>
     public void DisplayPhotoPreview(Texture2D texture)
     {
         photoPreviewImage.SetActive(true);
-        Photo photo = photoPreviewImage.GetComponentInChildren<Photo>();
+        Photo photo = photoPreviewImage.GetComponent<Photo>();
         photo.image.texture = texture;
     }
 
     public void DisplayCurrentlySelectedPhoto(Photo photo)
     {
-        GalleryPreviewPhoto.image.texture = photo.image.texture;
-        GalleryPreviewPhoto.label.text = photo.label.text;
+        if(photo.image.texture != null)
+            GalleryPreviewPhoto.image.texture = photo.image.texture;
+        if(photo.label.text != null)
+            GalleryPreviewPhoto.label.text = photo.label.text;
     }
     public void ClearAllGalleryObjects()
     {
@@ -80,11 +96,33 @@ public class PhotoGallery : MonoBehaviour
             GameObject.Destroy(gallery.GetChild(i).gameObject);
         }
     }
-    public void AddPhotoToGallery(Texture2D targetTexture, string date)
+    public void AddPhotoToGallery(Texture2D targetTexture, string jobDate, Ara.Domain.JobManagement.Photo.PhotoLabelType labelType, string taskName, string groupName, string stepName)
     {
-        GameObject photograph = Instantiate(photoPrefab, gallery);
-        Photo data = photograph.GetComponent<Photo>();
-        data.image.texture = targetTexture;
-        data.label.text = date;
+        GameObject newPhotoButton = Instantiate(photoButtonPrefab, gallery);
+        GalleryPhotoButtonDisplay galleryPhotoButton = newPhotoButton.GetComponent<GalleryPhotoButtonDisplay>();
+        galleryPhotoButton.image.texture = targetTexture;
+        galleryPhotoButton.label.text = jobDate;
+        galleryPhotoButton.labelImage.sprite = metadataDisplay.GetLabelSprite(labelType);
+        // Get PressableButton 
+        var pressableButton = newPhotoButton.GetComponent<PressableButton>();
+        photoButtonToggleCollection.Toggles.Add(pressableButton);
+        pressableButton.ForceSetToggled(false);
+        pressableButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
+        pressableButton.OnClicked.AddListener(() =>
+        {
+            if (pressableButton.IsToggled == true)
+            {
+                if (pressableButton.ToggleMode != StatefulInteractable.ToggleType.OneWayToggle)
+                    pressableButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
+                metadataDisplay.UpdateDisplay(jobDate, labelType, taskName, groupName, stepName);
+                DisplayCurrentlySelectedPhoto(galleryPhotoButton);
+                pressableButton.ForceSetToggled(true, true);
+            }
+            else if (pressableButton.IsToggled == false)
+            {
+                pressableButton.ForceSetToggled(false, true);
+                return;
+            }
+        });
     }
 }
