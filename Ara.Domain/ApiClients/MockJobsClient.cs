@@ -382,7 +382,7 @@ namespace Ara.Domain.ApiClients
                                     },
                                      new ManualStep()
                                     {
-                                        Id = 24,
+                                        Id = 25,
                                         Title = "Front Bumper Impact Bar Bracket (2) » Remove",
                                         Image = new ManualStep.StepImage
                                         {
@@ -392,17 +392,550 @@ namespace Ara.Domain.ApiClients
                                         PhotoRequired = false
                                     }
                                 }
+                            },
+                            new RepairManual()
+                            {
+                                Id = 4,
+                                Name = "Front Bumper Impact Bar Inner Bracket Replacement",
+                                Document = new PdfDoc()
+                                {
+                                    Title= "Front_Bumper_Impact_Bar_Inner_Bracket_Replacement",
+                                    Url = "Front_Bumper_Impact_Bar_Inner_Bracket_Replacement_Document_ID_5630044.pdf"
+                                },
+                                Steps = new List<ManualStep>()
+                                {
+                                    new ManualStep()
+                                    {
+                                        Id = 26,
+                                        Title = "Front Bumper Impact Bar (1) » Remove — Front Bumper Impact Bar Removal and Installation",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "26.png",
+                                            Url = "26.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 27,
+                                        Title = "Front Fog Lamp Opening Cover Bolt (1) » Remove [3x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "27.png",
+                                            Url = "27.png"
+                                        },
+                                        PhotoRequired = false,
+
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 28,
+                                        Title = "Front Fog Lamp Opening Cover (2) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "27.png",
+                                            Url = "27.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 29,
+                                        Title = "{ If equipped } Front Fog Lamp Bolt (1) » Remove [3x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "29.png",
+                                            Url = "29.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 30,
+                                        Title = "{ If equipped } Front Fog Lamp (2) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "29.png",
+                                            Url = "29.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 31,
+                                        Title = "{ If equipped } Disconnect the electrical connector.",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "29.png",
+                                            Url = "29.png"
+                                        },
+                                        PhotoRequired = false,
+
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 32,
+                                        Title = "Front Bumper Impact Bar Bolt - Outer (1) » Remove [6x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "32.png",
+                                            Url = "32.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 33,
+                                        Title = "Front Bumper Impact Bar Outer Bracket (2) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "32.png",
+                                            Url = "32.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 34,
+                                        Title = "Front Bumper Impact Bar Bolt - Inner (1) » Remove [3x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "34.png",
+                                            Url = "34.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 35,
+                                        Title = "Front Bumper Impact Bar Inner Bracket (2) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "34.png",
+                                            Url = "34.png"
+                                        },
+                                        PhotoRequired = false
+                                    }
+                                }
+                            },
+                            new RepairManual()
+                            {
+                                Id = 5,
+                                Name = "Front Bumper Impact Bar Outer Bracket Replacement",
+                                Document = new PdfDoc()
+                                {
+                                    Title= "Front_Bumper_Impact_Bar_Outer_Bracket_Replacement_Document",
+                                    Url = "Front_Bumper_Impact_Bar_Outer_Bracket_Replacement_Document_ID_5629983.pdf"
+                                },
+                                Steps = new List<ManualStep>()
+                                {
+                                    new ManualStep()
+                                    {
+                                        Id = 36,
+                                        Title = "Front Bumper Impact Bar (1) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "26.png",
+                                            Url = "26.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 37,
+                                        Title = "Front Fog Lamp Opening Cover Bolt (1) » Remove [3x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "27.png",
+                                            Url = "27.png"
+                                        },
+                                        PhotoRequired = false,
+
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 38,
+                                        Title = "Front Fog Lamp Opening Cover (2) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "27.png",
+                                            Url = "27.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 39,
+                                        Title = "{ If equipped } Front Fog Lamp Bolt (1) » Remove [3x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "29.png",
+                                            Url = "29.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 40,
+                                        Title = "{ If equipped } Front Fog Lamp (2) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "29.png",
+                                            Url = "29.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 41,
+                                        Title = "{ If equipped } Disconnect the electrical connector.",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "29.png",
+                                            Url = "29.png"
+                                        },
+                                        PhotoRequired = false,
+
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 42,
+                                        Title = "Front Bumper Impact Bar Bolt - Outer (1) » Remove [6x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "34.png",
+                                            Url = "34.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 43,
+                                        Title = "Front Bumper Impact Bar Outer Bracket (2) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "34.png",
+                                            Url = "34.png"
+                                        },
+                                        PhotoRequired = false
+                                    }
+                                }
+                            },
+                            new RepairManual()
+                            {
+                                Id = 6,
+                                Name = "Front Bumper Impact Bar Outer Bracket Replacement",
+                                Document = new PdfDoc()
+                                {
+                                    Title= "Front_Bumper_Impact_Bar_Outer_Bracket_Replacement_Document",
+                                    Url = "Front_Bumper_Impact_Bar_Outer_Bracket_Replacement_Document_ID_5629983.pdf"
+                                },
+                                Steps = new List<ManualStep>()
+                                {
+                                    new ManualStep()
+                                    {
+                                        Id = 36,
+                                        Title = "Front Bumper Impact Bar (1) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "26.png",
+                                            Url = "26.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 37,
+                                        Title = "Front Fog Lamp Opening Cover Bolt (1) » Remove [3x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "27.png",
+                                            Url = "27.png"
+                                        },
+                                        PhotoRequired = false,
+
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 38,
+                                        Title = "Front Fog Lamp Opening Cover (2) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "27.png",
+                                            Url = "27.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 39,
+                                        Title = "{ If equipped } Front Fog Lamp Bolt (1) » Remove [3x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "29.png",
+                                            Url = "29.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 40,
+                                        Title = "{ If equipped } Front Fog Lamp (2) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "29.png",
+                                            Url = "29.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 41,
+                                        Title = "{ If equipped } Disconnect the electrical connector.",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "29.png",
+                                            Url = "29.png"
+                                        },
+                                        PhotoRequired = false,
+
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 42,
+                                        Title = "Front Bumper Impact Bar Bolt - Outer (1) » Remove [6x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "34.png",
+                                            Url = "34.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 43,
+                                        Title = "Front Bumper Impact Bar Outer Bracket (2) » Remove",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "34.png",
+                                            Url = "34.png"
+                                        },
+                                        PhotoRequired = false
+                                    }
+                                }
                             }
                         }
                     },
-                     new TaskInfo()
+                    new TaskInfo()
                     {
                         Id = 2,
                         Title = "Front Bumper - Installation",
                         Group = "Front Bumper",
                         SequenceNumber = 1,
                         Status = TaskInfo.TaskStatus.ToDo,
-
+                        RepairManuals = new List<RepairManual>()
+                        {
+                            new RepairManual()
+                            {
+                                Id = 1,
+                                Name = "Front Bumper Impact Bar Removal and Installation",
+                                Document = new PdfDoc()
+                                {
+                                    Title= "Front Bumper Impact Bar Removal and Installation",
+                                    Url = "Front_Bumper_Impact_Bar_Removal_and_Installation.pdf"
+                                },
+                                Steps = new List<ManualStep>()
+                                {
+                                    new ManualStep()
+                                    {
+                                        Id = 1,
+                                        Title = "Connect electrical connections, if applicable.",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 2,
+                                        Title = "With the aid of an assistant, install the impact bar (1).",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 3,
+                                        Title = "Front Bumper Fascia Support Brace Bolt (1) install and tighten",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 4,
+                                        Title = "Front Bumper Fascia Center Support Bolt (2) Install and tighten [4x] ",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 5,
+                                        Title = "Front Bumper Impact Bar Bolt (1) Install and tighten [4x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 6,
+                                        Title = "Front Bumper Shutter (2) » Install",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 7,
+                                        Title = "Front Bumper Shutter Bolt (1) Install and tighten [9x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 8,
+                                        Title = "Connect the electrical connector.",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 9,
+                                        Title = "{ If equipped } Connect and install the lower shutter harness.",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 10,
+                                        Title = "Front Grille  (3) » Install",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 11,
+                                        Title = "Front Grille Clip  (2) » Install [8x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 12,
+                                        Title = "Front Grille Retainer (1) » Install [8x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 13,
+                                        Title = "Front Grille Bolt  (1)  » Install and tighten [4x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 14,
+                                        Title = "Intake Air Splash Shield (2) » Install",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 15,
+                                        Title = "Intake Air Baffle Retainer (1) » Install [10x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                     new ManualStep()
+                                    {
+                                        Id = 16,
+                                        Title = "Hood Secondary Latch Release Handle (2) » Install",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 17,
+                                        Title = "Hood Latch Actuator Bolt (1) » Install and tighten [2x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "1.png",
+                                            Url = "1.png"
+                                        },
+                                        PhotoRequired = true
+                                    }
+                                }
+                            }
+                        }
                     }
                 },
                 PreliminaryEstimation = new PdfDoc()
