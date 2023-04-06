@@ -38,7 +38,7 @@ public class WorkingHUDManager : MonoBehaviour
         [SerializeField] [AssetsOnly] private PressableButton oemPdfButtonPrefab;
         private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
         private RepairManualDisplay firstRepairManualDisplay;
-        public static Action<ManualStep, RepairManual> OnStepSelected;
+        public static Action<ManualStep, RepairManual, StepDisplay> OnStepSelected;
         private List<PressableButton> stepGroupButtonParentList = new List<PressableButton>();
         public void PopulateTaskGroups(TaskInfo task)
         {
@@ -107,7 +107,7 @@ public class WorkingHUDManager : MonoBehaviour
                             MainMenuManager.Instance.selectedJobListItem, task);
                         EnableCameraIcon(step, repairManual, stepDisplay);
                         UpdateFileButtons(step);
-                        OnStepSelected?.Invoke(step, repairManual);
+                        OnStepSelected?.Invoke(step, repairManual, stepDisplay);
                         preStepSelectionVisuals.SetActive(false);
                         selectedStepVisualRoot.SetActive(true);
                     });

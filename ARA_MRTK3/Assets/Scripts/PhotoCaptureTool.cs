@@ -39,6 +39,7 @@ public class PhotoCaptureTool : MonoBehaviour
     
     private ManualStep currentStep;
     private RepairManual currentManual;
+    private StepDisplay currentStepDisplay;
     public static PhotoCaptureTool Instance
     {
         get
@@ -62,11 +63,12 @@ public class PhotoCaptureTool : MonoBehaviour
         WorkingHUDManager.OnStepSelected -= OnStepSelected;
     }
 
-    private void OnStepSelected(ManualStep step, RepairManual repairManual)
+    private void OnStepSelected(ManualStep step, RepairManual repairManual, StepDisplay selectedStepDisplay)
     {
         Debug.Log("<color=green>OnStepSelected</color>");
         currentStep = step;
         currentManual = repairManual;
+        currentStepDisplay = selectedStepDisplay;
     }
 
     private void Awake()
@@ -228,6 +230,7 @@ public class PhotoCaptureTool : MonoBehaviour
             labelType);
         MainMenuManager.Instance.currentJob.CompleteStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
             currentStep.Id);
+        currentStepDisplay.CompleteStep();
         DeactivateMenus();
     }
     public void DeletePicture()
