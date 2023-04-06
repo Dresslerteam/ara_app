@@ -4,7 +4,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ara.Domain.Common;
 using Ara.Domain.RepairManualManagement;
+using Packages.Rider.Editor.UnitTesting;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 using UnityEngine.Windows.WebCam;
@@ -34,8 +36,8 @@ public class PhotoCaptureTool : MonoBehaviour
     private static PhotoCaptureTool _instance;
     private bool isTakingPhoto;
     
-    const int defaultWidth = 2272;
-    const int defaultHeight = 1278;
+    const int defaultWidth = 1136;
+    private const int defaultHeight = 640;
     
     private ManualStep currentStep;
     private RepairManual currentManual;
@@ -111,8 +113,8 @@ public class PhotoCaptureTool : MonoBehaviour
         if (PhotoCapture.SupportedResolutions == null || !PhotoCapture.SupportedResolutions.Any())
         {
             Debug.LogWarning("No supported resolutions found, using HoloLens 2 default resolution");
-            cameraResolution.width = (int)(defaultWidth*photoSizeScaleMultiplier);
-            cameraResolution.height = (int) (defaultHeight*photoSizeScaleMultiplier);
+            cameraResolution.width = (int)(defaultWidth);
+            cameraResolution.height = (int) (defaultHeight);
         }
         else
         {
@@ -122,8 +124,8 @@ public class PhotoCaptureTool : MonoBehaviour
         cameraParameters = new CameraParameters
         {
             hologramOpacity = 0.0f,
-            cameraResolutionWidth = cameraResolution.width,
-            cameraResolutionHeight = cameraResolution.height,
+            cameraResolutionWidth = (int) defaultWidth,
+            cameraResolutionHeight = (int) (defaultHeight),
             pixelFormat = CapturePixelFormat.BGRA32
         };
     }
@@ -231,8 +233,12 @@ public class PhotoCaptureTool : MonoBehaviour
         MainMenuManager.Instance.currentJob.CompleteStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
             currentStep.Id);
         currentStepDisplay.CompleteStep();
-        DeactivateMenus();
+       var nextStep = MainMenuManager.Instance.currentJob.GetNextStep(MainMenuManager.Instance.selectedTaskInfo.Id, currentManual.Id, currentStep.Id);
+       
+       DeactivateMenus();
     }
+
+    
     public void DeletePicture()
     {
         if (!string.IsNullOrEmpty(pendingFile))

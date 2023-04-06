@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Ara.Domain.ApiClients.Dtos;
+using Ara.Domain.Common;
 using Ara.Domain.JobManagement;
 using Ara.Domain.RepairManualManagement;
 using Microsoft.MixedReality.Toolkit;
@@ -288,5 +289,9 @@ public class WorkingHUDManager : MonoBehaviour
                     stepDisplay.CompleteStep();
                 });
             }
+        }
+        public void AdvanceToNextStep(Result<(int RepairManualId, ManualStep Step)> idk)
+        {
+            
         }
     }
