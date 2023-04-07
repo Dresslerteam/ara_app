@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.UX;
@@ -9,7 +10,12 @@ public class StepScroller : MonoBehaviour
     [SerializeField] private float minY;
     [SerializeField] private float maxY;
     [SerializeField] private RectTransform content;
-    
+
+    private void OnEnable()
+    {
+        NormalizedScroll(0);
+    }
+
     public void UpdateFromSliderEventData(SliderEventData sliderEventData)
     {
         NormalizedScroll(sliderEventData.NewValue);
