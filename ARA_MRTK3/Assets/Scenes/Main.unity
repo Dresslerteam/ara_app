@@ -1102,6 +1102,7 @@ GameObject:
   - component: {fileID: 28834584}
   - component: {fileID: 28834583}
   - component: {fileID: 28834582}
+  - component: {fileID: 28834588}
   m_Layer: 5
   m_Name: CanvasSlider
   m_TagString: Untagged
@@ -1487,7 +1488,7 @@ MonoBehaviour:
   trackCollider: {fileID: 2052510454}
   minValue: 0
   maxValue: 1
-  value: 0
+  value: 1
   useSliderStepDivisions: 0
   sliderStepDivisions: 1
   sliderStart: {fileID: 1959892661}
@@ -1507,6 +1508,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &28834588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28834580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab1e9200cc8448f9b6c1a31ac2288b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOnEnable: 1
+  triggerOnDisable: 0
+  triggerOnDestroy: 0
+  onEnableEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 28834587}
+        m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.UX.Slider, Microsoft.MixedReality.Toolkit.UXCore
+        m_MethodName: set_Value
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDisableEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &39753929
 GameObject:
   m_ObjectHideFlags: 0

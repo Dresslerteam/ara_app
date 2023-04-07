@@ -1,3 +1,4 @@
+using Microsoft.MixedReality.GraphicsTools;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,11 +10,13 @@ public class MaterialSwitch : MonoBehaviour
     
     private Image image;
     private RawImage rawImage;
+    private CanvasElementRoundedRect canvasElementRoundedRect;
 
     void Awake()
     {
         image = imageToChange.GetComponent<Image>();
         rawImage = imageToChange.GetComponent<RawImage>();
+        canvasElementRoundedRect = imageToChange.GetComponent<CanvasElementRoundedRect>();
     }
 
     public void UpdateMaterial(bool isHighlighted)
@@ -27,6 +30,9 @@ public class MaterialSwitch : MonoBehaviour
         else if (rawImage != null)
         {
             rawImage.material = newMaterial;
+        }else if (canvasElementRoundedRect != null)
+        {
+            canvasElementRoundedRect.material = newMaterial;
         }
     }
 }
