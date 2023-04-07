@@ -2401,7 +2401,7 @@ namespace Ara.Domain.ApiClients
                             },
                             new RepairManual()
                             {
-                                Id = 9,//todo:tat
+                                Id = 9,
                                 Name = "Front Bumper Lower Fascia Replacement",
                                 Document = new PdfDoc()
                                 {
@@ -2413,55 +2413,55 @@ namespace Ara.Domain.ApiClients
                                     new ManualStep()
                                     {
                                         Id = 65,
-                                        Title = "Raise and support the vehicle",
+                                        Title = "Front Bumper Lower Fascia (2) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "68.png",
-                                            Url = "68.png"
+                                            Title = "i65.png",
+                                            Url = "i65.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 66,
-                                        Title = "Front Bumper Fascia Air Deflector Bolt (1) » Remove [12x]",
+                                        Title = "Front Bumper Lower Fascia Bolt (1) » Install and tighten [20x] ",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "68.png",
-                                            Url = "68.png"
+                                            Title = "i65.png",
+                                            Url = "i65.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 67,
-                                        Title = "Raise and support the vehicle",
+                                        Title = "Front Bumper Impact Bar Bracket Inner (2) » Install [2x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "68.png",
-                                            Url = "68.png"
+                                            Title = "i67.png",
+                                            Url = "i67.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 68,
-                                        Title = "Front Bumper Fascia Air Deflector Bolt (1) » Remove [12x]",
+                                        Title = "Front Bumper Impact Bar Bracket Inner Bolt (1) » Install and tighten [6x] ",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "68.png",
-                                            Url = "68.png"
+                                            Title = "i67.png",
+                                            Url = "i67.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 69,
-                                        Title = "Pull the front bumper fascia air deflector (2) from the front impact bar.",
+                                        Title = "Front Bumper Impact Bar Outer Bracket (2) » Install [2x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "68.png",
-                                            Url = "68.png"
+                                            Title = "i69.png",
+                                            Url = "i69.png"
                                         },
                                         PhotoRequired = false,
 
@@ -2469,44 +2469,44 @@ namespace Ara.Domain.ApiClients
                                      new ManualStep()
                                     {
                                         Id = 70,
-                                        Title = "Front Bumper Impact Bar (1) » Remove",
+                                        Title = "Front Bumper Impact Bar Outer Bracket Bolt (1) » Install and tighten [12x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "70.png",
-                                            Url = "70.png"
+                                            Title = "i69.png",
+                                            Url = "i69.png"
                                         },
                                         PhotoRequired = false
                                     },
                                      new ManualStep()
                                     {
                                         Id = 71,
-                                        Title = "Front Fog Lamp Opening Cover Bolt (1) » Remove [6x]",
+                                        Title = "{ If equipped } Front Fog Lamp (2) » Install [2x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "71.png",
-                                            Url = "71.png"
+                                            Title = "i71.png",
+                                            Url = "i71.png"
                                         },
                                         PhotoRequired = false
                                     },
                                      new ManualStep()
                                     {
                                         Id = 72,
-                                        Title = "Front Fog Lamp Opening Cover (2) » Remove [2x]",
+                                        Title = "{ If equipped } Front Fog Lamp Bolt (1) » Install and tighten [6x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "71.png",
-                                            Url = "71.png"
+                                            Title = "i71.png",
+                                            Url = "i71.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 73,
-                                        Title = "{ If equipped } Front Fog Lamp Bolt (1) » Remove [6x]",
+                                        Title = "{ If equipped } Connect the electrical connectors",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "73.png",
-                                            Url = "73.png"
+                                            Title = "i71.png",
+                                            Url = "i71.png"
                                         },
                                         PhotoRequired = false,
 
@@ -2514,33 +2514,33 @@ namespace Ara.Domain.ApiClients
                                     new ManualStep()
                                     {
                                         Id = 74,
-                                        Title = "{ If equipped } Front Fog Lamp (2) » Remove [2x]",
+                                        Title = "Front Fog Lamp Opening Cover (2) » Install [2x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "73.png",
-                                            Url = "73.png"
+                                            Title = "i74.png",
+                                            Url = "i74.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 75,
-                                        Title = "{ If equipped } Disconnect all electrical connectors.",
+                                        Title = "Front Fog Lamp Opening Cover Bolt (1) » Install and tighten [6x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "73.png",
-                                            Url = "73.png"
+                                            Title = "i74.png",
+                                            Url = "i74.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 76,
-                                        Title = "Front Bumper Impact Bar Outer Bracket Bolt (1) » Remove [12x]",
+                                        Title = "Front Bumper Impact Bar (1) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "76.png",
-                                            Url = "76.png"
+                                            Title = "i76.png",
+                                            Url = "i76.png"
                                         },
                                         PhotoRequired = false,
 
@@ -2548,59 +2548,35 @@ namespace Ara.Domain.ApiClients
                                      new ManualStep()
                                     {
                                         Id = 77,
-                                        Title = "Front Bumper Impact Bar Outer Bracket (2) » Remove [2x]",
+                                        Title = "Front Bumper Fascia Air Deflector (2) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "76.png",
-                                            Url = "76.png"
+                                            Title = "i77.png",
+                                            Url = "i77.png"
                                         },
                                         PhotoRequired = false
                                     },
                                      new ManualStep()
                                     {
                                         Id = 78,
-                                        Title = "Front Bumper Impact Bar Bracket Inner Bolt (1) » Remove [6x]",
+                                        Title = "Front Bumper Fascia Air Deflector Bolt (1) » Install and tighten [12x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "78.png",
-                                            Url = "78.png"
+                                            Title = "i77.png",
+                                            Url = "i77.png"
                                         },
                                         PhotoRequired = false
                                     },
                                      new ManualStep()
                                     {
                                         Id = 79,
-                                        Title = "Front Bumper Impact Bar Bracket Inner (2) » Remove [2x]",
+                                        Title = "Lower the vehicle",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "78.png",
-                                            Url = "78.png"
+                                            Title = "i77.png",
+                                            Url = "i77.png"
                                         },
                                         PhotoRequired = false
-                                    },
-                                    new ManualStep()
-                                    {
-                                        Id = 80,
-                                        Title = "Front Bumper Lower Fascia Bolt (1) » Remove [20x]",
-                                        Image = new ManualStep.StepImage
-                                        {
-                                            Title = "80.png",
-                                            Url = "80.png"
-                                        },
-                                        PhotoRequired = false,
-
-                                    },
-                                    new ManualStep()
-                                    {
-                                        Id = 81,
-                                        Title = "Front Bumper Lower Fascia (2) » Remove",
-                                        Image = new ManualStep.StepImage
-                                        {
-                                            Title = "80.png",
-                                            Url = "80.png"
-                                        },
-                                        PhotoRequired = false,
-
                                     }
                                 }
                             },
@@ -2610,41 +2586,63 @@ namespace Ara.Domain.ApiClients
                                 Name = "Front Bumper Shutter Replacement",
                                 Document = new PdfDoc()
                                 {
-                                    Title= "Front_Bumper_Lower_Shutter_Replacement_Document",
-                                    Url = "Front_Bumper_Lower_Shutter_Replacement_Document_ID_5654340.pdf"
+                                    Title= "Front_Bumper_Shutter_Replacement",
+                                    Url = "Front_Bumper_Shutter_Replacement.pdf"
                                 },
                                 Steps = new List<ManualStep>()
                                 {
                                     new ManualStep()
                                     {
-                                        Id = 82,
-                                        Title = "Hood Latch Actuator Bolt (1) » Remove [2x]",
+                                        Id = 80,
+                                        Title = "Front Bumper Shutter (2) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "82.png",
-                                            Url = "82.png"
+                                            Title = "i80.png",
+                                            Url = "i80.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 81,
+                                        Title = "Front Bumper Shutter Bolt (1) Install and tighten [9x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "i80.png",
+                                            Url = "i80.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 82,
+                                        Title = "Connect the electrical connector",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "i80.png",
+                                            Url = "i80.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 83,
-                                        Title = "Hood Secondary Latch Release Handle (2) » Remove",
+                                        Title = "{ If equipped } Connect and install the lower shutter harness",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "82.png",
-                                            Url = "82.png"
+                                            Title = "i80.png",
+                                            Url = "i80.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 84,
-                                        Title = "Intake Air Baffle Retainer (1) » Remove [10x]",
+                                        Title = "Front Grille (3) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "84.png",
-                                            Url = "84.png"
+                                            Title = "i84.png",
+                                            Url = "i84.png"
                                         },
                                         PhotoRequired = false,
 
@@ -2652,44 +2650,44 @@ namespace Ara.Domain.ApiClients
                                      new ManualStep()
                                     {
                                         Id = 85,
-                                        Title = "Intake Air Splash Shield (2) » Remove",
+                                        Title = "Front Grille Clip (2) » Install [8x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "84.png",
-                                            Url = "84.png"
+                                            Title = "i84.png",
+                                            Url = "i84.png"
                                         },
                                         PhotoRequired = false
                                     },
                                      new ManualStep()
                                     {
                                         Id = 86,
-                                        Title = "Front Grille Bolt (1) » Remove [4x]",
+                                        Title = "Front Grille Retainer (1) » Install [8x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "86.png",
-                                            Url = "86.png"
+                                            Title = "i84.png",
+                                            Url = "i84.png"
                                         },
                                         PhotoRequired = false
                                     },
                                      new ManualStep()
                                     {
                                         Id = 87,
-                                        Title = "Front Grille Retainer (1) » Release [8x]",
+                                        Title = "Front Grille Bolt  (1)  » Install and tighten [4x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "87.png",
-                                            Url = "87.png"
+                                            Title = "i87.png",
+                                            Url = "i87.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 88,
-                                        Title = "Front Grille Clip (2) » Release [8x]",
+                                        Title = "Intake Air Splash Shield (2) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "87.png",
-                                            Url = "87.png"
+                                            Title = "i88.png",
+                                            Url = "i88.png"
                                         },
                                         PhotoRequired = false,
 
@@ -2697,58 +2695,36 @@ namespace Ara.Domain.ApiClients
                                     new ManualStep()
                                     {
                                         Id = 89,
-                                        Title = "Front Grille (3) » Remove",
+                                        Title = "Intake Air Baffle Retainer (1) » Install [10x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "87.png",
-                                            Url = "87.png"
+                                            Title = "i88.png",
+                                            Url = "i88.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 90,
-                                        Title = "{ If equipped } Disconnect and reposition the lower shutter harness.",
+                                        Title = "Hood Secondary Latch Release Handle (2) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "90.png",
-                                            Url = "90.png"
+                                            Title = "i90.png",
+                                            Url = "i90.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 91,
-                                        Title = "Disconnect the electrical connector.",
+                                        Title = "Hood Latch Actuator Bolt (1) » Install and tighten [2x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "90.png",
-                                            Url = "90.png"
+                                            Title = "i90.png",
+                                            Url = "i90.png"
                                         },
                                         PhotoRequired = false,
 
-                                    },
-                                     new ManualStep()
-                                    {
-                                        Id = 92,
-                                        Title = "Front Bumper Shutter Bolt (1) » Remove [9x]",
-                                        Image = new ManualStep.StepImage
-                                        {
-                                            Title = "90.png",
-                                            Url = "90.png"
-                                        },
-                                        PhotoRequired = false
-                                    },
-                                     new ManualStep()
-                                    {
-                                        Id = 93,
-                                        Title = "Front Bumper Shutter (2) » Remove",
-                                        Image = new ManualStep.StepImage
-                                        {
-                                            Title = "90.png",
-                                            Url = "90.png"
-                                        },
-                                        PhotoRequired = false
                                     }
                                 }
                             },
@@ -2765,35 +2741,35 @@ namespace Ara.Domain.ApiClients
                                 {
                                     new ManualStep()
                                     {
-                                        Id = 94,
-                                        Title = "Raise the vehicle.",
+                                        Id = 92,
+                                        Title = "Front Bumper Fascia Support Brace (2) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "95.png",
-                                            Url = "95.png"
+                                            Title = "i92.png",
+                                            Url = "i92.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
-                                        Id = 95,
-                                        Title = "Front Bumper Fascia Support Brace Bolt (1) » Remove [3x]",
+                                        Id = 93,
+                                        Title = "Front Bumper Fascia Support Brace Bolt (1) » Install and tighten [3x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "95.png",
-                                            Url = "95.png"
+                                            Title = "i92.png",
+                                            Url = "i92.png"
                                         },
                                         PhotoRequired = false,
 
                                     },
                                      new ManualStep()
                                     {
-                                        Id = 96,
-                                        Title = "Front Bumper Fascia Support Brace (2) » Remove",
+                                        Id = 94,
+                                        Title = "Lower the vehicle",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "95.png",
-                                            Url = "95.png"
+                                            Title = "i92.png",
+                                            Url = "i92.png"
                                         },
                                         PhotoRequired = false
                                     }
@@ -2805,42 +2781,42 @@ namespace Ara.Domain.ApiClients
                                 Name = "Front Bumper Fascia Air Deflector Replacement",
                                 Document = new PdfDoc()
                                 {
-                                    Title= "Front_Bumper_Fascia_Support_Brace_Replacement",
-                                    Url = "Front_Bumper_Fascia_Support_Brace_Replacement.pdf"
+                                    Title= "Front_Bumper_Fascia_Air_Deflector_Replacement.pdf",
+                                    Url = "Front_Bumper_Fascia_Air_Deflector_Replacement.pdf"
                                 },
                                 Steps = new List<ManualStep>()
                                 {
                                     new ManualStep()
                                     {
-                                        Id = 97,
-                                        Title = "Raise the vehicle.",
+                                        Id = 95,
+                                        Title = "Front Bumper Fascia Air Deflector (2) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "97.png",
-                                            Url = "97.png"
+                                            Title = "i95.png",
+                                            Url = "i95.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
-                                        Id = 98,
-                                        Title = "Front Bumper Fascia Air Deflector Bolt (1) » Remove [12x]",
+                                        Id = 96,
+                                        Title = "Front Bumper Fascia Air Deflector Bolt (1) » Install and tighten [12x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "97.png",
-                                            Url = "97.png"
+                                            Title = "i95.png",
+                                            Url = "i95.png"
                                         },
                                         PhotoRequired = false,
 
                                     },
                                      new ManualStep()
                                     {
-                                        Id = 99,
-                                        Title = "Pull the front bumper fascia air deflector (2) from the front impact bar",
+                                        Id = 97,
+                                        Title = "Lower the vehicle",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "97.png",
-                                            Url = "97.png"
+                                            Title = "i95.png",
+                                            Url = "i95.png"
                                         },
                                         PhotoRequired = false
                                     }
@@ -2859,23 +2835,46 @@ namespace Ara.Domain.ApiClients
                                 {
                                     new ManualStep()
                                     {
-                                        Id = 100,
-                                        Title = "Front Bumper Impact Bar (1) » Remove",
+                                        Id = 98,
+                                        Title = "Front Bumper Fascia Skid Plate (1) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "100.png",
-                                            Url = "100.png"
+                                            Title = "i98.png",
+                                            Url = "i98.png"
+                                        },
+                                        PhotoRequired = false
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 99,
+                                        Title = "Front Bumper Impact Bar Bracket Inner (2) » Install [2x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "i99.png",
+                                            Url = "i99.png"
+                                        },
+                                        PhotoRequired = false,
+
+                                    },
+                                    new ManualStep()
+                                    {
+                                        Id = 100,
+                                        Title = "Front Bumper Impact Bar Bracket Inner Bolt (1) » Install and tighten [6x]",
+                                        Image = new ManualStep.StepImage
+                                        {
+                                            Title = "i99.png",
+                                            Url = "i99.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 101,
-                                        Title = "Front Fog Lamp Opening Cover Bolt (1) » Remove [6x]",
+                                        Title = "Front Bumper Impact Bar Outer Bracket (2) » Install [2x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "101.png",
-                                            Url = "101.png"
+                                            Title = "i101.png",
+                                            Url = "i101.png"
                                         },
                                         PhotoRequired = false,
 
@@ -2883,33 +2882,33 @@ namespace Ara.Domain.ApiClients
                                      new ManualStep()
                                     {
                                         Id = 102,
-                                        Title = "Front Fog Lamp Opening Cover (2) » Remove [2x]",
+                                        Title = "Front Bumper Impact Bar Outer Bracket Bolt (1) » Install and tighten [12x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "101.png",
-                                            Url = "101.png"
+                                            Title = "i101.png",
+                                            Url = "i101.png"
                                         },
                                         PhotoRequired = false
                                     },
                                      new ManualStep()
                                     {
                                         Id = 103,
-                                        Title = "{ If equipped } Front Fog Lamp Bolt (1) » Remove [6x]",
+                                        Title = "{ If equipped } Front Fog Lamp (2) » Install [2x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "103.png",
-                                            Url = "103.png"
+                                            Title = "i103.png",
+                                            Url = "i103.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 104,
-                                        Title = "{ If equipped } Front Fog Lamp (2) » Remove [2x]",
+                                        Title = "{ If equipped } Front Fog Lamp Bolt (1) » Install and tighten [6x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "103.png",
-                                            Url = "103.png"
+                                            Title = "i103.png",
+                                            Url = "i103.png"
                                         },
                                         PhotoRequired = false,
 
@@ -2917,33 +2916,33 @@ namespace Ara.Domain.ApiClients
                                      new ManualStep()
                                     {
                                         Id = 105,
-                                        Title = "{ If equipped } Disconnect the electrical connector. [2x",
+                                        Title = "{ If equipped } Connect the electrical connector. [2x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "103.png",
-                                            Url = "103.png"
+                                            Title = "i103.png",
+                                            Url = "i103.png"
                                         },
                                         PhotoRequired = false
                                     },
                                      new ManualStep()
                                     {
                                         Id = 106,
-                                        Title = "Front Bumper Impact Bar Outer Bracket Bolt (1) » Remove [12x]",
+                                        Title = "Front Fog Lamp Opening Cover (2) » Install [2x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "106.png",
-                                            Url = "106.png"
+                                            Title = "i106.png",
+                                            Url = "i106.png"
                                         },
                                         PhotoRequired = false
                                     },
                                     new ManualStep()
                                     {
                                         Id = 107,
-                                        Title = "Front Bumper Impact Bar Outer Bracket (2) » Remove [2x]",
+                                        Title = "Front Fog Lamp Opening Cover Bolt (1) » Install and tighten [6x]",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "106.png",
-                                            Url = "106.png"
+                                            Title = "i106.png",
+                                            Url = "i106.png"
                                         },
                                         PhotoRequired = false,
 
@@ -2951,45 +2950,11 @@ namespace Ara.Domain.ApiClients
                                      new ManualStep()
                                     {
                                         Id = 108,
-                                        Title = "Front Bumper Impact Bar Bracket Inner Bolt (1) » Remove [6x]",
+                                        Title = "Front Bumper Impact Bar (1) » Install",
                                         Image = new ManualStep.StepImage
                                         {
-                                            Title = "108.png",
-                                            Url = "108.png"
-                                        },
-                                        PhotoRequired = false
-                                    },
-                                     new ManualStep()
-                                    {
-                                        Id = 109,
-                                        Title = "Front Bumper Impact Bar Bracket Inner (2) » Remove [2x]",
-                                        Image = new ManualStep.StepImage
-                                        {
-                                            Title = "108.png",
-                                            Url = "108.png"
-                                        },
-                                        PhotoRequired = false
-                                    },
-                                    new ManualStep()
-                                    {
-                                        Id = 110,
-                                        Title = "Using a trim type tool, release the front bumper fascia skid plate retainers.",
-                                        Image = new ManualStep.StepImage
-                                        {
-                                            Title = "110.png",
-                                            Url = "110.png"
-                                        },
-                                        PhotoRequired = false,
-
-                                    },
-                                     new ManualStep()
-                                    {
-                                        Id = 111,
-                                        Title = "Front Bumper Fascia Skid Plate (1) » Remove",
-                                        Image = new ManualStep.StepImage
-                                        {
-                                            Title = "110.png",
-                                            Url = "110.png"
+                                            Title = "i108.png",
+                                            Url = "i108.png"
                                         },
                                         PhotoRequired = false
                                     }
