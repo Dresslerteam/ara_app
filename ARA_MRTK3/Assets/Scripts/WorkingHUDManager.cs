@@ -49,7 +49,6 @@ public class WorkingHUDManager : MonoBehaviour
                 GameObject childObject = groupsRoot.GetChild(i).gameObject;
                 Destroy(childObject);
             }
-
             stepToggleCollection.Toggles.Clear();
             repairManuals.Clear();
             firstRepairManualDisplay = null;
