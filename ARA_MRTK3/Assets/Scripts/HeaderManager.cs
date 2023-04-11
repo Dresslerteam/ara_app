@@ -9,7 +9,7 @@ public class HeaderManager : MonoBehaviour
 {
     [Header("Buttons")]
     public GameObject jobsButton;
-    public GameObject tasksButton;
+    public PressableButton tasksButton;
     public GameObject hideButton;
     public GameObject logoutButton;
     public PressableButton scanDocButton;
@@ -42,7 +42,8 @@ public class HeaderManager : MonoBehaviour
         {
             case MenuPage.splashScreen:
                 jobsButton?.SetActive(false);
-                tasksButton?.SetActive(false);
+                tasksButton.gameObject.SetActive(false);
+                tasksButton.ForceSetToggled(false,true);
                 hideButton?.SetActive(false);
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(false);
@@ -55,7 +56,8 @@ public class HeaderManager : MonoBehaviour
 
             case MenuPage.loginScreen:
                 jobsButton?.SetActive(false);
-                tasksButton?.SetActive(false);
+                tasksButton.gameObject.SetActive(false);
+                tasksButton.ForceSetToggled(false,true);
                 hideButton?.SetActive(false);
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(false);
@@ -69,7 +71,8 @@ public class HeaderManager : MonoBehaviour
 
             case MenuPage.jobSelectScreen:
                 jobsButton?.SetActive(true);
-                tasksButton?.SetActive(false);
+                tasksButton.gameObject.SetActive(false);
+                tasksButton.ForceSetToggled(false,true);
                 hideButton?.SetActive(true);
                 logoutButton?.SetActive(true);
                 scanDocButton?.gameObject.SetActive(false);
@@ -86,7 +89,9 @@ public class HeaderManager : MonoBehaviour
 
             case MenuPage.taskSelect:
                 jobsButton?.SetActive(true);
-                tasksButton?.SetActive(true);
+                tasksButton.gameObject.SetActive(true);
+                tasksButton.ForceSetToggled(true,true);
+
                 hideButton?.SetActive(true);
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(true);
@@ -100,7 +105,8 @@ public class HeaderManager : MonoBehaviour
 
             case MenuPage.performingJob:
                 jobsButton?.SetActive(true);
-                tasksButton?.SetActive(true);
+                tasksButton.gameObject.SetActive(true);
+                tasksButton.ForceSetToggled(false,true);
                 hideButton?.SetActive(true);
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(true);
@@ -113,7 +119,8 @@ public class HeaderManager : MonoBehaviour
                 break;
             case MenuPage.takingPhoto:
                 jobsButton?.SetActive(false);
-                tasksButton?.SetActive(false);
+                tasksButton.gameObject.SetActive(false);
+                tasksButton.ForceSetToggled(false,true);
                 hideButton?.SetActive(false);
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(false);
@@ -125,7 +132,8 @@ public class HeaderManager : MonoBehaviour
                 break;
             case MenuPage.gallery:
                 jobsButton?.SetActive(true);
-                tasksButton?.SetActive(true);
+                tasksButton.gameObject.SetActive(true);
+                tasksButton.ForceSetToggled(true,true);
                 hideButton?.SetActive(true);
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(true);
