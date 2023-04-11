@@ -107,13 +107,13 @@ public class PhotoGallery : MonoBehaviour
         var pressableButton = newPhotoButton.GetComponent<PressableButton>();
         photoButtonToggleCollection.Toggles.Add(pressableButton);
         pressableButton.ForceSetToggled(false);
-        pressableButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
+        pressableButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
         pressableButton.OnClicked.AddListener(() =>
         {
             if (pressableButton.IsToggled == true)
             {
-                if (pressableButton.ToggleMode != StatefulInteractable.ToggleType.OneWayToggle)
-                    pressableButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
+                if (pressableButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
+                    pressableButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
                 metadataDisplay.UpdateDisplay(jobDate, labelType, taskName, groupName, stepName);
                 DisplayCurrentlySelectedPhoto(galleryPhotoButton);
                 pressableButton.ForceSetToggled(true, true);
