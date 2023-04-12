@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.ApplicationServices;
 using Ara.Domain.JobManagement;
+using Assets.Scripts.Common;
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.UX;
 using TMPro;
@@ -28,7 +29,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject stepsPage;
     public GameObject galleryPage;
     public PhotoCaptureTool photoCaptureTool;
-    
+
     public PDFLoader pdfLoader;
     [Header("ModelOverview")]
     public GameObject modelOverviewGO;
@@ -54,14 +55,16 @@ public class MainMenuManager : MonoBehaviour
 
     private static MainMenuManager _instance;
     public static MainMenuManager Instance { get { return _instance; } }
-    
+
     public static Action<MenuPage> OnMenuPageChanged;
 
     public MenuPage currentMenuPage = MenuPage.splashScreen;
     public Job currentJob;
-    
+
     public JobListItemDto selectedJobListItem;
     public TaskInfo selectedTaskInfo;
+
+    public ViewType CurrentViewContext { get; private set; }
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -101,15 +104,15 @@ public class MainMenuManager : MonoBehaviour
 
     private void ToggleAllMenus(bool isOn)
     {
-        if(jobBoard!=null)
+        if (jobBoard != null)
             jobBoard.SetActive(isOn);
-        if(taskBoard!=null)
+        if (taskBoard != null)
             taskBoard.SetActive(isOn);
-        if(workingHUDManager!=null)
+        if (workingHUDManager != null)
             workingHUDManager.gameObject.SetActive(isOn);
-        if(galleryPage!=null)
+        if (galleryPage != null)
             galleryPage.SetActive(isOn);
-        if(stepsPage!=null)
+        if (stepsPage != null)
             stepsPage.SetActive(isOn);
     }
 
@@ -120,9 +123,9 @@ public class MainMenuManager : MonoBehaviour
         ClearChildrenButtons(jobSelectionRoot);
         currentMenuPage = MenuPage.jobSelectScreen;
         OnMenuPageChanged?.Invoke(currentMenuPage);
-        if(loaderGO!=null) loaderGO.SetActive(true);
+        if (loaderGO != null) loaderGO.SetActive(true);
         availbleJobs = await applicationService.GetJobsAsync();
-        if(loaderGO!=null) loaderGO.SetActive(false);
+        if (loaderGO != null) loaderGO.SetActive(false);
         foreach (var availableJobListItem in availbleJobs)
         {
             float fillAmount = 0;
@@ -130,19 +133,19 @@ public class MainMenuManager : MonoBehaviour
             var jobDisplay = spawnedJobButton.GetComponent<JobDisplay>();
             var jobDisplayInteractable = jobDisplay.jobButton;
 
-            Debug.Log("number of done tasks"+availableJobListItem.NumberOfDoneTasks);
-            Debug.Log("number of tasks"+availableJobListItem.NumberOfTasks);
-            
-            if(availableJobListItem.NumberOfTasks!=0) 
+            Debug.Log("number of done tasks" + availableJobListItem.NumberOfDoneTasks);
+            Debug.Log("number of tasks" + availableJobListItem.NumberOfTasks);
+
+            if (availableJobListItem.NumberOfTasks != 0)
                 fillAmount = (availableJobListItem.NumberOfDoneTasks / (float)availableJobListItem.NumberOfTasks);
-            
+
             jobDisplay.UpdateDisplayInformation("Job# " + availableJobListItem.RepairOrderNo,
                 availableJobListItem.CarOwner.FirstName + " " + availableJobListItem.CarOwner.LastName,
                 availableJobListItem.ClaimNo,
                 availableJobListItem.EstimatorFullName,
                 $"{availableJobListItem.CarInfo.Manufacturer} {availableJobListItem.CarInfo.Model} {availableJobListItem.CarInfo.Year}",
                 availableJobListItem.CarInfo.Vin,
-                (availableJobListItem.NumberOfDoneTasks+"/"+availableJobListItem.NumberOfTasks),fillAmount, availableJobListItem
+                (availableJobListItem.NumberOfDoneTasks + "/" + availableJobListItem.NumberOfTasks), fillAmount, availableJobListItem
                 );
             jobDisplayInteractable.OnClicked.AddListener(AddJobToButton(availableJobListItem));
             await Task.Yield();
@@ -186,10 +189,10 @@ public class MainMenuManager : MonoBehaviour
         taskBoard.SetActive(true);
         currentMenuPage = MenuPage.taskSelect;
         OnMenuPageChanged?.Invoke(currentMenuPage);
-        if(loaderGO!=null) loaderGO.SetActive(true);
+        if (loaderGO != null) loaderGO.SetActive(true);
         currentJob = await applicationService.GetJobDetailsAsync(selectedJobListItem.Id);
-        if(loaderGO!=null) loaderGO.SetActive(false);
-        
+        if (loaderGO != null) loaderGO.SetActive(false);
+
         ////Debug.Log(chosenJob.tasks.Count);
         foreach (var jobTask in currentJob.Tasks)
         {
@@ -200,7 +203,7 @@ public class MainMenuManager : MonoBehaviour
             PressableButton taskDisplayInteractable = taskDisplay.taskButton;
             taskDisplayInteractable.OnClicked.AddListener(AddTaskToButton(jobTask));
             //taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
-            taskDisplay.UpdateDisplayInformation(jobTask.Id,jobTask.Title, jobTask.Status);
+            taskDisplay.UpdateDisplayInformation(jobTask.Id, jobTask.Title, jobTask.Status);
             await Task.Yield();
         }
         estimationButton.ForceSetToggled(false);
@@ -247,7 +250,7 @@ public class MainMenuManager : MonoBehaviour
         UnityAction chosenTask = delegate
         {
             AdvanceToWorkingView(task);
-            mainMenuAesthetic.UpdateTaskDisplay(selectedJobListItem,task);
+            mainMenuAesthetic.UpdateTaskDisplay(selectedJobListItem, task);
             selectedTaskInfo = task;
         };
         return chosenTask;
@@ -257,11 +260,13 @@ public class MainMenuManager : MonoBehaviour
     {
         ToggleAllMenus(false);
         SetWorkingView();
-        if(taskOverview!=null){
+        if (taskOverview != null)
+        {
             taskOverview.SetActive(true);
-        if(!stepsPage.activeSelf)
-            stepsPage.SetActive(true);
-        workingHUDManager.PopulateTaskGroups(job);
+            if (!stepsPage.activeSelf)
+                stepsPage.SetActive(true);
+            workingHUDManager.PopulateTaskGroups(job);
+            MainMenuManager.Instance.SetupViewContext(ViewType.TaskDetails);
         }
     }
 
@@ -296,7 +301,7 @@ public class MainMenuManager : MonoBehaviour
                 break;
         }
     }
-    
+
     //Todo: These 4 methods don't scale well. Consider looping through a list.
     public void ReturnToMenu()
     {
@@ -331,7 +336,7 @@ public class MainMenuManager : MonoBehaviour
         currentMenuPage = MenuPage.loginScreen;
         OnMenuPageChanged?.Invoke(currentMenuPage);
     }
-    
+
 
     public void ReturnToSplash()
     {
@@ -346,7 +351,7 @@ public class MainMenuManager : MonoBehaviour
         OnMenuPageChanged?.Invoke(currentMenuPage);
         ToggleAllMenus(false);
         workingHUDManager.gameObject.SetActive(true);
-        if(photoCaptureTool!=null)
+        if (photoCaptureTool != null)
             photoCaptureTool.gameObject.SetActive(true);
     }
 
@@ -366,6 +371,13 @@ public class MainMenuManager : MonoBehaviour
         modelOverviewGO.SetActive(true);
         modelOveriewCallOuts.SetActive(true);
     }
+
+    public void SetupViewContext(ViewType viewType)
+    {
+        CurrentViewContext = viewType;
+        Debug.Log($"Current View Context is: {viewType.ToString()}");
+    }
+
 }
 public enum MenuPage
 {

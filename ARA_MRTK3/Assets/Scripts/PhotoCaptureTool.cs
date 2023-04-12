@@ -65,6 +65,7 @@ public class PhotoCaptureTool : MonoBehaviour
 
     private void OnEnable()
     {
+        WorkingHUDManager.OnStepSelected -= OnStepSelected;
         WorkingHUDManager.OnStepSelected += OnStepSelected;
     }
 
@@ -201,17 +202,6 @@ public class PhotoCaptureTool : MonoBehaviour
         isTakingPhoto = false;
     }
 
-    //private void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame pcf)
-    //{
-    //    if (!result.success)
-    //    {
-    //        Debug.LogError("Unable to start photo mode!");
-    //        return;
-    //    }
-
-    //    photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
-    //}
-
     private void OnCapturedPhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
     {
         if (result.success)
@@ -267,11 +257,5 @@ public class PhotoCaptureTool : MonoBehaviour
         }
 
         pendingFile = null;
-    }
-
-    private void OnStoppedPhotoMode(PhotoCapture.PhotoCaptureResult result)
-    {
-        photoCaptureObject.Dispose();
-        photoCaptureObject = null;
     }
 }

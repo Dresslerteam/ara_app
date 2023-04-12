@@ -6,6 +6,7 @@ using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.Common;
 using Ara.Domain.JobManagement;
 using Ara.Domain.RepairManualManagement;
+using Assets.Scripts.Common;
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.UX;
 using Sirenix.OdinInspector;
@@ -287,20 +288,26 @@ public class WorkingHUDManager : MonoBehaviour
             completeButton.OnClicked.AddListener(() =>
             {
                 // Complete step
-                MainMenuManager.Instance.currentJob.CompleteStep(MainMenuManager.Instance.selectedTaskInfo.Id,
-                    repairManual.Id, step.Id);
-                stepDisplay.CompleteStep();
-
-                var nextStepObj = MainMenuManager.Instance.currentJob.GetNextStep(currentTask.Id, repairManual.Id, step.Id);
-                var newStepDisplay = _stepDisplays[nextStepObj.Payload.Step.Id];
-
-                SelectStep(nextStepObj.Payload.Step, nextStepObj.Payload.RepairManual, currentTask, newStepDisplay);
-                var stepButton = newStepDisplay.GetComponent<PressableButton>();
-                stepButton.ForceSetToggled(true, true);
+                CompleteStepAndMoveToNext(step, repairManual, stepDisplay);
 
             });
         }
     }
+
+    private void CompleteStepAndMoveToNext(ManualStep step, RepairManual repairManual, StepDisplay stepDisplay)
+    {
+        MainMenuManager.Instance.currentJob.CompleteStep(MainMenuManager.Instance.selectedTaskInfo.Id,
+                            repairManual.Id, step.Id);
+        stepDisplay.CompleteStep();
+
+        var nextStepObj = MainMenuManager.Instance.currentJob.GetNextStep(currentTask.Id, repairManual.Id, step.Id);
+        var newStepDisplay = _stepDisplays[nextStepObj.Payload.Step.Id];
+
+        SelectStep(nextStepObj.Payload.Step, nextStepObj.Payload.RepairManual, currentTask, newStepDisplay);
+        var stepButton = newStepDisplay.GetComponent<PressableButton>();
+        stepButton.ForceSetToggled(true, true);
+    }
+
     public void AdvanceToNextStep(Result<(int RepairManualId, ManualStep Step)> idk)
     {
 
@@ -319,6 +326,7 @@ public class WorkingHUDManager : MonoBehaviour
         OnStepSelected?.Invoke(step, repairManual, stepDisplay);
         preStepSelectionVisuals.SetActive(false);
         selectedStepVisualRoot.SetActive(true);
+        MainMenuManager.Instance.SetupViewContext(ViewType.StepDetails);
     }
 
 }
