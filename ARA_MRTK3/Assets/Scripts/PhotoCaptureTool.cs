@@ -10,6 +10,7 @@ using Ara.Domain.RepairManualManagement;
 using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 using UnityEngine.Windows.WebCam;
+using System.IO;
 
 public class PhotoCaptureTool : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class PhotoCaptureTool : MonoBehaviour
     private ManualStep currentStep;
     private RepairManual currentManual;
     private StepDisplay currentStepDisplay;
+    private Texture2D _latestPhotoTexture;
     public static PhotoCaptureTool Instance
     {
         get
@@ -187,45 +189,36 @@ public class PhotoCaptureTool : MonoBehaviour
             return;
         }
 
-        //string filename = $"CapturedImage {DateTime.Now:MM_dd_yyyy_HH_mm_ss}.png";
-        var filename = Ara.Domain.JobManagement.Photo.GenerateUrl("jpg");
-        pendingFile = System.IO.Path.Combine(currentFilePath, filename);
-
-        photoCaptureObject.TakePhotoAsync(pendingFile, PhotoCaptureFileOutputFormat.JPG, OnCapturedPhotoToDisk);
+        photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
     }
 
-    private void OnCapturedPhotoToDisk(PhotoCapture.PhotoCaptureResult result)
+    private void OnCapturedPhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
     {
         if (result.success)
         {
-            Debug.Log("Saved Photo to disk!" + pendingFile);
+            Debug.Log("Photo captured to memory!");
             TakePhotoButton.SetActive(false);
             photoPreviewMenu.SetActive(true);
             photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
-            GenerateTexture();
+            _latestPhotoTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
+            photoCaptureFrame.UploadImageDataToTexture(_latestPhotoTexture);
+
+            photoGallery.DisplayPhotoPreview(_latestPhotoTexture);
+            takenPhotos.Add(_latestPhotoTexture);
+
+           
         }
         else
         {
-            Debug.Log("Failed to save Photo to disk");
-            photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
+            Debug.LogError("Failed to capture photo to memory!");
         }
     }
 
-    private void GenerateTexture()
-    {
-        Texture2D targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
-
-        byte[] pngBytes = System.IO.File.ReadAllBytes(pendingFile);
-        Texture2D tex = new Texture2D(cameraResolution.width, cameraResolution.height);
-        tex.LoadImage(pngBytes);
-
-        photoGallery.DisplayPhotoPreview(tex);
-    
-        takenPhotos.Add(targetTexture);
-    }
-    
     public void SaveToDatabase(Ara.Domain.JobManagement.Photo.PhotoLabelType labelType)
     {
+        var filename = Ara.Domain.JobManagement.Photo.GenerateUrl("jpg");
+        pendingFile = System.IO.Path.Combine(currentFilePath, filename);
+
         MainMenuManager.Instance.currentJob.AssignPhotoToStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
             currentStep.Id, 
             pendingFile, 
@@ -233,7 +226,14 @@ public class PhotoCaptureTool : MonoBehaviour
         MainMenuManager.Instance.currentJob.CompleteStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
             currentStep.Id);
         currentStepDisplay.CompleteStep();
-       var nextStep = MainMenuManager.Instance.currentJob.GetNextStep(MainMenuManager.Instance.selectedTaskInfo.Id, currentManual.Id, currentStep.Id);
+
+        Debug.Log("Saving File Started");
+        byte[] jpgBytes = ImageConversion.EncodeToJPG(_latestPhotoTexture); 
+        if(_latestPhotoTexture== null)
+            Debug.Log("_latest Photo TExture is null");
+        File.WriteAllBytes(pendingFile, jpgBytes);
+        Debug.Log("Saving File Completed");
+        var nextStep = MainMenuManager.Instance.currentJob.GetNextStep(MainMenuManager.Instance.selectedTaskInfo.Id, currentManual.Id, currentStep.Id);
        
        DeactivateMenus();
     }
