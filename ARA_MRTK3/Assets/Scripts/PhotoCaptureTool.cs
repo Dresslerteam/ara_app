@@ -18,9 +18,12 @@ public class PhotoCaptureTool : MonoBehaviour
     private CameraParameters cameraParameters = new CameraParameters();
     private Resolution cameraResolution;
     private string pendingFile;
-    [SerializeField] [Range(0.01f,1f)] 
+    [SerializeField]
+    [Range(0.01f, 1f)]
     private float photoSizeScaleMultiplier = 1f;
-    [FormerlySerializedAs("TakePhotoMenu")] [Header("Menus")] [SerializeField]
+    [FormerlySerializedAs("TakePhotoMenu")]
+    [Header("Menus")]
+    [SerializeField]
     private GameObject TakePhotoButton;
 
     [SerializeField] private GameObject photoPreviewMenu;
@@ -29,21 +32,24 @@ public class PhotoCaptureTool : MonoBehaviour
 
     [SerializeField] private bool useCustomFilePath = false;
 
-    [ShowIf("useCustomFilePath")] [SerializeField] [FilePath]
+    [ShowIf("useCustomFilePath")]
+    [SerializeField]
+    [FilePath]
     private string customFilePath;
 
     public string currentFilePath { get; private set; }
 
     private static PhotoCaptureTool _instance;
     private bool isTakingPhoto;
-    
+
     const int defaultWidth = 1136;
     private const int defaultHeight = 640;
-    
+
     private ManualStep currentStep;
     private RepairManual currentManual;
     private StepDisplay currentStepDisplay;
     private Texture2D _latestPhotoTexture;
+    private bool _isPhotoModeActive;
     public static PhotoCaptureTool Instance
     {
         get
@@ -64,7 +70,15 @@ public class PhotoCaptureTool : MonoBehaviour
 
     private void OnDisable()
     {
+        Debug.Log("PhotoCaptureTool Disabled");
+
         WorkingHUDManager.OnStepSelected -= OnStepSelected;
+        if (photoCaptureObject != null)
+        {
+            photoCaptureObject?.Dispose();
+            photoCaptureObject = null;
+            _isPhotoModeActive = false;
+        }
     }
 
     private void OnStepSelected(ManualStep step, RepairManual repairManual, StepDisplay selectedStepDisplay)
@@ -110,13 +124,13 @@ public class PhotoCaptureTool : MonoBehaviour
     private void SetCameraResolution()
     {
         // HoloLens 2 default resolution
-        
+
 
         if (PhotoCapture.SupportedResolutions == null || !PhotoCapture.SupportedResolutions.Any())
         {
             Debug.LogWarning("No supported resolutions found, using HoloLens 2 default resolution");
             cameraResolution.width = (int)(defaultWidth);
-            cameraResolution.height = (int) (defaultHeight);
+            cameraResolution.height = (int)(defaultHeight);
         }
         else
         {
@@ -126,8 +140,8 @@ public class PhotoCaptureTool : MonoBehaviour
         cameraParameters = new CameraParameters
         {
             hologramOpacity = 0.0f,
-            cameraResolutionWidth = (int) defaultWidth,
-            cameraResolutionHeight = (int) (defaultHeight),
+            cameraResolutionWidth = (int)defaultWidth,
+            cameraResolutionHeight = (int)(defaultHeight),
             pixelFormat = CapturePixelFormat.BGRA32
         };
     }
@@ -135,11 +149,11 @@ public class PhotoCaptureTool : MonoBehaviour
     public void ActivatePhotoMode()
     {
         MainMenuManager.Instance.SetToPhotoMode();
-        if (photoPreviewMenu != null) 
+        if (photoPreviewMenu != null)
             photoPreviewMenu.SetActive(false);
         TakePhotoButton.SetActive(true);
     }
-    
+
     public void SnapPhoto()
     {
         if (!isTakingPhoto)
@@ -156,41 +170,47 @@ public class PhotoCaptureTool : MonoBehaviour
         {
             Debug.Log("CaptureObject was null");
             var createCompletionSource = new TaskCompletionSource<PhotoCapture>();
-            PhotoCapture.CreateAsync(true, captureObject => {
+            PhotoCapture.CreateAsync(true, captureObject =>
+            {
                 photoCaptureObject = captureObject;
                 createCompletionSource.SetResult(captureObject);
             });
             yield return new WaitUntil(() => createCompletionSource.Task.IsCompleted);
         }
 
-        var startCompletionSource = new TaskCompletionSource<bool>();
-        photoCaptureObject.StartPhotoModeAsync(cameraParameters, result => {
-            if (result.success)
-            {
-                startCompletionSource.SetResult(true);
-            }
-            else
-            {
-                startCompletionSource.SetException(new Exception("Failed to start photo mode"));
-            }
-        });
-        yield return new WaitUntil(() => startCompletionSource.Task.IsCompleted);
+        if (!_isPhotoModeActive)
+        {
+            var startCompletionSource = new TaskCompletionSource<bool>();
+            photoCaptureObject.StartPhotoModeAsync(cameraParameters, result =>
+                {
+                    if (result.success)
+                    {
+                        startCompletionSource.SetResult(true);
+                        _isPhotoModeActive = true;
+                    }
+                    else
+                    {
+                        startCompletionSource.SetException(new Exception("Failed to start photo mode"));
+                    }
+                });
+            yield return new WaitUntil(() => startCompletionSource.Task.IsCompleted);
+        }
 
-        photoCaptureObject.TakePhotoAsync(OnPhotoModeStarted);
+        photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
 
         isTakingPhoto = false;
     }
 
-    private void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame pcf)
-    {
-        if (!result.success)
-        {
-            Debug.LogError("Unable to start photo mode!");
-            return;
-        }
+    //private void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame pcf)
+    //{
+    //    if (!result.success)
+    //    {
+    //        Debug.LogError("Unable to start photo mode!");
+    //        return;
+    //    }
 
-        photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
-    }
+    //    photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
+    //}
 
     private void OnCapturedPhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
     {
@@ -199,14 +219,12 @@ public class PhotoCaptureTool : MonoBehaviour
             Debug.Log("Photo captured to memory!");
             TakePhotoButton.SetActive(false);
             photoPreviewMenu.SetActive(true);
-            photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
+            //photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
             _latestPhotoTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
             photoCaptureFrame.UploadImageDataToTexture(_latestPhotoTexture);
 
             photoGallery.DisplayPhotoPreview(_latestPhotoTexture);
             takenPhotos.Add(_latestPhotoTexture);
-
-           
         }
         else
         {
@@ -220,25 +238,25 @@ public class PhotoCaptureTool : MonoBehaviour
         pendingFile = System.IO.Path.Combine(currentFilePath, filename);
 
         MainMenuManager.Instance.currentJob.AssignPhotoToStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
-            currentStep.Id, 
-            pendingFile, 
+            currentStep.Id,
+            pendingFile,
             labelType);
         MainMenuManager.Instance.currentJob.CompleteStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
             currentStep.Id);
         currentStepDisplay.CompleteStep();
 
         Debug.Log("Saving File Started");
-        byte[] jpgBytes = ImageConversion.EncodeToJPG(_latestPhotoTexture); 
-        if(_latestPhotoTexture== null)
+        byte[] jpgBytes = ImageConversion.EncodeToJPG(_latestPhotoTexture);
+        if (_latestPhotoTexture == null)
             Debug.Log("_latest Photo TExture is null");
         File.WriteAllBytes(pendingFile, jpgBytes);
         Debug.Log("Saving File Completed");
         var nextStep = MainMenuManager.Instance.currentJob.GetNextStep(MainMenuManager.Instance.selectedTaskInfo.Id, currentManual.Id, currentStep.Id);
-       
-       DeactivateMenus();
+
+        DeactivateMenus();
     }
 
-    
+
     public void DeletePicture()
     {
         if (!string.IsNullOrEmpty(pendingFile))
