@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class StepDisplay : MonoBehaviour
 {
-    [Header("Texts")]   
+    [Header("Texts")]
     [SerializeField] private TextMeshProUGUI stepIndex;
     [SerializeField] private TextMeshProUGUI stepText;
     [Header("Icons")]
     [SerializeField] private GameObject stepCompleteIcon;
 
-    public void UpdateDisplayInformation(int index, string text, bool isComplete, Transform parent)
+    private RepairManualDisplay RepairManualDisplay;
+
+    public void UpdateDisplayInformation(int index, string text, bool isComplete, Transform parent, RepairManualDisplay repairManualDisplay)
     {
         stepIndex.text = index.ToString();
         stepText.text = text;
@@ -20,11 +22,12 @@ public class StepDisplay : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localScale = Vector3.one;
         transform.localRotation = Quaternion.identity;
+        RepairManualDisplay = repairManualDisplay;
     }
-    
+
     public void CompleteStep()
     {
         stepCompleteIcon.SetActive(true);
     }
-    
+
 }

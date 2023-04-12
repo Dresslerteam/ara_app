@@ -64,7 +64,7 @@ namespace Ara.Domain.JobManagement
             return Result<object>.Ok(null);
         }
 
-        public Result<(int RepairManualId, ManualStep Step)> GetNextStep(int taskId, int repairManualId, int stepId)
+        public Result<(RepairManual RepairManual, ManualStep Step)> GetNextStep(int taskId, int repairManualId, int stepId)
         {
             var task = this.Tasks.FirstOrDefault(t => t.Id == taskId);
             var repManual = task.RepairManuals.FirstOrDefault(r => r.Id == repairManualId);
@@ -73,7 +73,7 @@ namespace Ara.Domain.JobManagement
             if (repManual.Steps.Count() > (stepIndex + 1))
             {
                 var nextStep = repManual.Steps[stepIndex + 1];
-                return Result<(int RepairManualId, ManualStep Step)>.Ok((repManual.Id, nextStep));
+                return Result<(RepairManual RepairManual, ManualStep Step)>.Ok((repManual, nextStep));
             }
             else
             {
@@ -82,7 +82,7 @@ namespace Ara.Domain.JobManagement
                 {
                     var nextRepairManual = task.RepairManuals[repairManualIndex + 1];
                     var nextStep = nextRepairManual.Steps.FirstOrDefault();
-                    return Result<(int RepairManualId, ManualStep Step)>.Ok((nextRepairManual.Id, nextStep));
+                    return Result<(RepairManual RepairManual, ManualStep Step)>.Ok((nextRepairManual, nextStep));
                 }
             }
 
