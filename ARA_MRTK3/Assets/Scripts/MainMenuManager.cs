@@ -29,6 +29,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject stepsPage;
     public GameObject galleryPage;
     public PhotoCaptureTool photoCaptureTool;
+    public HeaderManager headerManager;
 
     public PDFLoader pdfLoader;
     [Header("ModelOverview")]

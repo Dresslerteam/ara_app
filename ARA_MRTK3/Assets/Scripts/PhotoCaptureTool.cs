@@ -241,10 +241,14 @@ public class PhotoCaptureTool : MonoBehaviour
             Debug.Log("_latest Photo TExture is null");
         File.WriteAllBytes(pendingFile, jpgBytes);
         Debug.Log("Saving File Completed");
+
+
         var nextStep = MainMenuManager.Instance.currentJob.GetNextStep(MainMenuManager.Instance.selectedTaskInfo.Id, currentManual.Id, currentStep.Id);
 
         DeactivateMenus();
     }
+
+    
 
 
     public void DeletePicture()
@@ -258,4 +262,16 @@ public class PhotoCaptureTool : MonoBehaviour
 
         pendingFile = null;
     }
+
+    public void CloseAndComplete()
+    {
+        MainMenuManager.Instance.SetWorkingView();
+        MainMenuManager.Instance.stepsPage.SetActive(true);
+        MainMenuManager.Instance.headerManager.cameraHeader.SetActive(false);
+        MainMenuManager.Instance.photoCaptureTool.gameObject.SetActive(false);
+        MainMenuManager.Instance.workingHUDManager.takePicture.SetActive(false);
+
+        Debug.Log($"Close and Complete was called on PhotoCaptureTool");
+    }
+
 }

@@ -39,6 +39,7 @@ public class WorkingHUDManager : MonoBehaviour
     [SerializeField] private GameObject photoRequiredModal;
     [SerializeField][AssetsOnly] private PressableButton cautionPdfButtonPrefab;
     [SerializeField][AssetsOnly] private PressableButton oemPdfButtonPrefab;
+    public GameObject takePicture;
     private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
     private RepairManualDisplay firstRepairManualDisplay;
     public static Action<ManualStep, RepairManual, StepDisplay> OnStepSelected; //todo:tat This is for PhotoCapture Tool reference
