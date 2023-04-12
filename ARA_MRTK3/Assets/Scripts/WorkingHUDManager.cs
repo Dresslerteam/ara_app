@@ -40,7 +40,7 @@ public class WorkingHUDManager : MonoBehaviour
     [SerializeField][AssetsOnly] private PressableButton oemPdfButtonPrefab;
     private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
     private RepairManualDisplay firstRepairManualDisplay;
-    public static Action<ManualStep, RepairManual, StepDisplay> OnStepSelected;
+    public static Action<ManualStep, RepairManual, StepDisplay> OnStepSelected; //todo:tat This is for PhotoCapture Tool reference
     private List<PressableButton> stepGroupButtonParentList = new List<PressableButton>();
 
     private TaskInfo currentTask;
@@ -104,7 +104,7 @@ public class WorkingHUDManager : MonoBehaviour
             {
                 StepDisplay stepDisplay = Instantiate(stepDisplayPrefab).GetComponent<StepDisplay>();
                 stepDisplay.UpdateDisplayInformation(step.Id, step.Title,
-                    step.IsCompleted, repairManualDisplay.stepGroupParent, repairManualDisplay);
+                    step.IsCompleted, repairManualDisplay.stepGroupParent);
                 var button = stepDisplay.GetComponent<PressableButton>();
                 repairManualDisplay.stepToggleCollection.Toggles.Add(button);
 

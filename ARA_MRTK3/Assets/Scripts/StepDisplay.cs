@@ -11,9 +11,8 @@ public class StepDisplay : MonoBehaviour
     [Header("Icons")]
     [SerializeField] private GameObject stepCompleteIcon;
 
-    private RepairManualDisplay RepairManualDisplay;
 
-    public void UpdateDisplayInformation(int index, string text, bool isComplete, Transform parent, RepairManualDisplay repairManualDisplay)
+    public void UpdateDisplayInformation(int index, string text, bool isComplete, Transform parent)
     {
         stepIndex.text = index.ToString();
         stepText.text = text;
@@ -22,7 +21,6 @@ public class StepDisplay : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localScale = Vector3.one;
         transform.localRotation = Quaternion.identity;
-        RepairManualDisplay = repairManualDisplay;
     }
 
     public void CompleteStep()
