@@ -279,8 +279,20 @@ public class WorkingHUDManager : MonoBehaviour
             // Set the complete button to complete the step
             completeButton.OnClicked.AddListener(() =>
             {
-                if (photoRequiredModal != null)
+                if (step.PhotoRequired && step.Photos.Count() == 0 && photoRequiredModal != null)
                     photoRequiredModal.SetActive(true);
+                else
+                {
+                    if (step.IsCompleted)
+                    {
+                        MoveToNextStep(step, repairManual);
+                    }
+                    else
+                    {
+                        CompleteStepAndMoveToNext(step, repairManual, stepDisplay);
+                    }
+                }
+                    
             });
         }
         else
@@ -301,7 +313,11 @@ public class WorkingHUDManager : MonoBehaviour
         MainMenuManager.Instance.currentJob.CompleteStep(MainMenuManager.Instance.selectedTaskInfo.Id,
                             repairManual.Id, step.Id);
         stepDisplay.CompleteStep();
+        MoveToNextStep(step, repairManual);
+    }
 
+    private void MoveToNextStep(ManualStep step, RepairManual repairManual)
+    {
         var nextStepObj = MainMenuManager.Instance.currentJob.GetNextStep(currentTask.Id, repairManual.Id, step.Id);
         var newStepDisplay = _stepDisplays[nextStepObj.Payload.Step.Id];
 
