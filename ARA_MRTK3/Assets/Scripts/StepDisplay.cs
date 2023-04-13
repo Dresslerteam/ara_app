@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class StepDisplay : MonoBehaviour
 {
-    [Header("Texts")]   
+    [Header("Texts")]
     [SerializeField] private TextMeshProUGUI stepIndex;
     [SerializeField] private TextMeshProUGUI stepText;
     [Header("Icons")]
     [SerializeField] private GameObject stepCompleteIcon;
+
 
     public void UpdateDisplayInformation(int index, string text, bool isComplete, Transform parent)
     {
@@ -21,10 +22,10 @@ public class StepDisplay : MonoBehaviour
         transform.localScale = Vector3.one;
         transform.localRotation = Quaternion.identity;
     }
-    
+
     public void CompleteStep()
     {
         stepCompleteIcon.SetActive(true);
     }
-    
+
 }
