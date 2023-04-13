@@ -250,26 +250,12 @@ public class PhotoCaptureTool : MonoBehaviour
         DeactivateMenus();
     }
 
-
-
-
-    public void DeletePicture()
-    {
-        if (!string.IsNullOrEmpty(pendingFile))
-        {
-            Debug.Log("Deleted photo: " + pendingFile);
-            takenPhotos.Clear();
-            System.IO.File.Delete(pendingFile);
-        }
-
-        pendingFile = null;
-    }
-
     public void CloseAndComplete()
     {
         
         MainMenuManager.Instance.headerManager?.cameraHeader?.SetActive(false);
         MainMenuManager.Instance.workingHUDManager.takePicture.SetActive(false);
+        MainMenuManager.Instance.workingHUDManager?.CameraSaverBanner?.SetActive(false);
         MainMenuManager.Instance.photoCaptureTool.gameObject.SetActive(false);
         MainMenuManager.Instance.SetWorkingView();
         MainMenuManager.Instance.stepsPage.SetActive(true);
