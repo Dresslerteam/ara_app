@@ -74,7 +74,7 @@ public class PhotoCaptureTool : MonoBehaviour
     {
         Debug.Log("PhotoCaptureTool Disabled");
 
-        WorkingHUDManager.OnStepSelected -= OnStepSelected;
+        //WorkingHUDManager.OnStepSelected -= OnStepSelected;
         if (photoCaptureObject != null)
         {
             photoCaptureObject?.Dispose();
@@ -229,36 +229,35 @@ public class PhotoCaptureTool : MonoBehaviour
         var filename = Ara.Domain.JobManagement.Photo.GenerateUrl("jpg");
         pendingFile = System.IO.Path.Combine(currentFilePath, filename);
 
+        Debug.Log("Saving File Started");
+        byte[] jpgBytes = ImageConversion.EncodeToJPG(_latestPhotoTexture);
+        if (_latestPhotoTexture == null)
+            Debug.Log("_latest Photo Texture is null");
+        File.WriteAllBytes(pendingFile, jpgBytes);
+        Debug.Log("Saving File Completed");
+
         MainMenuManager.Instance.currentJob.AssignPhotoToStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
             currentStep.Id,
             pendingFile,
             labelType);
-        MainMenuManager.Instance.currentJob.CompleteStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
-            currentStep.Id);
-        currentStepDisplay.CompleteStep();
-
-        Debug.Log("Saving File Started");
-        byte[] jpgBytes = ImageConversion.EncodeToJPG(_latestPhotoTexture);
-        if (_latestPhotoTexture == null)
-            Debug.Log("_latest Photo TExture is null");
-        File.WriteAllBytes(pendingFile, jpgBytes);
-        Debug.Log("Saving File Completed");
-
-
-        var nextStep = MainMenuManager.Instance.currentJob.GetNextStep(MainMenuManager.Instance.selectedTaskInfo.Id, currentManual.Id, currentStep.Id);
 
         DeactivateMenus();
     }
 
     public void CloseAndComplete()
     {
-        
         MainMenuManager.Instance.headerManager?.cameraHeader?.SetActive(false);
         MainMenuManager.Instance.workingHUDManager.takePicture.SetActive(false);
         MainMenuManager.Instance.workingHUDManager?.CameraSaverBanner?.SetActive(false);
         MainMenuManager.Instance.photoCaptureTool.gameObject.SetActive(false);
         MainMenuManager.Instance.SetWorkingView();
         MainMenuManager.Instance.stepsPage.SetActive(true);
+
+        if (MainMenuManager.Instance.CurrentViewContext == Assets.Scripts.Common.ViewType.StepDetails)
+        {
+            MainMenuManager.Instance.workingHUDManager.CompleteStepAndMoveToNext(currentStep, currentManual, currentStepDisplay);
+            Debug.Log($"CompleteStepAndMoveToNext called step:{currentStep.Id}, manual:{currentManual.Id}");
+        }
 
         Debug.Log($"Close and Complete was called on PhotoCaptureTool");
     }
