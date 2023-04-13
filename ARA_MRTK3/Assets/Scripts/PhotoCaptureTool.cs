@@ -11,6 +11,7 @@ using Sirenix.OdinInspector;
 using UnityEngine.Serialization;
 using UnityEngine.Windows.WebCam;
 using System.IO;
+using static UnityEngine.Windows.WebCam.PhotoCapture;
 
 public class PhotoCaptureTool : MonoBehaviour
 {
@@ -159,48 +160,47 @@ public class PhotoCaptureTool : MonoBehaviour
     {
         if (!isTakingPhoto)
         {
-            StartCoroutine(SnapPhotoCoroutine());
-        }
-    }
+            //StartCoroutine(SnapPhotoCoroutine());
+            isTakingPhoto = true;
 
-    private IEnumerator SnapPhotoCoroutine()
-    {
-        isTakingPhoto = true;
-
-        if (photoCaptureObject == null)
-        {
-            Debug.Log("CaptureObject was null");
-            var createCompletionSource = new TaskCompletionSource<PhotoCapture>();
-            PhotoCapture.CreateAsync(true, captureObject =>
+            if (photoCaptureObject == null)
             {
-                photoCaptureObject = captureObject;
-                createCompletionSource.SetResult(captureObject);
-            });
-            yield return new WaitUntil(() => createCompletionSource.Task.IsCompleted);
-        }
-
-        if (!_isPhotoModeActive)
-        {
-            var startCompletionSource = new TaskCompletionSource<bool>();
-            photoCaptureObject.StartPhotoModeAsync(cameraParameters, result =>
+                Debug.Log("CaptureObject was null");
+                PhotoCapture.CreateAsync(true, captureObject =>
                 {
-                    if (result.success)
+                    photoCaptureObject = captureObject;
+                    if (!_isPhotoModeActive)
                     {
-                        startCompletionSource.SetResult(true);
-                        _isPhotoModeActive = true;
+                        photoCaptureObject.StartPhotoModeAsync(cameraParameters, result =>
+                        {
+                            _isPhotoModeActive = true;
+                            photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
+                        });
                     }
                     else
                     {
-                        startCompletionSource.SetException(new Exception("Failed to start photo mode"));
+                        photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
                     }
                 });
-            yield return new WaitUntil(() => startCompletionSource.Task.IsCompleted);
+            }
+            else
+            {
+                if (!_isPhotoModeActive)
+                {
+                    photoCaptureObject.StartPhotoModeAsync(cameraParameters, result =>
+                    {
+                        _isPhotoModeActive = true;
+                        photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
+                    });
+                }
+                else
+                {
+                    photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
+                }
+            }
         }
-
-        photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
-
-        isTakingPhoto = false;
     }
+
 
     private void OnCapturedPhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
     {
@@ -209,7 +209,7 @@ public class PhotoCaptureTool : MonoBehaviour
             Debug.Log("Photo captured to memory!");
             TakePhotoButton.SetActive(false);
             photoPreviewMenu.SetActive(true);
-            //photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
+            photoCaptureObject.StopPhotoModeAsync((PhotoCaptureResult result) => { _isPhotoModeActive = false; });
             _latestPhotoTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
             photoCaptureFrame.UploadImageDataToTexture(_latestPhotoTexture);
 
@@ -220,6 +220,8 @@ public class PhotoCaptureTool : MonoBehaviour
         {
             Debug.LogError("Failed to capture photo to memory!");
         }
+
+        isTakingPhoto = false;
     }
 
     public void SaveToDatabase(Ara.Domain.JobManagement.Photo.PhotoLabelType labelType)
@@ -248,7 +250,7 @@ public class PhotoCaptureTool : MonoBehaviour
         DeactivateMenus();
     }
 
-    
+
 
 
     public void DeletePicture()
@@ -265,11 +267,12 @@ public class PhotoCaptureTool : MonoBehaviour
 
     public void CloseAndComplete()
     {
+        
+        MainMenuManager.Instance.headerManager?.cameraHeader?.SetActive(false);
+        MainMenuManager.Instance.workingHUDManager.takePicture.SetActive(false);
+        MainMenuManager.Instance.photoCaptureTool.gameObject.SetActive(false);
         MainMenuManager.Instance.SetWorkingView();
         MainMenuManager.Instance.stepsPage.SetActive(true);
-        MainMenuManager.Instance.headerManager.cameraHeader.SetActive(false);
-        MainMenuManager.Instance.photoCaptureTool.gameObject.SetActive(false);
-        MainMenuManager.Instance.workingHUDManager.takePicture.SetActive(false);
 
         Debug.Log($"Close and Complete was called on PhotoCaptureTool");
     }
