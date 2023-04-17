@@ -13274,18 +13274,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5231479465862629173}
         m_TargetAssemblyTypeName: PhotoCaptureTool, Assembly-CSharp
-        m_MethodName: DeletePicture
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5231479465862629173}
-        m_TargetAssemblyTypeName: PhotoCaptureTool, Assembly-CSharp
         m_MethodName: ActivatePhotoMode
         m_Mode: 1
         m_Arguments:
@@ -37180,6 +37168,7 @@ MonoBehaviour:
   cautionPdfButtonPrefab: {fileID: 179641709986835802, guid: fc038d4451662054db41b7bfa65fd950, type: 3}
   oemPdfButtonPrefab: {fileID: 796162602795597986, guid: ff9f1e9134cb9b74ea64ed65a4a14f4d, type: 3}
   takePicture: {fileID: 1353757954}
+  CameraSaverBanner: {fileID: 1962422327}
 --- !u!1 &1287876976
 GameObject:
   m_ObjectHideFlags: 0

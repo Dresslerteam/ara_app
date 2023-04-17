@@ -40,6 +40,7 @@ public class WorkingHUDManager : MonoBehaviour
     [SerializeField][AssetsOnly] private PressableButton cautionPdfButtonPrefab;
     [SerializeField][AssetsOnly] private PressableButton oemPdfButtonPrefab;
     public GameObject takePicture;
+    public GameObject CameraSaverBanner;
     private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
     private RepairManualDisplay firstRepairManualDisplay;
     public static Action<ManualStep, RepairManual, StepDisplay> OnStepSelected; //todo:tat This is for PhotoCapture Tool reference
@@ -278,8 +279,20 @@ public class WorkingHUDManager : MonoBehaviour
             // Set the complete button to complete the step
             completeButton.OnClicked.AddListener(() =>
             {
-                if (photoRequiredModal != null)
+                if (step.PhotoRequired && step.Photos.Count() == 0 && photoRequiredModal != null)
                     photoRequiredModal.SetActive(true);
+                else
+                {
+                    if (step.IsCompleted)
+                    {
+                        MoveToNextStep(step, repairManual);
+                    }
+                    else
+                    {
+                        CompleteStepAndMoveToNext(step, repairManual, stepDisplay);
+                    }
+                }
+
             });
         }
         else
@@ -295,18 +308,27 @@ public class WorkingHUDManager : MonoBehaviour
         }
     }
 
-    private void CompleteStepAndMoveToNext(ManualStep step, RepairManual repairManual, StepDisplay stepDisplay)
+    public void CompleteStepAndMoveToNext(ManualStep step, RepairManual repairManual, StepDisplay stepDisplay)
     {
+        Debug.Log($"<color=red>CompleteStepAndMoveToNext on Hud Called step:{step.Id}, manual:{repairManual.Id}</color> ");
         MainMenuManager.Instance.currentJob.CompleteStep(MainMenuManager.Instance.selectedTaskInfo.Id,
                             repairManual.Id, step.Id);
         stepDisplay.CompleteStep();
+        MoveToNextStep(step, repairManual);
+    }
 
+    private void MoveToNextStep(ManualStep step, RepairManual repairManual)
+    {
         var nextStepObj = MainMenuManager.Instance.currentJob.GetNextStep(currentTask.Id, repairManual.Id, step.Id);
-        var newStepDisplay = _stepDisplays[nextStepObj.Payload.Step.Id];
-
-        SelectStep(nextStepObj.Payload.Step, nextStepObj.Payload.RepairManual, currentTask, newStepDisplay);
-        var stepButton = newStepDisplay.GetComponent<PressableButton>();
-        stepButton.ForceSetToggled(true, true);
+        Debug.Log($"<color=blue/>!!!! what we got from GetNextStep repairManual:{nextStepObj.Payload.RepairManual.Id} step:{nextStepObj.Payload.Step.Id}</color>");
+        //It only moves to next step if it belongs to same repair manual.
+        if (nextStepObj.Status == ResultStatus.Success && nextStepObj.Payload.RepairManual.Id == repairManual.Id)
+        {
+            var newStepDisplay = _stepDisplays[nextStepObj.Payload.Step.Id];
+            SelectStep(nextStepObj.Payload.Step, nextStepObj.Payload.RepairManual, currentTask, newStepDisplay);
+            var stepButton = newStepDisplay.GetComponent<PressableButton>();
+            stepButton.ForceSetToggled(true, true);
+        }
     }
 
     public void AdvanceToNextStep(Result<(int RepairManualId, ManualStep Step)> idk)
@@ -324,10 +346,12 @@ public class WorkingHUDManager : MonoBehaviour
             MainMenuManager.Instance.selectedJobListItem, task);
         EnableCameraIcon(step, repairManual, stepDisplay);
         UpdateFileButtons(step);
-        OnStepSelected?.Invoke(step, repairManual, stepDisplay);
+        
         preStepSelectionVisuals.SetActive(false);
         selectedStepVisualRoot.SetActive(true);
         MainMenuManager.Instance.SetupViewContext(ViewType.StepDetails);
+        
+        OnStepSelected?.Invoke(step, repairManual, stepDisplay);
     }
 
 }
