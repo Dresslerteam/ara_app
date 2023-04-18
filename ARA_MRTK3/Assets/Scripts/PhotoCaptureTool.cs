@@ -66,6 +66,7 @@ public class PhotoCaptureTool : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("<color=green>Photo ENABLE</color>");
         WorkingHUDManager.OnStepSelected -= OnStepSelected;
         WorkingHUDManager.OnStepSelected += OnStepSelected;
     }
@@ -85,7 +86,6 @@ public class PhotoCaptureTool : MonoBehaviour
 
     private void OnStepSelected(ManualStep step, RepairManual repairManual, StepDisplay selectedStepDisplay)
     {
-        Debug.Log("<color=green>OnStepSelected</color>");
         currentStep = step;
         currentManual = repairManual;
         currentStepDisplay = selectedStepDisplay;
