@@ -31740,7 +31740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lerpTime: 0.5
-  showSize: 846
+  showSize: 966
   hideSize: 122
   onShow:
     m_PersistentCalls:
