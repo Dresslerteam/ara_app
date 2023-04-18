@@ -258,7 +258,7 @@ public class PhotoCaptureTool : MonoBehaviour
 
     public void CloseAndComplete()
     {
-        MainMenuManager.Instance.headerManager?.cameraHeader?.SetActive(false);
+        MainMenuManager.Instance.headerManager?.cameraHeaderManager?.gameObject?.SetActive(false);
         MainMenuManager.Instance.workingHUDManager.takePicture.SetActive(false);
         MainMenuManager.Instance.workingHUDManager?.CameraSaverBanner?.SetActive(false);
         MainMenuManager.Instance.photoCaptureTool.gameObject.SetActive(false);

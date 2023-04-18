@@ -349,7 +349,8 @@ public class MainMenuManager : MonoBehaviour
         workingHUDManager.gameObject.SetActive(true);
         if (photoCaptureTool != null)
         {
-            switch (currentMenuPage)
+            Debug.Log($"<color=red>photoCaptureTool is null</color>");
+            switch (_previousPages.LastOrDefault(p => p != MenuPage.takingPhoto && p != MenuPage.gallery))
             {
                 case MenuPage.taskSelect:
                     photoCaptureTool.CurrentPhotoMode = PhotoModeTypes.JobPhoto;
@@ -387,7 +388,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void SetCurrentPage(MenuPage menuPage)
     {
-        _previousPages.Append(currentMenuPage);
+        _previousPages.Add(currentMenuPage);
         currentMenuPage = menuPage;
         OnMenuPageChanged?.Invoke(menuPage);
     }
