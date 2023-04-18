@@ -250,10 +250,27 @@ public class PhotoCaptureTool : MonoBehaviour
         File.WriteAllBytes(pendingFile, jpgBytes);
         Debug.Log("Saving File Completed");
 
-        MainMenuManager.Instance.currentJob.AssignPhotoToStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
-            currentStep.Id,
-            pendingFile,
-            labelType);
+        switch (CurrentPhotoMode)
+        {
+            case PhotoModeTypes.StepPhoto:
+                MainMenuManager.Instance.currentJob.AssignPhotoToStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
+                    currentStep.Id,
+                    pendingFile,
+                    labelType);
+                break;
+            case PhotoModeTypes.TaskPhoto:
+                MainMenuManager.Instance.currentJob.AssignPhotoToTask((MainMenuManager.Instance.selectedTaskInfo.Id),
+                    pendingFile,
+                    labelType);
+                break;
+            case PhotoModeTypes.JobPhoto:
+                MainMenuManager.Instance.currentJob.AssignPhotoToJob(
+                    pendingFile,
+                    labelType);
+                break;
+
+        }
+
 
         DeactivateMenus();
     }
@@ -278,7 +295,21 @@ public class PhotoCaptureTool : MonoBehaviour
 
     public void Close()
     {
-        MainMenuManager.Instance.SetWorkingView();
+        Debug.Log($"<color=red>CurrentPhotoMode {CurrentPhotoMode}</color>");
+        switch (CurrentPhotoMode)
+        {
+            case PhotoModeTypes.StepPhoto:
+                MainMenuManager.Instance.SetWorkingView();
+                break;
+            case PhotoModeTypes.TaskPhoto:
+                MainMenuManager.Instance.ReturnToTaskList();
+                break;
+            case PhotoModeTypes.JobPhoto:
+                MainMenuManager.Instance.ReturnToTaskList();
+                break;
+
+
+        }
         //MainMenuManager.Instance.headerManager?.cameraHeaderManager?.gameObject?.SetActive(false);
         //MainMenuManager.Instance.workingHUDManager.takePicture.SetActive(false);
         //MainMenuManager.Instance.workingHUDManager?.CameraSaverBanner?.SetActive(false);

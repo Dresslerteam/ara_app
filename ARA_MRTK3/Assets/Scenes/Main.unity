@@ -9348,6 +9348,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fda4953718e0264291c42cb2a637fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &270179371 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+  m_PrefabInstance: {fileID: 392519710}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32e8a7644144f8419bb881ad588ed0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &270870645
 GameObject:
   m_ObjectHideFlags: 0
@@ -12138,7 +12149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7195404727611163259, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_IgnoreLayout
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7216918420766221479, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_AnchorMax.y
@@ -37719,9 +37730,9 @@ MonoBehaviour:
   <OnClicked>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121417764}
-        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: SetToPhotoMode
+      - m_Target: {fileID: 5231479465862629173}
+        m_TargetAssemblyTypeName: PhotoCaptureTool, Assembly-CSharp
+        m_MethodName: ActivatePhotoMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -49647,7 +49658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   galleryButton: {fileID: 1407281564}
   closeAndCompleteButton: {fileID: 611283634}
-  closeButton: {fileID: 0}
+  closeButton: {fileID: 270179371}
   currentPhotoMode: 0
 --- !u!1 &1937356408
 GameObject:

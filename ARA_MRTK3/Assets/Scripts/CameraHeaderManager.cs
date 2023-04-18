@@ -25,15 +25,15 @@ namespace Assets.Scripts
             switch (currentPhotoMode)
             {
                 case PhotoModeTypes.StepPhoto:
-                    closeButton.enabled = false;
-                    galleryButton.enabled = true;
-                    closeAndCompleteButton.enabled = true;
+                    closeButton.gameObject.SetActive(false);
+                    galleryButton.gameObject.SetActive(true);
+                    closeAndCompleteButton.gameObject.SetActive(true);
                     break;
                 case PhotoModeTypes.TaskPhoto:
                 case PhotoModeTypes.JobPhoto:
-                    closeAndCompleteButton.enabled = false;
-                    galleryButton.enabled = true;
-                    closeButton.enabled = true;
+                    closeAndCompleteButton.gameObject.SetActive(false);
+                    galleryButton.gameObject.SetActive(true);
+                    closeButton.gameObject.SetActive(true);
                     break;
             }
         }
