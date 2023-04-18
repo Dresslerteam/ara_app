@@ -175,9 +175,8 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 11400000, guid: c677e5c4eb85b7849a8da406775c299d, type: 2}
-  - {fileID: 400824533557679697, guid: 9724d57a2c663fe4c95bc7ae871ba6f0, type: 2}
-  - {fileID: 7158746002032630765, guid: 48c8df63a43edab4095623c8ec75c936, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -767,6 +766,10 @@ PlayerSettings:
     131172: Assets/Art 1/Icons/CollisionLogos/Collissionvisionlogo_splash_100.png
     131222: Assets/Art 1/Icons/CollisionLogos/Collissionvisionlogo_splash_150.png
     131272: Assets/Art 1/Icons/CollisionLogos/Collissionvisionlogo_splash_200.png
+    2031632: Assets/Art 1/Icons/CollisionLogos/collisionvisionlogo_square_16.png
+    2031640: Assets/Art 1/Icons/CollisionLogos/collisionvisionlogo_square_24.png
+    2031648: Assets/Art 1/Icons/CollisionLogos/collisionvisionlogo_square_32.png
+    2031664: Assets/Art 1/Icons/CollisionLogos/collisionvisionlogo_square_48.png
     2031716: Assets/Art 1/Icons/CollisionLogos/collisionvisionlogo_square_44.png
     2031816: Assets/Art 1/Icons/CollisionLogos/collisionvisionlogo_square_88x88.png
     2097252: Assets/Art 1/Icons/CollisionLogos/collisionvisionlogo_square_71x71.png
@@ -782,7 +785,7 @@ PlayerSettings:
   metroLastRequiredScene: 0
   metroDefaultTileSize: 1
   metroTileForegroundText: 2
-  metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 0}
+  metroTileBackgroundColor: {r: 0.2784314, g: 0.2784314, b: 0.2784314, a: 0}
   metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628, a: 1}
   metroSplashScreenUseBackgroundColor: 0
   platformCapabilities:
