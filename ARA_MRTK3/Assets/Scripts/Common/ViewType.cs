@@ -11,6 +11,7 @@ namespace Assets.Scripts.Common
         JobList = 1,
         TaskList,
         TaskDetails,
-        StepDetails
+        StepDetails,
+        Gallery
     }
 }
