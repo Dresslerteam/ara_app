@@ -61,6 +61,10 @@ namespace Ara.Domain.JobManagement
                 return Result<object>.Failed(ErrorCode.StepPhotoRequired);
             }
             step.IsCompleted = true;
+            if (task.Status == TaskStatus.ToDo)
+            {
+                task.Status = TaskStatus.InProgress;
+            }
             return Result<object>.Ok(null);
         }
 

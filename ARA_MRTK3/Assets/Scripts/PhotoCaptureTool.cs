@@ -12,6 +12,7 @@ using UnityEngine.Serialization;
 using UnityEngine.Windows.WebCam;
 using System.IO;
 using static UnityEngine.Windows.WebCam.PhotoCapture;
+using Assets.Scripts.Common;
 
 public class PhotoCaptureTool : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class PhotoCaptureTool : MonoBehaviour
     private StepDisplay currentStepDisplay;
     private Texture2D _latestPhotoTexture;
     private bool _isPhotoModeActive;
+
+    public PhotoModeTypes CurrentPhotoMode = PhotoModeTypes.JobPhoto;
     public static PhotoCaptureTool Instance
     {
         get
@@ -156,6 +159,15 @@ public class PhotoCaptureTool : MonoBehaviour
         TakePhotoButton.SetActive(true);
     }
 
+    public void ActivatePhotoModeFromPhotoRequiredModal()
+    {
+        MainMenuManager.Instance.SetToPhotoMode();
+        MainMenuManager.Instance.workingHUDManager.photoRequiredModal.SetActive(false);
+        if (photoPreviewMenu != null)
+            photoPreviewMenu.SetActive(false);
+        TakePhotoButton.SetActive(true);
+    }
+
     public void SnapPhoto()
     {
         if (!isTakingPhoto)
@@ -252,8 +264,8 @@ public class PhotoCaptureTool : MonoBehaviour
         MainMenuManager.Instance.photoCaptureTool.gameObject.SetActive(false);
         MainMenuManager.Instance.SetWorkingView();
         MainMenuManager.Instance.stepsPage.SetActive(true);
-
-        if (MainMenuManager.Instance.CurrentViewContext == Assets.Scripts.Common.ViewType.StepDetails)
+        Debug.Log($"CloseAndComplete {CurrentPhotoMode}");
+        if (CurrentPhotoMode == PhotoModeTypes.StepPhoto)
         {
             MainMenuManager.Instance.workingHUDManager.CompleteStepAndMoveToNext(currentStep, currentManual, currentStepDisplay);
             Debug.Log($"CompleteStepAndMoveToNext called step:{currentStep.Id}, manual:{currentManual.Id}");

@@ -348,7 +348,19 @@ public class MainMenuManager : MonoBehaviour
         ToggleAllMenus(false);
         workingHUDManager.gameObject.SetActive(true);
         if (photoCaptureTool != null)
+        {
+            switch (currentMenuPage)
+            {
+                case MenuPage.taskSelect:
+                    photoCaptureTool.CurrentPhotoMode = PhotoModeTypes.JobPhoto;
+                    break;
+                case MenuPage.performingJob:
+                    photoCaptureTool.CurrentPhotoMode = PhotoModeTypes.StepPhoto;
+                    break;
+                default: break;
+            }
             photoCaptureTool.gameObject.SetActive(true);
+        }
     }
 
     public void SetToGalleryView()

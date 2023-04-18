@@ -36,7 +36,7 @@ public class WorkingHUDManager : MonoBehaviour
     [SerializeField] private PressableButton procedureButton;
     [SerializeField] private Transform buttonsRoot;
     [SerializeField] private PressableButton completeButton;
-    [SerializeField] private GameObject photoRequiredModal;
+    [SerializeField] public GameObject photoRequiredModal;
     [SerializeField][AssetsOnly] private PressableButton cautionPdfButtonPrefab;
     [SerializeField][AssetsOnly] private PressableButton oemPdfButtonPrefab;
     public GameObject takePicture;
@@ -329,11 +329,6 @@ public class WorkingHUDManager : MonoBehaviour
             var stepButton = newStepDisplay.GetComponent<PressableButton>();
             stepButton.ForceSetToggled(true, true);
         }
-    }
-
-    public void AdvanceToNextStep(Result<(int RepairManualId, ManualStep Step)> idk)
-    {
-
     }
 
     public void SelectStep(ManualStep step, RepairManual repairManual, TaskInfo task, StepDisplay stepDisplay)
