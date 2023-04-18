@@ -344,7 +344,6 @@ public class WorkingHUDManager : MonoBehaviour
         
         preStepSelectionVisuals.SetActive(false);
         selectedStepVisualRoot.SetActive(true);
-        MainMenuManager.Instance.SetupViewContext(ViewType.StepDetails);
         
         OnStepSelected?.Invoke(step, repairManual, stepDisplay);
     }

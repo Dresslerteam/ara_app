@@ -70,8 +70,10 @@ public class PhotoCaptureTool : MonoBehaviour
     private void OnEnable()
     {
         Debug.Log("<color=green>Photo ENABLE</color>");
+
         WorkingHUDManager.OnStepSelected -= OnStepSelected;
         WorkingHUDManager.OnStepSelected += OnStepSelected;
+
     }
 
     private void OnDisable()
@@ -272,6 +274,31 @@ public class PhotoCaptureTool : MonoBehaviour
         }
 
         Debug.Log($"Close and Complete was called on PhotoCaptureTool");
+    }
+
+    public void Close()
+    {
+        MainMenuManager.Instance.SetWorkingView();
+        //MainMenuManager.Instance.headerManager?.cameraHeaderManager?.gameObject?.SetActive(false);
+        //MainMenuManager.Instance.workingHUDManager.takePicture.SetActive(false);
+        //MainMenuManager.Instance.workingHUDManager?.CameraSaverBanner?.SetActive(false);
+        //MainMenuManager.Instance.photoCaptureTool.gameObject.SetActive(false);
+        //MainMenuManager.Instance.SetWorkingView();
+        //MainMenuManager.Instance.stepsPage.SetActive(true);
+        //Debug.Log($"CloseAndComplete {CurrentPhotoMode}");
+        //if (CurrentPhotoMode == PhotoModeTypes.StepPhoto)
+        //{
+        //    MainMenuManager.Instance.workingHUDManager.CompleteStepAndMoveToNext(currentStep, currentManual, currentStepDisplay);
+        //    Debug.Log($"CompleteStepAndMoveToNext called step:{currentStep.Id}, manual:{currentManual.Id}");
+        //}
+
+        //Debug.Log($"Close and Complete was called on PhotoCaptureTool");
+    }
+
+    public void SetCurrentPhotoMode(PhotoModeTypes photoMode)
+    {
+        CurrentPhotoMode = photoMode;
+        MainMenuManager.Instance.headerManager?.cameraHeaderManager?.SetCurrentPhotoMode(photoMode);
     }
 
 }

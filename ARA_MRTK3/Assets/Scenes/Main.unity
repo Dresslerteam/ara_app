@@ -5024,7 +5024,7 @@ MonoBehaviour:
   stepsPage: {fileID: 1011235908}
   galleryPage: {fileID: 1259264725}
   photoCaptureTool: {fileID: 5231479465862629173}
-  headerManager: {fileID: 0}
+  headerManager: {fileID: 587569286}
   pdfLoader: {fileID: 102121962}
   modelOverviewGO: {fileID: 219340743}
   modelOveriewCallOuts: {fileID: 1536294065}
@@ -12382,7 +12382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CloseAndComplete
+      value: Close
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -49647,6 +49647,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   galleryButton: {fileID: 1407281564}
   closeAndCompleteButton: {fileID: 611283634}
+  closeButton: {fileID: 0}
+  currentPhotoMode: 0
 --- !u!1 &1937356408
 GameObject:
   m_ObjectHideFlags: 0

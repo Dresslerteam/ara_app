@@ -67,7 +67,6 @@ public class MainMenuManager : MonoBehaviour
 
     private List<MenuPage> _previousPages = new List<MenuPage>();
 
-    public ViewType CurrentViewContext { get; private set; }
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -266,7 +265,6 @@ public class MainMenuManager : MonoBehaviour
             if (!stepsPage.activeSelf)
                 stepsPage.SetActive(true);
             workingHUDManager.PopulateTaskGroups(job);
-            MainMenuManager.Instance.SetupViewContext(ViewType.TaskDetails);
         }
     }
 
@@ -349,14 +347,15 @@ public class MainMenuManager : MonoBehaviour
         workingHUDManager.gameObject.SetActive(true);
         if (photoCaptureTool != null)
         {
-            Debug.Log($"<color=red>photoCaptureTool is null</color>");
-            switch (_previousPages.LastOrDefault(p => p != MenuPage.takingPhoto && p != MenuPage.gallery))
+            Debug.Log($"<color=red>photoCaptureTool is not null</color>");
+            var lastContentPage = _previousPages.LastOrDefault(p => p != MenuPage.takingPhoto && p != MenuPage.gallery);
+            switch (lastContentPage)
             {
                 case MenuPage.taskSelect:
-                    photoCaptureTool.CurrentPhotoMode = PhotoModeTypes.JobPhoto;
+                    photoCaptureTool.SetCurrentPhotoMode(PhotoModeTypes.JobPhoto);
                     break;
                 case MenuPage.performingJob:
-                    photoCaptureTool.CurrentPhotoMode = PhotoModeTypes.StepPhoto;
+                    photoCaptureTool.SetCurrentPhotoMode(PhotoModeTypes.StepPhoto);
                     break;
                 default: break;
             }
@@ -380,11 +379,6 @@ public class MainMenuManager : MonoBehaviour
         modelOveriewCallOuts.SetActive(true);
     }
 
-    public void SetupViewContext(ViewType viewType)
-    {
-        CurrentViewContext = viewType;
-        Debug.Log($"Current View Context is: {viewType.ToString()}");
-    }
 
     public void SetCurrentPage(MenuPage menuPage)
     {
