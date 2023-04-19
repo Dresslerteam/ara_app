@@ -202,7 +202,11 @@ public class MainMenuManager : MonoBehaviour
             PressableButton taskDisplayInteractable = taskDisplay.taskButton;
             taskDisplayInteractable.OnClicked.AddListener(AddTaskToButton(jobTask));
             //taskDisplayInteractable.interactable = jobTask.Status != Task.TaskStatus.Completed;
-            taskDisplay.UpdateDisplayInformation(jobTask.Id, jobTask.Title, jobTask.Status);
+            taskDisplay.UpdateDisplayInformation(jobTask.Id, jobTask.Title, jobTask.Status, jobTask.TotalNumberOfPhotos);
+            taskDisplay.galleryButton.OnClicked.AddListener(() =>
+            {
+                SetToGalleryViewFromTaskList();
+            });
             await Task.Yield();
         }
         estimationButton.ForceSetToggled(false);
@@ -376,6 +380,18 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void SetToGalleryViewFromJobList()
+    {
+        SetCurrentPage(MenuPage.gallery);
+        ToggleAllMenus(false);
+        taskOverview.SetActive(true);
+        stepsPage.SetActive(false);
+        galleryPage.SetActive(true);
+        workingHUDManager.CameraSaverBanner.SetActive(false);
+        workingHUDManager.takePicture.SetActive(false);
+
+    }
+
+    public void SetToGalleryViewFromTaskList()
     {
         SetCurrentPage(MenuPage.gallery);
         ToggleAllMenus(false);
