@@ -171,6 +171,15 @@ public class WorkingHUDManager : MonoBehaviour
             }
 
         }
+        else
+        {
+            // If there are buttons, clear them
+            foreach (Transform child in buttonsRoot)
+            {
+                Destroy(child.gameObject);
+            }
+            manualButtonCollection.Toggles.Clear();
+        }
 
     }
 
