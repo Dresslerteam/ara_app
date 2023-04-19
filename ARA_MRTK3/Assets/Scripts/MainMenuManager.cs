@@ -57,7 +57,7 @@ public class MainMenuManager : MonoBehaviour
     private static MainMenuManager _instance;
     public static MainMenuManager Instance { get { return _instance; } }
 
-    public static Action<MenuPage> OnMenuPageChanged;
+    public static Action<MenuPage, MenuPage> OnMenuPageChanged;
 
     public MenuPage currentMenuPage = MenuPage.splashScreen;
     public Job currentJob;
@@ -375,6 +375,19 @@ public class MainMenuManager : MonoBehaviour
 
     }
 
+    public void SetToGalleryViewFromJobList()
+    {
+        SetCurrentPage(MenuPage.gallery);
+        ToggleAllMenus(false);
+        taskOverview.SetActive(true);
+        stepsPage.SetActive(false);
+        galleryPage.SetActive(true);
+        workingHUDManager.CameraSaverBanner.SetActive(false);
+        workingHUDManager.takePicture.SetActive(false);
+
+    }
+
+
     public void ReturnToModelOverview()
     {
         ToggleAllMenus(false);
@@ -387,7 +400,8 @@ public class MainMenuManager : MonoBehaviour
     {
         _previousPages.Add(currentMenuPage);
         currentMenuPage = menuPage;
-        OnMenuPageChanged?.Invoke(menuPage);
+        var lastContentPage = _previousPages.LastOrDefault(p => p != MenuPage.takingPhoto && p != MenuPage.gallery);
+        OnMenuPageChanged?.Invoke(menuPage, lastContentPage);
     }
 
     public void CloseGallery()
