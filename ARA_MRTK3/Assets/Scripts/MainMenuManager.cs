@@ -370,6 +370,9 @@ public class MainMenuManager : MonoBehaviour
         taskOverview.SetActive(true);
         stepsPage.SetActive(false);
         galleryPage.SetActive(true);
+        workingHUDManager.CameraSaverBanner.SetActive(false);
+        workingHUDManager.takePicture.SetActive(false);
+
     }
 
     public void ReturnToModelOverview()
@@ -385,6 +388,30 @@ public class MainMenuManager : MonoBehaviour
         _previousPages.Add(currentMenuPage);
         currentMenuPage = menuPage;
         OnMenuPageChanged?.Invoke(menuPage);
+    }
+
+    public void CloseGallery()
+    {
+        galleryPage.SetActive(false);
+        workingHUDManager.CameraSaverBanner.SetActive(false);
+        workingHUDManager.takePicture.SetActive(false);
+
+        var lastContentPage = _previousPages.LastOrDefault(p => p != MenuPage.takingPhoto && p != MenuPage.gallery);
+        switch (lastContentPage)
+        {
+            case MenuPage.taskSelect:
+                ReturnToTaskList();
+                break;
+            case MenuPage.performingJob:
+                SetWorkingView();
+                stepsPage.SetActive(true);
+                break;
+            case MenuPage.jobSelectScreen:
+                ReturnToMenu();
+                break;
+
+            default: break;
+        }
     }
 
 
