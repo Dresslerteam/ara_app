@@ -32,11 +32,12 @@ public class WorkingHUDManager : MonoBehaviour
     [SerializeField] private GameObject selectedStepVisualRoot;
     [SerializeField] private RawImage stepImageVisual;
     [SerializeField] private GameObject preStepSelectionVisuals;
+    [SerializeField] public GameObject sideTab;
     [Header("Buttons")]
     [SerializeField] private PressableButton procedureButton;
     [SerializeField] private Transform buttonsRoot;
     [SerializeField] private PressableButton completeButton;
-    [SerializeField] private GameObject photoRequiredModal;
+    [SerializeField] public GameObject photoRequiredModal;
     [SerializeField][AssetsOnly] private PressableButton cautionPdfButtonPrefab;
     [SerializeField][AssetsOnly] private PressableButton oemPdfButtonPrefab;
     public GameObject takePicture;
@@ -122,6 +123,7 @@ public class WorkingHUDManager : MonoBehaviour
         }
         preStepSelectionVisuals.SetActive(true);
         selectedStepVisualRoot.SetActive(false);
+        sideTab.gameObject.SetActive(false);
         StartCoroutine(DisableTheGroupsOverride());
     }
 
@@ -168,6 +170,15 @@ public class WorkingHUDManager : MonoBehaviour
 
             }
 
+        }
+        else
+        {
+            // If there are buttons, clear them
+            foreach (Transform child in buttonsRoot)
+            {
+                Destroy(child.gameObject);
+            }
+            manualButtonCollection.Toggles.Clear();
         }
 
     }
@@ -331,11 +342,6 @@ public class WorkingHUDManager : MonoBehaviour
         }
     }
 
-    public void AdvanceToNextStep(Result<(int RepairManualId, ManualStep Step)> idk)
-    {
-
-    }
-
     public void SelectStep(ManualStep step, RepairManual repairManual, TaskInfo task, StepDisplay stepDisplay)
     {
         var imageURL = "";
@@ -349,8 +355,7 @@ public class WorkingHUDManager : MonoBehaviour
         
         preStepSelectionVisuals.SetActive(false);
         selectedStepVisualRoot.SetActive(true);
-        MainMenuManager.Instance.SetupViewContext(ViewType.StepDetails);
-        
+        sideTab.gameObject.SetActive(true);
         OnStepSelected?.Invoke(step, repairManual, stepDisplay);
     }
 

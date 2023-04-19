@@ -12,6 +12,7 @@ using UnityEngine.Serialization;
 using UnityEngine.Windows.WebCam;
 using System.IO;
 using static UnityEngine.Windows.WebCam.PhotoCapture;
+using Assets.Scripts.Common;
 
 public class PhotoCaptureTool : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class PhotoCaptureTool : MonoBehaviour
     private StepDisplay currentStepDisplay;
     private Texture2D _latestPhotoTexture;
     private bool _isPhotoModeActive;
+
+    public PhotoModeTypes CurrentPhotoMode = PhotoModeTypes.JobPhoto;
     public static PhotoCaptureTool Instance
     {
         get
@@ -66,8 +69,11 @@ public class PhotoCaptureTool : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("<color=green>Photo ENABLE</color>");
+
         WorkingHUDManager.OnStepSelected -= OnStepSelected;
         WorkingHUDManager.OnStepSelected += OnStepSelected;
+
     }
 
     private void OnDisable()
@@ -85,7 +91,6 @@ public class PhotoCaptureTool : MonoBehaviour
 
     private void OnStepSelected(ManualStep step, RepairManual repairManual, StepDisplay selectedStepDisplay)
     {
-        Debug.Log("<color=green>OnStepSelected</color>");
         currentStep = step;
         currentManual = repairManual;
         currentStepDisplay = selectedStepDisplay;
@@ -151,6 +156,15 @@ public class PhotoCaptureTool : MonoBehaviour
     public void ActivatePhotoMode()
     {
         MainMenuManager.Instance.SetToPhotoMode();
+        if (photoPreviewMenu != null)
+            photoPreviewMenu.SetActive(false);
+        TakePhotoButton.SetActive(true);
+    }
+
+    public void ActivatePhotoModeFromPhotoRequiredModal()
+    {
+        MainMenuManager.Instance.SetToPhotoMode();
+        MainMenuManager.Instance.workingHUDManager.photoRequiredModal.SetActive(false);
         if (photoPreviewMenu != null)
             photoPreviewMenu.SetActive(false);
         TakePhotoButton.SetActive(true);
@@ -236,30 +250,86 @@ public class PhotoCaptureTool : MonoBehaviour
         File.WriteAllBytes(pendingFile, jpgBytes);
         Debug.Log("Saving File Completed");
 
-        MainMenuManager.Instance.currentJob.AssignPhotoToStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
-            currentStep.Id,
-            pendingFile,
-            labelType);
+        switch (CurrentPhotoMode)
+        {
+            case PhotoModeTypes.StepPhoto:
+                MainMenuManager.Instance.currentJob.AssignPhotoToStep((MainMenuManager.Instance.selectedTaskInfo.Id), currentManual.Id,
+                    currentStep.Id,
+                    pendingFile,
+                    labelType);
+                break;
+            case PhotoModeTypes.TaskPhoto:
+                MainMenuManager.Instance.currentJob.AssignPhotoToTask((MainMenuManager.Instance.selectedTaskInfo.Id),
+                    pendingFile,
+                    labelType);
+                break;
+            case PhotoModeTypes.JobPhoto:
+                MainMenuManager.Instance.currentJob.AssignPhotoToJob(
+                    pendingFile,
+                    labelType);
+                break;
+
+        }
+
 
         DeactivateMenus();
     }
 
     public void CloseAndComplete()
     {
-        MainMenuManager.Instance.headerManager?.cameraHeader?.SetActive(false);
+        MainMenuManager.Instance.headerManager?.cameraHeaderManager?.gameObject?.SetActive(false);
         MainMenuManager.Instance.workingHUDManager.takePicture.SetActive(false);
         MainMenuManager.Instance.workingHUDManager?.CameraSaverBanner?.SetActive(false);
         MainMenuManager.Instance.photoCaptureTool.gameObject.SetActive(false);
         MainMenuManager.Instance.SetWorkingView();
         MainMenuManager.Instance.stepsPage.SetActive(true);
-
-        if (MainMenuManager.Instance.CurrentViewContext == Assets.Scripts.Common.ViewType.StepDetails)
+        Debug.Log($"CloseAndComplete {CurrentPhotoMode}");
+        if (CurrentPhotoMode == PhotoModeTypes.StepPhoto)
         {
             MainMenuManager.Instance.workingHUDManager.CompleteStepAndMoveToNext(currentStep, currentManual, currentStepDisplay);
             Debug.Log($"CompleteStepAndMoveToNext called step:{currentStep.Id}, manual:{currentManual.Id}");
         }
 
         Debug.Log($"Close and Complete was called on PhotoCaptureTool");
+    }
+
+    public void Close()
+    {
+        Debug.Log($"<color=red>CurrentPhotoMode {CurrentPhotoMode}</color>");
+        switch (CurrentPhotoMode)
+        {
+            case PhotoModeTypes.StepPhoto:
+                MainMenuManager.Instance.SetWorkingView();
+                break;
+            case PhotoModeTypes.TaskPhoto:
+                MainMenuManager.Instance.ReturnToTaskList();
+                break;
+            case PhotoModeTypes.JobPhoto:
+                MainMenuManager.Instance.ReturnToTaskList();
+                break;
+
+
+        }
+        //MainMenuManager.Instance.headerManager?.cameraHeaderManager?.gameObject?.SetActive(false);
+        //MainMenuManager.Instance.workingHUDManager.takePicture.SetActive(false);
+        //MainMenuManager.Instance.workingHUDManager?.CameraSaverBanner?.SetActive(false);
+        //MainMenuManager.Instance.photoCaptureTool.gameObject.SetActive(false);
+        //MainMenuManager.Instance.SetWorkingView();
+        //MainMenuManager.Instance.stepsPage.SetActive(true);
+        //Debug.Log($"CloseAndComplete {CurrentPhotoMode}");
+        //if (CurrentPhotoMode == PhotoModeTypes.StepPhoto)
+        //{
+        //    MainMenuManager.Instance.workingHUDManager.CompleteStepAndMoveToNext(currentStep, currentManual, currentStepDisplay);
+        //    Debug.Log($"CompleteStepAndMoveToNext called step:{currentStep.Id}, manual:{currentManual.Id}");
+        //}
+
+        //Debug.Log($"Close and Complete was called on PhotoCaptureTool");
+    }
+
+    public void SetCurrentPhotoMode(PhotoModeTypes photoMode)
+    {
+        CurrentPhotoMode = photoMode;
+        MainMenuManager.Instance.headerManager?.cameraHeaderManager?.SetCurrentPhotoMode(photoMode);
     }
 
 }

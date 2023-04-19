@@ -61,6 +61,10 @@ namespace Ara.Domain.JobManagement
                 return Result<object>.Failed(ErrorCode.StepPhotoRequired);
             }
             step.IsCompleted = true;
+            if (task.Status == TaskStatus.ToDo)
+            {
+                task.Status = TaskStatus.InProgress;
+            }
             return Result<object>.Ok(null);
         }
 
@@ -105,6 +109,24 @@ namespace Ara.Domain.JobManagement
                 step.Photos = new List<Photo>();
 
             step.Photos.Add(new Photo() { Url = photoUrl, CreatedOn = DateTime.Now, Label = label, TaskId = taskId, StepId = stepId, TaskName = task.Title, StepName = step.Title, RepairManualId = repairManualId, RepairManualName = repManual.Name });
+        }
+
+        public void AssignPhotoToTask(int taskId, string photoUrl, PhotoLabelType label)
+        {
+            var task = this.Tasks.FirstOrDefault(t => t.Id == taskId);
+
+            if (task.Photos == null)
+                task.Photos = new List<Photo>();
+
+            task.Photos.Add(new Photo() { Url = photoUrl, CreatedOn = DateTime.Now, Label = label, TaskId = taskId, StepId = null, TaskName = task.Title, StepName = null, RepairManualId = null, RepairManualName = null });
+        }
+
+        public void AssignPhotoToJob(string photoUrl, PhotoLabelType label)
+        {
+            if (this.Photos == null)
+                this.Photos = new List<Photo>();
+
+            this.Photos.Add(new Photo() { Url = photoUrl, CreatedOn = DateTime.Now, Label = label, TaskId = null, StepId = null, TaskName = null, StepName = null, RepairManualId = null, RepairManualName = null });
         }
 
         private void updateJobStatus()

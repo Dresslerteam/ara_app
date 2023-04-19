@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Common
 {
-    public enum ViewType
+    public enum PhotoModeTypes
     {
-        JobList = 1,
-        TaskList,
-        TaskDetails,
-        StepDetails,
-        Gallery
+        JobPhoto,
+        TaskPhoto,
+        StepPhoto
     }
 }
