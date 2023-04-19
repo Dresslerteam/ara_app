@@ -38143,6 +38143,7 @@ MonoBehaviour:
   selectedStepVisualRoot: {fileID: 379947869}
   stepImageVisual: {fileID: 67519676}
   preStepSelectionVisuals: {fileID: 1812800707}
+  sideTab: {fileID: 215319346}
   procedureButton: {fileID: 1971507898}
   buttonsRoot: {fileID: 463199161}
   completeButton: {fileID: 2017980695}

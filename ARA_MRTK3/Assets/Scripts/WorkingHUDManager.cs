@@ -32,6 +32,7 @@ public class WorkingHUDManager : MonoBehaviour
     [SerializeField] private GameObject selectedStepVisualRoot;
     [SerializeField] private RawImage stepImageVisual;
     [SerializeField] private GameObject preStepSelectionVisuals;
+    [SerializeField] public GameObject sideTab;
     [Header("Buttons")]
     [SerializeField] private PressableButton procedureButton;
     [SerializeField] private Transform buttonsRoot;
@@ -122,6 +123,7 @@ public class WorkingHUDManager : MonoBehaviour
         }
         preStepSelectionVisuals.SetActive(true);
         selectedStepVisualRoot.SetActive(false);
+        sideTab.SetActive(false);
         StartCoroutine(DisableTheGroupsOverride());
     }
 
@@ -344,7 +346,7 @@ public class WorkingHUDManager : MonoBehaviour
         
         preStepSelectionVisuals.SetActive(false);
         selectedStepVisualRoot.SetActive(true);
-        
+        sideTab.SetActive(true);
         OnStepSelected?.Invoke(step, repairManual, stepDisplay);
     }
 
