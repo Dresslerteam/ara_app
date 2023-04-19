@@ -18,15 +18,16 @@ namespace Ara.Domain.ApiClients.Dtos
             Status = job.Status;
             NumberOfTasks = job.NumberOfTasks;
             NumberOfDoneTasks = job.NumberOfDoneTasks;
-            PreliminaryEstimation= job.PreliminaryEstimation;
+            PreliminaryEstimation = job.PreliminaryEstimation;
             PreliminaryScan = job.PreliminaryScan;
             CarInfo = new CarDto()
             {
                 Vin = job.Car.Vin,
-                Manufacturer= job.Car.Manufacturer,
-                Model= job.Car.Model,
+                Manufacturer = job.Car.Manufacturer,
+                Model = job.Car.Model,
                 Year = job.Car.Year
             };
+            TotalNumberOfPhotos = job.TotalNumberOfPhotos;
 
         }
 
@@ -41,6 +42,7 @@ namespace Ara.Domain.ApiClients.Dtos
         public PdfDoc PreliminaryEstimation { get; set; }
         public PdfDoc PreliminaryScan { get; set; }
         public CarDto CarInfo { get; set; }
+        public int TotalNumberOfPhotos { get; set; }
 
         public class CarDto
         {

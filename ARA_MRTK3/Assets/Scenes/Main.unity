@@ -11669,6 +11669,10 @@ PrefabInstance:
       propertyPath: galleryButton
       value: 
       objectReference: {fileID: 1139136050}
+    - target: {fileID: 8520123610344147684, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
+      propertyPath: galleryPhotoCount
+      value: 
+      objectReference: {fileID: 1433458093}
     - target: {fileID: 8520123610344147685, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
       propertyPath: m_Name
       value: JobRow_Prefab
@@ -41166,6 +41170,17 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1433458093 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8520123611381750115, guid: e946b909dbb85445ba97a8ea0275d461, type: 3}
+  m_PrefabInstance: {fileID: 383100023}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1436146121
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,6 +26,7 @@ namespace Ara.Domain.JobManagement
         public PdfDoc PreliminaryScan { get; set; }
         public List<Photo> Photos { get; set; } = new List<Photo>();
 
+        public int TotalNumberOfPhotos => Tasks.Sum(t => t.TotalNumberOfPhotos) + Photos.Count();
         public List<Photo> GetAllPhotos()
         {
             var photos = Tasks != null ? Tasks.Select(t => t.GetAllPhotos()).SelectMany(p => p).ToList() : new List<Photo>();

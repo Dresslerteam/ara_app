@@ -19,6 +19,7 @@ namespace Ara.Domain.JobManagement
         public TaskStatus Status { get; set; }
         public List<Photo> Photos { get; set; } = new List<Photo>();
 
+        public int TotalNumberOfPhotos => GetAllPhotos().Count;
         public List<Photo> GetAllPhotos()
         {
             var taskPhotos = new List<Photo>();

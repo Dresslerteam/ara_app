@@ -27,6 +27,7 @@ public class JobDisplay : MonoBehaviour
     public PressableButton galleryButton;
     [SerializeField] private Image progressBar;
     private ToggleCollection toggleCollection;
+    [SerializeField] private TextMeshProUGUI galleryPhotoCount;
     //[SerializeField] private Color incompleteColor = Color.gray;
     //[SerializeField] private Color completeColor = Color.green;
 
@@ -40,6 +41,7 @@ public class JobDisplay : MonoBehaviour
         writtenByText.text = author;
         vehicleTitleText.text = title;
         vinText.text = vin;
+        galleryPhotoCount.text = availableJobListItem != null ? availableJobListItem.TotalNumberOfPhotos.ToString() : "0";
         if (completenessText != null)
             completenessText.text = complete != "100%" ? complete : "Done"; //Todo: enum of Todo, working on, blocked, done
         if (progressBar != null)
