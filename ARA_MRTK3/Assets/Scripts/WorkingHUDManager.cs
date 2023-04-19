@@ -123,7 +123,7 @@ public class WorkingHUDManager : MonoBehaviour
         }
         preStepSelectionVisuals.SetActive(true);
         selectedStepVisualRoot.SetActive(false);
-        //sideTab.gameObject.SetActive(false);
+        sideTab.gameObject.SetActive(false);
         StartCoroutine(DisableTheGroupsOverride());
     }
 
@@ -355,9 +355,7 @@ public class WorkingHUDManager : MonoBehaviour
         
         preStepSelectionVisuals.SetActive(false);
         selectedStepVisualRoot.SetActive(true);
-        //sideTab.gameObject.SetActive(true);
-        ////completeButton.gameObject.SetActive(true);
-        ////procedureButton.gameObject.SetActive(true);
+        sideTab.gameObject.SetActive(true);
         OnStepSelected?.Invoke(step, repairManual, stepDisplay);
     }
 
