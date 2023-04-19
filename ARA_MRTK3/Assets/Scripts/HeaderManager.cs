@@ -37,7 +37,7 @@ public class HeaderManager : MonoBehaviour
         pdfEstimationButton.ForceSetToggled(false);
     }
 
-    public void UpdateButton(MenuPage selectedPage)
+    public void UpdateButton(MenuPage selectedPage, MenuPage parentMenuPage)
     {
         switch (selectedPage)
         {
@@ -132,17 +132,26 @@ public class HeaderManager : MonoBehaviour
                 cameraHeaderManager?.gameObject.SetActive(true);
                 break;
             case MenuPage.gallery:
-                jobsButton?.SetActive(true);
-                tasksButton.gameObject.SetActive(true);
-                tasksButton.ForceSetToggled(true,true);
-                hideButton?.SetActive(true);
-                logoutButton?.SetActive(false);
-                scanDocButton?.gameObject.SetActive(true);
-                pdfEstimationButton?.gameObject.SetActive(true);
-                modelButton?.SetActive(true);
-                menuTitleWithUserTexts?.SetActive(false);
-                jobinformationTexts.SetActive(true);
-                cameraHeaderManager?.gameObject.SetActive(false);
+                {
+                    if (parentMenuPage == MenuPage.jobSelectScreen)
+                    {
+
+                    }
+                    else
+                    {
+                        jobsButton?.SetActive(true);
+                        tasksButton.gameObject.SetActive(true);
+                        tasksButton.ForceSetToggled(true, true);
+                        hideButton?.SetActive(true);
+                        logoutButton?.SetActive(false);
+                        scanDocButton?.gameObject.SetActive(true);
+                        pdfEstimationButton?.gameObject.SetActive(true);
+                        modelButton?.SetActive(true);
+                        menuTitleWithUserTexts?.SetActive(false);
+                        jobinformationTexts.SetActive(true);
+                        cameraHeaderManager?.gameObject.SetActive(false);
+                    }
+                }
 
                 break;
             default:

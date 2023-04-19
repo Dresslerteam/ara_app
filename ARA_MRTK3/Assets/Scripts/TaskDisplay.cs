@@ -6,6 +6,7 @@ using Ara.Domain.JobManagement;
 using Microsoft.MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -14,18 +15,21 @@ public class TaskDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI stepNumberText;
 
     [SerializeField] private TextMeshProUGUI taskTitleText;
-    
+
     [SerializeField] private TextMeshProUGUI statusText;
-    
+    [SerializeField] public PressableButton galleryButton;
+    [SerializeField] private TextMeshProUGUI galleryPhotoCount;
+
     public PressableButton taskButton;
     private int taskId;
-    public void UpdateDisplayInformation(int number, string title, TaskInfo.TaskStatus status)
+    public void UpdateDisplayInformation(int number, string title, TaskInfo.TaskStatus status, int numberOfPhotos)
     {
         taskId = number;
         stepNumberText.text = number.ToString();
         taskTitleText.text = title;
+        galleryPhotoCount.text = numberOfPhotos.ToString();
         Debug.Log("Status is: " + status);
-        if(status==0)
+        if (status == 0)
             return;
         statusText.text = status switch
         {
