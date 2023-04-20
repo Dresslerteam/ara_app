@@ -349,7 +349,7 @@ public class WorkingHUDManager : MonoBehaviour
             imageURL = "Photos/" + step.Image.Url;
         UpdateVisual(step.Title, imageURL);
         MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(
-            MainMenuManager.Instance.selectedJobListItem, task);
+            MainMenuManager.Instance.selectedJobListItem, task, repairManual);
         EnableCameraIcon(step, repairManual, stepDisplay);
         UpdateFileButtons(step);
         
