@@ -32,8 +32,8 @@ public class PhotoGallery : MonoBehaviour
         if (_defaultGalleryPreviewPhoto == null)
         {
             GalleryPreviewPhoto.image.texture = null;
-            string assetPath = "Assets/Art 1/Icons/CollisionLogo.png";
-            _defaultGalleryPreviewPhoto = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
+            string assetPath = "CollisionLogo";
+            _defaultGalleryPreviewPhoto = Resources.Load<Texture2D>(assetPath);
         }
         Photo.OnPhotoClicked += DisplayCurrentlySelectedPhoto;
         LoadSavedPictures();
