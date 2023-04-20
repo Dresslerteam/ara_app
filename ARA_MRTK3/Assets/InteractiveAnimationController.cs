@@ -32,9 +32,15 @@ public class InteractiveAnimationController : MonoBehaviour
         animator.enabled = false;
 
         if (nextButton != null)
-            nextButton.OnClicked.AddListener(() => slider.Value += 1f / keyframes.Count);
+            nextButton.OnClicked.AddListener(() => UpdateSliderValue(1f / keyframes.Count));
         if (previousButton != null)
-            previousButton.OnClicked.AddListener(() => slider.Value -= 1f / keyframes.Count);
+            previousButton.OnClicked.AddListener(() => UpdateSliderValue(-1f / keyframes.Count));
+
+    }
+    
+    private void UpdateSliderValue(float increment)
+    {
+        slider.Value = Mathf.Clamp(slider.Value + increment, slider.MinValue, slider.MaxValue);
     }
 
     public void AdvanceViaSlider(SliderEventData sliderEventData)
