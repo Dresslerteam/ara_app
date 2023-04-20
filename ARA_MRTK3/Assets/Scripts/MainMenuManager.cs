@@ -182,7 +182,7 @@ public class MainMenuManager : MonoBehaviour
     public async void AdvanceToTaskList(JobListItemDto chosenJob)
     {
         Debug.Log($"Advancing to task list for job: {chosenJob.Id}");
-
+        mainMenuAesthetic.UpdateTaskDisplay(chosenJob);
         selectedJobListItem = chosenJob;
         ToggleAllMenus(false);
         ClearChildrenButtons(taskSelectionRoot);
