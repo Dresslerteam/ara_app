@@ -332,6 +332,7 @@ public class WorkingHUDManager : MonoBehaviour
                 step.IsCompleted = false;
                 unCompleteButton.gameObject.SetActive(false);
                 completeButton.gameObject.SetActive(true);
+                stepDisplay.UnCompleteStep();
             }
 
         });
