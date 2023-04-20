@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.JobManagement;
+using Ara.Domain.RepairManualManagement;
 using ARA.Frontend;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -35,17 +36,17 @@ public class MainMenuAesthetic : MonoBehaviour
             _logInMenu = FindObjectOfType<LogInMenu>();
         }
         LogInMenu.OnAccountSelected += UpdateEstimatorName;
-        if(dateDisplay!=null)
+        if (dateDisplay != null)
             UpdateDateDisplay();
     }
 
     private void UpdateEstimatorName()
     {
-        if(currentUserText!=null)
+        if (currentUserText != null)
             currentUserText.text = _logInMenu.estimatorName;
         if (menuTitleText != null)
         {
-            if(MainMenuManager.Instance.currentMenuPage == MenuPage.jobSelectScreen)
+            if (MainMenuManager.Instance.currentMenuPage == MenuPage.jobSelectScreen)
                 menuTitleText.text = "Jobs list";
             if (MainMenuManager.Instance.currentMenuPage == MenuPage.taskSelect)
                 menuTitleText.text = "Tasks list";
@@ -62,10 +63,11 @@ public class MainMenuAesthetic : MonoBehaviour
                             "/" +
                             DateTime.Now.Year);
     }
-    public void UpdateTaskDisplay(JobListItemDto chosenJob, TaskInfo task)
+    public void UpdateTaskDisplay(JobListItemDto chosenJob, TaskInfo task, RepairManual repairManual = null)
     {
         vehicleInformationText.text = $"Job#: {chosenJob.Id} , {chosenJob.CarInfo.Manufacturer} {chosenJob.CarInfo.Model} {chosenJob.CarInfo.Year} , VIN: {chosenJob.CarInfo.Vin}";
         taskTitle.text = task.Title;
-        folderTitle.text = task.RepairManuals[0].Name;
+        folderTitle.text = repairManual == null ? task.RepairManuals[0].Name : repairManual.Name;
+
     }
 }

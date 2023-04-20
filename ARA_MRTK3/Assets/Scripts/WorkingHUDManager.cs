@@ -37,6 +37,7 @@ public class WorkingHUDManager : MonoBehaviour
     [SerializeField] private PressableButton procedureButton;
     [SerializeField] private Transform buttonsRoot;
     [SerializeField] private PressableButton completeButton;
+    [SerializeField] private PressableButton unCompleteButton;
     [SerializeField] public GameObject photoRequiredModal;
     [SerializeField][AssetsOnly] private PressableButton cautionPdfButtonPrefab;
     [SerializeField][AssetsOnly] private PressableButton oemPdfButtonPrefab;
@@ -132,7 +133,12 @@ public class WorkingHUDManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         foreach (var button in stepGroupButtonParentList)
         {
-            button.OnClicked.Invoke();
+            //button.OnClicked.Invoke();
+            button.ForceSetToggled(false, true);
+        }
+        foreach (var st in _stepDisplays.Values)
+        {
+            var button = st.GetComponent<PressableButton>();
             button.ForceSetToggled(false, true);
         }
     }
@@ -317,6 +323,19 @@ public class WorkingHUDManager : MonoBehaviour
 
             });
         }
+
+        unCompleteButton.OnClicked.RemoveAllListeners();
+        unCompleteButton.OnClicked.AddListener(() =>
+        {
+            if (step.IsCompleted)
+            {
+                step.IsCompleted = false;
+                unCompleteButton.gameObject.SetActive(false);
+                completeButton.gameObject.SetActive(true);
+                stepDisplay.UnCompleteStep();
+            }
+
+        });
     }
 
     public void CompleteStepAndMoveToNext(ManualStep step, RepairManual repairManual, StepDisplay stepDisplay)
@@ -325,6 +344,8 @@ public class WorkingHUDManager : MonoBehaviour
         MainMenuManager.Instance.currentJob.CompleteStep(MainMenuManager.Instance.selectedTaskInfo.Id,
                             repairManual.Id, step.Id);
         stepDisplay.CompleteStep();
+        completeButton.gameObject.SetActive(false);
+        unCompleteButton.gameObject.SetActive(true);
         MoveToNextStep(step, repairManual);
     }
 
@@ -349,13 +370,23 @@ public class WorkingHUDManager : MonoBehaviour
             imageURL = "Photos/" + step.Image.Url;
         UpdateVisual(step.Title, imageURL);
         MainMenuManager.Instance.mainMenuAesthetic.UpdateTaskDisplay(
-            MainMenuManager.Instance.selectedJobListItem, task);
+            MainMenuManager.Instance.selectedJobListItem, task, repairManual);
         EnableCameraIcon(step, repairManual, stepDisplay);
         UpdateFileButtons(step);
-        
+
         preStepSelectionVisuals.SetActive(false);
         selectedStepVisualRoot.SetActive(true);
         sideTab.gameObject.SetActive(true);
+        if (step.IsCompleted)
+        {
+            completeButton.gameObject.SetActive(false);
+            unCompleteButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            unCompleteButton.gameObject.SetActive(false);
+            completeButton.gameObject.SetActive(true);
+        }
         OnStepSelected?.Invoke(step, repairManual, stepDisplay);
     }
 

@@ -28,4 +28,9 @@ public class StepDisplay : MonoBehaviour
         stepCompleteIcon.SetActive(true);
     }
 
+    public void UnCompleteStep()
+    {
+        stepCompleteIcon.SetActive(false);
+    }
+
 }
