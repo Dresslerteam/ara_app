@@ -59,7 +59,7 @@ public class PhotoGallery : MonoBehaviour
     public void LoadSavedPictures()
     {
         GalleryPreviewPhoto.image.texture = _defaultGalleryPreviewPhoto;
-        metadataDisplay.UpdateDisplay("00/00/0000 00:00:00", Ara.Domain.JobManagement.Photo.PhotoLabelType.Other, "", "", "");
+        metadataDisplay.UpdateDisplay("00/00/0000 00:00:00", Ara.Domain.JobManagement.Photo.PhotoLabelType.Other, "[task name]", "[group name]", "[step name]");
         photoButtonToggleCollection.Toggles.Clear();
         ClearAllGalleryObjects();
         // GetJobGallery 

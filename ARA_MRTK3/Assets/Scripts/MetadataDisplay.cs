@@ -26,6 +26,7 @@ public class MetadataDisplay : MonoBehaviour
         taskName.text = task;
         groupName.text = group;
         stepName.text = step;
+        labelText.text = labelType.ToString();
     }
 
     public Sprite GetLabelSprite(Ara.Domain.JobManagement.Photo.PhotoLabelType labelType)
