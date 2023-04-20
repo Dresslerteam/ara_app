@@ -132,7 +132,12 @@ public class WorkingHUDManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         foreach (var button in stepGroupButtonParentList)
         {
-            button.OnClicked.Invoke();
+            //button.OnClicked.Invoke();
+            button.ForceSetToggled(false, true);
+        }
+        foreach(var st in _stepDisplays.Values)
+        {
+            var button = st.GetComponent<PressableButton>();
             button.ForceSetToggled(false, true);
         }
     }
