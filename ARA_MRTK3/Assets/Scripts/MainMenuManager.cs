@@ -439,6 +439,32 @@ public class MainMenuManager : MonoBehaviour
             case MenuPage.jobSelectScreen:
                 ReturnToMenu();
                 break;
+            default: break;
+        }
+    }
+
+    public void GoBackFromGallery()
+    {
+        galleryPage.SetActive(false);
+        workingHUDManager.CameraSaverBanner.SetActive(false);
+        workingHUDManager.takePicture.SetActive(false);
+
+        var lastContentPage = _previousPages.LastOrDefault(p => p != MenuPage.gallery);
+        switch (lastContentPage)
+        {
+            case MenuPage.taskSelect:
+                ReturnToTaskList();
+                break;
+            case MenuPage.performingJob:
+                SetWorkingView();
+                stepsPage.SetActive(true);
+                break;
+            case MenuPage.jobSelectScreen:
+                ReturnToMenu();
+                break;
+            case MenuPage.takingPhoto:
+                photoCaptureTool.ActivatePhotoMode();
+                break;
 
             default: break;
         }
