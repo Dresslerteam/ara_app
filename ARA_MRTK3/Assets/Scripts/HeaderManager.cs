@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using Microsoft.MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class HeaderManager : MonoBehaviour
     public PressableButton scanDocButton;
     public PressableButton pdfEstimationButton;
     public GameObject modelButton;
-    public GameObject cameraHeader;
+    public CameraHeaderManager cameraHeaderManager;
     [Header("Texts")] 
     public GameObject menuTitleWithUserTexts;
     public GameObject jobinformationTexts;
@@ -36,7 +37,7 @@ public class HeaderManager : MonoBehaviour
         pdfEstimationButton.ForceSetToggled(false);
     }
 
-    public void UpdateButton(MenuPage selectedPage)
+    public void UpdateButton(MenuPage selectedPage, MenuPage parentMenuPage)
     {
         switch (selectedPage)
         {
@@ -51,7 +52,7 @@ public class HeaderManager : MonoBehaviour
                 modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
-                cameraHeader.SetActive(false);
+                cameraHeaderManager?.gameObject.SetActive(false);
                 break;
 
             case MenuPage.loginScreen:
@@ -65,7 +66,7 @@ public class HeaderManager : MonoBehaviour
                 modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
-                cameraHeader.SetActive(false);
+                cameraHeaderManager?.gameObject.SetActive(false);
 
                 break;
 
@@ -80,7 +81,7 @@ public class HeaderManager : MonoBehaviour
                 modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(true);
                 jobinformationTexts.SetActive(false);
-                cameraHeader.SetActive(false);
+                cameraHeaderManager?.gameObject.SetActive(false);
 
                 break;
 
@@ -97,9 +98,9 @@ public class HeaderManager : MonoBehaviour
                 scanDocButton?.gameObject.SetActive(true);
                 pdfEstimationButton?.gameObject.SetActive(true);
                 modelButton?.SetActive(true);
-                menuTitleWithUserTexts?.SetActive(true);
-                jobinformationTexts.SetActive(false);
-                cameraHeader.SetActive(false);
+                menuTitleWithUserTexts?.SetActive(false);
+                jobinformationTexts.SetActive(true);
+                cameraHeaderManager?.gameObject.SetActive(false);
 
                 break;
 
@@ -114,7 +115,7 @@ public class HeaderManager : MonoBehaviour
                 modelButton?.SetActive(true);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(true);
-                cameraHeader.SetActive(false);
+                cameraHeaderManager?.gameObject.SetActive(false);
 
                 break;
             case MenuPage.takingPhoto:
@@ -128,20 +129,29 @@ public class HeaderManager : MonoBehaviour
                 modelButton?.SetActive(false);
                 menuTitleWithUserTexts?.SetActive(false);
                 jobinformationTexts.SetActive(false);
-                cameraHeader.SetActive(true);
+                cameraHeaderManager?.gameObject.SetActive(true);
                 break;
             case MenuPage.gallery:
-                jobsButton?.SetActive(true);
-                tasksButton.gameObject.SetActive(true);
-                tasksButton.ForceSetToggled(true,true);
-                hideButton?.SetActive(true);
-                logoutButton?.SetActive(false);
-                scanDocButton?.gameObject.SetActive(true);
-                pdfEstimationButton?.gameObject.SetActive(true);
-                modelButton?.SetActive(true);
-                menuTitleWithUserTexts?.SetActive(false);
-                jobinformationTexts.SetActive(true);
-                cameraHeader.SetActive(false);
+                {
+                    if (parentMenuPage == MenuPage.jobSelectScreen)
+                    {
+
+                    }
+                    else
+                    {
+                        jobsButton?.SetActive(true);
+                        tasksButton.gameObject.SetActive(true);
+                        tasksButton.ForceSetToggled(true, true);
+                        hideButton?.SetActive(true);
+                        logoutButton?.SetActive(false);
+                        scanDocButton?.gameObject.SetActive(true);
+                        pdfEstimationButton?.gameObject.SetActive(true);
+                        modelButton?.SetActive(true);
+                        menuTitleWithUserTexts?.SetActive(false);
+                        jobinformationTexts.SetActive(true);
+                        cameraHeaderManager?.gameObject.SetActive(false);
+                    }
+                }
 
                 break;
             default:

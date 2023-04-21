@@ -20,7 +20,7 @@ public class BackgroundToggler : MonoBehaviour
         MainMenuManager.OnMenuPageChanged -= MenuHasSwitched;
     }
 
-    private void MenuHasSwitched(MenuPage menuPage)
+    private void MenuHasSwitched(MenuPage menuPage, MenuPage parentMenuPage)
     {
         Debug.Log("Menu has switched to: " + menuPage);
         switch (menuPage)

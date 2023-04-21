@@ -2,29 +2,39 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.UX;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 public class PhotoGallery : MonoBehaviour
 {
-    [SerializeField] [Required] private Transform gallery;
+    [SerializeField][Required] private Transform gallery;
 
-    [SerializeField] [Required] private GameObject photoGroupPrefab;
-    [SerializeField] [Required] private GameObject photoButtonPrefab;
-    
-    [SerializeField] [Required] private Photo GalleryPreviewPhoto;
-    [SerializeField] [Required] private ToggleCollection photoButtonToggleCollection;
+    [SerializeField][Required] private GameObject photoGroupPrefab;
+    [SerializeField][Required] private GameObject photoButtonPrefab;
+
+    [SerializeField][Required] private Photo GalleryPreviewPhoto;
+    [SerializeField][Required] private ToggleCollection photoButtonToggleCollection;
     //private string[] filePaths;
-    
+
     [SerializeField] private GameObject photoPreviewImage;
 
-    [SerializeField] private Vector2 resolution = new Vector2(1024,512);
+    [SerializeField] private Vector2 resolution = new Vector2(1024, 512);
     [SerializeField] private MetadataDisplay metadataDisplay;
+
+    private Texture2D _defaultGalleryPreviewPhoto = null;
 
     private void OnEnable()
     {
+        if (_defaultGalleryPreviewPhoto == null)
+        {
+            GalleryPreviewPhoto.image.texture = null;
+            string assetPath = "CollisionLogo";
+            _defaultGalleryPreviewPhoto = Resources.Load<Texture2D>(assetPath);
+        }
         Photo.OnPhotoClicked += DisplayCurrentlySelectedPhoto;
         LoadSavedPictures();
     }
@@ -38,7 +48,7 @@ public class PhotoGallery : MonoBehaviour
     void Start()
     {
         ClearAllGalleryObjects();
-        
+
     }
 
     /// <summary>
@@ -48,11 +58,13 @@ public class PhotoGallery : MonoBehaviour
     [Button]
     public void LoadSavedPictures()
     {
+        GalleryPreviewPhoto.image.texture = _defaultGalleryPreviewPhoto;
+        metadataDisplay.UpdateDisplay("00/00/0000 00:00:00", Ara.Domain.JobManagement.Photo.PhotoLabelType.Other, "[task name]", "[group name]", "[step name]");
         photoButtonToggleCollection.Toggles.Clear();
         ClearAllGalleryObjects();
         // GetJobGallery 
         var jobGallery = MainMenuManager.Instance.currentJob.GetJobGallery();
-        if(jobGallery.Count<=0)
+        if (jobGallery.Count <= 0)
             return;
         foreach (var job in jobGallery)
         {
@@ -63,9 +75,9 @@ public class PhotoGallery : MonoBehaviour
                 //Converts desired path into byte array
                 byte[] jpgBytes = System.IO.File.ReadAllBytes(photo.Url);
                 //Creates texture and loads byte array data to create image
-                Texture2D tex = new Texture2D((int)resolution.x,(int)resolution.y);
+                Texture2D tex = new Texture2D((int)resolution.x, (int)resolution.y);
                 tex.LoadImage(jpgBytes);
-                
+
                 AddPhotoToGallery(tex, photo.CreatedOn.ToString(), photo.Label, photo.TaskName, photo.RepairManualName, photo.StepName);
             }
         }
@@ -84,9 +96,9 @@ public class PhotoGallery : MonoBehaviour
 
     public void DisplayCurrentlySelectedPhoto(Photo photo)
     {
-        if(photo.image.texture != null)
+        if (photo.image.texture != null)
             GalleryPreviewPhoto.image.texture = photo.image.texture;
-        if(photo.label.text != null)
+        if (photo.label.text != null)
             GalleryPreviewPhoto.label.text = photo.label.text;
     }
     public void ClearAllGalleryObjects()
