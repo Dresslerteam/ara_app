@@ -9,8 +9,8 @@ public class StepScroller : MonoBehaviour
 {
     [SerializeField] private float minY;
     [SerializeField] private float maxY;
-    [SerializeField] private RectTransform content;
-
+    public RectTransform content;
+    public Action OnMove;
     private void OnEnable()
     {
         NormalizedScroll(0);
@@ -24,8 +24,10 @@ public class StepScroller : MonoBehaviour
     {
         float y = Mathf.Lerp(minY, maxY, normalizedValue);
         content.anchoredPosition = new Vector2(content.anchoredPosition.x, y);
+        if (OnMove != null) OnMove.Invoke();
+
     }
-    
+
     public void SetMaxY(float maxY)
     {
         this.maxY = maxY;
