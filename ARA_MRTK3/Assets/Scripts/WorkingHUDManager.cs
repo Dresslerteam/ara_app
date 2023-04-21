@@ -25,7 +25,8 @@ public class WorkingHUDManager : MonoBehaviour
     [SerializeField] private Transform groupsRoot;
     [SerializeField][AssetsOnly] private GameObject repairManualDisplayPrefab;
     [SerializeField][AssetsOnly] private GameObject stepDisplayPrefab;
-    [SerializeField][SceneObjectsOnly] private GameObject cameraIcon;
+    [SerializeField][SceneObjectsOnly] private GameObject completedCameraIcon;
+    [SerializeField][SceneObjectsOnly] private GameObject uncompletedCameraIcon;
     private List<RepairManual> repairManuals = new List<RepairManual>();
     [Header("Visuals")]
     [SerializeField] private TextMeshProUGUI taskTextAboveVisuals;
@@ -294,7 +295,8 @@ public class WorkingHUDManager : MonoBehaviour
     public void EnableCameraIcon(ManualStep step, RepairManual repairManual, StepDisplay stepDisplay)
     {
         // Set the icon
-        cameraIcon.SetActive(step.PhotoRequired);
+        completedCameraIcon.SetActive(step.PhotoRequired);
+        uncompletedCameraIcon.SetActive(step.PhotoRequired);
 
         if (step.PhotoRequired)
         {
