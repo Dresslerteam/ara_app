@@ -445,11 +445,41 @@ public class MainMenuManager : MonoBehaviour
 
     public void GoBackFromGallery()
     {
+        
         galleryPage.SetActive(false);
         workingHUDManager.CameraSaverBanner.SetActive(false);
         workingHUDManager.takePicture.SetActive(false);
 
         var lastContentPage = _previousPages.LastOrDefault(p => p != MenuPage.gallery);
+        Debug.Log($"<color=green>GoBackFromGallery page{lastContentPage.ToString()}</color>");
+        switch (lastContentPage)
+        {
+            case MenuPage.taskSelect:
+                ReturnToTaskList();
+                break;
+            case MenuPage.performingJob:
+                SetWorkingView();
+                stepsPage.SetActive(true);
+                break;
+            case MenuPage.jobSelectScreen:
+                ReturnToMenu();
+                break;
+            case MenuPage.takingPhoto:
+                photoCaptureTool.ActivatePhotoMode();
+                break;
+
+            default: break;
+        }
+    }
+
+    public void GoBackFromCamera()
+    {
+        galleryPage.SetActive(false);
+        workingHUDManager.CameraSaverBanner.SetActive(false);
+        workingHUDManager.takePicture.SetActive(false);
+
+        var lastContentPage = _previousPages.LastOrDefault(p => p != MenuPage.takingPhoto);
+        Debug.Log($"<color=green>GoBackFromCamera page{lastContentPage.ToString()}</color>");
         switch (lastContentPage)
         {
             case MenuPage.taskSelect:

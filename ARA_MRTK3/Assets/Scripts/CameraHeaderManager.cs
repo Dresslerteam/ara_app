@@ -37,5 +37,10 @@ namespace Assets.Scripts
                     break;
             }
         }
+
+        public void GoBackFromCamera()
+        {
+            MainMenuManager.Instance.GoBackFromCamera();
+        }
     }
 }
