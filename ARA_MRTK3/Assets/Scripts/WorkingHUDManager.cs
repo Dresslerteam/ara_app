@@ -53,6 +53,11 @@ public class WorkingHUDManager : MonoBehaviour
     private Dictionary<int, StepDisplay> _stepDisplays = new Dictionary<int, StepDisplay>();
     public void PopulateTaskGroups(TaskInfo task)
     {
+        foreach (Transform child in buttonsRoot)
+        {
+            Destroy(child.gameObject);
+        }
+        manualButtonCollection.Toggles.Clear();
         _stepDisplays = new Dictionary<int, StepDisplay>();
         _repairManualDisplays = new Dictionary<int, RepairManualDisplay>();
         currentTask = task;
