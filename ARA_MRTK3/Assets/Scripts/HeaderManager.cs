@@ -98,8 +98,8 @@ public class HeaderManager : MonoBehaviour
                 scanDocButton?.gameObject.SetActive(true);
                 pdfEstimationButton?.gameObject.SetActive(true);
                 modelButton?.SetActive(true);
-                menuTitleWithUserTexts?.SetActive(true);
-                jobinformationTexts.SetActive(false);
+                menuTitleWithUserTexts?.SetActive(false);
+                jobinformationTexts.SetActive(true);
                 cameraHeaderManager?.gameObject.SetActive(false);
 
                 break;

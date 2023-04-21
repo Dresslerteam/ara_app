@@ -63,11 +63,11 @@ public class MainMenuAesthetic : MonoBehaviour
                             "/" +
                             DateTime.Now.Year);
     }
-    public void UpdateTaskDisplay(JobListItemDto chosenJob, TaskInfo task, RepairManual repairManual = null)
+    public void UpdateTaskDisplay(JobListItemDto chosenJob, TaskInfo task = null, RepairManual repairManual = null)
     {
         vehicleInformationText.text = $"Job#: {chosenJob.Id} , {chosenJob.CarInfo.Manufacturer} {chosenJob.CarInfo.Model} {chosenJob.CarInfo.Year} , VIN: {chosenJob.CarInfo.Vin}";
-        taskTitle.text = task.Title;
-        folderTitle.text = repairManual == null ? task.RepairManuals[0].Name : repairManual.Name;
+        taskTitle.text = task?.Title;
+        folderTitle.text = repairManual == null ? (task == null ? "" : task.RepairManuals[0].Name) : repairManual.Name;
 
     }
 }
