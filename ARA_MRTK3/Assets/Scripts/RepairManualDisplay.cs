@@ -32,7 +32,6 @@ public class RepairManualDisplay : MonoBehaviour
 
     /// <summary>
     /// UpdateVisibility updates visibility if still on panel
-    /// TODO add height of children buttons open as well
     /// </summary>
     private void UpdateVisibility()
     {
