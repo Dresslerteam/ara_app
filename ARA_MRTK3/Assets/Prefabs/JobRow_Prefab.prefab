@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5527645682872058721}
   - component: {fileID: 3301996080145983531}
   - component: {fileID: 5998086702268037534}
+  - component: {fileID: 4801613775230042995}
   m_Layer: 5
   m_Name: GalleryButton
   m_TagString: Untagged
@@ -228,10 +229,34 @@ MonoBehaviour:
     active: 0
     onEntered:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4801613775230042995}
+          m_TargetAssemblyTypeName: MaterialSwitch, Assembly-CSharp
+          m_MethodName: UpdateMaterial
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     onExited:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4801613775230042995}
+          m_TargetAssemblyTypeName: MaterialSwitch, Assembly-CSharp
+          m_MethodName: UpdateMaterial
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   disabledInteractorTypes:
   - reference: Microsoft.MixedReality.Toolkit.IGrabInteractor, Microsoft.MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 1
@@ -604,6 +629,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &4801613775230042995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903573620431048923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823b708615c9b55418c103a8d32d6213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 2100000, guid: f1716fbc4ec877b40a1e1a00dd2c770b, type: 2}
+  notHighlightedMaterial: {fileID: 2100000, guid: 6b655830bd028c1408f3e8844fb6aed0, type: 2}
+  imageToChange: {fileID: 2045673468927937013}
 --- !u!1 &2384423390024211529
 GameObject:
   m_ObjectHideFlags: 0
@@ -3503,6 +3543,7 @@ GameObject:
   - component: {fileID: 8520123610447643377}
   - component: {fileID: 8520123610447643382}
   - component: {fileID: 8520123610447643383}
+  - component: {fileID: 2038570546594424091}
   m_Layer: 5
   m_Name: PDFButton
   m_TagString: Untagged
@@ -3713,10 +3754,34 @@ MonoBehaviour:
     active: 0
     onEntered:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2038570546594424091}
+          m_TargetAssemblyTypeName: MaterialSwitch, Assembly-CSharp
+          m_MethodName: UpdateMaterial
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     onExited:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2038570546594424091}
+          m_TargetAssemblyTypeName: MaterialSwitch, Assembly-CSharp
+          m_MethodName: UpdateMaterial
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   disabledInteractorTypes:
   - reference: Microsoft.MixedReality.Toolkit.IGrabInteractor, Microsoft.MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 1
@@ -4089,6 +4154,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &2038570546594424091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8520123610447643381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823b708615c9b55418c103a8d32d6213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 2100000, guid: f1716fbc4ec877b40a1e1a00dd2c770b, type: 2}
+  notHighlightedMaterial: {fileID: 2100000, guid: 6b655830bd028c1408f3e8844fb6aed0, type: 2}
+  imageToChange: {fileID: 8520123609904872689}
 --- !u!1 &8520123610516720648
 GameObject:
   m_ObjectHideFlags: 0
