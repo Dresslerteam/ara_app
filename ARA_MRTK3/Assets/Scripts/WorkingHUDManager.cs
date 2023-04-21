@@ -6,6 +6,7 @@ using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.Common;
 using Ara.Domain.JobManagement;
 using Ara.Domain.RepairManualManagement;
+using Assets.Scripts;
 using Assets.Scripts.Common;
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.UX;
@@ -39,6 +40,7 @@ public class WorkingHUDManager : MonoBehaviour
     [SerializeField] private PressableButton completeButton;
     [SerializeField] private PressableButton unCompleteButton;
     [SerializeField] public GameObject photoRequiredModal;
+    [SerializeField] public UnCompleteStepConfirmationModal unCompleteStepConfirmationModal;
     [SerializeField][AssetsOnly] private PressableButton cautionPdfButtonPrefab;
     [SerializeField][AssetsOnly] private PressableButton oemPdfButtonPrefab;
     public GameObject takePicture;
@@ -53,6 +55,11 @@ public class WorkingHUDManager : MonoBehaviour
     private Dictionary<int, StepDisplay> _stepDisplays = new Dictionary<int, StepDisplay>();
     public void PopulateTaskGroups(TaskInfo task)
     {
+        foreach (Transform child in buttonsRoot)
+        {
+            Destroy(child.gameObject);
+        }
+        manualButtonCollection.Toggles.Clear();
         _stepDisplays = new Dictionary<int, StepDisplay>();
         _repairManualDisplays = new Dictionary<int, RepairManualDisplay>();
         currentTask = task;
@@ -329,10 +336,19 @@ public class WorkingHUDManager : MonoBehaviour
         {
             if (step.IsCompleted)
             {
-                step.IsCompleted = false;
-                unCompleteButton.gameObject.SetActive(false);
-                completeButton.gameObject.SetActive(true);
-                stepDisplay.UnCompleteStep();
+                unCompleteStepConfirmationModal.Show(
+                    confirmationCallback: () =>
+                    {
+                        step.IsCompleted = false;
+                        unCompleteButton.gameObject.SetActive(false);
+                        completeButton.gameObject.SetActive(true);
+                        stepDisplay.UnCompleteStep();
+                    },
+
+                    cancellationCallback: () =>
+                    {
+                        unCompleteStepConfirmationModal.Hide();
+                    });
             }
 
         });
