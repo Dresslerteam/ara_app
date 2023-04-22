@@ -32,15 +32,17 @@ public class InteractiveAnimationController : MonoBehaviour
         animator.enabled = false;
 
         if (nextButton != null)
-            nextButton.OnClicked.AddListener(() => UpdateSliderValue(1f / keyframes.Count));
+            nextButton.OnClicked.AddListener(() => UpdateSliderValue(1f));
         if (previousButton != null)
-            previousButton.OnClicked.AddListener(() => UpdateSliderValue(-1f / keyframes.Count));
+            previousButton.OnClicked.AddListener(() => UpdateSliderValue(-1f));
 
     }
     
     private void UpdateSliderValue(float increment)
     {
-        slider.Value = Mathf.Clamp(slider.Value + increment, slider.MinValue, slider.MaxValue);
+        float segments = keyframes.Count;
+        float segmentValue = 1f / (segments - 1);
+        slider.Value = Mathf.Clamp(slider.Value + increment*segmentValue, slider.MinValue, slider.MaxValue);
     }
 
     public void AdvanceViaSlider(SliderEventData sliderEventData)
