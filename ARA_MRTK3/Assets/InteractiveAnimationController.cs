@@ -44,7 +44,6 @@ public class InteractiveAnimationController : MonoBehaviour
         float segmentValue = 1f / (segments - 1);
         slider.Value = Mathf.Clamp(slider.Value + increment*segmentValue, slider.MinValue, slider.MaxValue);
     }
-
     public void AdvanceViaSlider(SliderEventData sliderEventData)
     {
         float t = sliderEventData.NewValue;
@@ -62,7 +61,7 @@ public class InteractiveAnimationController : MonoBehaviour
                 StopCoroutine(currentLerpCoroutine);
             }
             shouldStopLerping = false;
-            currentLerpCoroutine = StartCoroutine(LerpToNextKeyframe(lastKeyframeIndex, targetIndex, transitionDuration));
+            currentLerpCoroutine = StartCoroutine(LerpToNextKeyframe(lastKeyframeIndex, targetIndex));
             currentIndex = targetIndex;
         }
         else
@@ -71,11 +70,12 @@ public class InteractiveAnimationController : MonoBehaviour
         }
     }
 
-    private IEnumerator LerpToNextKeyframe(int startIndex, int endIndex, float duration)
+    private IEnumerator LerpToNextKeyframe(int startIndex, int endIndex)
     {
         float startTime = (float)keyframes[startIndex].frame / animationClip.frameRate;
         float endTime = (float)keyframes[endIndex].frame / animationClip.frameRate;
 
+        float duration = Mathf.Abs(endTime - startTime);
         float elapsedTime = 0f;
 
         while (elapsedTime < duration && !shouldStopLerping)
@@ -95,6 +95,7 @@ public class InteractiveAnimationController : MonoBehaviour
 
         lastKeyframeIndex = endIndex; // Store the index of the current keyframe
     }
+
 
     private void Update()
     {
