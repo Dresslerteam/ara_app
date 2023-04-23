@@ -17,6 +17,11 @@ public class InteractiveAnimationController : MonoBehaviour
     public Transform midpointTransform;
     public float transitionDuration = 1f;
     private int currentIndex = 0;
+    private int currentTargetFrame = 0;
+    private float currentFrame = 0;
+    private float animationSpeed = 1f;
+    private bool shouldAnimate = false;
+
     private int lastKeyframeIndex = 0;
     private Coroutine currentLerpCoroutine;
     private bool shouldStopLerping = false;
@@ -29,8 +34,8 @@ public class InteractiveAnimationController : MonoBehaviour
             return;
         }
 
-        animator.enabled = false;
-
+        animator.enabled = true;
+        animator.speed = 0;
         if (nextButton != null)
             nextButton.OnClicked.AddListener(() => UpdateSliderValue(1f));
         if (previousButton != null)
@@ -49,11 +54,14 @@ public class InteractiveAnimationController : MonoBehaviour
         float t = sliderEventData.NewValue;
         int targetIndex = Mathf.Clamp(Mathf.FloorToInt(t * keyframes.Count), 0, keyframes.Count - 1);
         AdvanceToTargetKeyframe(targetIndex);
+
     }
 
     private void AdvanceToTargetKeyframe(int targetIndex)
     {
-        if (targetIndex < keyframes.Count)
+        currentTargetFrame = keyframes[targetIndex].frame;
+        shouldAnimate = true;
+      /*  if (targetIndex < keyframes.Count)
         {
             shouldStopLerping = true;
             if (currentLerpCoroutine != null)
@@ -61,13 +69,14 @@ public class InteractiveAnimationController : MonoBehaviour
                 StopCoroutine(currentLerpCoroutine);
             }
             shouldStopLerping = false;
+
             currentLerpCoroutine = StartCoroutine(LerpToNextKeyframe(lastKeyframeIndex, targetIndex));
             currentIndex = targetIndex;
         }
         else
         {
             Debug.Log("Reached the end of keyframes.");
-        }
+        }*/
     }
 
     private IEnumerator LerpToNextKeyframe(int startIndex, int endIndex)
@@ -80,6 +89,7 @@ public class InteractiveAnimationController : MonoBehaviour
 
         while (elapsedTime < duration && !shouldStopLerping)
         {
+
             float t = elapsedTime / duration;
             float currentTime = Mathf.Lerp(startTime, endTime, t);
             animationClip.SampleAnimation(animator.gameObject, currentTime);
@@ -96,7 +106,34 @@ public class InteractiveAnimationController : MonoBehaviour
         lastKeyframeIndex = endIndex; // Store the index of the current keyframe
     }
 
+    void UpdateAnimationFrame()
+    {
+        if (shouldAnimate && currentFrame != currentTargetFrame)
+        {
+            if (currentFrame > currentTargetFrame)
+            {
+                currentFrame -= (Time.fixedDeltaTime * 100f * animationSpeed);
+                if (currentFrame < currentTargetFrame)
+                {
+                    shouldAnimate = false;
+                    currentFrame = currentTargetFrame;
+                }
+            }
+            else
+            {
+                currentFrame += (Time.fixedDeltaTime * 100f * animationSpeed);
+                if (currentFrame > currentTargetFrame)
+                {
+                    shouldAnimate = false;
+                    currentFrame = currentTargetFrame;
+                }
 
+            }
+
+            animator.Play(animationClip.name, 0, (1f / (animationClip.frameRate * animationClip.length) * currentFrame));
+        
+        }
+    }
     private void Update()
     {
         if (slider != null)
@@ -112,5 +149,9 @@ public class InteractiveAnimationController : MonoBehaviour
             // set position of midPoint Transform
             midpointTransform.position = midpoint;
         }
+
+        UpdateAnimationFrame();
+      
+
     }
 }
