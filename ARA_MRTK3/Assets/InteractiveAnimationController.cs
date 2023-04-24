@@ -1,9 +1,8 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.UX;
 using UnityEngine;
-using UnityEngine.UI;
 using Slider = Microsoft.MixedReality.Toolkit.UX.Slider;
 
 public class InteractiveAnimationController : MonoBehaviour
@@ -24,7 +23,11 @@ public class InteractiveAnimationController : MonoBehaviour
     private int lastKeyframeIndex = 0;
     private Coroutine currentLerpCoroutine;
     private bool shouldStopLerping = false;
-    
+
+    private int currentTargetFrame = 0;
+    private float currentFrame = 0;
+    private float animationSpeed = 1f;
+    private bool shouldAnimate = false;
     private void Start()
     {
         if (animator == null || animationClip == null || keyframes == null || keyframes.Count == 0)
@@ -33,7 +36,8 @@ public class InteractiveAnimationController : MonoBehaviour
             return;
         }
 
-        animator.enabled = false;
+        animator.enabled = true;
+        animator.speed = 0;
 
         if (nextButton != null)
             nextButton.OnClicked.AddListener(() => UpdateSliderValue(1f));
@@ -57,6 +61,26 @@ public class InteractiveAnimationController : MonoBehaviour
 
     private void AdvanceToTargetKeyframe(int targetIndex)
     {
+        AnimationStep step = keyframes[Mathf.Clamp(targetIndex, 0, keyframes.Count - 1)];
+
+        currentTargetFrame = step.frame;
+        shouldAnimate = true;
+        ResetHighlightMaterials();
+        for (int i = 0; i < step.partsToHighlight.Count; i++)
+        {
+            MeshRenderer meshRenderer = step.partsToHighlight[i];
+            if (meshRenderer != null)
+            {
+                // Cache the original material
+                originalMaterials[meshRenderer] = meshRenderer.material;
+
+                // Assign the highlightMaterial
+                meshRenderer.material = highlightMaterial;
+            }
+        }
+
+
+/*
         if (targetIndex < keyframes.Count)
         {
             shouldStopLerping = true;
@@ -93,7 +117,7 @@ public class InteractiveAnimationController : MonoBehaviour
         else
         {
             Debug.Log("Reached the end of keyframes.");
-        }
+        }*/
     }
     
     private void ResetHighlightMaterials()
@@ -150,6 +174,37 @@ public class InteractiveAnimationController : MonoBehaviour
             }
             // set position of midPoint Transform
             midpointTransform.position = midpoint;
+        }
+        UpdateAnimationFrame();
+    }
+
+
+    void UpdateAnimationFrame()
+    {
+        if (shouldAnimate && currentFrame != currentTargetFrame)
+        {
+            if (currentFrame > currentTargetFrame)
+            {
+                currentFrame -= (Time.fixedDeltaTime * 100f * animationSpeed);
+                if (currentFrame < currentTargetFrame)
+                {
+                    shouldAnimate = false;
+                    currentFrame = currentTargetFrame;
+                }
+            }
+            else
+            {
+                currentFrame += (Time.fixedDeltaTime * 100f * animationSpeed);
+                if (currentFrame > currentTargetFrame)
+                {
+                    shouldAnimate = false;
+                    currentFrame = currentTargetFrame;
+                }
+
+            }
+
+            animator.Play(animationClip.name, 0, (1f / (animationClip.frameRate * animationClip.length) * currentFrame));
+
         }
     }
 }
