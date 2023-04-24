@@ -7,6 +7,7 @@ using UnityEngine;
 public class RepairManualDisplay : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI titleText;
+    [SerializeField] private TextMeshProUGUI completionAmountText;
 
     public Transform stepGroupParent;
     public ToggleCollection stepToggleCollection;
@@ -14,11 +15,24 @@ public class RepairManualDisplay : MonoBehaviour
     private StepScroller stepScroller;
     private RectTransform rect;
     private BoxCollider collider;
-
-    public void UpdateDisplayInformation(string title)
+    private int CompletedTasksCount = 0;
+    private int TotalTasksCount = 0;
+    public void UpdateDisplayInformation(string title, int completedTasksCount, int totalTasksCount)
     {
         titleText.text = title;
+        CompletedTasksCount=completedTasksCount;
+        TotalTasksCount=totalTasksCount;
+        completionAmountText.text = $"{completedTasksCount.ToString("0")}/{totalTasksCount.ToString("0")}";
     }
+
+    public void OnStepChange(bool value)
+    {
+
+        CompletedTasksCount += value ? 1 : -1;
+        completionAmountText.text = $"{CompletedTasksCount.ToString("0")}/{TotalTasksCount.ToString("0")}";
+
+    }
+
 
     private void Start()
     {

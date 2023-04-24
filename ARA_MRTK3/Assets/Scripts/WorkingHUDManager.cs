@@ -83,7 +83,6 @@ public class WorkingHUDManager : MonoBehaviour
                 .GetComponent<RepairManualDisplay>();
             stepGroupButtonParentList.Add(repairManualDisplay.GetComponent<PressableButton>());
             repairManualDisplay.gameObject.name += repairManual.Id;
-            repairManualDisplay.UpdateDisplayInformation(repairManual.Name);
             repairManualDisplay.stepToggleCollection.Toggles.Clear();
             repairManualDisplay.transform.localScale = Vector3.one;
             repairManualDisplay.transform.localRotation = Quaternion.identity;
@@ -112,6 +111,8 @@ public class WorkingHUDManager : MonoBehaviour
                     procedureButton.ForceSetToggled(false, true);
                 }
             });
+
+            int completedStepscount = 0;
             // Add steps
             foreach (var step in repairManual.Steps)
             {
@@ -120,16 +121,20 @@ public class WorkingHUDManager : MonoBehaviour
                     step.IsCompleted, repairManualDisplay.stepGroupParent);
                 var button = stepDisplay.GetComponent<PressableButton>();
                 repairManualDisplay.stepToggleCollection.Toggles.Add(button);
+                stepDisplay.OnStepChange += repairManualDisplay.OnStepChange;
 
                 _stepDisplays.Add(step.Id, stepDisplay);
-
+                completedStepscount += step.IsCompleted? 1 : 0;
                 button.OnClicked.AddListener(() =>
                 {
                     SelectStep(step, repairManual, currentTask, stepDisplay);
                 });
                 SetupStepToggleButton(button, stepToggleCollection, step);
             }
+            repairManualDisplay.UpdateDisplayInformation(repairManual.Name, completedStepscount, repairManual.Steps.Count);
+
         }
+
         preStepSelectionVisuals.SetActive(true);
         selectedStepVisualRoot.SetActive(false);
         sideTab.gameObject.SetActive(false);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,6 +12,7 @@ public class StepDisplay : MonoBehaviour
     [Header("Icons")]
     [SerializeField] private GameObject stepCompleteIcon;
 
+    public Action<bool> OnStepChange;
 
     public void UpdateDisplayInformation(int index, string text, bool isComplete, Transform parent)
     {
@@ -26,11 +28,14 @@ public class StepDisplay : MonoBehaviour
     public void CompleteStep()
     {
         stepCompleteIcon.SetActive(true);
+        if(OnStepChange!=null)OnStepChange.Invoke(true);
     }
 
     public void UnCompleteStep()
     {
         stepCompleteIcon.SetActive(false);
+        if (OnStepChange != null) OnStepChange.Invoke(false);
+
     }
 
 }
