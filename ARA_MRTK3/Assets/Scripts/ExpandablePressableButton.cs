@@ -15,6 +15,8 @@ public class ExpandablePressableButton : MonoBehaviour
     public static event Action<bool, ExpandablePressableButton> OnExpand;
     public float expandablePanelHeight;
     private List<Collider> colliders = new List<Collider>();
+
+    public RectTransform OpenArrowIcon;
     private void OnEnable()
     {
         
@@ -59,7 +61,7 @@ public class ExpandablePressableButton : MonoBehaviour
                 collider.enabled = true;
             }
         }
-
+        OpenArrowIcon.localEulerAngles = new Vector3(0, 0, isExpanded ? 180 : 0);
         colliders[0].enabled = true;
         contentSizeFitter.enabled = isExpanded;
         OnExpand?.Invoke(isExpanded, this);
