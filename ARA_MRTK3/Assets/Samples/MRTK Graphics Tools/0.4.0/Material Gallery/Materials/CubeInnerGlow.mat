@@ -158,7 +158,7 @@ Material:
     - _RefractiveIndex: 1.1
     - _RenderQueueOverride: -1
     - _RimLight: 1
-    - _RimPower: 1.44
+    - _RimPower: 3.54
     - _RoundCornerMargin: 0
     - _RoundCornerRadius: 0.25
     - _RoundCorners: 0
@@ -191,7 +191,7 @@ Material:
     - _ClipPlane: {r: 0, g: 1, b: 0, a: 0}
     - _ClippingBorderColor: {r: 1, g: 0.2, b: 0, a: 1}
     - _ClippingPlaneBorderColor: {r: 1, g: 0.2, b: 0, a: 1}
-    - _Color: {r: 0.25640798, g: 0.5557687, b: 0.8113208, a: 0.78431374}
+    - _Color: {r: 0.3443396, g: 0.69987375, b: 1, a: 0.78431374}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EnvironmentColorX: {r: 1, g: 0, b: 0, a: 1}
