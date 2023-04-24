@@ -16,7 +16,11 @@ public class InteractiveAnimationController : MonoBehaviour
     public Slider slider;
     public Transform midpointTransform;
     public float transitionDuration = 1f;
-    private int currentIndex = 0;
+    [SerializeField]
+    private Material highlightMaterial;
+
+    private Dictionary<MeshRenderer, Material> originalMaterials = new Dictionary<MeshRenderer, Material>();
+    
     private int lastKeyframeIndex = 0;
     private Coroutine currentLerpCoroutine;
     private bool shouldStopLerping = false;
@@ -40,11 +44,10 @@ public class InteractiveAnimationController : MonoBehaviour
     
     private void UpdateSliderValue(float increment)
     {
-        float segments = keyframes.Count;
+        float segments = keyframes.Count+1;
         float segmentValue = 1f / (segments - 1);
         slider.Value = Mathf.Clamp(slider.Value + increment*segmentValue, slider.MinValue, slider.MaxValue);
     }
-
     public void AdvanceViaSlider(SliderEventData sliderEventData)
     {
         float t = sliderEventData.NewValue;
@@ -61,23 +64,59 @@ public class InteractiveAnimationController : MonoBehaviour
             {
                 StopCoroutine(currentLerpCoroutine);
             }
+
+            // Reset highlighted materials to their original state before moving to the next step
+            ResetHighlightMaterials();
+
             shouldStopLerping = false;
-            currentLerpCoroutine = StartCoroutine(LerpToNextKeyframe(lastKeyframeIndex, targetIndex, transitionDuration));
-            currentIndex = targetIndex;
+            currentLerpCoroutine = StartCoroutine(LerpToNextKeyframe(lastKeyframeIndex, targetIndex));
+
+            // Find the appropriate AnimationStep based on the targetIndex
+            int lastIndex = targetIndex - 1;
+            lastIndex = Mathf.Clamp(lastIndex, 0, keyframes.Count - 1);
+            AnimationStep step = keyframes[lastIndex];
+
+            // Loop through partsToHighlight and assign highlightMaterial while caching the original materials
+            for (int i = 0; i < step.partsToHighlight.Count; i++)
+            {
+                MeshRenderer meshRenderer = step.partsToHighlight[i];
+                if (meshRenderer != null)
+                {
+                    // Cache the original material
+                    originalMaterials[meshRenderer] = meshRenderer.material;
+
+                    // Assign the highlightMaterial
+                    meshRenderer.material = highlightMaterial;
+                }
+            }
         }
         else
         {
             Debug.Log("Reached the end of keyframes.");
         }
     }
+    
+    private void ResetHighlightMaterials()
+    {
+        foreach (KeyValuePair<MeshRenderer, Material> entry in originalMaterials)
+        {
+            MeshRenderer meshRenderer = entry.Key;
+            Material originalMaterial = entry.Value;
+            meshRenderer.material = originalMaterial;
+        }
 
-    private IEnumerator LerpToNextKeyframe(int startIndex, int endIndex, float duration)
+        originalMaterials.Clear();
+    }
+
+
+    private IEnumerator LerpToNextKeyframe(int startIndex, int endIndex)
     {
         float startTime = (float)keyframes[startIndex].frame / animationClip.frameRate;
         float endTime = (float)keyframes[endIndex].frame / animationClip.frameRate;
 
+        float duration = Mathf.Abs(endTime - startTime);
         float elapsedTime = 0f;
-
+        
         while (elapsedTime < duration && !shouldStopLerping)
         {
             float t = elapsedTime / duration;
@@ -95,6 +134,7 @@ public class InteractiveAnimationController : MonoBehaviour
 
         lastKeyframeIndex = endIndex; // Store the index of the current keyframe
     }
+
 
     private void Update()
     {
