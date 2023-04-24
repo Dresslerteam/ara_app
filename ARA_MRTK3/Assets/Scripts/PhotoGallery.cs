@@ -15,6 +15,7 @@ public class PhotoGallery : MonoBehaviour
 
     [SerializeField][Required] private GameObject photoGroupPrefab;
     [SerializeField][Required] private GameObject photoButtonPrefab;
+    [SerializeField][Required] private GameObject photoButtonSpacerPrefab;
 
     [SerializeField][Required] private Photo GalleryPreviewPhoto;
     [SerializeField][Required] private ToggleCollection photoButtonToggleCollection;
@@ -26,7 +27,7 @@ public class PhotoGallery : MonoBehaviour
     [SerializeField] private MetadataDisplay metadataDisplay;
 
     private Texture2D _defaultGalleryPreviewPhoto = null;
-
+    private bool debugPhotoMode = false;
     private void OnEnable()
     {
         if (_defaultGalleryPreviewPhoto == null)
@@ -50,7 +51,21 @@ public class PhotoGallery : MonoBehaviour
         ClearAllGalleryObjects();
 
     }
+    private Ara.Domain.JobManagement.Photo CopyPhotoData(Ara.Domain.JobManagement.Photo photo)
+    {
+        Ara.Domain.JobManagement.Photo newPhoto = new Ara.Domain.JobManagement.Photo();
+        newPhoto.CreatedOn = photo.CreatedOn;
+        newPhoto.RepairManualId = photo.RepairManualId;
+        newPhoto.RepairManualName = photo.RepairManualName;
+        newPhoto.TaskName = photo.TaskName;
+        newPhoto.TaskId = photo.TaskId;
+        newPhoto.StepId = photo.StepId;
+        newPhoto.StepName = photo.StepName;
+        newPhoto.Label = photo.Label;
+        newPhoto.Url = photo.Url;
+        return newPhoto;
 
+    }
     /// <summary>
     /// Loads saved photos from a specified folder
     /// </summary>
@@ -66,21 +81,93 @@ public class PhotoGallery : MonoBehaviour
         var jobGallery = MainMenuManager.Instance.currentJob.GetJobGallery();
         if (jobGallery.Count <= 0)
             return;
+
+       var AllPhotos = new List<Ara.Domain.JobManagement.Photo>();
+
+        //for debugging add some more photos
         foreach (var job in jobGallery)
         {
-            // Iterate through the Photos enumerable and print the details
-            foreach (var photo in job.Photos)
+            foreach (Ara.Domain.JobManagement.Photo photo in job.Photos)
             {
-                Console.WriteLine($"  Photo created on {photo.CreatedOn}, TaskId: {photo.TaskId}");
-                //Converts desired path into byte array
-                byte[] jpgBytes = System.IO.File.ReadAllBytes(photo.Url);
-                //Creates texture and loads byte array data to create image
-                Texture2D tex = new Texture2D((int)resolution.x, (int)resolution.y);
-                tex.LoadImage(jpgBytes);
+                AllPhotos.Add(photo);
 
-                AddPhotoToGallery(tex, photo.CreatedOn.ToString(), photo.Label, photo.TaskName, photo.RepairManualName, photo.StepName);
+                if (debugPhotoMode)
+                {
+                    for (int i = 0; i < 20; i++)
+                    {
+                        Ara.Domain.JobManagement.Photo nPhoto = CopyPhotoData(photo);
+                        nPhoto.CreatedOn = photo.CreatedOn.Subtract(TimeSpan.FromDays(i));
+                        AllPhotos.Add(nPhoto);
+                    }
+                }
             }
         }
+
+        var orderedPhotos = new List<Ara.Domain.JobManagement.Photo>();
+
+        // Iterate through the Photos and place them in order by date
+        foreach (var photo in AllPhotos)
+        {
+            bool placed = false;
+            for (int i = 0; i < orderedPhotos.Count; i++)
+            {
+                if (!placed && photo.CreatedOn < orderedPhotos[i].CreatedOn)
+                {
+                    orderedPhotos.Insert(i, photo);
+                    placed = true;
+                }
+            }
+            if(!placed) orderedPhotos.Add(photo);
+        }
+        
+        orderedPhotos.Reverse();
+
+        bool Today = false;
+        bool pastToday = false;
+        int days = 1;
+
+        // Iterate through the Photos enumerable and print the details
+        for (int i = 0; i < orderedPhotos.Count; i++)
+        {
+            var photo = orderedPhotos[i];
+            Console.WriteLine($"  Photo created on {photo.CreatedOn}, TaskId: {photo.TaskId}");
+
+
+            if(!Today && photo.CreatedOn > DateTime.Today)
+            {
+                Today = true;
+                GameObject TodaySpacer = Instantiate(photoButtonSpacerPrefab, gallery);
+                TodaySpacer.GetComponent<GalleryPhotoButtonDisplay>().label.text = "Today";
+            }
+            if (!pastToday && photo.CreatedOn < DateTime.Today)
+            {
+                pastToday = true;
+                GameObject YesterDaySpacer = Instantiate(photoButtonSpacerPrefab, gallery);
+                YesterDaySpacer.GetComponent<GalleryPhotoButtonDisplay>().label.text = "Yesterday";
+
+            }
+
+            if (photo.CreatedOn < (DateTime.Today - TimeSpan.FromDays(days)))
+            {
+                days++;
+                GameObject newSpacer = Instantiate(photoButtonSpacerPrefab, gallery);
+                newSpacer.GetComponent<GalleryPhotoButtonDisplay>().label.text = photo.CreatedOn.Date.ToString("dd MMMM");
+
+            }
+
+
+
+
+            //Converts desired path into byte array
+            byte[] jpgBytes = System.IO.File.ReadAllBytes(photo.Url);
+            //Creates texture and loads byte array data to create image
+            Texture2D tex = new Texture2D((int)resolution.x, (int)resolution.y);
+            tex.LoadImage(jpgBytes);
+
+            AddPhotoToGallery(tex, photo.CreatedOn.ToString(), photo.Label, photo.TaskName, photo.RepairManualName, photo.StepName);
+        }
+
+
     }
 
     /// <summary>
