@@ -73,6 +73,21 @@ namespace Microsoft.MixedReality.Toolkit.UX
                 return sliderState;
             }
         }
+        [SerializeField]
+        [Tooltip("The tick mark prefab.")]
+        private GameObject tickMarkPrefab;
+
+        [SerializeField]
+        [Tooltip("The number of steps for the slider.")]
+        private int steps = 12;
+
+        private void Start()
+        {
+            if (tickMarkPrefab != null)
+            {
+                //CreateTickMarks();
+            }
+        }
 
         void Update()
         {
@@ -92,5 +107,26 @@ namespace Microsoft.MixedReality.Toolkit.UX
                 fillVisual.localScale = new Vector3(SliderState.NormalizedValue, fillVisual.localScale.y, fillVisual.localScale.z);
             }
         }
+        private void CreateTickMarks()
+        {
+            int steps = 12;
+            float trackLength = SliderState.SliderTrackDirection.magnitude;
+            float stepSize = trackLength / steps;
+            Vector3 stepVector = stepSize * SliderState.SliderTrackDirection.normalized;
+
+            for (int i = 0; i <= steps; i++)
+            {
+                GameObject tickMark = Instantiate(tickMarkPrefab, trackArea);
+                Vector3 tickMarkPosition = SliderState.SliderStart.position + (i * stepVector);
+                tickMark.transform.position = tickMarkPosition;
+
+                // Set the tick mark's rotation to match the trackArea's rotation
+                tickMark.transform.rotation = trackArea.transform.rotation;
+
+                // Set the tick mark's Y scale to 4
+                tickMark.transform.localScale = new Vector3(tickMark.transform.localScale.x, 4, tickMark.transform.localScale.z);
+            }
+        }
+
     }
 }

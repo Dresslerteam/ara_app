@@ -40,7 +40,7 @@ public class InteractiveAnimationController : MonoBehaviour
     
     private void UpdateSliderValue(float increment)
     {
-        float segments = keyframes.Count;
+        float segments = keyframes.Count+1;
         float segmentValue = 1f / (segments - 1);
         slider.Value = Mathf.Clamp(slider.Value + increment*segmentValue, slider.MinValue, slider.MaxValue);
     }
