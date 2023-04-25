@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RepairManualDisplay : MonoBehaviour
 {
@@ -13,10 +14,14 @@ public class RepairManualDisplay : MonoBehaviour
     public ToggleCollection stepToggleCollection;
 
     private StepScroller stepScroller;
+    private ScrollRect scrollRect;
+    private RectTransform scrollerRect;
     private RectTransform rect;
     private BoxCollider collider;
     private int CompletedTasksCount = 0;
     private int TotalTasksCount = 0;
+
+    public bool debug = false;
     public void UpdateDisplayInformation(string title, int completedTasksCount, int totalTasksCount)
     {
         titleText.text = title;
@@ -37,7 +42,10 @@ public class RepairManualDisplay : MonoBehaviour
     private void Start()
     {
         stepScroller = GetComponentInParent<StepScroller>();
+        scrollRect = GetComponentInParent<ScrollRect>();
+        scrollerRect = scrollRect.GetComponent<RectTransform>();
         if (stepScroller != null) stepScroller.OnMove += UpdateVisibility;
+        if (scrollRect != null) scrollRect.onValueChanged.AddListener((Vector2 value) => { UpdateVisibility(); });
 
         collider = GetComponent<BoxCollider>();
         rect = GetComponent<RectTransform>();
@@ -51,10 +59,24 @@ public class RepairManualDisplay : MonoBehaviour
     {
         if (stepScroller == null || collider == null || rect == null) return;
 
+        Vector3[] corners = new Vector3[4];
+        scrollerRect.GetWorldCorners(corners);
+
+        float top = 0;
+        float bottom = float.MaxValue;
+        foreach(Vector3 corner in corners)
+        {
+            if(top < corner.y)top = corner.y;
+            if(bottom > corner.y) bottom = corner.y;
+        }
+
+
         bool enabled =
-            stepScroller.transform.localPosition.y - (rect.rect.height/3f) < Mathf.Abs(rect.anchoredPosition.y) &&
-            stepScroller.transform.localPosition.y + stepScroller.content.rect.height - (rect.rect.height / 3f) > Mathf.Abs(rect.anchoredPosition.y);
+          top > (rect.position.y) &&
+          bottom < (rect.position.y);
 
         collider.enabled = enabled;
     }
+
+
 }
