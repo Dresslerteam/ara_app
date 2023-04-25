@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: CubeInnerGlow
   m_Shader: {fileID: 4800000, guid: c331f6c43a2ef0945864cb668f2653c9, type: 3}
-  m_ShaderKeywords: _BORDER_LIGHT _DISABLE_ALBEDO_MAP _HOVER_COLOR_OVERRIDE _HOVER_LIGHT
-    _INNER_GLOW _RIM_LIGHT _SPECULAR_HIGHLIGHTS
+  m_ShaderKeywords: _BORDER_LIGHT _DISABLE_ALBEDO_MAP _ENVIRONMENT_COLORING _HOVER_COLOR_OVERRIDE
+    _HOVER_LIGHT _RIM_LIGHT _SPECULAR_HIGHLIGHTS
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -118,9 +118,9 @@ Material:
     - _EnableSSAA: 0
     - _EnableStencil: 0
     - _EnableTriplanarMapping: 0
-    - _EnvironmentColorIntensity: 0.5
+    - _EnvironmentColorIntensity: 0.688
     - _EnvironmentColorThreshold: 1.5
-    - _EnvironmentColoring: 0
+    - _EnvironmentColoring: 1
     - _Fade: 1
     - _FadeBeginDistance: 0.85
     - _FadeCompleteDistance: 0.5
@@ -135,8 +135,8 @@ Material:
     - _HoverLightOpaque: 0
     - _IgnoreZScale: 0
     - _IndependentCorners: 0
-    - _InnerGlow: 1
-    - _InnerGlowPower: 4
+    - _InnerGlow: 0
+    - _InnerGlowPower: 2
     - _InstancedColor: 0
     - _Iridescence: 0
     - _IridescenceAngle: -0.78
@@ -158,12 +158,12 @@ Material:
     - _RefractiveIndex: 1.1
     - _RenderQueueOverride: -1
     - _RimLight: 1
-    - _RimPower: 3.54
+    - _RimPower: 5.2
     - _RoundCornerMargin: 0
     - _RoundCornerRadius: 0.25
     - _RoundCorners: 0
     - _RoundCornersHideInterior: 0
-    - _Smoothness: 0.5
+    - _Smoothness: 0.593
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SphericalHarmonics: 0
@@ -191,12 +191,12 @@ Material:
     - _ClipPlane: {r: 0, g: 1, b: 0, a: 0}
     - _ClippingBorderColor: {r: 1, g: 0.2, b: 0, a: 1}
     - _ClippingPlaneBorderColor: {r: 1, g: 0.2, b: 0, a: 1}
-    - _Color: {r: 0.3443396, g: 0.69987375, b: 1, a: 0.78431374}
+    - _Color: {r: 0.28622285, g: 0.62005156, b: 0.9056604, a: 0.78431374}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EnvironmentColorX: {r: 1, g: 0, b: 0, a: 1}
-    - _EnvironmentColorY: {r: 0, g: 1, b: 0, a: 1}
-    - _EnvironmentColorZ: {r: 0, g: 0, b: 1, a: 1}
+    - _EnvironmentColorX: {r: 0, g: 0.8202615, b: 1, a: 1}
+    - _EnvironmentColorY: {r: 0, g: 0.4037487, b: 0.8113208, a: 1}
+    - _EnvironmentColorZ: {r: 0, g: 0.61873275, b: 0.754717, a: 1}
     - _GradientAlpha: {r: 1, g: 1, b: 1, a: 1}
     - _GradientAlphaTime: {r: 0, g: 0, b: 0, a: 0}
     - _GradientColor0: {r: 0.631373, g: 0.631373, b: 0.631373, a: 0}
@@ -206,8 +206,8 @@ Material:
     - _GradientColor4: {r: 1, g: 1, b: 1, a: 1}
     - _HoverColor: {r: 1, g: 0, b: 0, a: 1}
     - _HoverColorOpaqueOverride: {r: 1, g: 1, b: 1, a: 1}
-    - _HoverColorOverride: {r: 0.24137926, g: 0, b: 1, a: 1}
-    - _InnerGlowColor: {r: 0, g: 0.29655218, b: 1, a: 0.875}
+    - _HoverColorOverride: {r: 0, g: 0.75550485, b: 1, a: 1}
+    - _InnerGlowColor: {r: 0, g: 0.18677352, b: 0.3773585, a: 0}
     - _ProximityLightCenterColorOverride: {r: 1, g: 0, b: 0, a: 0}
     - _ProximityLightMiddleColorOverride: {r: 0, g: 1, b: 0, a: 0.5}
     - _ProximityLightOuterColorOverride: {r: 0, g: 0, b: 1, a: 1}
