@@ -25,6 +25,7 @@ public class ImageColorSwitch : MonoBehaviour
 
 
     public Color HighlightColor = Color.white;
+    public Color SelectedColor = Color.white;
 
     // Start is called before the first frame update
     void Awake()
@@ -40,7 +41,12 @@ public class ImageColorSwitch : MonoBehaviour
             rawImages.Add(GetComponent<RawImage>());
         }
 
+        StoreDefaults();
 
+
+    }
+    void StoreDefaults()
+    {
         for (int i = 0; i < images.Count; i++)
         {
             imagesDefaultColors.Add(images[i].color);
@@ -50,26 +56,26 @@ public class ImageColorSwitch : MonoBehaviour
             rawImagesDefaultColors.Add(rawImages[i].color);
         }
     }
-
     public void SetHighlitState(bool ishighlighted)
     {
-        if (ishighlighted)
+        SetHighlitState(ishighlighted? VisualInteractionState.Hover : VisualInteractionState.Default);
+    }
+    public void SetHighlitState(VisualInteractionState state)
+    {
+        switch (state)
         {
-            foreach (Image t in images) t.color = HighlightColor;
-            foreach (RawImage t in rawImages) t.color = HighlightColor;
-        }
-        else
-        {
-
-            for (int i = 0; i < images.Count; i++)
-            {
-                images[i].color = imagesDefaultColors[i];
-            }
-            for (int i = 0; i < rawImages.Count; i++)
-            {
-                rawImages[i].color = rawImagesDefaultColors[i];
-
-            }
+            case VisualInteractionState.Hover:
+                foreach (Image t in images) t.color = HighlightColor;
+                foreach (RawImage t in rawImages) t.color = HighlightColor;
+                break;
+            case VisualInteractionState.Clicked:
+                foreach (Image t in images) t.color = SelectedColor;
+                foreach (RawImage t in rawImages) t.color = SelectedColor;
+                break;
+            default:
+                for (int i = 0; i < images.Count; i++) images[i].color = imagesDefaultColors[i];
+                for (int i = 0; i < rawImages.Count; i++) rawImages[i].color = rawImagesDefaultColors[i];
+                break;
         }
     }
 }

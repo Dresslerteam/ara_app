@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class MaterialSwitch : MonoBehaviour
 {
+    [SerializeField] private Material selectedMaterial;
+
     [SerializeField] private Material highlightedMaterial;
     [SerializeField] private Material notHighlightedMaterial;
     [SerializeField] private Transform imageToChange;
@@ -21,7 +23,21 @@ public class MaterialSwitch : MonoBehaviour
 
     public void UpdateMaterial(bool isHighlighted)
     {
-        Material newMaterial = isHighlighted ? highlightedMaterial : notHighlightedMaterial;
+        UpdateMaterial(isHighlighted ? VisualInteractionState.Hover: VisualInteractionState.Default);
+    }
+
+
+    public void UpdateMaterial(VisualInteractionState state)
+    {
+        Material newMaterial = notHighlightedMaterial;
+        if (state == VisualInteractionState.Hover)
+        {
+             newMaterial =  highlightedMaterial;
+        }
+        else if(state == VisualInteractionState.Clicked)
+        {
+            newMaterial = selectedMaterial;
+        }
 
         if (image != null)
         {
@@ -30,9 +46,15 @@ public class MaterialSwitch : MonoBehaviour
         else if (rawImage != null)
         {
             rawImage.material = newMaterial;
-        }else if (canvasElementRoundedRect != null)
+        }
+        else if (canvasElementRoundedRect != null)
         {
             canvasElementRoundedRect.material = newMaterial;
         }
+
+
+
+
     }
+
 }
