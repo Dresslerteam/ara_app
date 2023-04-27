@@ -21,9 +21,9 @@ public class FontColorSwitch : MonoBehaviour
     [SerializeField] private List<Text> texts = new List<Text>();
 
 
-    List<Color> textMeshProsDefaultColors = new List<Color>();
+     List<Color> textMeshProsDefaultColors = new List<Color>();
 
-    List<Color> textsDefaultColors = new List<Color>();
+     List<Color> textsDefaultColors = new List<Color>();
 
 
     public Color HighlightColor = Color.white;
@@ -75,7 +75,7 @@ public class FontColorSwitch : MonoBehaviour
                 foreach (TextMeshProUGUI t in textMeshPros) t.color = SelectedColor;
                 foreach (Text t in texts) t.color = SelectedColor;
                 break;
-            default:
+            case VisualInteractionState.Default:
                 for (int i = 0; i < textMeshPros.Count; i++) textMeshPros[i].color = textMeshProsDefaultColors[i];
                 for (int i = 0; i < texts.Count; i++) texts[i].color = textsDefaultColors[i];
                 

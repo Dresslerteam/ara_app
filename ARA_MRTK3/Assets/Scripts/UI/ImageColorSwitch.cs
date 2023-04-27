@@ -19,9 +19,9 @@ public class ImageColorSwitch : MonoBehaviour
     [SerializeField] private List<RawImage> rawImages = new List<RawImage>();
 
 
-    List<Color> imagesDefaultColors = new List<Color>();
+     List<Color> imagesDefaultColors = new List<Color>();
 
-    List<Color> rawImagesDefaultColors = new List<Color>();
+     List<Color> rawImagesDefaultColors = new List<Color>();
 
 
     public Color HighlightColor = Color.white;
@@ -72,7 +72,7 @@ public class ImageColorSwitch : MonoBehaviour
                 foreach (Image t in images) t.color = SelectedColor;
                 foreach (RawImage t in rawImages) t.color = SelectedColor;
                 break;
-            default:
+            case VisualInteractionState.Default:
                 for (int i = 0; i < images.Count; i++) images[i].color = imagesDefaultColors[i];
                 for (int i = 0; i < rawImages.Count; i++) rawImages[i].color = rawImagesDefaultColors[i];
                 break;

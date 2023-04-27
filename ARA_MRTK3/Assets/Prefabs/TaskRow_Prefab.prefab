@@ -997,6 +997,7 @@ MonoBehaviour:
   materials: []
   images:
   - {fileID: 3323922342172118521}
+  debug: 0
 --- !u!114 &3323922342172118521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2048,6 +2049,7 @@ MonoBehaviour:
   materials: []
   images:
   - {fileID: 6528464901103478222}
+  debug: 0
 --- !u!114 &6837289006454680573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3421,6 +3423,7 @@ GameObject:
   - component: {fileID: 4931235116191198337}
   - component: {fileID: 3305214220407197282}
   - component: {fileID: 8600276965032907662}
+  - component: {fileID: 3293022875905686685}
   m_Layer: 5
   m_Name: TaskRow_Prefab
   m_TagString: Untagged
@@ -3534,7 +3537,9 @@ MonoBehaviour:
   - {fileID: 3305214220407197282}
   materials:
   - {fileID: 8600276965032907662}
-  images: []
+  images:
+  - {fileID: 3293022875905686685}
+  debug: 0
 --- !u!114 &3305214220407197282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3568,6 +3573,24 @@ MonoBehaviour:
   highlightedMaterial: {fileID: 2100000, guid: 45975c9ae92cd4d229301a9e35b0a12f, type: 2}
   notHighlightedMaterial: {fileID: 2100000, guid: 6b655830bd028c1408f3e8844fb6aed0, type: 2}
   imageToChange: {fileID: 7807644312358279292}
+--- !u!114 &3293022875905686685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807644312393317581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af44db28d9e7a3d4a9e70955042eb63e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchType: 0
+  images:
+  - {fileID: 8011431500460697182}
+  rawImages: []
+  HighlightColor: {r: 0, g: 0, b: 0, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &7807644312532524613
 GameObject:
   m_ObjectHideFlags: 0
