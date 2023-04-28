@@ -54,6 +54,9 @@ public class WorkingHUDManager : MonoBehaviour
     private TaskInfo currentTask;
     private Dictionary<int, RepairManualDisplay> _repairManualDisplays = new Dictionary<int, RepairManualDisplay>();
     private Dictionary<int, StepDisplay> _stepDisplays = new Dictionary<int, StepDisplay>();
+
+    private string pdf_url;
+
     public void PopulateTaskGroups(TaskInfo task)
     {
         foreach (Transform child in buttonsRoot)
@@ -76,6 +79,7 @@ public class WorkingHUDManager : MonoBehaviour
         // Populate repair manual
         repairManuals.AddRange(task.RepairManuals);
         stepGroupButtonParentList.Clear();
+        procedureButton.OnClicked.AddListener(HandlePDFView);
         foreach (var repairManual in repairManuals)
         {
             // Add repair manual display
@@ -94,23 +98,12 @@ public class WorkingHUDManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
 
-            procedureButton.OnClicked.AddListener(() =>
-            {
-                if (procedureButton.IsToggled == true)
-                {
-                    if (procedureButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
-                        procedureButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                    MainMenuManager.Instance.pdfLoader.LoadPdf(repairManual.Document.Url);
-                    procedureButton.ForceSetToggled(true, true);
-                }
-                else if (procedureButton.IsToggled == false)
-                {
-                    if (procedureButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
-                        procedureButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                    MainMenuManager.Instance.pdfLoader.HidePdf();
-                    procedureButton.ForceSetToggled(false, true);
-                }
+
+            repairManualDisplay.GetComponent<PressableButton>().OnClicked.AddListener(() =>{
+                pdf_url = repairManual.Document.Url;
             });
+
+           
 
             int completedStepscount = 0;
             // Add steps
@@ -127,6 +120,7 @@ public class WorkingHUDManager : MonoBehaviour
                 completedStepscount += step.IsCompleted? 1 : 0;
                 button.OnClicked.AddListener(() =>
                 {
+                    pdf_url = repairManual.Document.Url;
                     SelectStep(step, repairManual, currentTask, stepDisplay);
                 });
                 SetupStepToggleButton(button, stepToggleCollection, step);
@@ -140,7 +134,12 @@ public class WorkingHUDManager : MonoBehaviour
         sideTab.gameObject.SetActive(false);
         StartCoroutine(DisableTheGroupsOverride());
     }
+    private void HandlePDFView()
+    {
+        MainMenuManager.Instance.pdfLoader.gameObject.SetActive(true);
+        MainMenuManager.Instance.pdfLoader.LoadOrHide(procedureButton.IsToggled, pdf_url);
 
+    }
     private IEnumerator DisableTheGroupsOverride()
     {
         yield return new WaitForEndOfFrame();

@@ -21,12 +21,13 @@ public class FontColorSwitch : MonoBehaviour
     [SerializeField] private List<Text> texts = new List<Text>();
 
 
-    List<Color> textMeshProsDefaultColors = new List<Color>();
+     List<Color> textMeshProsDefaultColors = new List<Color>();
 
-    List<Color> textsDefaultColors = new List<Color>();
+     List<Color> textsDefaultColors = new List<Color>();
 
 
     public Color HighlightColor = Color.white;
+    public Color SelectedColor = Color.white;
 
     // Start is called before the first frame update
     void Awake()
@@ -41,7 +42,12 @@ public class FontColorSwitch : MonoBehaviour
             texts.Add(GetComponent<Text>());
         }
 
+        StoreDefaults();
 
+
+    }
+    void StoreDefaults()
+    {
         for (int i = 0; i < textMeshPros.Count; i++)
         {
             textMeshProsDefaultColors.Add(textMeshPros[i].color);
@@ -54,23 +60,27 @@ public class FontColorSwitch : MonoBehaviour
 
    public void SetHighlitState(bool ishighlighted)
     {
-        if (ishighlighted)
-        {
-            foreach (TextMeshProUGUI t in textMeshPros) t.color = HighlightColor;
-            foreach (Text t in texts) t.color = HighlightColor;
-        }
-        else
-        {
+        SetHighlitState(ishighlighted? VisualInteractionState.Hover: VisualInteractionState.Default);
 
-            for (int i = 0; i < textMeshPros.Count; i++)
-            {
-                textMeshPros[i].color = textMeshProsDefaultColors[i];
-            }
-            for (int i = 0; i < texts.Count; i++)
-            {
-                texts[i].color = textsDefaultColors[i];
-
-            }
+    }
+    public void SetHighlitState(VisualInteractionState state)
+    {
+        switch (state)
+        {
+            case VisualInteractionState.Hover:
+                foreach (TextMeshProUGUI t in textMeshPros) t.color = HighlightColor;
+                foreach (Text t in texts) t.color = HighlightColor;
+                break;
+            case VisualInteractionState.Clicked:
+                foreach (TextMeshProUGUI t in textMeshPros) t.color = SelectedColor;
+                foreach (Text t in texts) t.color = SelectedColor;
+                break;
+            case VisualInteractionState.Default:
+                for (int i = 0; i < textMeshPros.Count; i++) textMeshPros[i].color = textMeshProsDefaultColors[i];
+                for (int i = 0; i < texts.Count; i++) texts[i].color = textsDefaultColors[i];
+                
+                break;
         }
     }
-}
+
+    }

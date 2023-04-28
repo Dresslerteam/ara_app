@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Backplate_Highlight
+  m_Name: Backplate_Selected
   m_Shader: {fileID: 4800000, guid: df5380aa6ab293c4fafbb942ed5da93f, type: 3}
   m_ShaderKeywords: UNITY_UI_ALPHACLIP _ALPHATEST_ON _BORDER_LIGHT_OPAQUE _BORDER_LIGHT_REPLACES_ALBEDO
     _BORDER_LIGHT_USES_COLOR _DECAL_FRONT_ONLY__ON _EDGE_SMOOTHING_AUTOMATIC _GRADIENT_LINEAR
@@ -297,7 +297,7 @@ Material:
     - _Bottom_Left_: {r: 0, g: 0.33, b: 0.88, a: 1}
     - _Bottom_Right_: {r: 1, g: 1, b: 1, a: 1}
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
-    - _ClipRectRadii: {r: 0, g: 0, b: 10, a: 10}
+    - _ClipRectRadii: {r: 0, g: 12, b: 0, a: 12}
     - _ClippingBorderColor: {r: 1, g: 0.2, b: 0, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _Color_: {r: 0.48160002, g: 0.67080003, b: 0.86, a: 1}

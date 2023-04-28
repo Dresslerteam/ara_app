@@ -325,6 +325,8 @@ GameObject:
   - component: {fileID: 8183469973179989615}
   - component: {fileID: 8183469973179989614}
   - component: {fileID: 8183469973179989613}
+  - component: {fileID: 3604936398806134344}
+  - component: {fileID: 8374270502401374940}
   m_Layer: 5
   m_Name: AccountButton Variant(Clone)
   m_TagString: Untagged
@@ -352,7 +354,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 30}
+  m_SizeDelta: {x: 106.44, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8183469973179989590
 MonoBehaviour:
@@ -373,6 +375,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_CustomReticle: {fileID: 0}
   m_FirstHoverEntered:
@@ -429,6 +432,8 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -532,24 +537,48 @@ MonoBehaviour:
     active: 0
     onEntered:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 8374270502401374940}
+          m_TargetAssemblyTypeName: MaterialSwitch, Assembly-CSharp
+          m_MethodName: UpdateMaterial
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     onExited:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 8374270502401374940}
+          m_TargetAssemblyTypeName: MaterialSwitch, Assembly-CSharp
+          m_MethodName: UpdateMaterial
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   disabledInteractorTypes:
   - reference: Microsoft.MixedReality.Toolkit.IGrabInteractor, Microsoft.MixedReality.Toolkit.Core
-  toggleMode: 0
-  selectThreshold: 0.9
-  deselectThreshold: 0.1
-  triggerOnRelease: 1
-  useGazeDwell: 0
-  gazeDwellTime: 1
-  useFarDwell: 0
-  farDwellTime: 1
+  <ToggleMode>k__BackingField: 0
+  <SelectThreshold>k__BackingField: 0.9
+  <DeselectThreshold>k__BackingField: 0.1
+  <TriggerOnRelease>k__BackingField: 1
+  <UseGazeDwell>k__BackingField: 0
+  <GazeDwellTime>k__BackingField: 1
+  <UseFarDwell>k__BackingField: 0
+  <FarDwellTime>k__BackingField: 1
   allowSelectByVoice: 1
   speechRecognitionKeyword: select
-  voiceRequiresFocus: 1
-  isToggled:
+  <VoiceRequiresFocus>k__BackingField: 1
+  <IsToggled>k__BackingField:
     active: 0
     onEntered:
       m_PersistentCalls:
@@ -557,7 +586,7 @@ MonoBehaviour:
     onExited:
       m_PersistentCalls:
         m_Calls: []
-  onClicked:
+  <OnClicked>k__BackingField:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
@@ -584,10 +613,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onEnabled:
+  <OnEnabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  onDisabled:
+  <OnDisabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
   smoothSelectedness: 1
@@ -654,7 +683,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0, y: 30, z: 26.38652}
+  m_Size: {x: 106.44, y: 30, z: 26.38652}
   m_Center: {x: 0, y: 0, z: 4.6067348}
 --- !u!114 &8183469973179989587
 MonoBehaviour:
@@ -971,7 +1000,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameTextField: {fileID: 8183469974299475986}
-  employeePhoto: {fileID: 0}
+--- !u!114 &3604936398806134344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8183469973179989611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a2cb2c92f19b94590f6e818307e57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fonts: []
+  materials:
+  - {fileID: 8374270502401374940}
+  images: []
+--- !u!114 &8374270502401374940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8183469973179989611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823b708615c9b55418c103a8d32d6213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedMaterial: {fileID: 0}
+  highlightedMaterial: {fileID: 2100000, guid: 45975c9ae92cd4d229301a9e35b0a12f, type: 2}
+  notHighlightedMaterial: {fileID: 2100000, guid: e48d599958476453d985ebe9e838479a, type: 2}
+  imageToChange: {fileID: 8183469973950955567}
 --- !u!1 &8183469973320942746
 GameObject:
   m_ObjectHideFlags: 0

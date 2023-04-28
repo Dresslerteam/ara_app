@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Ara.Domain.ApiClients.Dtos;
 using Ara.Domain.JobManagement;
 using Microsoft.MixedReality.Toolkit.UX;
@@ -19,26 +20,66 @@ public class TaskDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI statusText;
     [SerializeField] public PressableButton galleryButton;
     [SerializeField] private TextMeshProUGUI galleryPhotoCount;
+    [SerializeField] private SelectionDropdown statusDropDown;
 
     public PressableButton taskButton;
     private int taskId;
+
+    private void Awake()
+    {
+        statusDropDown.Build(Enum.GetNames(typeof(TaskInfo.TaskStatus)).ToList());
+        statusDropDown.OnOptionSelected = UpdateTaskStatusViaButton;
+    }
+
+    private string BuildStatusText(TaskInfo.TaskStatus status) 
+    {
+        return StringUtil.AddSpace(status.ToString()).ToUpper();
+    }
     public void UpdateDisplayInformation(int number, string title, TaskInfo.TaskStatus status, int numberOfPhotos)
     {
         taskId = number;
         stepNumberText.text = number.ToString();
         taskTitleText.text = title;
         galleryPhotoCount.text = numberOfPhotos.ToString();
-        Debug.Log("Status is: " + status);
-        if (status == 0)
-            return;
-        statusText.text = status switch
-        {
-            TaskInfo.TaskStatus.ToDo => "TO DO",
-            TaskInfo.TaskStatus.InProgress => "IN PROGRESS",
-            TaskInfo.TaskStatus.Completed => "COMPLETED",
-            TaskInfo.TaskStatus.OnHold => "ON HOLD"
-        };
+        statusText.text = BuildStatusText(status);
+
     }
+
+
+    public void UpdateTaskStatusViaButton(int _status)
+    {
+        TaskInfo.TaskStatus status = (TaskInfo.TaskStatus)_status;
+
+        if (MainMenuManager.Instance != null && MainMenuManager.Instance.currentJob != null)
+        {
+            MainMenuManager.Instance.currentJob.ChangeTaskStatus(taskId, status);
+        }
+        else
+        {
+            Debug.Log("Error: MainMenuManager instance or selectedJobListItem is null");
+        }
+        statusText.text = BuildStatusText(status);
+
+
+
+    }
+
+    public void UpdateTaskStatusViaButton(TaskInfo.TaskStatus status)
+    {
+        if (MainMenuManager.Instance != null && MainMenuManager.Instance.currentJob != null)
+        {
+            MainMenuManager.Instance.currentJob.ChangeTaskStatus(taskId, status);
+        }
+        else
+        {
+            Debug.Log("Error: MainMenuManager instance or selectedJobListItem is null");
+        }
+        statusText.text = BuildStatusText(status);
+
+
+    }
+
+
 
     public void UpdateTaskStatusViaButton(string status)
     {
@@ -67,7 +108,8 @@ public class TaskDisplay : MonoBehaviour
         {
             Debug.Log("Error: MainMenuManager instance or selectedJobListItem is null");
         }
-        statusText.text = status.ToString();
+        statusText.text = status;
+
     }
 
 }

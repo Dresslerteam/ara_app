@@ -747,6 +747,7 @@ MonoBehaviour:
   textMeshPros: []
   texts: []
   HighlightColor: {r: 0.4380169, g: 0, b: 1, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &6973321891467395043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,6 +765,7 @@ MonoBehaviour:
   materials: []
   images:
   - {fileID: 4788301642589031499}
+  debug: 0
 --- !u!114 &4788301642589031499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,6 +784,7 @@ MonoBehaviour:
   - {fileID: 6658901076836883006}
   rawImages: []
   HighlightColor: {r: 0.4380169, g: 0, b: 1, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2327443249814061820
 GameObject:
   m_ObjectHideFlags: 0
@@ -3361,6 +3364,7 @@ GameObject:
   - component: {fileID: 8520123610344147684}
   - component: {fileID: 3017788726793282569}
   - component: {fileID: 5809018887028645922}
+  - component: {fileID: 6890815030140780125}
   m_Layer: 5
   m_Name: JobRow_Prefab
   m_TagString: Untagged
@@ -3484,6 +3488,7 @@ MonoBehaviour:
   textMeshPros: []
   texts: []
   HighlightColor: {r: 0, g: 0, b: 0, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &5809018887028645922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3500,7 +3505,28 @@ MonoBehaviour:
   - {fileID: 3017788726793282569}
   materials:
   - {fileID: 2959861557931461798}
-  images: []
+  images:
+  - {fileID: 6890815030140780125}
+  debug: 0
+--- !u!114 &6890815030140780125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8520123610344147685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af44db28d9e7a3d4a9e70955042eb63e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchType: 0
+  images:
+  - {fileID: 8520123610863283243}
+  - {fileID: 8520123611315240426}
+  rawImages: []
+  HighlightColor: {r: 0, g: 0, b: 0, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &8520123610351082419
 GameObject:
   m_ObjectHideFlags: 0
@@ -4446,6 +4472,7 @@ MonoBehaviour:
   materials: []
   images:
   - {fileID: 9197719993587889886}
+  debug: 0
 --- !u!114 &3739612592101641523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4462,6 +4489,7 @@ MonoBehaviour:
   textMeshPros: []
   texts: []
   HighlightColor: {r: 0.4380169, g: 0, b: 1, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &9197719993587889886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4480,6 +4508,7 @@ MonoBehaviour:
   - {fileID: 4979387107001184831}
   rawImages: []
   HighlightColor: {r: 0.4380169, g: 0, b: 1, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &8520123610516720648
 GameObject:
   m_ObjectHideFlags: 0
@@ -7064,6 +7093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823b708615c9b55418c103a8d32d6213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedMaterial: {fileID: 0}
   highlightedMaterial: {fileID: 2100000, guid: 45975c9ae92cd4d229301a9e35b0a12f, type: 2}
   notHighlightedMaterial: {fileID: 2100000, guid: 6b655830bd028c1408f3e8844fb6aed0, type: 2}
   imageToChange: {fileID: 8520123610302574164}
