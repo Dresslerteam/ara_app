@@ -132,7 +132,9 @@ public class WorkingHUDManager : MonoBehaviour
         preStepSelectionVisuals.SetActive(true);
         selectedStepVisualRoot.SetActive(false);
         sideTab.gameObject.SetActive(false);
+
         StartCoroutine(DisableTheGroupsOverride());
+        StartCoroutine(SetupButtonCollider());
     }
     private void HandlePDFView()
     {
@@ -153,6 +155,11 @@ public class WorkingHUDManager : MonoBehaviour
             var button = st.GetComponent<PressableButton>();
             button.ForceSetToggled(false, true);
         }
+    }
+    private IEnumerator SetupButtonCollider()
+    {
+        yield return new WaitForSeconds(.1f);
+        foreach (KeyValuePair<int, RepairManualDisplay> entry in _repairManualDisplays) entry.Value.UpdateVisibility();
     }
     private void UpdateFileButtons(ManualStep step)
     {
