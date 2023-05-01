@@ -47,10 +47,10 @@ public class RepairManualDisplay : MonoBehaviour
     /// <summary>
     /// UpdateVisibility updates visibility if still on panel
     /// </summary>
-    private void UpdateVisibility()
+    public void UpdateVisibility()
     {
         if (stepScroller == null || collider == null || rect == null) return;
-
+        //Debug.Log($"  {stepScroller.transform.localPosition.y}   {rect.rect.height}   {Mathf.Abs(rect.anchoredPosition.y)}");
         bool enabled =
             stepScroller.transform.localPosition.y - (rect.rect.height/3f) < Mathf.Abs(rect.anchoredPosition.y) &&
             stepScroller.transform.localPosition.y + stepScroller.content.rect.height - (rect.rect.height / 3f) > Mathf.Abs(rect.anchoredPosition.y);
