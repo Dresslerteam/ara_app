@@ -36,7 +36,7 @@ public class SelectionDropdown : MonoBehaviour
                // Debug.Log($"Selection {selected} {displayString}");
                 go.GetComponent<VisualSwitchController>().UpdateState(VisualInteractionState.Clicked);
                 CurrentSelected = selected;
-                HandeOnOptionSelected(displayString); 
+                HandleOnOptionSelected(displayString); 
             });
             count++;
 
@@ -58,11 +58,11 @@ public class SelectionDropdown : MonoBehaviour
     }
   
 
-    public void HandeOnOptionSelected(int option)
+    public void HandleOnOptionSelected(int option)
     {
-        HandeOnOptionSelected(Options[option]);
+        HandleOnOptionSelected(Options[option]);
     }
-    public void HandeOnOptionSelected(string option)
+    public void HandleOnOptionSelected(string option)
     {
         foreach (GameObject obj in optionObjects)
         {
