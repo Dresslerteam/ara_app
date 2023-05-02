@@ -19,6 +19,11 @@ GameObject:
   - component: {fileID: 2071002753981617766}
   - component: {fileID: 3814526396529388413}
   - component: {fileID: 4907089468055783335}
+  - component: {fileID: 3919514407082480237}
+  - component: {fileID: 7924996709040210833}
+  - component: {fileID: 4442401280063176155}
+  - component: {fileID: 4284459396174978274}
+  - component: {fileID: 5935943425531089534}
   m_Layer: 5
   m_Name: GroupTemplate_BTN
   m_TagString: Untagged
@@ -230,10 +235,34 @@ MonoBehaviour:
     active: 0
     onEntered:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 3919514407082480237}
+          m_TargetAssemblyTypeName: VisualSwitchController, Assembly-CSharp
+          m_MethodName: UpdateState
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     onExited:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 3919514407082480237}
+          m_TargetAssemblyTypeName: VisualSwitchController, Assembly-CSharp
+          m_MethodName: UpdateState
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   disabledInteractorTypes:
   - reference: Microsoft.MixedReality.Toolkit.IGrabInteractor, Microsoft.MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 1
@@ -252,9 +281,9 @@ MonoBehaviour:
     onEntered:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4907089468055783335}
-          m_TargetAssemblyTypeName: ExpandablePressableButton, Assembly-CSharp
-          m_MethodName: ToggleExpand
+        - m_Target: {fileID: 3919514407082480237}
+          m_TargetAssemblyTypeName: VisualSwitchController, Assembly-CSharp
+          m_MethodName: SetSelectedState
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -267,9 +296,9 @@ MonoBehaviour:
     onExited:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4907089468055783335}
-          m_TargetAssemblyTypeName: ExpandablePressableButton, Assembly-CSharp
-          m_MethodName: ToggleExpand
+        - m_Target: {fileID: 3919514407082480237}
+          m_TargetAssemblyTypeName: VisualSwitchController, Assembly-CSharp
+          m_MethodName: SetSelectedState
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -485,62 +514,32 @@ MonoBehaviour:
     entries:
     - key: Disabled
       value:
-        effects:
-        - id: 0
-        - id: 1
+        effects: []
         isVariable: 0
     - key: PassiveHover
       value:
         effects:
-        - id: 2
-        - id: 3
+        - id: 0
         isVariable: 0
     - key: ActiveHover
       value:
         effects:
-        - id: 4
-        - id: 5
+        - id: 1
         isVariable: 0
     - key: Select
       value:
         effects:
-        - id: 6
+        - id: 2
         isVariable: 1
     - key: Toggle
       value:
-        effects:
-        - id: 7
-        - id: 8
+        effects: []
         isVariable: 0
   interactable: {fileID: 817768270798061895}
   animator: {fileID: 817768270798061891}
   references:
     version: 1
     00000000:
-      type: {class: GraphicTintEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
-      data:
-        name: GraphicTint
-        transitionDuration: 0.15
-        tintables:
-        - {fileID: 0}
-        color: {r: 1, g: 1, b: 1, a: 0.5019608}
-        playbackMode: 0
-        blendMode: 2
-    00000001:
-      type: {class: GraphicTintEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
-      data:
-        name: GraphicTint
-        transitionDuration: 0.15
-        tintables:
-        - {fileID: 7027946770080068616}
-        - {fileID: 772443996582299860}
-        - {fileID: 785387503703971885}
-        - {fileID: 7335099253907173234}
-        - {fileID: 4166149281049921262}
-        color: {r: 1, g: 1, b: 1, a: 0.5019608}
-        playbackMode: 0
-        blendMode: 2
-    00000002:
       type: {class: AnimationEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
       data:
         name: Animation
@@ -549,17 +548,7 @@ MonoBehaviour:
         playbackMode: 0
         weightMode: 0
         transitionDuration: 0
-    00000003:
-      type: {class: GraphicTintEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
-      data:
-        name: GraphicTint
-        transitionDuration: 0.1
-        tintables:
-        - {fileID: 4606581504885496836}
-        color: {r: 1, g: 1, b: 1, a: 1}
-        playbackMode: 0
-        blendMode: 0
-    00000004:
+    00000001:
       type: {class: AnimationEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
       data:
         name: Animation
@@ -568,17 +557,7 @@ MonoBehaviour:
         playbackMode: 0
         weightMode: 0
         transitionDuration: 0
-    00000005:
-      type: {class: GraphicTintEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
-      data:
-        name: GraphicTint
-        transitionDuration: 0.15
-        tintables:
-        - {fileID: 0}
-        color: {r: 0, g: 0, b: 0, a: 0.2}
-        playbackMode: 0
-        blendMode: 1
-    00000006:
+    00000002:
       type: {class: AnimationEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
       data:
         name: Animation
@@ -587,26 +566,6 @@ MonoBehaviour:
         playbackMode: 1
         weightMode: 0
         transitionDuration: 0
-    00000007:
-      type: {class: GraphicTintEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
-      data:
-        name: GraphicTint
-        transitionDuration: 0.15
-        tintables:
-        - {fileID: 0}
-        color: {r: 0, g: 0, b: 0, a: 0.2509804}
-        playbackMode: 0
-        blendMode: 1
-    00000008:
-      type: {class: GraphicTintEffect, ns: Microsoft.MixedReality.Toolkit.UX, asm: Microsoft.MixedReality.Toolkit.UXCore}
-      data:
-        name: GraphicTint
-        transitionDuration: 0.15
-        tintables:
-        - {fileID: 785387503703971885}
-        color: {r: 1, g: 1, b: 1, a: 1}
-        playbackMode: 0
-        blendMode: 0
 --- !u!114 &6234411961478505356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,6 +615,9 @@ MonoBehaviour:
   completionAmountText: {fileID: 2314724805153019842}
   stepGroupParent: {fileID: 9180192506629482064}
   stepToggleCollection: {fileID: 9023492427300215317}
+  visualController: {fileID: 3919514407082480237}
+  expandable: {fileID: 4907089468055783335}
+  toggle: {fileID: 817768270798061895}
 --- !u!114 &4907089468055783335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,6 +634,95 @@ MonoBehaviour:
   contentSizeFitter: {fileID: 0}
   expandablePanelHeight: 0
   OpenArrowIcon: {fileID: 9180192507583820298}
+--- !u!114 &3919514407082480237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817768270798061919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a2cb2c92f19b94590f6e818307e57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fonts:
+  - {fileID: 4284459396174978274}
+  materials:
+  - {fileID: 7924996709040210833}
+  images:
+  - {fileID: 4442401280063176155}
+  - {fileID: 5935943425531089534}
+  debug: 0
+--- !u!114 &7924996709040210833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817768270798061919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823b708615c9b55418c103a8d32d6213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedMaterial: {fileID: 2100000, guid: 6ae05bd62b4044b35b491c34f36c4a05, type: 2}
+  highlightedMaterial: {fileID: 2100000, guid: 45975c9ae92cd4d229301a9e35b0a12f, type: 2}
+  notHighlightedMaterial: {fileID: 2100000, guid: dad6afe71b58d455194a8e79c501109b, type: 2}
+  imageToChange: {fileID: 5003806040151526271}
+--- !u!114 &4442401280063176155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817768270798061919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af44db28d9e7a3d4a9e70955042eb63e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchType: 0
+  images:
+  - {fileID: 7027946770080068616}
+  rawImages: []
+  HighlightColor: {r: 0.16470589, g: 0.2509804, b: 0.7372549, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &4284459396174978274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817768270798061919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: affee6b6cb74e78488164e1ae237c86c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchType: 1
+  textMeshPros: []
+  texts: []
+  HighlightColor: {r: 0, g: 0, b: 0, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &5935943425531089534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817768270798061919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af44db28d9e7a3d4a9e70955042eb63e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchType: 0
+  images:
+  - {fileID: 9180192505876074785}
+  rawImages: []
+  HighlightColor: {r: 0, g: 0, b: 0, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1586718547336009730
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,14 +1447,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 2157a29b6ece02542b46ddae766e70e8, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.21176472, g: 0.19607845, b: 0.7843138, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 982dbbfbd848b4da894d46f8e31be049, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3a0d33536835d84db1a1f2af6a7ef4e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2128,14 +2179,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 2157a29b6ece02542b46ddae766e70e8, type: 2}
-  m_Color: {r: 0.08235294, g: 0.101960786, b: 0.13725491, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: faf374f7d644e4d0f901501f82324582, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ed6a11d4a174ade469e56703b47f0129, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

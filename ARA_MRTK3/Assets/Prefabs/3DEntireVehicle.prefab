@@ -478,7 +478,7 @@ MonoBehaviour:
   toggleHandlesOnClick: 1
   dragToggleThreshold: 0.005
   target: {fileID: 0}
-  handlesActive: 0
+  handlesActive: 1
   enabledHandles: 3
   rotateAnchor: 1
   scaleAnchor: 0
