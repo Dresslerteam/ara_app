@@ -19,15 +19,15 @@ using static Tutorial;
 
 public class WorkingHUDManager : MonoBehaviour
 {
-    [FormerlySerializedAs("toggleCollection")][SerializeField] private ToggleCollection stepToggleCollection;
+    //[FormerlySerializedAs("toggleCollection")][SerializeField] private ToggleCollection stepToggleCollection;
     [SerializeField] private ToggleCollection manualButtonCollection;
     [Header("Steps")]
-    [SerializeField] private Transform groupsRoot;
-    [SerializeField][AssetsOnly] private GameObject repairManualDisplayPrefab;
-    [SerializeField][AssetsOnly] private GameObject stepDisplayPrefab;
+    //[SerializeField] private Transform groupsRoot;
+    //[SerializeField][AssetsOnly] private GameObject repairManualDisplayPrefab;
+    //[SerializeField][AssetsOnly] private GameObject stepDisplayPrefab;
     [SerializeField][SceneObjectsOnly] private GameObject completedCameraIcon;
     [SerializeField][SceneObjectsOnly] private GameObject uncompletedCameraIcon;
-    private List<RepairManual> repairManuals = new List<RepairManual>();
+    //private List<RepairManual> repairManuals = new List<RepairManual>();
     [Header("Visuals")]
     [SerializeField] private TextMeshProUGUI taskTextAboveVisuals;
 
@@ -47,119 +47,50 @@ public class WorkingHUDManager : MonoBehaviour
     public GameObject takePicture;
     public GameObject CameraSaverBanner;
     private TextMeshProUGUIAutoSizer textMeshProUGUIAutoSizer;
-    private RepairManualDisplay firstRepairManualDisplay;
+    //private RepairManualDisplay firstRepairManualDisplay;
     public static Action<ManualStep, RepairManual, StepDisplay> OnStepSelected; //todo:tat This is for PhotoCapture Tool reference
-    private List<PressableButton> stepGroupButtonParentList = new List<PressableButton>();
+   // private List<Toggle> stepGroupButtonParentList = new List<Toggle>();
 
-    private TaskInfo currentTask;
-    private Dictionary<int, RepairManualDisplay> _repairManualDisplays = new Dictionary<int, RepairManualDisplay>();
-    private Dictionary<int, StepDisplay> _stepDisplays = new Dictionary<int, StepDisplay>();
+    public TaskInfo CurrentTask { set; get; }
+    //private Dictionary<int, RepairManualDisplay> _repairManualDisplays = new Dictionary<int, RepairManualDisplay>();
+    //private Dictionary<int, StepDisplay> _stepDisplays = new Dictionary<int, StepDisplay>();
+
+    public StepsListController StepsListController { get;  set; }
 
     private string pdf_url;
 
+    public void SetPdfUrl(string url)
+    {
+        pdf_url = url;
+    }
+
     public void PopulateTaskGroups(TaskInfo task)
     {
+        manualButtonCollection.Toggles.Clear();
         foreach (Transform child in buttonsRoot)
         {
             Destroy(child.gameObject);
         }
-        manualButtonCollection.Toggles.Clear();
-        _stepDisplays = new Dictionary<int, StepDisplay>();
-        _repairManualDisplays = new Dictionary<int, RepairManualDisplay>();
-        currentTask = task;
-        // Clear previous groups
-        for (int i = groupsRoot.childCount - 1; i >= 0; i--)
-        {
-            GameObject childObject = groupsRoot.GetChild(i).gameObject;
-            Destroy(childObject);
-        }
-        stepToggleCollection.Toggles.Clear();
-        repairManuals.Clear();
-        firstRepairManualDisplay = null;
-        // Populate repair manual
-        repairManuals.AddRange(task.RepairManuals);
-        stepGroupButtonParentList.Clear();
+
+        StepsListController.PopulateTaskGroups(task);
+
         procedureButton.OnClicked.AddListener(HandlePDFView);
-        foreach (var repairManual in repairManuals)
-        {
-            // Add repair manual display
-            RepairManualDisplay repairManualDisplay = Instantiate(repairManualDisplayPrefab, groupsRoot)
-                .GetComponent<RepairManualDisplay>();
-            stepGroupButtonParentList.Add(repairManualDisplay.GetComponent<PressableButton>());
-            repairManualDisplay.gameObject.name += repairManual.Id;
-            repairManualDisplay.stepToggleCollection.Toggles.Clear();
-            repairManualDisplay.transform.localScale = Vector3.one;
-            repairManualDisplay.transform.localRotation = Quaternion.identity;
-
-            _repairManualDisplays.Add(repairManual.Id, repairManualDisplay);
-            // Clear previous steps
-            foreach (Transform child in repairManualDisplay.stepGroupParent)
-            {
-                Destroy(child.gameObject);
-            }
-
-
-            repairManualDisplay.GetComponent<PressableButton>().OnClicked.AddListener(() =>{
-                pdf_url = repairManual.Document.Url;
-            });
-
-           
-
-            int completedStepscount = 0;
-            // Add steps
-            foreach (var step in repairManual.Steps)
-            {
-                StepDisplay stepDisplay = Instantiate(stepDisplayPrefab).GetComponent<StepDisplay>();
-                stepDisplay.UpdateDisplayInformation(step.Id, step.Title,
-                    step.IsCompleted, repairManualDisplay.stepGroupParent);
-                var button = stepDisplay.GetComponent<PressableButton>();
-                repairManualDisplay.stepToggleCollection.Toggles.Add(button);
-                stepDisplay.OnStepChange += repairManualDisplay.OnStepChange;
-
-                _stepDisplays.Add(step.Id, stepDisplay);
-                completedStepscount += step.IsCompleted? 1 : 0;
-                button.OnClicked.AddListener(() =>
-                {
-                    pdf_url = repairManual.Document.Url;
-                    SelectStep(step, repairManual, currentTask, stepDisplay);
-                });
-                SetupStepToggleButton(button, stepToggleCollection, step);
-            }
-            repairManualDisplay.UpdateDisplayInformation(repairManual.Name, completedStepscount, repairManual.Steps.Count);
-
-        }
 
         preStepSelectionVisuals.SetActive(true);
         selectedStepVisualRoot.SetActive(false);
         sideTab.gameObject.SetActive(false);
 
-        StartCoroutine(DisableTheGroupsOverride());
-        StartCoroutine(SetupButtonCollider());
     }
+  
     private void HandlePDFView()
     {
         MainMenuManager.Instance.pdfLoader.gameObject.SetActive(true);
         MainMenuManager.Instance.pdfLoader.LoadOrHide(procedureButton.IsToggled, pdf_url);
 
     }
-    private IEnumerator DisableTheGroupsOverride()
-    {
-        yield return new WaitForEndOfFrame();
-        foreach (var Toggle in _repairManualDisplays.Values)
-        {
-            Toggle.SetOpen(false);
-        }
-        foreach (var st in _stepDisplays.Values)
-        {
-            var button = st.GetComponent<PressableButton>();
-            button.ForceSetToggled(false, true);
-        }
-    }
-    private IEnumerator SetupButtonCollider()
-    {
-        yield return new WaitForSeconds(.1f);
-        foreach (KeyValuePair<int, RepairManualDisplay> entry in _repairManualDisplays) entry.Value.UpdateVisibility();
-    }
+ 
+
+
     private void UpdateFileButtons(ManualStep step)
     {
 
@@ -244,34 +175,7 @@ public class WorkingHUDManager : MonoBehaviour
 
     }
 
-    private void SetupStepToggleButton(PressableButton stepButton, ToggleCollection toggleCollection, ManualStep step)
-    {
-        toggleCollection.Toggles.Add(stepButton);
-        // If toggle is selected and the stepButton is toggled, force disable the toggle
-        toggleCollection.OnToggleSelected.AddListener((ctx) =>
-        {
-            if (toggleCollection.Toggles[ctx] != stepButton)
-            {
-                stepButton.ForceSetToggled(false, false);
-            }
-        });
-        // Set the toggle mode to toggle
-        stepButton.ForceSetToggled(false);
-        stepButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
-        stepButton.OnClicked.AddListener(() =>
-        {
-            if (stepButton.IsToggled == true)
-            {
-                if (stepButton.ToggleMode != StatefulInteractable.ToggleType.OneWayToggle)
-                    stepButton.ToggleMode = StatefulInteractable.ToggleType.OneWayToggle;
-                stepButton.ForceSetToggled(true, true);
-            }
-            else if (stepButton.IsToggled == false)
-            {
-                return;
-            }
-        });
-    }
+
 
     public void UpdateVisual(string stepTitle, string imageURL)
     {
@@ -379,13 +283,13 @@ public class WorkingHUDManager : MonoBehaviour
 
     private void MoveToNextStep(ManualStep step, RepairManual repairManual)
     {
-        var nextStepObj = MainMenuManager.Instance.currentJob.GetNextStep(currentTask.Id, repairManual.Id, step.Id);
+        var nextStepObj = MainMenuManager.Instance.currentJob.GetNextStep(CurrentTask.Id, repairManual.Id, step.Id);
         Debug.Log($"<color=blue/>!!!! what we got from GetNextStep repairManual:{nextStepObj.Payload.RepairManual.Id} step:{nextStepObj.Payload.Step.Id}</color>");
         //It only moves to next step if it belongs to same repair manual.
         if (nextStepObj.Status == ResultStatus.Success && nextStepObj.Payload.RepairManual.Id == repairManual.Id)
         {
-            var newStepDisplay = _stepDisplays[nextStepObj.Payload.Step.Id];
-            SelectStep(nextStepObj.Payload.Step, nextStepObj.Payload.RepairManual, currentTask, newStepDisplay);
+            var newStepDisplay = StepsListController.StepDisplays[nextStepObj.Payload.Step.Id];
+            SelectStep(nextStepObj.Payload.Step, nextStepObj.Payload.RepairManual, CurrentTask, newStepDisplay);
             var stepButton = newStepDisplay.GetComponent<PressableButton>();
             stepButton.ForceSetToggled(true, true);
         }

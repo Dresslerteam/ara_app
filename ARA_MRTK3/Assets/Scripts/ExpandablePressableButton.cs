@@ -1,3 +1,4 @@
+using Microsoft.MixedReality.GraphicsTools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,22 +45,13 @@ public class ExpandablePressableButton : MonoBehaviour
             return;
         if(colliders.Count == 0)
             colliders.AddRange(GetComponentsInChildren<Collider>());
-        if (!isExpanded)
+
+        //expandablePanel.sizeDelta = new Vector2(expandablePanel.sizeDelta.x, expandablePanelHeight);
+
+        expandablePanel.gameObject.SetActive(isExpanded);
+        foreach (var collider in colliders)
         {
-            expandablePanelHeight = expandablePanel.sizeDelta.y;
-            expandablePanel.sizeDelta = new Vector2(expandablePanel.sizeDelta.x, 0);
-            foreach (var collider in colliders)
-            {
-                collider.enabled = false;
-            }
-        }
-        else
-        {
-            expandablePanel.sizeDelta = new Vector2(expandablePanel.sizeDelta.x, expandablePanelHeight);
-            foreach (var collider in colliders)
-            {
-                collider.enabled = true;
-            }
+            collider.enabled = isExpanded;
         }
         OpenArrowIcon.localEulerAngles = new Vector3(0, 0, isExpanded ? 180 : 0);
         colliders[0].enabled = true;
