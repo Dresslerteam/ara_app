@@ -44,7 +44,7 @@ public class VerticalFoldoutGroup : MonoBehaviour
 
         float panelHeight = expandedButton.expandablePanelHeight;
 
-        Vector2 size = new Vector2(container.rect.width, container.rect.height);
+        Vector2 size = new Vector2(0, container.rect.height);
 
         size.y += isExpanded ? panelHeight : -panelHeight;
 
