@@ -72,7 +72,7 @@ namespace Microsoft.MixedReality.Toolkit.UX
 
                 float displacementFromStart = (thisFrame - startTouchPoint).magnitude / deadzone;
 
-                Debug.Log(displacementFromStart.ToString("F3"));
+                //Debug.Log(displacementFromStart.ToString("F3"));
 
                 dragDelta *= Mathf.Clamp01(displacementFromStart);
 

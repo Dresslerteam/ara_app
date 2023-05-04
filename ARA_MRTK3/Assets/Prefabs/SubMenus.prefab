@@ -9208,9 +9208,9 @@ GameObject:
   - component: {fileID: 4762379139381695035}
   - component: {fileID: 4762379139381695028}
   - component: {fileID: 4762379139381695029}
-  - component: {fileID: 4762379139381695034}
   - component: {fileID: 4762379139381695033}
   - component: {fileID: 5053584553481321597}
+  - component: {fileID: 5979403693916125606}
   m_Layer: 5
   m_Name: StepsPortion
   m_TagString: Untagged
@@ -9301,24 +9301,6 @@ MonoBehaviour:
   thickness: 1
   wedges: 8
   calculateSmoothEdges: 1
---- !u!114 &4762379139381695034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4762379139381695031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0062122f5920d1449aa2f20c88ee400, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggles: []
-  allowSwitchOff: 0
-  currentIndex: 0
-  onToggleSelected:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &4762379139381695033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9382,10 +9364,28 @@ MonoBehaviour:
   listContainerRectTransform: {fileID: 4762379138387711965}
   repairManualDisplayPrefab: {fileID: 817768270798061919, guid: 0b816fc8f04c6495b8c8e059e895e635, type: 3}
   stepDisplayPrefab: {fileID: 642855912534423280, guid: f212fe504a6f54f3b99265e44851ce78, type: 3}
-  stepToggleCollection: {fileID: 4762379139381695034}
+  stepToggleCollection: {fileID: 5979403693916125606}
   _scrollRect: {fileID: 3510919127700715979}
   _stepScroller: {fileID: 0}
   HUD: {fileID: 4762379138582972138}
+--- !u!114 &5979403693916125606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4762379139381695031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ac10492160278478495eb7b9644281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggles: []
+  allowSwitchOff: 0
+  currentIndex: 0
+  onToggleSelected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4762379139400446810
 GameObject:
   m_ObjectHideFlags: 0

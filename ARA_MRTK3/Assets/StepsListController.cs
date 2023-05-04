@@ -24,7 +24,7 @@ public class StepsListController : MonoBehaviour
     public Dictionary<int, StepDisplay> StepDisplays { get { return _stepDisplays; } }
 
     private List<Toggle> stepGroupButtonParentList = new List<Toggle>();
-    [SerializeField] private ToggleCollection stepToggleCollection;
+    [SerializeField] private CustomToggleCollection stepToggleCollection;
 
     [SerializeField] private ScrollRect _scrollRect;
 
