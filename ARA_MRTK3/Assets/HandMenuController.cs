@@ -41,11 +41,6 @@ public class HandMenuController : MonoBehaviour
                 AllButtonsOff();
                 break;
             case MenuPage.jobSelectScreen:
-                cameraButton.SetActive(false);
-                galleryButton.SetActive(false);
-                rulerButton.SetActive(true);
-                voiceButton.SetActive(true);
-                break;
             case MenuPage.taskSelect:
             case MenuPage.performingJob:
                 AllButtonsOn();
