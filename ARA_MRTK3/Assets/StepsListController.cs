@@ -115,7 +115,6 @@ public class StepsListController : MonoBehaviour
 
     public void UpdateColliders()
     {
-        Debug.Log("Update colliders");
         foreach (var entry in _repairManualDisplays) entry.Value.UpdateColliders();
         foreach (var entry in _stepDisplays) entry.Value.UpdateColliders();
     }

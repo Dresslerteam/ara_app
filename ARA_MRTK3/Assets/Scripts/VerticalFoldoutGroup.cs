@@ -66,6 +66,8 @@ public class VerticalFoldoutGroup : MonoBehaviour
 
             element.anchoredPosition = anchoredPosition;
         }
+        container.offsetMin = new Vector2(10, container.offsetMin.y);
+        container.offsetMax = new Vector2(-25, container.offsetMax.y);
     }
 
 
