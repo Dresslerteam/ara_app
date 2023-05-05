@@ -31,7 +31,8 @@ public class MainMenuManager : MonoBehaviour
     public PhotoCaptureTool photoCaptureTool;
     public HeaderManager headerManager;
 
-    public PDFLoader pdfLoader;
+   // public PDFLoader pdfLoader;
+    public PDFsManager pdfsManager;
     [Header("ModelOverview")]
     public GameObject modelOverviewGO;
     public GameObject modelOveriewCallOuts;
@@ -77,6 +78,8 @@ public class MainMenuManager : MonoBehaviour
 
         _instance = this;
         ToggleAllMenus(false);
+
+        pdfsManager = GetComponent<PDFsManager>();
     }
 
     private void Start()
@@ -217,14 +220,14 @@ public class MainMenuManager : MonoBehaviour
             {
                 if (estimationButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfLoader.LoadPdf(chosenJob.PreliminaryEstimation.Url);
+                pdfsManager.LoadPdf(chosenJob.PreliminaryEstimation.Url);
                 estimationButton.ForceSetToggled(true, true);
             }
             else if (estimationButton.IsToggled == false)
             {
                 if (estimationButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfLoader.HidePdf();
+                pdfsManager.HidePdf(chosenJob.PreliminaryEstimation.Url);
                 estimationButton.ForceSetToggled(false, true);
             }
         });
@@ -236,14 +239,14 @@ public class MainMenuManager : MonoBehaviour
             {
                 if (scanDocButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfLoader.LoadPdf(chosenJob.PreliminaryScan.Url);
+                pdfsManager.LoadPdf(chosenJob.PreliminaryScan.Url);
                 scanDocButton.ForceSetToggled(true, true);
             }
             else if (scanDocButton.IsToggled == false)
             {
                 if (scanDocButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfLoader.HidePdf();
+                pdfsManager.HidePdf(chosenJob.PreliminaryScan.Url);
                 scanDocButton.ForceSetToggled(false, true);
             }
         });

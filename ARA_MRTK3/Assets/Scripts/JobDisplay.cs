@@ -80,7 +80,7 @@ public class JobDisplay : MonoBehaviour
             {
                 if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfLoader.LoadPdf(availableJobListItem.PreliminaryEstimation.Url);
+                MainMenuManager.Instance.pdfsManager.LoadPdf(availableJobListItem.PreliminaryEstimation.Url);
                 Debug.Log($"{gameObject.name}PDF Loaded");
                 pdfButton.ForceSetToggled(true, true);
             }
@@ -88,7 +88,7 @@ public class JobDisplay : MonoBehaviour
             {
                 if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfLoader.HidePdf();
+                MainMenuManager.Instance.pdfsManager.HidePdf(availableJobListItem.PreliminaryEstimation.Url);
                 Debug.Log($"{gameObject.name}PDF Hidden");
                 pdfButton.ForceSetToggled(false, true);
             }
