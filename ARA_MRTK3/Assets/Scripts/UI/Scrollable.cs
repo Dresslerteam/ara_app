@@ -12,7 +12,7 @@ namespace Microsoft.MixedReality.Toolkit.UX
     /// <summary>
     /// Allows a <see cref="ScrollRect"/> to be scrolled by XRI interactors.
     /// </summary>
-    public class Scrollable : PressableButton
+    public class Scrollable : ScrollingPressableButton
     {
         [Tooltip("The scroll rect to scroll.")]
         [SerializeField]
