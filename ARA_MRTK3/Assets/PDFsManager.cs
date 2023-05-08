@@ -73,7 +73,7 @@ public class PDFsManager : MonoBehaviour
 
             pinnedPDFObjects.Add(loader);
 
-            loader.gameObject.transform.SetParent(PinnedContainer);
+            loader.gameObject.transform.SetParent(PinnedContainer, true);
             Refresh();
         }
     }
