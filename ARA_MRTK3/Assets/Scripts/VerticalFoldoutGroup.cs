@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class VerticalFoldoutGroup : MonoBehaviour
     private float baseVerticalOffset = 96f;
 
     [SerializeField] private float spacing = 8f;
+     private RectTransform container;
 
     private List<ExpandablePressableButton> foldoutElements = new List<ExpandablePressableButton>();
 
@@ -20,6 +22,7 @@ public class VerticalFoldoutGroup : MonoBehaviour
     private IEnumerator Initialize()
     {
         yield return null;
+        container=this.GetComponent<RectTransform>();
         PopulateFoldoutElementList();
         OffsetElements();
         ExpandablePressableButton.OnExpand += OnExpandHandler;
@@ -38,9 +41,45 @@ public class VerticalFoldoutGroup : MonoBehaviour
     public void UpdateFoldout(bool isExpanded, ExpandablePressableButton expandedButton)
     {
         int expandedButtonIndex = foldoutElements.IndexOf(expandedButton);
-        RectTransform expandedPanel = expandedButton.expandablePanel.GetComponent<RectTransform>();
-        float panelHeight = expandedPanel.sizeDelta.y;
 
+        float panelHeight = expandedButton.expandablePanelHeight;
+
+        Vector2 size = new Vector2(0, container.rect.height);
+
+        size.y += isExpanded ? panelHeight : -panelHeight;
+
+        container.sizeDelta = size;
+
+        for (int i = expandedButtonIndex + 1; i < foldoutElements.Count; i++)
+        {
+            RectTransform element = foldoutElements[i].GetComponent<RectTransform>();
+            Vector2 anchoredPosition = element.anchoredPosition;
+
+            if (isExpanded)
+            {
+                anchoredPosition.y -= panelHeight + spacing;
+            }
+            else
+            {
+                anchoredPosition.y += expandedButton.expandablePanelHeight + spacing;
+            }
+
+            element.anchoredPosition = anchoredPosition;
+        }
+        container.offsetMin = new Vector2(10, container.offsetMin.y);
+        container.offsetMax = new Vector2(-25, container.offsetMax.y);
+    }
+
+
+
+
+    public void UpdateFoldoutBACKUP(bool isExpanded, ExpandablePressableButton expandedButton)
+    {
+        int expandedButtonIndex = foldoutElements.IndexOf(expandedButton);
+        //RectTransform expandedPanel = expandedButton.expandablePanel.GetComponent<RectTransform>();
+        //float panelHeight = expandedPanel.sizeDelta.y;
+        float panelHeight = expandedButton.expandablePanelHeight;
+        Debug.Log($"{(isExpanded ? "Open" : "Close")} panel {panelHeight}");
         for (int i = expandedButtonIndex + 1; i < foldoutElements.Count; i++)
         {
             RectTransform element = foldoutElements[i].GetComponent<RectTransform>();
