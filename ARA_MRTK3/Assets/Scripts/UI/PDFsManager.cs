@@ -103,7 +103,7 @@ public class PDFsManager : MonoBehaviour
     }
     private Vector3 findPosition(int index)
     {
-        return new Vector3(.05f, -.05f, -.05f) * index;
+        return new Vector3(.1f, -.1f, -.1f) * index;
     }
     private void PositionLoaderLastInContainer(PDFLoader loader)
     {

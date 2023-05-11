@@ -2,7 +2,7 @@ using Microsoft.MixedReality.GraphicsTools;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MaterialSwitch : MonoBehaviour
+public class MaterialSwitch : UIInteractionSwitcher
 {
     [SerializeField] private Material selectedMaterial;
 
@@ -23,11 +23,11 @@ public class MaterialSwitch : MonoBehaviour
 
     public void UpdateMaterial(bool isHighlighted)
     {
-        UpdateMaterial(isHighlighted ? VisualInteractionState.Hover: VisualInteractionState.Default);
+        UpdateState(isHighlighted ? VisualInteractionState.Hover: VisualInteractionState.Default);
     }
 
 
-    public void UpdateMaterial(VisualInteractionState state)
+    public override void UpdateState(VisualInteractionState state)
     {
         Material newMaterial = notHighlightedMaterial;
         if (state == VisualInteractionState.Hover)
