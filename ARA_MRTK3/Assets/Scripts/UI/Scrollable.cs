@@ -1,3 +1,5 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 
 using System;
 using System.Collections.Generic;
@@ -70,7 +72,7 @@ namespace Microsoft.MixedReality.Toolkit.UX
 
                 float displacementFromStart = (thisFrame - startTouchPoint).magnitude / deadzone;
 
-                Debug.Log(displacementFromStart.ToString("F3"));
+                //Debug.Log(displacementFromStart.ToString("F3"));
 
                 dragDelta *= Mathf.Clamp01(displacementFromStart);
 
@@ -79,7 +81,8 @@ namespace Microsoft.MixedReality.Toolkit.UX
                 float contentWidth = scrollRect.content.rect.width - scrollRect.viewport.rect.width;
 
                 if (contentHeight > 0.0f)
-                    scrollRect.verticalNormalizedPosition -= (dragDelta.y / contentHeight);
+                    scrollRect.verticalNormalizedPosition += (dragDelta.y / contentHeight);
+                    //scrollRect.verticalNormalizedPosition -= (dragDelta.y / contentHeight);
 
                 if (contentWidth > 0.0f)
                     scrollRect.horizontalNormalizedPosition -= (dragDelta.x / contentWidth);
@@ -134,4 +137,3 @@ namespace Microsoft.MixedReality.Toolkit.UX
 
     }
 }
-

@@ -1,7 +1,3 @@
-
-// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT License.
-
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
@@ -627,3 +623,4 @@ namespace Microsoft.MixedReality.Toolkit.UX
         #endregion Private Methods
     }
 }
+
