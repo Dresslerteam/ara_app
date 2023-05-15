@@ -139,10 +139,11 @@ public class PDFsManager : MonoBehaviour
         }
     }
 
-    public void LoadOrHide(bool isActive,string fileName)
+    public void LoadOrHide(string fileName)
     {
-        if (isActive)
-        {
+        PDFLoader loader = FindPDF(name);
+
+        if (loader == null) { 
             LoadPdf(fileName);
         }
         else

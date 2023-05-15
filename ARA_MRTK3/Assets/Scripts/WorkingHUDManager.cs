@@ -84,7 +84,7 @@ public class WorkingHUDManager : MonoBehaviour
   
     private void HandlePDFView()
     {
-        MainMenuManager.Instance. pdfsManager.LoadOrHide(procedureButton.IsToggled, pdf_url);
+        MainMenuManager.Instance. pdfsManager.LoadOrHide( pdf_url);
     }
  
 
