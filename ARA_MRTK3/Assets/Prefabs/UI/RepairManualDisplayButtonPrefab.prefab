@@ -568,9 +568,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 425
+  m_MinWidth: -1
   m_MinHeight: 96
-  m_PreferredWidth: 425
+  m_PreferredWidth: -1
   m_PreferredHeight: 96
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -630,6 +630,7 @@ MonoBehaviour:
   images:
   - {fileID: 4442401280063176155}
   - {fileID: 5935943425531089534}
+  switches: []
   debug: 0
 --- !u!114 &7924996709040210833
 MonoBehaviour:
