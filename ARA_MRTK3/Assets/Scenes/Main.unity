@@ -13302,7 +13302,7 @@ MonoBehaviour:
   smoothing: 1
   lifetime: 0
   orientationType: 1
-  faceTrackedObjectWhileClamped: 0
+  faceTrackedObjectWhileClamped: 1
   faceUserDefinedTargetTransform: 0
   targetToFace: {fileID: 0}
   pivotAxis: 7
@@ -13315,7 +13315,7 @@ MonoBehaviour:
   orientToControllerDeadzoneDegrees: 0
   ignoreAngleClamp: 0
   ignoreDistanceClamp: 0
-  ignoreReferencePitchAndRoll: 0
+  ignoreReferencePitchAndRoll: 1
   pitchOffset: 0
   verticalMaxDistance: 0
   angularClampMode: 0
@@ -20697,9 +20697,9 @@ MonoBehaviour:
   lifetime: 0
   orientationType: 1
   faceTrackedObjectWhileClamped: 0
-  faceUserDefinedTargetTransform: 0
+  faceUserDefinedTargetTransform: 1
   targetToFace: {fileID: 0}
-  pivotAxis: 7
+  pivotAxis: 3
   minDistance: 0.6
   maxDistance: 0.9
   defaultDistance: 1
