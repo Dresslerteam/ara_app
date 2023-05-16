@@ -65,8 +65,6 @@ public class StepsListController : MonoBehaviour
 
         repairManuals.Clear();
 
-        stepToggleCollection.Toggles.Clear();
-
         stepGroupButtonParentList.Clear();
 
 
