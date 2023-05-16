@@ -8,18 +8,13 @@ public class VisualSwitchController : MonoBehaviour
     [SerializeField] private List<FontColorSwitch> fonts = new List<FontColorSwitch>();
     [SerializeField] private List<MaterialSwitch> materials = new List<MaterialSwitch>();
     [SerializeField] private List<ImageColorSwitch> images = new List<ImageColorSwitch>();
+    [SerializeField] private List<UIInteractionSwitcher> switches = new List<UIInteractionSwitcher>();
     bool selected = false;
 
     public bool debug = false;
     private Action OnChange;
     private void Awake()
     {
-        if(fonts.Count ==0 && materials.Count ==0 && images.Count == 0)
-        {
-            fonts.Add(GetComponent<FontColorSwitch>());
-            materials.Add(GetComponent<MaterialSwitch>());
-            images.Add(GetComponent<ImageColorSwitch>());
-        }
        OnChange += () => { Debug.Log($"OnChange {selected}"); }; 
     }
 
@@ -51,8 +46,14 @@ public class VisualSwitchController : MonoBehaviour
     private void SetSwitches(VisualInteractionState state)
     {
         if (debug) OnChange.Invoke();
-        foreach (FontColorSwitch f in fonts) f.SetHighlitState(state);
-        foreach (MaterialSwitch m in materials) m.UpdateMaterial(state);
-        foreach (ImageColorSwitch m in images) m.SetHighlitState(state);
+        foreach (FontColorSwitch f in fonts) f.UpdateState(state);
+        foreach (MaterialSwitch m in materials) m.UpdateState(state);
+        foreach (ImageColorSwitch m in images) m.UpdateState(state);
+        foreach (UIInteractionSwitcher m in switches) m.UpdateState(state);
     }
+}
+
+public interface ISwitchHandler
+{
+    public void UpdateState(VisualInteractionState state);
 }

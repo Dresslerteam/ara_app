@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FontColorSwitch : MonoBehaviour
+public class FontColorSwitch : UIInteractionSwitcher
 {
 
     public enum TextGatheringType
@@ -60,10 +60,10 @@ public class FontColorSwitch : MonoBehaviour
 
    public void SetHighlitState(bool ishighlighted)
     {
-        SetHighlitState(ishighlighted? VisualInteractionState.Hover: VisualInteractionState.Default);
+        UpdateState(ishighlighted? VisualInteractionState.Hover: VisualInteractionState.Default);
 
     }
-    public void SetHighlitState(VisualInteractionState state)
+    public override void UpdateState(VisualInteractionState state)
     {
         switch (state)
         {

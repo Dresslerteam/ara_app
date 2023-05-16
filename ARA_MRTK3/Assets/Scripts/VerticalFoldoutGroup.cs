@@ -63,15 +63,18 @@ public class VerticalFoldoutGroup : MonoBehaviour
             {
                 anchoredPosition.y += expandedButton.expandablePanelHeight + spacing;
             }
-
+            anchoredPosition.x = 0;
             element.anchoredPosition = anchoredPosition;
         }
-        container.offsetMin = new Vector2(10, container.offsetMin.y);
-        container.offsetMax = new Vector2(-25, container.offsetMax.y);
+        ResetContainerWidth();
     }
 
 
-
+    void ResetContainerWidth()
+    {
+        container.offsetMin = new Vector2(10, container.offsetMin.y);
+        container.offsetMax = new Vector2(-35, container.offsetMax.y);
+    }
 
     public void UpdateFoldoutBACKUP(bool isExpanded, ExpandablePressableButton expandedButton)
     {
@@ -121,6 +124,7 @@ public class VerticalFoldoutGroup : MonoBehaviour
             Vector2 anchoredPosition = element.anchoredPosition;
             anchoredPosition.y = currentYOffset;
             element.anchoredPosition = anchoredPosition;
+            anchoredPosition.x = 0;
 
             currentYOffset -= baseVerticalOffset + spacing;
 
@@ -131,5 +135,7 @@ public class VerticalFoldoutGroup : MonoBehaviour
                 currentYOffset -= panelHeight;
             }
         }
+        ResetContainerWidth();
+
     }
 }

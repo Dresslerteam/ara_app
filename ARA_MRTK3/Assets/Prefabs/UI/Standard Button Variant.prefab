@@ -23,6 +23,10 @@ PrefabInstance:
       propertyPath: m_MinHeight
       value: 96
       objectReference: {fileID: 0}
+    - target: {fileID: 410843422125320171, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1520311476867378557, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_SizeDelta.x
       value: 67
@@ -87,6 +91,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3229655124915905850, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4185972052008607584, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -101,6 +109,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4185972052008607584, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4185972052008607584, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4185972052008607584, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
@@ -147,6 +159,10 @@ PrefabInstance:
       propertyPath: stateContainers.entries.Array.data[0].value.effects.Array.data[0].tintables.Array.data[4]
       value: 
       objectReference: {fileID: 139264259170657889}
+    - target: {fileID: 4650886953470101529, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6922469056340231698, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -668,6 +684,7 @@ MonoBehaviour:
   - {fileID: 1330572848}
   images:
   - {fileID: 7542461544954618438}
+  switches: []
   debug: 0
 --- !u!114 &1330572848
 MonoBehaviour:
@@ -701,8 +718,6 @@ MonoBehaviour:
   images:
   - {fileID: 6464828151918056583}
   rawImages: []
-  imagesDefaultColors: []
-  rawImagesDefaultColors: []
   HighlightColor: {r: 0, g: 0, b: 0, a: 1}
   SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &7748669023784537747
@@ -720,7 +735,5 @@ MonoBehaviour:
   switchType: 1
   textMeshPros: []
   texts: []
-  textMeshProsDefaultColors: []
-  textsDefaultColors: []
   HighlightColor: {r: 0, g: 0, b: 0, a: 1}
   SelectedColor: {r: 1, g: 1, b: 1, a: 1}

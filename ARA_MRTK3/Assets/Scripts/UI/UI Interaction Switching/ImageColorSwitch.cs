@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImageColorSwitch : MonoBehaviour
+public class ImageColorSwitch : UIInteractionSwitcher
 {
     public enum GatheringType
     {
@@ -56,11 +56,9 @@ public class ImageColorSwitch : MonoBehaviour
             rawImagesDefaultColors.Add(rawImages[i].color);
         }
     }
-    public void SetHighlitState(bool ishighlighted)
-    {
-        SetHighlitState(ishighlighted? VisualInteractionState.Hover : VisualInteractionState.Default);
-    }
-    public void SetHighlitState(VisualInteractionState state)
+
+
+    public override void UpdateState(VisualInteractionState state)
     {
         switch (state)
         {
