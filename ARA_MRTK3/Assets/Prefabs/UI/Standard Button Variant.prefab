@@ -684,6 +684,7 @@ MonoBehaviour:
   - {fileID: 1330572848}
   images:
   - {fileID: 7542461544954618438}
+  switches: []
   debug: 0
 --- !u!114 &1330572848
 MonoBehaviour:
