@@ -25,7 +25,7 @@ public class HandMenuController : MonoBehaviour
         MainMenuManager.OnMenuPageChanged += OnMenuChanged;
 
     }
-    private void OnMenuChanged(MenuPage prev, MenuPage next)
+    private void OnMenuChanged(MenuPage next, MenuPage prev)
     {
         Debug.Log("On menu changed " + next.ToString());
         HandleNewScene(next);
@@ -41,6 +41,11 @@ public class HandMenuController : MonoBehaviour
                 AllButtonsOff();
                 break;
             case MenuPage.jobSelectScreen:
+                cameraButton.SetActive(false);
+                galleryButton.SetActive(false);
+                rulerButton.SetActive(true);
+                voiceButton.SetActive(true);
+                break;
             case MenuPage.taskSelect:
             case MenuPage.performingJob:
                 AllButtonsOn();
