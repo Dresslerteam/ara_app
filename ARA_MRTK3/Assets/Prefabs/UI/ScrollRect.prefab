@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 6638913407041732328}
   - component: {fileID: 835887330095791998}
   - component: {fileID: 3127686494753717631}
+  - component: {fileID: 9006920685991914549}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -186,10 +187,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6795859266935877865}
+        m_TargetAssemblyTypeName: VisualSwitchController, Assembly-CSharp
+        m_MethodName: SetSelectedState
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6795859266935877865}
+        m_TargetAssemblyTypeName: VisualSwitchController, Assembly-CSharp
+        m_MethodName: SetSelectedState
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Activated:
     m_PersistentCalls:
       m_Calls: []
@@ -237,10 +262,34 @@ MonoBehaviour:
     active: 0
     onEntered:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 6795859266935877865}
+          m_TargetAssemblyTypeName: VisualSwitchController, Assembly-CSharp
+          m_MethodName: SetSelectedState
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     onExited:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 6795859266935877865}
+          m_TargetAssemblyTypeName: VisualSwitchController, Assembly-CSharp
+          m_MethodName: SetSelectedState
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   isPokeSelected:
     active: 0
     onEntered:
@@ -390,6 +439,7 @@ MonoBehaviour:
   - {fileID: 3127686494753717631}
   - {fileID: 6638913407041732328}
   - {fileID: 835887330095791998}
+  - {fileID: 9006920685991914549}
   debug: 0
 --- !u!114 &6638913407041732328
 MonoBehaviour:
@@ -406,10 +456,9 @@ MonoBehaviour:
   switchType: 0
   images:
   - {fileID: 4841103825568408951}
-  - {fileID: 4823069715302475012}
   rawImages: []
   HighlightColor: {r: 0.24705884, g: 0.20000002, b: 0.8078432, a: 1}
-  SelectedColor: {r: 0.21568629, g: 0.19607845, b: 0.78823537, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &835887330095791998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,7 +476,7 @@ MonoBehaviour:
   - {fileID: 6906589034667577799}
   rawImages: []
   HighlightColor: {r: 0.82745105, g: 0.7960785, b: 0.9960785, a: 1}
-  SelectedColor: {r: 0.8078432, g: 0.7960785, b: 0.9960785, a: 1}
+  SelectedColor: {r: 0.21568629, g: 0.19607845, b: 0.78823537, a: 1}
 --- !u!114 &3127686494753717631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,8 +490,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 4841103825568408951}
-  HoverSprite: {fileID: 21300000, guid: a26e35f2fb543e44083f454867313fff, type: 3}
+  HoverSprite: {fileID: 21300000, guid: 82140376c47460c4a8b39920d4d59987, type: 3}
   SelectedSprite: {fileID: 21300000, guid: a26e35f2fb543e44083f454867313fff, type: 3}
+--- !u!114 &9006920685991914549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130213318348238463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af44db28d9e7a3d4a9e70955042eb63e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchType: 0
+  images:
+  - {fileID: 4823069715302475012}
+  rawImages: []
+  HighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  SelectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2262077918218015557
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,7 +960,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6906589034667577799}
   m_HandleRect: {fileID: 565807745611975747}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -934,7 +1001,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 4, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8735691074217317776
 CanvasRenderer:

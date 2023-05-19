@@ -88,6 +88,7 @@ public class StepsListController : MonoBehaviour
 
         StartCoroutine(DisableTheGroupsOverride());
         StartCoroutine(SetupButtonCollider());
+        ScrollRect.normalizedPosition = new Vector2(0,1);
     }
 
     public void SetupStepToggleButton(PressableButton stepButton , ManualStep step)
