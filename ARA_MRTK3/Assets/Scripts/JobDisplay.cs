@@ -76,11 +76,13 @@ public class JobDisplay : MonoBehaviour
         pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
         pdfButton.OnClicked.AddListener(() =>
         {
-            if (pdfButton.IsToggled == true)
+            MainMenuManager.Instance.pdfsManager.LoadOrHide(availableJobListItem.PreliminaryEstimation.Url);
+
+           /* if (pdfButton.IsToggled == true)
             {
                 if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfsManager.LoadPdf(availableJobListItem.PreliminaryEstimation.Url);
+                MainMenuManager.Instance.pdfsManager.LoadOrHide(availableJobListItem.PreliminaryEstimation.Url);
                 Debug.Log($"{gameObject.name}PDF Loaded");
                 pdfButton.ForceSetToggled(true, true);
             }
@@ -88,10 +90,10 @@ public class JobDisplay : MonoBehaviour
             {
                 if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfsManager.HidePdf(availableJobListItem.PreliminaryEstimation.Url);
+                MainMenuManager.Instance.pdfsManager.LoadOrHide(availableJobListItem.PreliminaryEstimation.Url);
                 Debug.Log($"{gameObject.name}PDF Hidden");
                 pdfButton.ForceSetToggled(false, true);
-            }
+            }*/
         });
 
         galleryButton.OnClicked.AddListener(async () =>

@@ -152,11 +152,13 @@ public class WorkingHUDManager : MonoBehaviour
         pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
         pdfButton.OnClicked.AddListener(() =>
         {
-            if (pdfButton.IsToggled == true)
+            MainMenuManager.Instance.pdfsManager.LoadOrHide(pdfUrl);
+
+          /*  if (pdfButton.IsToggled == true)
             {
                 if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfsManager.LoadPdf(pdfUrl);
+                MainMenuManager.Instance.pdfsManager.LoadOrHide(pdfUrl);
                 Debug.Log($"{gameObject.name}PDF Loaded");
                 pdfButton.ForceSetToggled(true, true);
             }
@@ -164,10 +166,10 @@ public class WorkingHUDManager : MonoBehaviour
             {
                 if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfsManager.HidePdf(pdfUrl);
+                MainMenuManager.Instance.pdfsManager.LoadOrHide(pdfUrl);
                 Debug.Log($"{gameObject.name}PDF Hidden");
                 pdfButton.ForceSetToggled(false, true);
-            }
+            }*/
         });
 
 

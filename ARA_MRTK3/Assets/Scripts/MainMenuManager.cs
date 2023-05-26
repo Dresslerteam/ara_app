@@ -216,39 +216,43 @@ public class MainMenuManager : MonoBehaviour
         estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
         estimationButton.OnClicked.AddListener(() =>
         {
-            if (estimationButton.IsToggled == true)
+            pdfsManager.LoadOrHide(chosenJob.PreliminaryEstimation.Url);
+
+           /* if (estimationButton.IsToggled == true)
             {
                 if (estimationButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                pdfsManager.LoadPdf(chosenJob.PreliminaryEstimation.Url);
+                pdfsManager.LoadOrHide(chosenJob.PreliminaryEstimation.Url);
                 estimationButton.ForceSetToggled(true, true);
             }
             else if (estimationButton.IsToggled == false)
             {
                 if (estimationButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     estimationButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                pdfsManager.HidePdf(chosenJob.PreliminaryEstimation.Url);
+                pdfsManager.LoadOrHide(chosenJob.PreliminaryEstimation.Url);
                 estimationButton.ForceSetToggled(false, true);
-            }
+            }*/
         });
         scanDocButton.ForceSetToggled(false);
         scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
         scanDocButton.OnClicked.AddListener(() =>
         {
+            pdfsManager.LoadOrHide(chosenJob.PreliminaryScan.Url);
+/*
             if (scanDocButton.IsToggled == true)
             {
                 if (scanDocButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                pdfsManager.LoadPdf(chosenJob.PreliminaryScan.Url);
+                pdfsManager.LoadOrHide(chosenJob.PreliminaryScan.Url);
                 scanDocButton.ForceSetToggled(true, true);
             }
             else if (scanDocButton.IsToggled == false)
             {
                 if (scanDocButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
                     scanDocButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                pdfsManager.HidePdf(chosenJob.PreliminaryScan.Url);
+                pdfsManager.LoadOrHide(chosenJob.PreliminaryScan.Url);
                 scanDocButton.ForceSetToggled(false, true);
-            }
+            }*/
         });
     }
     private UnityAction AddTaskToButton(TaskInfo task)
