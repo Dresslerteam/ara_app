@@ -8138,11 +8138,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2351505566771328562, guid: 4d7e2f87fefe0ba468719b15288b46e7, type: 3}
   m_PrefabInstance: {fileID: 780488066}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &579138196 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2351505566771328526, guid: 4d7e2f87fefe0ba468719b15288b46e7, type: 3}
-  m_PrefabInstance: {fileID: 780488066}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &579138201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13263,6 +13258,7 @@ GameObject:
   - component: {fileID: 917268991}
   - component: {fileID: 917268990}
   - component: {fileID: 917268989}
+  - component: {fileID: 917268992}
   m_Layer: 0
   m_Name: MainMenuRoot
   m_TagString: Untagged
@@ -13308,14 +13304,14 @@ MonoBehaviour:
   lifetime: 0
   orientationType: 1
   faceTrackedObjectWhileClamped: 1
-  faceUserDefinedTargetTransform: 1
-  targetToFace: {fileID: 579138196}
+  faceUserDefinedTargetTransform: 0
+  targetToFace: {fileID: 0}
   pivotAxis: 3
   minDistance: 0.8
   maxDistance: 1.2
   defaultDistance: 1
-  maxViewHorizontalDegrees: 38
-  maxViewVerticalDegrees: 5
+  maxViewHorizontalDegrees: 0
+  maxViewVerticalDegrees: 0
   reorientWhenOutsideParameters: 0
   orientToControllerDeadzoneDegrees: 0
   ignoreAngleClamp: 0
@@ -13635,6 +13631,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoConstraintSelection: 1
   selectedConstraints: []
+--- !u!114 &917268992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917268985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4461cef9324cf904299f3d04a3861659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 3
+  proximityType: 3
+  executionOrder: 0
+  constraintOnRotation: 4
+  useLocalSpaceForConstraint: 0
 --- !u!1 &919122103
 GameObject:
   m_ObjectHideFlags: 0
