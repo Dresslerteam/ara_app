@@ -9,7 +9,7 @@ using UnityEngine;
 public class HeaderManager : MonoBehaviour
 {
     [Header("Buttons")]
-    public GameObject jobsButton;
+    public PressableButton jobsButton;
     public PressableButton tasksButton;
     public GameObject hideButton;
     public GameObject logoutButton;
@@ -39,12 +39,14 @@ public class HeaderManager : MonoBehaviour
 
     public void UpdateButton(MenuPage selectedPage, MenuPage parentMenuPage)
     {
+        //Debug.Log("Select page  " + selectedPage);
         switch (selectedPage)
         {
             case MenuPage.splashScreen:
-                jobsButton?.SetActive(false);
+                jobsButton?.gameObject.SetActive(false);
+
                 tasksButton.gameObject.SetActive(false);
-                tasksButton.ForceSetToggled(false,true);
+
                 hideButton?.SetActive(false);
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(false);
@@ -56,9 +58,9 @@ public class HeaderManager : MonoBehaviour
                 break;
 
             case MenuPage.loginScreen:
-                jobsButton?.SetActive(false);
+                jobsButton?.gameObject.SetActive(false);
                 tasksButton.gameObject.SetActive(false);
-                tasksButton.ForceSetToggled(false,true);
+
                 hideButton?.SetActive(false);
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(false);
@@ -71,9 +73,11 @@ public class HeaderManager : MonoBehaviour
                 break;
 
             case MenuPage.jobSelectScreen:
-                jobsButton?.SetActive(true);
+                jobsButton?.gameObject.SetActive(true);
+                jobsButton.ForceSetToggled(true, true);
+
                 tasksButton.gameObject.SetActive(false);
-                tasksButton.ForceSetToggled(false,true);
+                tasksButton.ForceSetToggled(false, true);
                 hideButton?.SetActive(true);
                 logoutButton?.SetActive(true);
                 scanDocButton?.gameObject.SetActive(false);
@@ -89,9 +93,11 @@ public class HeaderManager : MonoBehaviour
                 break;
 
             case MenuPage.taskSelect:
-                jobsButton?.SetActive(true);
+                jobsButton?.gameObject.SetActive(true);
+                jobsButton.ForceSetToggled(false, true);
+
                 tasksButton.gameObject.SetActive(true);
-                tasksButton.ForceSetToggled(true,true);
+                tasksButton.ForceSetToggled(true, true);
 
                 hideButton?.SetActive(true);
                 logoutButton?.SetActive(false);
@@ -105,9 +111,9 @@ public class HeaderManager : MonoBehaviour
                 break;
 
             case MenuPage.performingJob:
-                jobsButton?.SetActive(true);
+                jobsButton?.gameObject.SetActive(true);
                 tasksButton.gameObject.SetActive(true);
-                tasksButton.ForceSetToggled(false,true);
+                tasksButton.ForceSetToggled(false, false);
                 hideButton?.SetActive(true);
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(true);
@@ -119,9 +125,9 @@ public class HeaderManager : MonoBehaviour
 
                 break;
             case MenuPage.takingPhoto:
-                jobsButton?.SetActive(false);
+                jobsButton?.gameObject.SetActive(false);
                 tasksButton.gameObject.SetActive(false);
-                tasksButton.ForceSetToggled(false,true);
+
                 hideButton?.SetActive(false);
                 logoutButton?.SetActive(false);
                 scanDocButton?.gameObject.SetActive(false);
@@ -139,9 +145,9 @@ public class HeaderManager : MonoBehaviour
                     }
                     else
                     {
-                        jobsButton?.SetActive(true);
+                        jobsButton?.gameObject.SetActive(true);
                         tasksButton.gameObject.SetActive(true);
-                        tasksButton.ForceSetToggled(true, true);
+                        tasksButton.ForceSetToggled(false, false);
                         hideButton?.SetActive(true);
                         logoutButton?.SetActive(false);
                         scanDocButton?.gameObject.SetActive(true);
