@@ -226,7 +226,7 @@ public class PhotoCaptureTool : MonoBehaviour
             photoCaptureObject.StopPhotoModeAsync((PhotoCaptureResult result) => { _isPhotoModeActive = false; });
             _latestPhotoTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
             photoCaptureFrame.UploadImageDataToTexture(_latestPhotoTexture);
-
+            MainMenuManager.Instance.headerManager?.cameraHeaderManager?.SetSaveActive();
             photoGallery.DisplayPhotoPreview(_latestPhotoTexture);
             takenPhotos.Add(_latestPhotoTexture);
         }

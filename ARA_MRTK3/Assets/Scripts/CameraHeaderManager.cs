@@ -27,7 +27,7 @@ namespace Assets.Scripts
                 case PhotoModeTypes.StepPhoto:
                     closeButton.gameObject.SetActive(false);
                     galleryButton.gameObject.SetActive(true);
-                    closeAndCompleteButton.gameObject.SetActive(true);
+                    closeAndCompleteButton.gameObject.SetActive(false);
                     break;
                 case PhotoModeTypes.TaskPhoto:
                 case PhotoModeTypes.JobPhoto:
@@ -37,7 +37,12 @@ namespace Assets.Scripts
                     break;
             }
         }
+     
+        public void SetSaveActive()
+        {
+                    closeAndCompleteButton.gameObject.SetActive(true);
 
+        }
         public void GoBackFromCamera()
         {
             MainMenuManager.Instance.GoBackFromCamera();
