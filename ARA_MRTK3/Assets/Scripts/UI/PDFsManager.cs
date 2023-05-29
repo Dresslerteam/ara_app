@@ -141,7 +141,7 @@ public class PDFsManager : MonoBehaviour
 
     public void LoadOrHide(string fileName)
     {
-        PDFLoader loader = FindPDF(name);
+        PDFLoader loader = FindPDF(fileName);
 
         if (loader == null) { 
             LoadPdf(fileName);
