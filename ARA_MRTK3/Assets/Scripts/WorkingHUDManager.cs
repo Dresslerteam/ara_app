@@ -110,6 +110,7 @@ public class WorkingHUDManager : MonoBehaviour
                 {
                     var cautionPdfButton = Instantiate(cautionPdfButtonPrefab, buttonsRoot);
                     cautionPdfButton.transform.localScale = Vector3.one;
+                    cautionPdfButton.GetComponentInChildren<TextMeshProUGUI>().text = referencedDoc.Doc.Title;
                     SetupPdfToggleButton(cautionPdfButton, manualButtonCollection, referencedDoc.Doc.Url);
                 }
 
@@ -118,6 +119,7 @@ public class WorkingHUDManager : MonoBehaviour
                 {
                     var oemPdfButton = Instantiate(oemPdfButtonPrefab, buttonsRoot);
                     oemPdfButton.transform.localScale = Vector3.one;
+                    oemPdfButton.GetComponentInChildren<TextMeshProUGUI>().text = referencedDoc.Doc.Title;
                     SetupPdfToggleButton(oemPdfButton, manualButtonCollection, referencedDoc.Doc.Url);
                 }
 
@@ -138,7 +140,7 @@ public class WorkingHUDManager : MonoBehaviour
 
     private void SetupPdfToggleButton(PressableButton pdfButton, ToggleCollection toggleCollection, string pdfUrl)
     {
-        toggleCollection.Toggles.Add(pdfButton);
+       /* toggleCollection.Toggles.Add(pdfButton);
         // If toggle is selected and the pdfButton is toggled, force disable the toggle
         toggleCollection.OnToggleSelected.AddListener((ctx) =>
         {
@@ -146,7 +148,7 @@ public class WorkingHUDManager : MonoBehaviour
             {
                 pdfButton.ForceSetToggled(false, false);
             }
-        });
+        });*/
         // Set the toggle mode to toggle
         pdfButton.ForceSetToggled(false);
         pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
