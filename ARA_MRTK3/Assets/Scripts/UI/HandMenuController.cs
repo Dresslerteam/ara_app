@@ -52,7 +52,7 @@ public class HandMenuController : MonoBehaviour
                 break;
             case MenuPage.takingPhoto:
                 cameraButton.SetActive(false);
-                galleryButton.SetActive(true);
+                galleryButton.SetActive(false);
                 rulerButton.SetActive(true);
                 voiceButton.SetActive(true);
                 break;
