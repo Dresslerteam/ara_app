@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CanvasBackplateQuad_Highlight
+  m_Name: CanvasBackplateQuad_Highlight_SHARP
   m_Shader: {fileID: 4800000, guid: df5380aa6ab293c4fafbb942ed5da93f, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _BORDER_LIGHT _BORDER_LIGHT_OPAQUE _BORDER_LIGHT_REPLACES_ALBEDO
     _BORDER_LIGHT_USES_COLOR _EDGE_SMOOTHING_AUTOMATIC _GRADIENT_LINEAR _ROUND_CORNERS
@@ -55,14 +55,14 @@ Material:
     - _BorderLightOpaqueAlpha: 1
     - _BorderLightReplacesAlbedo: 1
     - _BorderMinValue: 0.1
-    - _BorderWidth: 0.061
+    - _BorderWidth: 0.204
     - _ClippingBorder: 0
     - _ClippingBorderWidth: 0.025
     - _ColorMask: 15
     - _ColorWriteMask: 15
     - _CullMode: 2
     - _CustomMode: 1
-    - _Cutoff: 0.44
+    - _Cutoff: 0.521
     - _DirectionalLight: 0
     - _DstBlend: 0
     - _EdgeSmoothingMode: 1

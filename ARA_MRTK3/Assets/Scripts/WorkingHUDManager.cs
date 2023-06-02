@@ -84,7 +84,7 @@ public class WorkingHUDManager : MonoBehaviour
   
     private void HandlePDFView()
     {
-        MainMenuManager.Instance. pdfsManager.LoadOrHide( pdf_url);
+        MainMenuManager.Instance.pdfsManager.LoadOrHide(pdf_url);
     }
  
 
@@ -140,38 +140,13 @@ public class WorkingHUDManager : MonoBehaviour
 
     private void SetupPdfToggleButton(PressableButton pdfButton, ToggleCollection toggleCollection, string pdfUrl)
     {
-       /* toggleCollection.Toggles.Add(pdfButton);
-        // If toggle is selected and the pdfButton is toggled, force disable the toggle
-        toggleCollection.OnToggleSelected.AddListener((ctx) =>
-        {
-            if (toggleCollection.Toggles[ctx] != pdfButton)
-            {
-                pdfButton.ForceSetToggled(false, false);
-            }
-        });*/
-        // Set the toggle mode to toggle
-        pdfButton.ForceSetToggled(false);
-        pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
+
+        pdfButton.ForceSetToggled(MainMenuManager.Instance.pdfsManager.DoesPDFExist(pdfUrl));
         pdfButton.OnClicked.AddListener(() =>
         {
-            MainMenuManager.Instance.pdfsManager.LoadOrHide(pdfUrl);
-
-          /*  if (pdfButton.IsToggled == true)
-            {
-                if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
-                    pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfsManager.LoadOrHide(pdfUrl);
-                Debug.Log($"{gameObject.name}PDF Loaded");
-                pdfButton.ForceSetToggled(true, true);
-            }
-            else if (pdfButton.IsToggled == false)
-            {
-                if (pdfButton.ToggleMode != StatefulInteractable.ToggleType.Toggle)
-                    pdfButton.ToggleMode = StatefulInteractable.ToggleType.Toggle;
-                MainMenuManager.Instance.pdfsManager.LoadOrHide(pdfUrl);
-                Debug.Log($"{gameObject.name}PDF Hidden");
-                pdfButton.ForceSetToggled(false, true);
-            }*/
+            bool didLoad=  MainMenuManager.Instance.pdfsManager.LoadOrHide(pdfUrl);
+            if(!didLoad) pdfButton.ForceSetToggled(false);
+      
         });
 
 

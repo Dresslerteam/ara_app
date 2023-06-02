@@ -51,6 +51,16 @@ public class PDFsManager : MonoBehaviour
         }
     }
  
+    public bool DoesPDFExist(string name)
+    {
+        foreach (PDFLoader loader in pinnedPDFObjects)
+            if (loader.FileName == name) return true;
+
+        foreach (PDFLoader loader in unpinnedPDFObjects)
+            if (loader.FileName == name) return true;
+
+        return false;
+    }
     PDFLoader FindPDF(string name)
     {
         foreach (PDFLoader loader in pinnedPDFObjects)
@@ -139,16 +149,18 @@ public class PDFsManager : MonoBehaviour
         }
     }
 
-    public void LoadOrHide(string fileName)
+    public bool LoadOrHide(string fileName)
     {
         PDFLoader loader = FindPDF(fileName);
 
         if (loader == null) { 
             LoadPdf(fileName);
+            return true;
         }
         else
         {
             HidePdf(fileName);
+            return false;
         }
     }
 
