@@ -678,13 +678,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32a2cb2c92f19b94590f6e818307e57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fonts:
-  - {fileID: 7748669023784537747}
-  materials:
+  fonts: []
+  materials: []
+  images: []
+  switches:
   - {fileID: 1330572848}
-  images:
   - {fileID: 7542461544954618438}
-  switches: []
+  - {fileID: 7748669023784537747}
   debug: 0
 --- !u!114 &1330572848
 MonoBehaviour:
