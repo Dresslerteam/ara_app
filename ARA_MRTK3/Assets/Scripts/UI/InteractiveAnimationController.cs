@@ -14,7 +14,7 @@ public class InteractiveAnimationController : MonoBehaviour
     public PressableButton previousButton;
     public Slider slider;
     public Transform midpointTransform;
-    public float transitionDuration = 1f;
+   // public float transitionDuration = 1f;
     [SerializeField]
     private Material highlightMaterial;
     [SerializeField]
@@ -28,7 +28,7 @@ public class InteractiveAnimationController : MonoBehaviour
 
     private int currentTargetFrame = 0;
     private float currentFrame = 0;
-    private float animationSpeed = 1f;
+    private float animationSpeed = .2f;
     private bool shouldAnimate = false;
     private void Start()
     {
