@@ -8,8 +8,9 @@
         public int frame = 0;
         public string description = "Step Title";
         public List<MeshRenderer> partsToHighlight = new List<MeshRenderer>();
-        
-        public void HighlightParts(Material highlightMaterial, Dictionary<MeshRenderer, Material> originalMaterials)
+        public List<MeshRenderer> partsToHide = new List<MeshRenderer>();
+
+    public void HighlightParts(Material highlightMaterial, Dictionary<MeshRenderer, Material> originalMaterials)
         {
             foreach (var part in partsToHighlight)
             {

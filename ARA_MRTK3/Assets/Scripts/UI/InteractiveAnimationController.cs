@@ -17,6 +17,8 @@ public class InteractiveAnimationController : MonoBehaviour
     public float transitionDuration = 1f;
     [SerializeField]
     private Material highlightMaterial;
+    [SerializeField]
+    private Material HiddenMaterial;
 
     private Dictionary<MeshRenderer, Material> originalMaterials = new Dictionary<MeshRenderer, Material>();
     
@@ -82,7 +84,18 @@ public class InteractiveAnimationController : MonoBehaviour
                 meshRenderer.material = highlightMaterial;
             }
         }
+        for (int i = 0; i < step.partsToHide.Count; i++)
+        {
+            MeshRenderer meshRenderer = step.partsToHide[i];
+            if (meshRenderer != null)
+            {
+                // Cache the original material
+                originalMaterials[meshRenderer] = meshRenderer.material;
 
+                // Assign the HiddenMaterial
+                meshRenderer.material = HiddenMaterial;
+            }
+        }
         lastKeyframeIndex = targetIndex;
 /*
         if (targetIndex < keyframes.Count)

@@ -6911,15 +6911,19 @@ MonoBehaviour:
     description: Remove hood
     partsToHighlight:
     - {fileID: 2512253306272561737}
+    partsToHide: []
   - frame: 30
     description: Highlight/Move Hood Latch Actuator Bolts
     partsToHighlight:
     - {fileID: 4157885596965100331}
     - {fileID: 6178320674342497389}
+    partsToHide: []
   - frame: 60
     description: Highlight/Move Hood Secondary Latch Release Handle
     partsToHighlight:
     - {fileID: 262673981564166926}
+    partsToHide:
+    - {fileID: 2512253306272561737}
   - frame: 90
     description: Highlight/Move Intake Air Baffle Retainers  Move Hood Secondary
       Latch Release Handle Move Hood Latch Actuator Bolts
@@ -6934,10 +6938,14 @@ MonoBehaviour:
     - {fileID: 1953079328763707000}
     - {fileID: 5821011828026082890}
     - {fileID: 1010672466981321011}
+    partsToHide:
+    - {fileID: 2512253306272561737}
   - frame: 120
     description: Highlight/Move Intake Air Splash Shield Move Intake Air Baffle Retainers
     partsToHighlight:
     - {fileID: 3082802066999051009}
+    partsToHide:
+    - {fileID: 2512253306272561737}
   - frame: 160
     description: Highlight/Move Grille Bolts Move Intake Air Splash Shield
     partsToHighlight:
@@ -6945,6 +6953,8 @@ MonoBehaviour:
     - {fileID: 4638638897041695399}
     - {fileID: 8727541366236889593}
     - {fileID: 3511741410841657955}
+    partsToHide:
+    - {fileID: 2512253306272561737}
   - frame: 190
     description: Highlight/Move Grille Move Grille Bolts
     partsToHighlight:
@@ -6955,6 +6965,8 @@ MonoBehaviour:
     - {fileID: 4457683518739292008}
     - {fileID: 8706630664820320440}
     - {fileID: 8991053572410462173}
+    partsToHide:
+    - {fileID: 2512253306272561737}
   - frame: 220
     description: Highlight/Move Front Grille Clip Highlight/Move Front Grille Retainer
       Move Grille
@@ -6975,6 +6987,8 @@ MonoBehaviour:
     - {fileID: 2016569224572332510}
     - {fileID: 4088678716696199050}
     - {fileID: 955521774992241474}
+    partsToHide:
+    - {fileID: 2512253306272561737}
   - frame: 250
     description: Highlight/Move Shutter Bolts Move Front Grille Clip Move Front Grille
       Retainer
@@ -6988,24 +7002,33 @@ MonoBehaviour:
     - {fileID: 3890925770569176854}
     - {fileID: 4967280796842324328}
     - {fileID: 3125945526751451311}
+    partsToHide:
+    - {fileID: 2512253306272561737}
   - frame: 280
     description: 'Highlight/Move Front Bumper Shutter '
     partsToHighlight:
     - {fileID: 8268666721966948880}
+    partsToHide:
+    - {fileID: 2512253306272561737}
   - frame: 310
     description: Highlight/Move Front Bumper Move Front Bumper Shutter
     partsToHighlight:
     - {fileID: 4457683518739292008}
+    partsToHide:
+    - {fileID: 2512253306272561737}
   - frame: 340
     description: Move Front Bumper
     partsToHighlight:
     - {fileID: 4457683518739292008}
+    partsToHide:
+    - {fileID: 2512253306272561737}
   nextButton: {fileID: 2698213828150530548}
   previousButton: {fileID: 4119410381248352536}
   slider: {fileID: 7429095020780472749}
   midpointTransform: {fileID: 1090629537}
   transitionDuration: 1
   highlightMaterial: {fileID: 2100000, guid: 29a177f4c4044f31919d6183391c9805, type: 2}
+  HiddenMaterial: {fileID: 2100000, guid: 8953e537706357f4f8f5625c165b7d2d, type: 2}
 --- !u!1 &8233150093649540790
 GameObject:
   m_ObjectHideFlags: 0
