@@ -12334,11 +12334,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2351505567455720332, guid: 4d7e2f87fefe0ba468719b15288b46e7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9987929
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2351505567455720332, guid: 4d7e2f87fefe0ba468719b15288b46e7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.04911995
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2351505567455720332, guid: 4d7e2f87fefe0ba468719b15288b46e7, type: 3}
       propertyPath: m_LocalRotation.y
@@ -12350,7 +12350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2351505567455720332, guid: 4d7e2f87fefe0ba468719b15288b46e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 5.631
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2351505567455720332, guid: 4d7e2f87fefe0ba468719b15288b46e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -12760,7 +12760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6876530911020440475, guid: 1d4cfe7e117dd264aa9fc99a52635be7, type: 3}
       propertyPath: moveLerpTime
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6876530911020440475, guid: 1d4cfe7e117dd264aa9fc99a52635be7, type: 3}
       propertyPath: rotateLerpTime
@@ -12776,11 +12776,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6876530911020440475, guid: 1d4cfe7e117dd264aa9fc99a52635be7, type: 3}
       propertyPath: maxViewVerticalDegrees
-      value: 45
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6876530911020440475, guid: 1d4cfe7e117dd264aa9fc99a52635be7, type: 3}
       propertyPath: maxViewHorizontalDegrees
-      value: 45
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6876530911020440475, guid: 1d4cfe7e117dd264aa9fc99a52635be7, type: 3}
       propertyPath: faceTrackedObjectWhileClamped
@@ -13346,7 +13346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 112513972651379220, guid: fcfc0716f67f7db45806c5d9c3eb2d45, type: 3}
       propertyPath: moveLerpTime
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 112513972651379220, guid: fcfc0716f67f7db45806c5d9c3eb2d45, type: 3}
       propertyPath: defaultDistance
@@ -13362,11 +13362,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 112513972651379220, guid: fcfc0716f67f7db45806c5d9c3eb2d45, type: 3}
       propertyPath: maxViewVerticalDegrees
-      value: 45
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 112513972651379220, guid: fcfc0716f67f7db45806c5d9c3eb2d45, type: 3}
       propertyPath: maxViewHorizontalDegrees
-      value: 45
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 112513972651379220, guid: fcfc0716f67f7db45806c5d9c3eb2d45, type: 3}
       propertyPath: faceTrackedObjectWhileClamped
@@ -13541,6 +13541,7 @@ GameObject:
   - component: {fileID: 917268991}
   - component: {fileID: 917268990}
   - component: {fileID: 917268989}
+  - component: {fileID: 917268992}
   m_Layer: 0
   m_Name: MainMenuRoot
   m_TagString: Untagged
@@ -13584,18 +13585,18 @@ MonoBehaviour:
   maintainScaleOnInitialization: 1
   smoothing: 1
   lifetime: 0
-  orientationType: 4
+  orientationType: 2
   faceTrackedObjectWhileClamped: 1
   faceUserDefinedTargetTransform: 0
   targetToFace: {fileID: 0}
-  pivotAxis: 3
+  pivotAxis: 7
   minDistance: 1
   maxDistance: 2
-  defaultDistance: 1
-  maxViewHorizontalDegrees: 5
-  maxViewVerticalDegrees: 5
-  reorientWhenOutsideParameters: 0
-  orientToControllerDeadzoneDegrees: 0
+  defaultDistance: 1.3
+  maxViewHorizontalDegrees: 1
+  maxViewVerticalDegrees: 1
+  reorientWhenOutsideParameters: 1
+  orientToControllerDeadzoneDegrees: 60
   ignoreAngleClamp: 0
   ignoreDistanceClamp: 0
   ignoreReferencePitchAndRoll: 0
@@ -13913,6 +13914,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoConstraintSelection: 1
   selectedConstraints: []
+--- !u!114 &917268992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917268985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4461cef9324cf904299f3d04a3861659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 0
+  proximityType: 3
+  executionOrder: 0
+  constraintOnRotation: 4
+  useLocalSpaceForConstraint: 0
 --- !u!1 &919122103
 GameObject:
   m_ObjectHideFlags: 0
