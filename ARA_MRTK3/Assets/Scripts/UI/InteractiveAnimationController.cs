@@ -14,9 +14,11 @@ public class InteractiveAnimationController : MonoBehaviour
     public PressableButton previousButton;
     public Slider slider;
     public Transform midpointTransform;
-    public float transitionDuration = 1f;
+   // public float transitionDuration = 1f;
     [SerializeField]
     private Material highlightMaterial;
+    [SerializeField]
+    private Material HiddenMaterial;
 
     private Dictionary<MeshRenderer, Material> originalMaterials = new Dictionary<MeshRenderer, Material>();
     
@@ -26,7 +28,7 @@ public class InteractiveAnimationController : MonoBehaviour
 
     private int currentTargetFrame = 0;
     private float currentFrame = 0;
-    private float animationSpeed = 1f;
+    private float animationSpeed = .2f;
     private bool shouldAnimate = false;
     private void Start()
     {
@@ -62,13 +64,17 @@ public class InteractiveAnimationController : MonoBehaviour
     private void AdvanceToTargetKeyframe(int targetIndex)
     {
         AnimationStep step = keyframes[Mathf.Clamp(targetIndex, 0, keyframes.Count - 1)];
+        AnimationStep HighlightStep = keyframes[Mathf.Clamp(   targetIndex -(targetIndex > lastKeyframeIndex? 1:0), 0, keyframes.Count - 1)];
+
+
+
 
         currentTargetFrame = step.frame;
         shouldAnimate = true;
         ResetHighlightMaterials();
-        for (int i = 0; i < step.partsToHighlight.Count; i++)
+        for (int i = 0; i < HighlightStep.partsToHighlight.Count; i++)
         {
-            MeshRenderer meshRenderer = step.partsToHighlight[i];
+            MeshRenderer meshRenderer = HighlightStep.partsToHighlight[i];
             if (meshRenderer != null)
             {
                 // Cache the original material
@@ -78,8 +84,19 @@ public class InteractiveAnimationController : MonoBehaviour
                 meshRenderer.material = highlightMaterial;
             }
         }
+        for (int i = 0; i < step.partsToHide.Count; i++)
+        {
+            MeshRenderer meshRenderer = step.partsToHide[i];
+            if (meshRenderer != null)
+            {
+                // Cache the original material
+                originalMaterials[meshRenderer] = meshRenderer.material;
 
-
+                // Assign the HiddenMaterial
+                meshRenderer.material = HiddenMaterial;
+            }
+        }
+        lastKeyframeIndex = targetIndex;
 /*
         if (targetIndex < keyframes.Count)
         {
